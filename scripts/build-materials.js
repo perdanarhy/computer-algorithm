@@ -73,6 +73,10 @@ function renderPage({ title, week, body }) {
   main hr{border:none;border-top:1px solid var(--pale);margin:2rem 0;}
   footer{max-width:820px;margin:0 auto;padding:0 1.5rem 3rem;color:#5B6B78;font-size:.8rem;}
 </style>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
 </head>
 <body>
 <header>
@@ -90,6 +94,25 @@ ${body}
 </body>
 </html>
 `;
+}
+
+// marked mangles TeX (eats \(, \_, pairs up _ and *, escapes &/<) before
+// MathJax ever sees it. Pull math out into inert placeholder tokens, run
+// marked, then restore the math HTML-escaped but otherwise untouched.
+function protectMath(md) {
+  const stash = [];
+  const stow = (tex, wrapOpen, wrapClose) => {
+    const token = `@@MATH${stash.length}@@`;
+    stash.push(wrapOpen + escapeHtml(tex) + wrapClose);
+    return token;
+  };
+  let out = md.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => stow(tex, '\\[', '\\]'));
+  out = out.replace(/\$([^$\n]+)\$/g, (_, tex) => stow(tex, '\\(', '\\)'));
+  return { out, stash };
+}
+
+function restoreMath(html, stash) {
+  return html.replace(/@@MATH(\d+)@@/g, (_, i) => stash[Number(i)]);
 }
 
 function main() {
@@ -116,11 +139,13 @@ function main() {
       // Drop the leading H1 from the body: the page header already shows it.
       const bodyMd = titleMatch ? md.replace(titleMatch[0], '') : md;
 
-      const html = execFileSync(
+      const { out: protectedMd, stash } = protectMath(bodyMd);
+      const rawHtml = execFileSync(
         'npx',
         ['--yes', 'marked', '--gfm'],
-        { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024, input: bodyMd },
+        { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024, input: protectedMd },
       );
+      const html = restoreMath(rawHtml, stash);
 
       const destPath = path.join(destDir, file.replace(/\.md$/, '.html'));
       fs.writeFileSync(destPath, renderPage({ title, week, body: html }));
