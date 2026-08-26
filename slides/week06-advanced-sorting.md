@@ -369,6 +369,12 @@ MERGE(A, p, q, r):
             A[k] = R[j];  j = j + 1
 ```
 
+---
+
+# Reading MERGE's Pseudocode
+
+<div class="thread">Two details worth naming before tracing it by hand.</div>
+
 - The sentinel $\infty$ values mean we never need a separate check for
   "one side ran out" - it just always loses every comparison.
 - `L` and `R` are **brand-new arrays**, copied out of `A` - this is
@@ -389,6 +395,12 @@ MERGE(A, p, q, r):
 Snapshot: `L = [2,5,8]`, `R = [1,3,9]`, three elements already placed.
 Comparing `L[i]=2` (blue) against `R[j]=3` (gold) - 2 is smaller, so
 it's taken next.
+
+---
+
+# The Full Merge, All Six Comparisons
+
+<div class="thread">Same two halves. Every step, start to finish.</div>
 
 <div class="steps">
 <div class="step-row"><div class="step-num">1</div><div class="step-text">L[1]=2 vs R[1]=1 &rarr; 1 is smaller, take 1</div></div>
@@ -553,6 +565,12 @@ QUICKSORT(A, low, high):
         QUICKSORT(A, p + 1, high)
 ```
 
+---
+
+# Reading Lomuto's Loop
+
+<div class="thread">What `i` and `j` are each tracking as the loop runs.</div>
+
 - The pivot is always the **last** element.
 - `i` tracks the boundary of the "$\le$ pivot" region as `j` scans
   left to right.
@@ -574,6 +592,12 @@ HOARE-PARTITION(A, low, high):
         else:
             return j
 ```
+
+---
+
+# Reading Hoare's Loop
+
+<div class="thread">A different pivot choice, a different return value, a real history.</div>
 
 - The pivot is the **first** element this time; `i` and `j` scan
   inward from both ends.
@@ -803,13 +827,13 @@ answer key and discuss as a group any question most of the class missed.
 # What Advanced Sorting Cannot Do
 
 <div class="limits">
-Sorting is now solved efficiently: merge sort's guaranteed $O(n \log
-n)$, or quicksort in place with a safe pivot strategy, both beat
-Week 5's $O(n^2)$ wall by roughly 100x on CampusNav's real directory.
+Sorting is now solved efficiently: merge sort's guaranteed O(n log
+n), or quicksort in place with a safe pivot strategy, both beat
+Week 5's O(n^2) wall by roughly 100x on CampusNav's real directory.
 But CampusNav's directory being sorted, by itself, helps nobody yet -
 the "jump to room" button still starts at the top of the list and
 checks every entry one by one, same as always. Nothing in the app
-actually *uses* the fact that the list is now in order. We still have
+actually <em>uses</em> the fact that the list is now in order. We still have
 no formal, proven-correct way to search a sorted list.
 Being sorted is necessary. It is not yet useful.
 </div>

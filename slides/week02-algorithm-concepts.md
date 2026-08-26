@@ -311,12 +311,11 @@ Trace `GCD(48, 18)`:
 </div>
 
 `b` hit 0, so `while b != 0` is false and the loop ends. But *why*
-must this always happen? Because `r = a mod b` is always strictly
-smaller than `b`, and it can't go below 0 - `b` is a strictly
-decreasing sequence of non-negative integers, so it must hit 0 within
-a finite number of steps, **for every valid pair `(a, b)`**, not just
+must this always happen? `r = a mod b` is always strictly smaller than
+`b` and can't go below 0, so `b` strictly decreases toward 0 -
+guaranteeing termination **for every valid pair `(a, b)`**, not just
 this one. That argument, not the one successful run, is what
-finiteness actually requires.
+finiteness requires.
 
 ---
 
@@ -407,6 +406,13 @@ FIND_ROOM(directory, target):
 - **Input:** a well-defined array `directory` of room records, and a well-defined string `target`.
 - **Output:** either a well-defined location, or the sentinel value `NOT_FOUND` - defining the "not found" case is *part of* a well-defined output, not an afterthought.
 - **Definiteness:** `==` on `target` is a precise, single-meaning comparison - no "look around" left anywhere.
+
+---
+
+# CampusNav: The Last Two Checks
+
+<div class="thread">Same `FIND_ROOM`. Effectiveness and finiteness, finished.</div>
+
 - **Effectiveness:** array indexing and string equality are basic, executable operations.
 - **Finiteness:** the loop bound `length(directory) - 1` is a fixed, known number before the loop even starts - finiteness here doesn't even need a proof like GCD's, just a stated bound.
 
@@ -531,7 +537,7 @@ We can now write CampusNav's "find room X" as a real algorithm and
 check it against all five properties - precise input, precise output,
 provably finite, unambiguous, every step executable. But suppose a
 teammate proposes a completely different way to search the same
-directory, and it *also* passes all five checks. We have no rigorous
+directory, and it <em>also</em> passes all five checks. We have no rigorous
 way, yet, to say which precise algorithm is <em>better</em> - faster,
 more scalable as the directory grows - only that both are legitimate
 algorithms. "Precise" and "provably correct" are not the same claim

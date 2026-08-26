@@ -107,11 +107,11 @@ CampusNav now shows a beautiful map of the whole campus - every
 building, every walkway, every junction, all connected correctly.
 A first-year student opens it and taps "Get Directions: Gate to
 CS Building." Nothing happens. There is no button that actually
-computes a route. The student can *see* six or seven different paths
+computes a route. The student can <em>see</em> six or seven different paths
 on the screen, all technically valid, and still has to guess which
 one is fastest - by eye, the same way they'd guess at a printed
 map. The graph CampusNav built last week can be looked at. It cannot
-yet be *asked a question*.
+yet be <em>asked a question</em>.
 
 </div>
 
@@ -187,6 +187,12 @@ exact computation continuously, at massive scale, every day.
   some edges are allowed to have *negative* weight, something
   Dijkstra's method cannot handle.
 
+---
+
+# One Problem, Two Names
+
+<div class="thread">Same underlying question, solved twice, one year apart.</div>
+
 <div class="why">
 Both were solving the same underlying problem that shows up in
 road networks, telephone routing, and - decades later - the internet
@@ -208,10 +214,13 @@ the network.
 > weight of any path from $s$ to $v$ - its **shortest-path
 > distance**, written $\delta(s, v)$.
 
-This is CampusNav's small six-location graph, reused from last week -
-Gate is today's source:
+---
 
-<svg viewBox="0 0 620 240" width="560" height="216" xmlns="http://www.w3.org/2000/svg">
+# The Graph We're Working With
+
+<div class="thread">CampusNav's small six-location graph, reused from last week - Gate is today's source:</div>
+
+<svg viewBox="0 0 620 240" width="900" xmlns="http://www.w3.org/2000/svg">
   <line x1="96" y1="50" x2="294" y2="50" stroke="#4A66AC" stroke-width="2.5"/>
   <text x="195" y="40" font-size="15" fill="#0B3954" text-anchor="middle">3</text>
   <line x1="346" y1="50" x2="544" y2="50" stroke="#4A66AC" stroke-width="2.5"/>
@@ -269,7 +278,7 @@ Gate is today's source:
 
 <div class="why">
 Why is step 2 safe? Because every remaining edge weight is
-**non-negative**, no unvisited vertex can later become cheaper than
+<strong>non-negative</strong>, no unvisited vertex can later become cheaper than
 the one currently smallest - nothing can subtract from a distance.
 That single assumption is the whole algorithm's foundation, and
 exactly what breaks later this week.
@@ -297,6 +306,12 @@ DIJKSTRA(G, w, source):
 
     return dist, prev
 ```
+
+---
+
+# Reading the Pseudocode
+
+<div class="thread">Two moving parts: which vertex settles next, and what settling it updates.</div>
 
 `EXTRACT-MIN` is the "settle the closest unvisited vertex" step;
 the inner loop is relaxation.
@@ -485,7 +500,7 @@ Cafeteria and the Library on rainy days, CampusNav's designers add a
 Library, is logged as **−4 minutes** instead of a normal positive
 cost - a one-way perk, not a real physical shortcut.
 
-<svg viewBox="0 0 620 240" width="520" height="200" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 620 240" width="640" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrowneg" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
       <path d="M0,0 L0,6 L9,3 z" fill="#C0392B"/>
@@ -536,6 +551,12 @@ cost - a one-way perk, not a real physical shortcut.
 - If it did check: 7 + (−4) = 3. Here that happens to tie Library's
   existing answer - but Dijkstra never performs this check at all,
   and has no way of knowing in advance that it would only tie.
+
+---
+
+# One Minute Worse, and There's No Answer At All
+
+<div class="thread">The tie above was luck. Push the credit one minute further.</div>
 
 <div class="pain">
 Shave the shortcut credit by one more minute (−5 instead of −4) and
@@ -663,6 +684,12 @@ already reaches the final answer:
 <div class="row"><div class="rowlabel">Cafeteria</div><div class="cell">&infin;</div><div class="cell">7</div></div>
 </div>
 
+---
+
+# Why Bellman-Ford Still Runs Five More Rounds
+
+<div class="thread">One round already found the answer - the algorithm can't know that yet.</div>
+
 Rounds 2-5 change nothing - but Bellman-Ford has no way to know that
 in advance, so it must always run all $V-1=5$ rounds to *guarantee*
 this. Round 6 (the extra check) also finds no improvement: **no
@@ -682,10 +709,16 @@ to leave the Library–CS-Building–Cafeteria loop at exactly 0.
 | Time complexity | $O((V+E) \log V)$ with a priority queue | $O(VE)$ |
 | When to use | Non-negative weights, need speed (e.g. real road networks) | Weights may be negative, or you need cycle detection |
 
+---
+
+# So Which One Does CampusNav Actually Ship?
+
+<div class="thread">The table says "it depends." Here's what it depends on, for this app.</div>
+
 <div class="why">
 CampusNav's real walkway network never has negative weights - so
 Dijkstra is what should actually ship. Bellman-Ford earns its keep
-the moment *any* feature (like a shortcut credit) can make an edge
+the moment <em>any</em> feature (like a shortcut credit) can make an edge
 negative.
 </div>
 
@@ -783,10 +816,17 @@ minimizing total walking distance.
   Salesman** problem - no known algorithm solves it faster than
   roughly trying all orderings, which is *exponential* in the number
   of buildings.
-- Knowing how to solve shortest path (one destination, no
-  "visit-everything" constraint) does **not** help here - it's a
-  fundamentally different shape of problem, believed to have no
-  efficient algorithm at all.
+
+---
+
+# Why Shortest Path Doesn't Help Here
+
+<div class="thread">Solving one problem in the family doesn't solve them all.</div>
+
+Knowing how to solve shortest path (one destination, no
+"visit-everything" constraint) does **not** help here - it's a
+fundamentally different shape of problem, believed to have no
+efficient algorithm at all.
 
 ---
 
@@ -826,6 +866,12 @@ every time a student taps it. From the Gate:
 | CS-Building | 5 min | Gate → Library → CS-Building |
 | Cafeteria | 7 min | Gate → Library → CS-Building → Cafeteria |
 | Gym | 8 min | Gate → Library → Gym |
+
+---
+
+# What About the Covered Walkway?
+
+<div class="thread">The feature from earlier this week - shipped, but not the way it was pitched.</div>
 
 The covered-walkway credit stays in the app as a rainy-day *display*
 feature, but it never feeds into the live Dijkstra computation - the
@@ -1087,21 +1133,19 @@ practice questions you just worked through.
 # Summary
 
 - **Dijkstra:** greedy, settle-and-never-revisit, $O((V+E)\log V)$ -
-  correct *only* with non-negative weights, as the covered-walkway
-  edge showed concretely.
+  correct *only* with non-negative weights, as the walkway edge showed.
 - **Bellman-Ford:** relax every edge $V-1$ times, $O(VE)$ - correct
   even with negative weights, and its extra pass detects negative
   cycles outright.
 - **P** = solvable in polynomial time. **NP** = a candidate solution
   is *verifiable* in polynomial time - not "unsolvable fast," the
-  most common misreading of the name.
-- Shortest path is in P; the campus scavenger hunt is NP-hard -
-  same campus, two very different kinds of problem.
-- **Reading:** CLRS, Chapter 24 (Single-Source Shortest Paths) and
-  Chapter 34 (NP-Completeness, skim).
-- **Prepare:** rework all six final-exam practice questions from
-  today without looking at the answers first. Bring questions to
-  Week 15.
+  most common misreading.
+- Shortest path is in P; the campus scavenger hunt is NP-hard - same
+  campus, two very different kinds of problem.
+- **Reading:** CLRS, Chapter 24 (Shortest Paths) and Chapter 34
+  (NP-Completeness, skim).
+- **Prepare:** rework all six final-exam practice questions without
+  looking at the answers first. Bring questions to Week 15.
 
 ---
 

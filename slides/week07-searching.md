@@ -113,7 +113,7 @@ every single entry, one after another, until it finds the room you
 typed in. A student looking up a room near the end of the alphabet
 still watches the app crawl through hundreds of entries it could,
 in principle, skip straight past - the sorting didn't buy them
-anything, because nothing in the app actually *uses* the fact that
+anything, because nothing in the app actually <em>uses</em> the fact that
 the list is now in order.
 
 </div>
@@ -157,6 +157,12 @@ The directory is sorted. The app just doesn't know how to *use* that yet.
 - A search that silently gives the wrong answer is more dangerous
   than a slow one - a slow search is annoying, a wrong search is a bug
   no one notices until it's live.
+
+---
+
+# The Same Bug, in Production
+
+<div class="thread">Not a hypothetical - this happened, to one of the most-used codebases on Earth.</div>
 
 <div class="why">
 <strong>In industry:</strong> binary search is one of the most common
@@ -224,6 +230,12 @@ it. "It's just halving a list" is deceptively easy to get subtly wrong.
   overflow for huge arrays) for about nine years before it was fixed
   in 2006.
 
+---
+
+# What Sixteen Years of Bugs Actually Teach
+
+<div class="thread">Same history. The lesson it leaves behind.</div>
+
 <div class="why">
 The lesson isn't "binary search is hard." It's that <strong>an idea
 this simple still needs a real proof</strong> - "I tested it and it
@@ -251,6 +263,12 @@ LINEAR-SEARCH(A, target):
             return i
     return NOT-FOUND
 ```
+
+---
+
+# Linear Search's Worst Case
+
+<div class="thread">One line, one bound - the whole point of today's comparison.</div>
 
 Worst case (target absent, or the very last element): every one of
 the $n$ entries is checked. <span class="bignotation">O(n)</span>
@@ -359,6 +377,12 @@ target sits - versus up to 1,200 for linear search.
 `target` is in `A`, and correctly reports `NOT-FOUND` otherwise -
 *provided `A` is sorted*.
 
+---
+
+# The Loop Invariant
+
+<div class="thread">The one sentence the whole proof leans on.</div>
+
 **Loop invariant:**
 
 > If `target` is present anywhere in `A`, then it is present within
@@ -399,6 +423,13 @@ Three cases:
   `<= mid` holds a value `<= A[mid] < target`. So `target`, if
   present, cannot be at any index `<= mid` - it must be in
   `A[mid+1..hi]`. Setting `lo = mid + 1` keeps the invariant true.
+
+---
+
+# Proof, Part 2: The Third Case
+
+<div class="thread">Symmetric to the last case, then the invariant is fully maintained.</div>
+
 - **`A[mid] > target`:** symmetric - `target`, if present, must be in
   `A[lo..mid-1]`. Setting `hi = mid - 1` keeps the invariant true.
 
@@ -501,6 +532,12 @@ A 16-entry sample of CampusNav's sorted room-code directory
 <div class="row"><div class="rowlabel">Step 3</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell hl2">512</div><div class="cell hl">615</div><div class="cell hl2">703</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div></div>
 <div class="row"><div class="rowlabel">Step 4</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell hl">703</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div></div>
 </div>
+
+---
+
+# CampusNav: "Jump to Room," Step by Step
+
+<div class="thread">Reading the trace, one comparison at a time.</div>
 
 - Step 1: `lo=0,hi=15,mid=7` → `A[7]=802 > 703` → search left, `hi=6`
 - Step 2: `lo=0,hi=6,mid=3` → `A[3]=415 < 703` → search right, `lo=4`
@@ -823,9 +860,9 @@ answer key and discuss as a group any question most of the class missed.
 <div class="limits">
 Big-O, recursion, sorting, and searching are all in place - CampusNav
 can now sort and search its directory correctly and efficiently. But
-every technique so far has been **ad hoc per problem**: a different
+every technique so far has been <strong>ad hoc per problem</strong>: a different
 trick for sorting, a different trick for searching, each invented and
-proved one at a time. There is still no *general strategy* for
+proved one at a time. There is still no <em>general strategy</em> for
 inventing a new algorithm when CampusNav's next feature doesn't
 already have a known technique to reach for.
 </div>

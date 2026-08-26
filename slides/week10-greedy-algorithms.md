@@ -240,6 +240,12 @@ That's **Worksheet Part A and B**. Keep a pen ready.
   local-choice tricks are always safe (matroid theory, 1960s-70s) and
   why others - like change-making with arbitrary denominations - are not.
 
+---
+
+# The Pattern Behind All of Them
+
+<div class="thread">Telephone exchanges, Huffman, matroid theory - one thread runs through all of it.</div>
+
 <div class="why">
 The pattern kept reappearing: some problems have a hidden structure
 where "never look back" isn't a shortcut that risks wrongness - it's
@@ -264,6 +270,12 @@ A problem is safe for a greedy algorithm only when it has **both**:
 
 - **Greedy-choice property:** a globally optimal solution can always be reached by making the locally optimal choice first.
 - **Optimal substructure:** an optimal solution to the whole problem contains, inside it, an optimal solution to the smaller subproblem left after that first choice.
+
+---
+
+# A Property Greedy Shares With Next Week
+
+<div class="thread">One of the two conditions above isn't unique to greedy at all.</div>
 
 <div class="why">
 Optimal substructure is not unique to greedy - Week 11's dynamic
@@ -470,6 +482,12 @@ algorithm tells you it failed.
   full-day competition prep) get **systematically deprioritized**,
   even though nothing in the algorithm ever "intended" unfairness.
 
+---
+
+# Naming the Tension
+
+<div class="thread">Provably optimal at one goal doesn't mean beyond challenge.</div>
+
 <div class="why">
 This is the efficiency-vs-fairness tension: a scheduler optimized for
 one measurable goal (throughput) can be provably optimal at that goal
@@ -669,6 +687,11 @@ new Tour Planner feature.
 - A greedy algorithm can be provably optimal at its stated goal
   (throughput) and still raise a fairness question (which requests get
   systematically deprioritized) that the algorithm itself won't answer.
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS, Chapter 16 (Greedy Algorithms), §16.1 (activity
   selection) and §16.3 (Huffman codes).
 - **Prepare:** Assignment 3 is due Week 12 - start the exchange-argument

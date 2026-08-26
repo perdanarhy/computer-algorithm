@@ -246,6 +246,12 @@ That is **Worksheet Part A**. Keep a pen ready.
   lists (built for the sparse, memory-constrained reality of real
   programs).
 
+---
+
+# Two Correct Answers, One Real Choice
+
+<div class="thread">Both representations below are correct. Only one fits a given graph well.</div>
+
 <div class="why">
 Both representations are correct. The right choice, then and now,
 depends entirely on how many connections the graph actually has - the
@@ -321,7 +327,7 @@ single line of representation code.
 
 <div class="thread">Six real locations. Undirected. Weighted by walking minutes.</div>
 
-<svg viewBox="0 0 760 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 760 240" width="100%" xmlns="http://www.w3.org/2000/svg">
   <line x1="80" y1="55" x2="380" y2="55" stroke="var(--brand)" stroke-width="2"/>
   <line x1="380" y1="55" x2="680" y2="55" stroke="var(--brand)" stroke-width="2"/>
   <line x1="80" y1="55" x2="80" y2="195" stroke="var(--brand)" stroke-width="2"/>
@@ -455,6 +461,12 @@ one building is one node here, but dozens of rooms there.
 |---|---|---|
 | Adjacency matrix cells | 36 | 90,000 |
 | Adjacency list entries | 6 + 2×7 = 20 | 300 + 2×600 = 1,500 |
+
+---
+
+# The Storage Gap, at Full Scale
+
+<div class="thread">36 cells was a toy. 90,000 is where the choice starts to matter.</div>
 
 At full scale the matrix needs **60× more storage** than the list -
 and 88,500 of its 90,000 cells would just be empty. This is exactly

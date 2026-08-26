@@ -97,7 +97,7 @@ Do not name "recursion" yet - let them notice the self-reference in their own wo
 
 <div class="pain">
 
-An intern is building CampusNav's new **multi-stop tour** feature:
+An intern is building CampusNav's new <strong>multi-stop tour</strong> feature:
 "take me to the library, then the gym, then my friend's dorm." Timing
 it is easy - the total walking time is just the first leg, plus
 whatever the rest of the trip takes. Feeling confident, the intern

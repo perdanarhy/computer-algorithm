@@ -121,7 +121,7 @@ keeps grabbing whichever remaining thing packs the most enjoyment per
 minute until the clock runs out: it grabs the live music first, using
 40 of the 60 minutes, then only has room left for saying hi to a
 friend. Ten minutes sit completely unused, and a classmate who instead
-picked coffee *and* the gallery - or some other combination - walks
+picked coffee <em>and</em> the gallery - or some other combination - walks
 away happier, using every one of the 60 minutes.
 
 </div>
@@ -344,9 +344,16 @@ we re-asked the same small question.
   *wrong* - no greedy-choice property (Week 10) - you must consider a
   subproblem's answer under *every* relevant scenario, not just the
   one greedy would have picked.
-- **Test:** room-booking (Week 10) has the greedy-choice property, so
-  greedy alone sufficed. Tour Planner does not (slot 4 just showed
-  it) - it needs the full machinery.
+
+---
+
+# Telling Greedy and DP Problems Apart
+
+<div class="thread">Same optimal substructure. Different test for which technique applies.</div>
+
+**Test:** room-booking (Week 10) has the greedy-choice property, so
+greedy alone sufficed. Tour Planner does not (slot 4 just showed
+it) - it needs the full machinery.
 
 ---
 
@@ -365,10 +372,17 @@ we re-asked the same small question.
 - **Contrast with divide-and-conquer (Week 9):** merge sort's
   subproblems are each *half* of the array - they never repeat. That
   is exactly why D&C never needed to cache anything.
-- A problem needs **both** conditions before caching is worth doing.
-  Optimal substructure with no overlap is just recursion (or greedy);
-  overlap with no optimal substructure isn't an optimization problem
-  at all.
+
+---
+
+# Why You Need Both Conditions, Not Just One
+
+<div class="thread">Overlap alone isn't enough. Optimal substructure alone isn't enough either.</div>
+
+A problem needs **both** conditions before caching is worth doing.
+Optimal substructure with no overlap is just recursion (or greedy);
+overlap with no optimal substructure isn't an optimization problem
+at all.
 
 ---
 
@@ -430,6 +444,12 @@ FIB_TAB(n):
 </div>
 </div>
 
+---
+
+# Same Recurrence, Only the Direction Differs
+
+<div class="thread">Both implementations above solve the identical recurrence.</div>
+
 Same recurrence (`table[i] = table[i-1] + table[i-2]`), same $O(n)$
 distinct subproblems solved exactly once, same $O(n)$ time. Only the
 **direction** differs: memoization recurses top-down and fills the
@@ -472,13 +492,20 @@ cell is touched exactly once, in either implementation.
 - **Recurrence:** `ways(n) = ways(n-1) + ways(n-2)`, `ways(0) = 1`,
   `ways(1) = 1` - Fibonacci's recurrence, wearing a different costume.
 - **Optimal substructure:** a way to climb $n$ steps is either [any
-  way to climb $n-1$] + one final 1-step, or [any way to climb $n-2$]
-  + one final 2-step.
+  way to climb $n-1$] plus one final 1-step, or [any way to climb
+  $n-2$] plus one final 2-step.
 - **Overlapping subproblems:** `ways(18)` is needed by both
   `ways(19)` and `ways(20)` - and by every larger step count above it.
-- Tabulate it: $O(n)$ time. For the real 20-step shortcut,
-  **ways(20) = 10,946** distinct routes - 20 additions, not the
-  millions of calls Week 4's naive tree implied at that depth.
+
+---
+
+# Tabulating It: 20 Additions, Not Millions
+
+<div class="thread">Same recurrence Week 4 traced exploding. This time, filled bottom-up.</div>
+
+Tabulate it: $O(n)$ time. For the real 20-step shortcut,
+**ways(20) = 10,946** distinct routes - 20 additions, not the
+millions of calls Week 4's naive tree implied at that depth.
 
 <div class="tracetable">
 <div class="row"><div class="rowlabel">n</div>
@@ -508,6 +535,12 @@ enjoyment without exceeding 60 minutes.
 - **Overlapping subproblems?** Yes - "best plan for 20 minutes using
   {Coffee, Gallery, Friend}" gets asked whether or not Music is
   chosen, and other branches ask it too.
+
+---
+
+# The Tour Planner's Recurrence
+
+<div class="thread">Both conditions hold - here's the recurrence that follows from them.</div>
 
 **Recurrence** (`best(i, t)` = best value using the first $i$
 activities within $t$ minutes):

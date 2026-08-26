@@ -512,8 +512,12 @@ section.end h1 {
 /* ---- algorithms-specific utility classes ---- */
 
 /* trace table: array/DP-table state, one cell per value, monospace.
-   .hl marks the cell(s) the current step is touching. */
-.tracetable { display: flex; flex-direction: column; gap: 3px; }
+   .hl marks the cell(s) the current step is touching. As a block-level
+   flex container it would otherwise stretch to the slide's full content
+   width while its rows (fixed-size cells, no flex-grow) stay flush-left -
+   shrink to content and center instead, so a narrower table doesn't leave
+   a lopsided empty gap on the right. */
+.tracetable { display: flex; flex-direction: column; gap: 3px; width: fit-content; margin: 0 auto; }
 .tracetable .row { display: flex; gap: 3px; align-items: center; }
 .tracetable .row .rowlabel {
   flex: 0 0 92px;
@@ -572,3 +576,14 @@ section.end h1 {
 
 /* simple node/edge legend for inline SVG graph diagrams */
 .graphviz-note { font-size: 14px; color: #7A8699; font-style: italic; margin-top: 6px; }
+
+/* Standalone diagram SVGs default to flush-left with empty space beside
+   them whenever their width (fixed, or letterboxed by a conflicting
+   height) is narrower than the slide's content area. Center them instead,
+   so any width mismatch reads as balanced whitespace, not a stuck-left
+   mistake - covers current diagrams and any future one. Excludes SVGs
+   inside mjx-container: MathJax renders every inline $...$ formula as its
+   own <svg> too, and this custom element depends on its default inline
+   display to flow within a sentence - forcing it to block/centered here
+   would put every formula on its own line and break paragraph flow. */
+section svg:not(mjx-container svg) { display: block; margin: 0 auto; }

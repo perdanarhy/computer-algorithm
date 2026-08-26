@@ -269,10 +269,16 @@ That is **Worksheet Part A**. Keep a pen ready.
   literally how most people sort a hand of playing cards, which is
   exactly what you did in the warm-up without a name for it yet.
 
+---
+
+# Why Learn the "Slow" Sorts First?
+
+<div class="thread">Decades old, provably correct - and still where every course starts.</div>
+
 <div class="why">
 Bubble, selection, and insertion sort are all decades old, all
 provably correct, and all still taught first - not because they're
-the *fastest* choice, but because they're the simplest place to
+the <em>fastest</em> choice, but because they're the simplest place to
 practice proving an algorithm correct before tackling faster ones
 (Week 6).
 </div>
@@ -386,9 +392,9 @@ sorted (or nearly-sorted) array instead of blindly grinding through it.
 
 <div class="thread">Second of three. Repeatedly grab the smallest remaining.</div>
 
-Scan the unsorted remainder of the array to find its minimum. Swap
-that minimum into the next open position at the front. Repeat on the
-shrinking remainder. This is Method A from the warm-up.
+Scan the unsorted remainder for its minimum, swap it into the next
+open position at the front, repeat on the shrinking remainder - this
+is Method A from the warm-up.
 
 ```text
 SELECTION-SORT(A):
@@ -464,9 +470,9 @@ never adapts to a nearly-sorted array the way bubble or insertion sort do.
 
 <div class="thread">Third of three. This is Method B from the warm-up - sorting a hand of cards.</div>
 
-Grow a sorted prefix one element at a time. Take the next element
-(`key`), and slide it left past every already-sorted element that is
-greater than it, until it lands in its correct spot.
+Grow a sorted prefix one element at a time: take the next element
+(`key`) and slide it left past every sorted element greater than it,
+until it lands in its correct spot.
 
 ```text
 INSERTION-SORT(A):
@@ -479,6 +485,12 @@ INSERTION-SORT(A):
             j = j - 1
         A[j+1] = key
 ```
+
+---
+
+# From Trace to Proof
+
+<div class="thread">One sentence, about to become a formal claim.</div>
 
 Every iteration ends with `A[0..i]` sorted - that sentence is about to
 become a formal proof.
@@ -513,14 +525,20 @@ only ever *grows* - that observation is the loop invariant.
 > exactly the elements that originally occupied `A[0..i-1]`, but in
 > sorted order.
 
-A correctness proof using a loop invariant has exactly three parts,
-mirroring mathematical induction:
+A correctness proof using a loop invariant has three parts, mirroring
+mathematical induction:
+
+---
+
+# The Three Parts of the Proof
+
+<div class="thread">Same shape as the induction proofs from Week 4.</div>
 
 - **Initialization** - it holds before the first iteration.
 - **Maintenance** - if it holds before an iteration, it still holds
   before the next one.
-- **Termination** - when the loop ends, the invariant gives us exactly
-  the claim we wanted to prove.
+- **Termination** - when the loop ends, the invariant gives the claim
+  we wanted to prove.
 
 ---
 
@@ -681,6 +699,11 @@ slot 4, we can now *prove* the result is sorted, on any input.
    guaranteed in general, which is exactly why selection sort is
    classified as unstable (one counterexample is enough to disqualify
    stability, even if some inputs happen to stay stable).
+
+---
+
+# Answer 3
+
 3. **Maintenance.** Shifting elements equal to `key` would move an
    equal-key element that was already correctly placed, potentially
    past another equal-key element - the resulting `A[0..i]` would
@@ -798,7 +821,7 @@ answer key and discuss as a group any question most of the class missed.
 
 <div class="limits">
 These sorts are provably correct - we proved insertion sort correct
-on every input, not just the ones we traced. But all three are $O(n^2)$
+on every input, not just the ones we traced. But all three are O(n^2)
 in the worst and average case. CampusNav's 40-room sample sorts
 instantly; its real 1,200-room directory noticeably lags; and the
 moment CampusNav adds partner campuses, at ~10,000 rooms, any of these
@@ -824,21 +847,18 @@ soon recognize everywhere in this course.
 
 # Summary
 
-- Bubble, selection, and insertion sort are all $O(n^2)$ worst-case -
-  but they are **not** interchangeable: only bubble and insertion sort
-  are adaptive and stable; selection sort is neither.
+- Bubble, selection, insertion sort: all $O(n^2)$ worst-case, but
+  **not** interchangeable - only bubble and insertion are adaptive
+  and stable; selection is neither.
 - Insertion sort is correct on **every** input, proven by a loop
-  invariant with three parts: initialization, maintenance, termination
-  - the same three-part structure will reappear anywhere this course
-  asks you to prove an algorithm correct.
-- Stability isn't cosmetic - it's the property that makes multi-key
-  sorting (and every spreadsheet/database `ORDER BY`) work correctly.
-- **Reminder:** Assignment 1 (Complexity & Pseudocode) is due this
-  week - submit before Week 6.
+  invariant with three parts (initialization, maintenance,
+  termination) that will reappear all course.
+- Stability isn't cosmetic - it's what makes multi-key sorting (and
+  every `ORDER BY`) work correctly.
+- **Reminder:** Assignment 1 due this week - submit before Week 6.
 - **Reading:** CLRS, Chapter 2 (Insertion Sort, Analyzing Algorithms).
-- **Prepare:** think about why repeatedly comparing *neighbors*
-  (today's approach) might be a slower way to sort than repeatedly
-  *splitting the array in half* - bring your guess to Week 6.
+- **Prepare:** think about why comparing *neighbors* (today) might be
+  slower than *splitting the array in half* - guess for Week 6.
 
 ---
 

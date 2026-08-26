@@ -284,7 +284,7 @@ enough for it to still matter for the next assignment or exam.
 
 ---
 
-# Attendance & Academic Integrity
+# Attendance & Late Work
 
 <div class="thread">Concrete rules, stated once, so nobody is surprised later.</div>
 
@@ -296,6 +296,13 @@ enough for it to still matter for the next assignment or exam.
 - **Late work:** loses 10% of that assignment's grade per day late, up
   to 3 days. No credit after 3 days, unless arranged with the
   instructor in advance.
+
+---
+
+# Academic Integrity
+
+<div class="thread">Same principle as attendance: stated once, plainly.</div>
+
 - **Academic integrity:** submit your own work. Copying another
   student's work, having someone else complete it for you, or
   submitting unattributed AI-generated work as your own is a

@@ -149,7 +149,7 @@ the argument.
 <strong>In industry:</strong> "What's the time complexity of your
 solution?" is the single most common follow-up question in a
 technical interview - and a wrong answer, or no answer, fails
-candidates who wrote perfectly *correct* code.
+candidates who wrote perfectly <em>correct</em> code.
 </div>
 
 ---
@@ -251,7 +251,7 @@ That is **Worksheet Part A**. Keep a pen ready.
 
 <div class="why">
 Computer scientists needed exactly what mathematicians needed:
-a way to compare two formulas' growth *without* caring about
+a way to compare two formulas' growth <em>without</em> caring about
 one specific machine, compiler, or lucky benchmark run.
 </div>
 
@@ -346,7 +346,7 @@ $7 \le n^2$, so $3n^2+10n+7 \le 5n^2$ - meaning $c=5$, $n_0=10$ is
 also a valid proof.
 
 <div class="why">
-There is no single "correct" $(c, n_0)$ pair. Big-O only asks that
+There is no single "correct" (c, n&#8320;) pair. Big-O only asks that
 <strong>some</strong> pair exists - this is why two students can turn
 in different-looking, equally correct proofs of the same bound.
 </div>
@@ -401,10 +401,16 @@ the stronger, more informative claim when it holds.
 | $O(2^n)$ | 1,024 | ~$1.27\times10^{30}$ | unimaginably large |
 | $O(n!)$ | ~3,628,800 | ~$9.3\times10^{157}$ | incomprehensibly large |
 
+---
+
+# What "Uncomputable" Actually Means
+
+<div class="thread">One row of that table, taken seriously.</div>
+
 <div class="why">
-At $n=10$, even $O(n!)$ finishes in well under a second. At $n=100$,
-$O(2^n)$ alone is already $\approx 1.27 \times 10^{30}$ steps - at one
-billion steps/second, that's roughly $4 \times 10^{13}$ years, about
+At n=10, even O(n!) finishes in well under a second. At n=100,
+O(2^n) alone is already &asymp;1.27&times;10^30 steps - at one
+billion steps/second, that's roughly 4&times;10^13 years, about
 <strong>3,000 times the current age of the universe.</strong>
 </div>
 
@@ -421,7 +427,7 @@ billion steps/second, that's roughly $4 \times 10^{13}$ years, about
 
 <div class="why">
 Preview: Weeks 5-6 compare sorting algorithms that are provably
-correct <em>and</em> $O(n \log n)$ in time, yet differ sharply in
+correct <em>and</em> O(n log n) in time, yet differ sharply in
 space - some sort in-place, some don't.
 </div>
 
@@ -444,6 +450,12 @@ Assume one comparison (array access + string check) costs about
 | 10,000+ rooms (partner campuses) | 10,000 | 0.5 ms |
 
 $O(n)$ alone is not the danger here - even 10,000 rooms is imperceptible.
+
+---
+
+# CampusNav: The Duplicate-Checker's Bill Comes Due
+
+<div class="thread">Same directory. A different feature, a different growth rate.</div>
 
 **Duplicate-checker, $O(n^2)$ - the naive pairwise design from earlier:**
 
@@ -581,7 +593,7 @@ We can now precisely compare any two algorithms' growth rates, and
 prove those bounds directly from the formal definition - the argument
 from this morning's warm-up is finally settled with proof, not a
 shrug. But not every algorithm's cost is a simple, already-known
-formula in $n$. An algorithm that calls itself hides its own cost
+formula in n. An algorithm that calls itself hides its own cost
 inside a formula that refers back to itself - and we don't yet have a
 way to solve that kind of formula down to a clean Big-O bound.
 </div>
@@ -609,16 +621,13 @@ to the same Big-O bounds learned today.
 - The fastest-growing term always wins: $3n^2+10n+7$ is $O(n^2)$,
   and $n^2 + n\log n$ is $O(n^2)$, not $O(n\log n)$.
 - An algorithm fine at $n=10$ can be uncomputable at $n=100$ if its
-  growth rate is exponential or worse - the gap is structural, not a
+  growth rate is exponential or worse - a structural gap, not a
   matter of a faster computer.
 - CampusNav's core lookup stays $O(n)$-safe at 10,000+ rooms, but any
-  feature that defaults to $O(n^2)$ (like naive duplicate-checking)
-  will not.
+  feature defaulting to $O(n^2)$ (like naive duplicate-checking) will not.
 - **Reading:** CLRS, Chapter 3 (Growth of Functions).
-- **Prepare:** think about an algorithm that calls itself (e.g. a
-  halving search that repeatedly checks the middle of what's left) -
-  how would you even write its cost as a formula in $n$? Bring an idea
-  to Week 4.
+- **Prepare:** think about an algorithm that calls itself - how would
+  you write its cost as a formula in $n$? Bring an idea to Week 4.
 - **Reminder:** Assignment 1 is due Week 5, 23:59.
 
 ---

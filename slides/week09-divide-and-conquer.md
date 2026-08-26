@@ -318,7 +318,7 @@ Three cases, one for each possibility. No tracing the whole tree required.
 | **3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ for some $\varepsilon>0$ (grows *polynomially faster*), **and** the regularity condition $a\,f(n/b) \le c\,f(n)$ holds for some constant $c<1$ and all large $n$ | $T(n) = \Theta(f(n))$ |
 
 <div class="why">
-Not every recurrence fits one of these three cases cleanly - if $f(n)$
+Not every recurrence fits one of these three cases cleanly - if f(n)
 falls in the gap between cases, or case 3's regularity condition fails,
 the Master theorem simply doesn't apply, and you're back to tracing the
 tree by hand (Week 4).
@@ -561,7 +561,15 @@ That recursion is **not** divide-and-conquer - the two calls both touch
 overlapping smaller subproblems, not independent ones. But there's a
 genuine D&C trick available: instead of dividing the *steps*, halve the
 *step number itself*, the same idea fast exponentiation uses to compute
-$a^n$ by squaring. A pair of identities lets you jump from $\text{ways}(k)$
+$a^n$ by squaring.
+
+---
+
+# From Halving Steps to a Logarithmic Bound
+
+<div class="thread">Same trick as fast exponentiation, applied to a counting recurrence.</div>
+
+A pair of identities lets you jump from $\text{ways}(k)$
 straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$ in $O(1)$ arithmetic:
 
 $$

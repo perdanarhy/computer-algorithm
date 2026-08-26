@@ -97,9 +97,9 @@ Do not say "subsequence" yet. Let them describe it as "skipping a letter and sti
 Minji and Junho both use CampusNav. Each has a weekly class list, in
 order: Monday's first class, then the next, and so on. CampusNav
 wants to tell them "you two have a lot of classes in common - study
-together!" First it tries: are their two lists *exactly* the same,
+together!" First it tries: are their two lists <em>exactly</em> the same,
 in the same order? Almost never true, so it says "no match" for
-nearly everyone. Then it tries: do they have a *run* of
+nearly everyone. Then it tries: do they have a <em>run</em> of
 back-to-back identical classes? Still almost nothing - Minji and
 Junho actually share four classes, just scattered across different
 days and periods. CampusNav tells them they have nothing in common.
