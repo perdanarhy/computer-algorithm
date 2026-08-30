@@ -84,19 +84,6 @@ notes: Let students think for 20 seconds. Someone will usually say "add up the s
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
-
-# Key Words Today
-
-- **Shortest path:** the minimum-total-weight way to get from one vertex to another along the graph's edges.
-- **Source vertex:** the fixed starting point a single-source shortest-path algorithm computes distances *from*.
-- **Weighted graph:** a graph where every edge carries a cost (here: walking minutes), not just a yes/no connection.
-- **Tentative distance:** the *best known so far* cost to reach a vertex - may still improve as the algorithm runs.
-
-<!-- notes: Read each term aloud. Say these four words are what today's whole first half is built from. -->
-
----
-
 <!-- SLOT 4: The pain (Act 1 / MOTIVATE), zero jargon -->
 
 # The Map Exists. The Directions Don't.
@@ -159,6 +146,19 @@ exact computation continuously, at massive scale, every day.
 2. Explain *why* Dijkstra's greedy strategy fails in the presence of negative edge weights, with a concrete counterexample.
 3. Trace Bellman-Ford's algorithm, explain why V−1 relaxation rounds suffice, and use one extra pass to detect a negative cycle.
 4. State the difference between P and NP precisely, and classify shortest path and the campus scavenger hunt correctly.
+
+---
+
+<!-- NEW: Key Words Today, session 1 (moved after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
+
+# Key Words Today
+
+- **Shortest path:** the minimum-total-weight way to get from one vertex to another along the graph's edges.
+- **Source vertex:** the fixed starting point a single-source shortest-path algorithm computes distances *from*.
+- **Weighted graph:** a graph where every edge carries a cost (here: walking minutes), not just a yes/no connection.
+- **Tentative distance:** the *best known so far* cost to reach a vertex - may still improve as the algorithm runs.
+
+<!-- notes: Read each term aloud. Say these four words are what today's whole first half is built from. -->
 
 ---
 
@@ -433,7 +433,7 @@ total), CS-Building→Cafeteria (7 total), Library→Gym (8 total).
 
 # Dijkstra's Complexity
 
-<div class="thread">Why bother with a priority queue at all?</div>
+<div class="thread">Why bother with a priority queue at all? (Priority queue and binary heap: as introduced last week, Week 13.)</div>
 
 - Each of the $V$ vertices is extracted from the priority queue
   exactly once: $O(V \log V)$.
@@ -443,11 +443,12 @@ total), CS-Building→Cafeteria (7 total), Library→Gym (8 total).
 
 <div class="bignotation">O((V + E) log V)</div>
 
-with a binary-heap priority queue. On CampusNav's real campus graph
-(sparse - a junction connects to only a handful of walkways, not
-every other junction), this is dramatically faster than checking
-every possible route by hand, which grows exponentially with the
-number of stops.
+with a binary-heap priority queue - the same $O(\log n)$ insert/
+extract-min fact Week 13 handed you as a tool. On CampusNav's real
+campus graph (sparse - a junction connects to only a handful of
+walkways, not every other junction), this is dramatically faster than
+checking every possible route by hand, which grows exponentially with
+the number of stops.
 
 ---
 
@@ -847,21 +848,7 @@ reverse is also always true.
 
 ---
 
-# Shortest Path Is in P
-
-<div class="thread">Both directions hold for this week's problem.</div>
-
-- **Solvable in P:** Dijkstra and Bellman-Ford both compute shortest
-  distances in polynomial time, as just shown.
-- **Also easy to verify:** given a candidate route from Gate to
-  Cafeteria, checking it's valid and summing its weights takes time
-  proportional to the route's length - trivially polynomial.
-
-Shortest path is the easy case: efficiently *solvable*, which
-automatically makes it efficiently *verifiable* too. Not every
-problem CampusNav might want to solve is this well-behaved.
-
----
+<!-- TRIMMED: P/NP section reduced to its essential core (definitions, one example, one-line why-we-care) per SPINE decongestion pass. Fuller depth (Shortest Path Is in P, the standalone "why shortest path doesn't help" slide) already lives in materials/week14/handout.md, Part 4. -->
 
 # The Campus Scavenger Hunt: NP-Hard
 
@@ -872,43 +859,37 @@ hunt route that visits **every** building on campus **exactly once**,
 minimizing total walking distance.
 
 - **Verifying** a proposed route is fast: check every building
-  appears exactly once, sum the weights - polynomial time.
+  appears exactly once, sum the weights - polynomial time, so this
+  problem is in **NP**.
 - **Finding** the optimal route is a different story: this is
   shaped exactly like the **Hamiltonian-path** / **Traveling
   Salesman** problem - no known algorithm solves it faster than
   roughly trying all orderings, which is *exponential* in the number
-  of buildings.
+  of buildings. Knowing how to solve shortest path (one destination)
+  gives no shortcut here - a fundamentally different shape of problem.
 
 ---
 
-# Why Shortest Path Doesn't Help Here
+# NP-Complete, NP-Hard, and P =? NP
 
-<div class="thread">Solving one problem in the family doesn't solve them all.</div>
-
-Knowing how to solve shortest path (one destination, no
-"visit-everything" constraint) does **not** help here - it's a
-fundamentally different shape of problem, believed to have no
-efficient algorithm at all.
-
----
-
-# NP-Completeness and P =? NP
-
-<div class="thread">The open question underneath all of this.</div>
+<div class="thread">The open question underneath all of this - and why it matters.</div>
 
 - A problem is **NP-complete** if it's in NP *and* every other
   problem in NP can be transformed into it in polynomial time - the
-  "hardest" problems within NP. The scavenger-hunt-shaped problem is
-  in this category.
+  "hardest" problems within NP. The scavenger hunt is one of these.
 - **NP-hard** problems are at least as hard as NP-complete ones, even
   if they aren't themselves required to be in NP.
 - Nobody has ever found a polynomial algorithm for *any* NP-complete
-  problem - and nobody has proven one is impossible either.
-  **P =? NP** is one of the most famous open problems in mathematics
-  and computer science (a Clay Millennium Prize problem).
-- If **any** NP-complete problem turned out to be in P, *every*
-  problem in NP would be - including the scavenger hunt. So far, that
-  has never happened.
+  problem, and nobody has proven one is impossible - **P =? NP** is
+  one of the most famous open problems in mathematics and computer
+  science (a Clay Millennium Prize problem).
+
+<div class="why">
+<strong>Why we care:</strong> recognizing a new problem as NP-hard
+tells you, immediately, not to waste time hunting for a fast exact
+algorithm - a judgment call that matters far beyond CampusNav, in
+routing, scheduling, and resource-allocation systems everywhere.
+</div>
 
 ---
 
@@ -993,196 +974,11 @@ notes: Distribute or project the quiz. After about 10 minutes, discuss as a grou
 ---
 
 <!-- _class: section -->
+<!-- NEW: pointer slide, replaces the moved final-exam-blueprint block (now the central content of slides/week15-final-review.md) -->
 
 # Final Exam Blueprint
 
-<div class="driving-q">Week 15 is the Final Exam. Here's exactly what it covers and how to prepare.</div>
-
----
-
-# Final Exam: Scope and Format
-
-<div class="thread">Not a surprise. Six weeks, one blueprint.</div>
-
-- **Coverage:** Weeks 9-14 only - Divide & Conquer (Master theorem),
-  Greedy Algorithms, Dynamic Programming I, Dynamic Programming II
-  (LCS), Graph Representation, Shortest Path (Dijkstra, Bellman-Ford,
-  P/NP).
-- **Format:** same style as the midterm - a mix of short-answer,
-  trace-by-hand, and proof-sketch questions, worth 25% of the final
-  grade.
-- **The best preparation:** the seven practice questions on the next
-  several slides span every topic above. Work each one out yourself
-  *before* looking at its answer.
-
----
-
-# Practice Q1 - Divide & Conquer
-
-CampusNav's multi-stop tour recursion has recurrence
-$T(n) = 2T(n/2) + O(n)$. Use the Master theorem to find $T(n)$'s
-growth rate.
-
----
-
-# Practice A1
-
-Master theorem form $T(n) = aT(n/b) + f(n)$ with $a=2$, $b=2$,
-$f(n) = O(n)$.
-
-$n^{\log_b a} = n^{\log_2 2} = n^1 = n$, which matches $f(n) = \Theta(n)$ -
-this is **Case 2** (the split-work and combine-work grow at the
-same rate).
-
-$$T(n) = \Theta(n \log n)$$
-
----
-
-# Practice Q2 - Greedy Algorithms
-
-CampusNav's room-booking scheduler receives these requests for one
-seminar room, as (start, finish): A(1,4), B(3,5), C(0,6), D(5,7),
-E(8,9), F(5,9). Using earliest-finish-time greedy, which requests get
-the room, and how many total bookings?
-
----
-
-# Practice A2
-
-Sort by finish time: A(1,4), B(3,5), C(0,6), D(5,7), F(5,9), E(8,9).
-
-- Pick **A** (1,4) - finish = 4.
-- B(3,5): start 3 < 4 - reject. C(0,6): start 0 < 4 - reject.
-- **D** (5,7): start 5 ≥ 4 - accept, finish = 7.
-- F(5,9): start 5 < 7 - reject.
-- **E** (8,9): start 8 ≥ 7 - accept.
-
-**Result: A, D, E - 3 bookings.**
-
----
-
-# Practice Q3 - Dynamic Programming I
-
-A free block of 6 (10-minute units) and activities (duration,
-enjoyment): Coffee (2,3), Club Fair (3,5), Quick Nap (1,1), Gallery
-(4,6). Maximize total enjoyment without exceeding 6 units (0/1
-knapsack).
-
----
-
-# Practice A3
-
-Total weight available if everything were chosen: 2+3+1+4=10 (over
-budget), so some subset must be dropped. Checking combinations that
-fit within capacity 6:
-
-- Gallery + Coffee = 4+2 = 6 units, enjoyment 6+3 = **9**
-- Club Fair + Nap + Coffee = 3+1+2 = 6 units, enjoyment 5+1+3 = **9**
-- Club Fair + Gallery = 3+4 = 7 units - over budget, invalid
-
-**Maximum enjoyment = 9** (e.g. Gallery + Coffee), found by the DP
-table's standard "include vs. exclude" recurrence, same one used for
-the Tour Planner in Week 11.
-
----
-
-# Practice Q4 - Dynamic Programming II (LCS)
-
-Student A's course sequence: [CS101, MATH201, ENG150, PHYS110].
-Student B's: [MATH201, CS101, PHYS110, ART100]. Find the longest
-common subsequence (shared courses, in the order each student has
-them).
-
----
-
-# Practice A4
-
-Checking length-3 candidates: "MATH201, CS101, PHYS110" needs
-MATH201 before CS101 in **both** sequences - true in B, but false in
-A (CS101 comes first in A). No length-3 common subsequence exists.
-
-Length-2 candidates that work in both orders: **{CS101, PHYS110}** -
-in A, CS101 (pos 1) before PHYS110 (pos 4); in B, CS101 (pos 2)
-before PHYS110 (pos 3). Both consistent.
-
-**LCS length = 2**, e.g. CS101, PHYS110 - that's what CampusNav's
-study-buddy matcher reports these two students share, in order.
-
----
-
-# Practice Q5 - Graph Representation
-
-CampusNav's full campus graph has $V = 50$ (buildings/junctions) and
-$E = 140$ (walkways). Should CampusNav use an adjacency matrix or an
-adjacency list? Justify with space complexity.
-
----
-
-# Practice A5
-
-- Adjacency **matrix**: $O(V^2) = 50^2 = 2{,}500$ cells, regardless
-  of how many walkways actually exist.
-- Adjacency **list**: $O(V + E) = 50 + 140 = 190$ entries total.
-
-The graph is sparse - 140 actual edges against up to $\binom{50}{2} =
-1{,}225$ possible undirected pairs, roughly 11% density. **Adjacency
-list** is the right choice: it uses over 10× less space here, and
-listing one vertex's neighbors is still fast - exactly the
-Week 13 decision CampusNav actually made.
-
----
-
-# Practice Q6 - Shortest Path & P/NP
-
-(a) Run Dijkstra by hand from $S$ on: $S{-}A=2$, $S{-}B=5$, $A{-}B=1$,
-$A{-}C=7$, $B{-}C=2$. Find $\delta(S, C)$.
-
-(b) True or False, with a one-sentence justification: "The
-campus-wide scavenger hunt is in P because we already know how to
-solve shortest path efficiently."
-
----
-
-# Practice A6
-
-**(a)** Settle $S$(0). Frontier: $A=2, B=5$. Settle $A$(2); relax
-$A{-}B$: $B = \min(5, 2+1)=3$; relax $A{-}C$: $C=\min(\infty,2+7)=9$.
-Settle $B$(3); relax $B{-}C$: $C=\min(9,3+2)=5$. Settle $C$(5).
-
-$$\delta(S, C) = 5 \quad \text{(path } S{\to}A{\to}B{\to}C\text{)}$$
-
-**(b) False.** Shortest path solves "cheapest route between two
-fixed points" - a single-destination problem. The scavenger hunt adds
-a "visit every location exactly once" constraint, which is a
-fundamentally different (Hamiltonian-path/TSP-shaped) problem;
-solving one does not give an efficient algorithm for the other.
-
----
-
-<!-- NEW: Practice Q7, BFS/DFS - restores graph traversal to the final-exam practice set -->
-
-# Practice Q7 - Graph Traversal (BFS/DFS)
-
-Using CampusNav's 6-node campus graph and its adjacency list
-(`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`), trace
-BFS starting from the Gate. List the visit order, and state how many
-"hops" (edges) the Cafeteria is from the Gate.
-
----
-
-# Practice A7
-
-Queue trace: enqueue G. Dequeue G, enqueue L, D. Dequeue L, enqueue C,
-Y (G already visited). Dequeue D - both neighbors already
-visited/enqueued. Dequeue C, enqueue F (L already visited). Dequeue Y
-- all neighbors already visited/enqueued. Dequeue F - done.
-
-**Visit order: G, L, D, C, Y, F.**
-
-Layer by layer: G is 0 hops; L and D are 1 hop (direct neighbors of
-G); C and Y are 2 hops (first reached via L); F is first reached via
-C, so **Cafeteria is 3 hops from the Gate** - exactly what BFS's
-layer-by-layer order is built to answer.
+<div class="driving-q">Full worked practice set (Weeks 9-14): see next week's Week 15 final review.</div>
 
 ---
 
@@ -1212,8 +1008,8 @@ all** an open question - P vs. NP is unsolved, not just unsolved *by
 us*. There is no Week 16 to answer it. **Week 15 is the Final Exam**,
 covering everything from Weeks 9-14: divide-and-conquer, greedy
 algorithms, dynamic programming (twice), graph representation, and
-this week's shortest path and P/NP material - exactly the seven
-practice questions you just worked through.
+this week's shortest path and P/NP material - with a full worked
+practice set waiting for you there.
 
 ---
 
@@ -1233,8 +1029,8 @@ practice questions you just worked through.
   campus, two very different kinds of problem.
 - **Reading:** CLRS, Chapter 22 (Shortest Paths) and Chapter 34
   (NP-Completeness, skim).
-- **Prepare:** rework all seven final-exam practice questions without
-  looking at the answers first. Bring questions to Week 15.
+- **Prepare:** work through Week 15's full practice set (seven
+  questions, Weeks 9-14) without looking at the answers first.
 
 ---
 

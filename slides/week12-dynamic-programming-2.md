@@ -75,19 +75,6 @@ Do not say "subsequence" yet. Let them describe it as "skipping a letter and sti
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
-
-# Key Words Today
-
-- **Sequence:** an ordered list of items - letters, course codes, anything where position matters.
-- **Subsequence:** a sequence built by deleting zero or more items from another, *without* reordering what's left.
-- **Substring:** a subsequence whose kept items are also *contiguous* - no deletions allowed in the middle.
-- **Common subsequence:** a sequence that is a subsequence of two (or more) different sequences at once.
-
-<!-- notes: Read each term aloud once. Say: "Watch that third one closely - today's whole topic hinges on the difference between rows two and three." -->
-
----
-
 <!-- SLOT 4: The pain (Act 1 / MOTIVATE), zero jargon -->
 
 # CampusNav Can't Find Study Buddies
@@ -186,6 +173,19 @@ programming questions in technical interviews.
 
 LCS is dynamic programming's second and final act this semester -
 the paradigm applied to *two* sequences at once instead of one.
+
+---
+
+<!-- NEW: Key Words Today, session 1 (moved after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
+
+# Key Words Today
+
+- **Sequence:** an ordered list of items - letters, course codes, anything where position matters.
+- **Subsequence:** a sequence built by deleting zero or more items from another, *without* reordering what's left.
+- **Substring:** a subsequence whose kept items are also *contiguous* - no deletions allowed in the middle.
+- **Common subsequence:** a sequence that is a subsequence of two (or more) different sequences at once.
+
+<!-- notes: Read each term aloud once. Say: "Watch that third one closely - today's whole topic hinges on the difference between rows two and three." -->
 
 ---
 

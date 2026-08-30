@@ -87,24 +87,6 @@ Do not name "dynamic programming" yet.
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
-
-# Key Words Today
-
-- **Dynamic programming:** solving a big problem by solving each
-  distinct smaller version of it exactly once, and reusing that
-  answer every time it's needed again.
-- **Optimal substructure:** the best overall answer is built from the
-  best answers to its own smaller pieces (shared with greedy, Week 10).
-- **Overlapping subproblems:** the same smaller sub-question shows up
-  over and over again inside the bigger one (formalized today).
-- **Memoization / tabulation:** two different bookkeeping styles for
-  never solving the same sub-question twice (formalized today).
-
-<!-- notes: Read each term aloud once. Say these four words are today's whole vocabulary, formalized one at a time. -->
-
----
-
 <!-- SLOT 4: The pain (Act 1 / MOTIVATE), zero jargon -->
 
 # The Tour Planner Picks Badly
@@ -226,6 +208,24 @@ check. A real campus has a lot more than 20 nearby things to do.
 4. Explain why last week's greedy rule fails on Tour Planner-shaped
    problems, and connect DP's fix to Week 4's exponential recursion
    blow-up.
+
+---
+
+<!-- NEW: Key Words Today, session 1 (moved after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
+
+# Key Words Today
+
+- **Dynamic programming:** solving a big problem by solving each
+  distinct smaller version of it exactly once, and reusing that
+  answer every time it's needed again.
+- **Optimal substructure:** the best overall answer is built from the
+  best answers to its own smaller pieces (shared with greedy, Week 10).
+- **Overlapping subproblems:** the same smaller sub-question shows up
+  over and over again inside the bigger one (formalized today).
+- **Memoization / tabulation:** two different bookkeeping styles for
+  never solving the same sub-question twice (formalized today).
+
+<!-- notes: Read each term aloud once. Say these four words are today's whole vocabulary, formalized one at a time. -->
 
 ---
 

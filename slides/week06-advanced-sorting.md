@@ -345,8 +345,14 @@ MERGE-SORT(A, p, r):
 
 - **Base case:** `p >= r` means the subarray has 0 or 1 elements -
   already sorted, nothing to do.
-- **Initial call:** `MERGE-SORT(A, 1, n)` sorts the whole array
-  (CLRS's 1-indexed convention).
+- **Initial call:** `MERGE-SORT(A, 1, n)` sorts the whole array.
+
+<div class="pain">
+<strong>Index convention switch, starting here:</strong> this slide
+through Quicksort, Lomuto, and Hoare below uses CLRS's
+<strong>1-based</strong> indexing (`A[1]` is the first element) - not
+the 0-based indexing used so far. Back to 0-based next week.
+</div>
 
 ---
 

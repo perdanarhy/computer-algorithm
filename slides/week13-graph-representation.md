@@ -84,19 +84,6 @@ notes: Give 30 seconds to think, alone. Ask aloud for suggestions: some students
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
-
-# Key Words Today
-
-- **Graph:** informally, a set of "things" and the connections between them.
-- **Vertex (node):** one of the things in a graph - e.g., a building.
-- **Edge:** a connection between two vertices - e.g., a walkway.
-- **Directed / undirected:** whether a connection only goes one way, or both.
-
-<!-- notes: Read each term aloud once. Say these get a precise definition later this session. -->
-
----
-
 <!-- SLOT 4: The pain (Act 1 / MOTIVATE), zero jargon -->
 
 # "Get Directions" Doesn't Exist
@@ -204,6 +191,19 @@ career-relevant mistake.
 2. Build both an adjacency matrix and an adjacency list for the same graph, by hand.
 3. Compare the space and time trade-offs of each representation, and justify a choice for a large, sparse real-world graph.
 4. Trace breadth-first and depth-first search by hand, and state why both run in O(V + E).
+
+---
+
+<!-- NEW: Key Words Today, session 1 (moved after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
+
+# Key Words Today
+
+- **Graph:** informally, a set of "things" and the connections between them.
+- **Vertex (node):** one of the things in a graph - e.g., a building.
+- **Edge:** a connection between two vertices - e.g., a walkway.
+- **Directed / undirected:** whether a connection only goes one way, or both.
+
+<!-- notes: Read each term aloud once. Say these get a precise definition later this session. -->
 
 ---
 

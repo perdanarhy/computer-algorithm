@@ -254,7 +254,8 @@ worked" was never enough, for anyone, including professionals.
 > algorithm decides whether the target occurs in $A$ and, if so,
 > returns its index.
 
-**Linear search** - no sorting required, checks one entry at a time:
+**Linear search** - no sorting required, checks one entry at a time
+*(0-based indexing resumes here, after last week's 1-based exception)*:
 
 ```text
 LINEAR-SEARCH(A, target):

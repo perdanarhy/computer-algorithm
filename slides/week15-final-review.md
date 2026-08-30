@@ -68,7 +68,7 @@ close the loop." Keep the tone warm, not just administrative.
 # Before the Exam
 
 - **Coverage:** Weeks 9-14 - Divide & Conquer through Shortest Path, including the P vs. NP sidebar. Weeks 1-7/Midterm material is not retested directly, but the reasoning it built (correctness, complexity) is assumed throughout.
-- **Format:** written questions and short derivations, in the same style as this semester's assignments and worksheets.
+- **Format:** same style as the midterm - a mix of short-answer, trace-by-hand, and proof-sketch questions, written in the same style as this semester's assignments and worksheets, worth 25% of the final grade.
 - **Materials policy:** per the instructor's announcement for this exam - check the course announcement before exam day for exactly what's allowed.
 - **Assignment 4** (Dynamic Programming & Graphs) is due **before** the exam, not during it.
 - **Accommodations:** if you need any testing accommodation, arrange it with the instructor in advance - not on exam day itself.
@@ -91,24 +91,26 @@ close the loop." Keep the tone warm, not just administrative.
 
 ---
 
-<!-- Review Question 1 - Week 9, D&C / Master Theorem -->
+<!-- Review Question 1 - Week 9, D&C / Master Theorem (moved from Week 14's final-exam-blueprint block per SPINE decongestion pass) -->
 
 # Review Question 1
 
-CampusNav's D&C "best free-time block" feature splits the day in half,
-recurses on each half, and spends $O(n)$ work combining the two halves'
-answers.
-
-1. Write its recurrence.
-2. Solve it with the Master theorem - what's the running time, and which case applies?
+CampusNav's multi-stop tour recursion has recurrence
+$T(n) = 2T(n/2) + O(n)$. Use the Master theorem to find $T(n)$'s
+growth rate.
 
 ---
 
 # Answer 1
 
-- Recurrence: $T(n) = 2T(n/2) + O(n)$.
-- Compare $f(n) = O(n)$ against $n^{\log_b a} = n^{\log_2 2} = n^1$ - they match in order, so this is **Master theorem case 2**.
-- Running time: $T(n) = O(n \log n)$.
+Master theorem form $T(n) = aT(n/b) + f(n)$ with $a=2$, $b=2$,
+$f(n) = O(n)$.
+
+$n^{\log_b a} = n^{\log_2 2} = n^1 = n$, which matches $f(n) = \Theta(n)$ -
+this is **Case 2** (the split-work and combine-work grow at the
+same rate).
+
+$$T(n) = \Theta(n \log n)$$
 
 ---
 
@@ -116,21 +118,24 @@ answers.
 
 # Review Question 2
 
-CampusNav's room-booking scheduler greedily grants the request with the
-earliest finish time, and an exchange argument proves this is always
-optimal. Separately, CampusNav's "campus points" reward uses denominations
-**{1, 3, 4}** and greedily makes change for 6 points.
-
-1. Show that greedy change-making fails here.
-2. Name the property earliest-finish scheduling has that general coin systems don't.
+CampusNav's room-booking scheduler receives these requests for one
+seminar room, as (start, finish): A(1,4), B(3,5), C(0,6), D(5,7),
+E(8,9), F(5,9). Using earliest-finish-time greedy, which requests get
+the room, and how many total bookings?
 
 ---
 
 # Answer 2
 
-- Greedy for 6 points: take 4, then 1, then 1 → **3 coins** (4+1+1).
-- Optimal: 3 + 3 → **2 coins**. Greedy is provably wrong here.
-- Earliest-finish scheduling has an **exchange-argument structure**: any optimal solution can be rearranged, one swap at a time, into the greedy solution without losing value. The {1, 3, 4} denomination set has no such guarantee - this is exactly the misconception "greedy always finds the optimal solution."
+Sort by finish time: A(1,4), B(3,5), C(0,6), D(5,7), F(5,9), E(8,9).
+
+- Pick **A** (1,4) - finish = 4.
+- B(3,5): start 3 < 4 - reject. C(0,6): start 0 < 4 - reject.
+- **D** (5,7): start 5 ≥ 4 - accept, finish = 7.
+- F(5,9): start 5 < 7 - reject.
+- **E** (8,9): start 8 ≥ 7 - accept.
+
+**Result: A, D, E - 3 bookings.**
 
 ---
 
@@ -138,20 +143,26 @@ optimal. Separately, CampusNav's "campus points" reward uses denominations
 
 # Review Question 3
 
-CampusNav's Tour Planner picks activities to maximize total enjoyment
-inside a free block without running late - the same shape as 0/1
-knapsack.
-
-1. Write the recurrence for `dp[i][w]` (best enjoyment using the first `i` activities, time budget `w`).
-2. Why do memoization and tabulation always agree on the answer?
+A free block of 6 (10-minute units) and activities (duration,
+enjoyment): Coffee (2,3), Club Fair (3,5), Quick Nap (1,1), Gallery
+(4,6). Maximize total enjoyment without exceeding 6 units (0/1
+knapsack).
 
 ---
 
 # Answer 3
 
-- `dp[i][w] = dp[i-1][w]` if `duration[i] > w`, else
-  `dp[i][w] = max(dp[i-1][w], enjoyment[i] + dp[i-1][w - duration[i]])`.
-- Memoization (top-down) and tabulation (bottom-up) are **two implementations of the same recurrence** - one fills the table on demand via recursive calls, the other fills it in a fixed order - not two different algorithms. Same subproblems, same answer, same asymptotic cost.
+Total weight available if everything were chosen: 2+3+1+4=10 (over
+budget), so some subset must be dropped. Checking combinations that
+fit within capacity 6:
+
+- Gallery + Coffee = 4+2 = 6 units, enjoyment 6+3 = **9**
+- Club Fair + Nap + Coffee = 3+1+2 = 6 units, enjoyment 5+1+3 = **9**
+- Club Fair + Gallery = 3+4 = 7 units - over budget, invalid
+
+**Maximum enjoyment = 9** (e.g. Gallery + Coffee), found by the DP
+table's standard "include vs. exclude" recurrence, same one used for
+the Tour Planner in Week 11.
 
 ---
 
@@ -159,22 +170,25 @@ knapsack.
 
 # Review Question 4
 
-Two students' course-code sequences, for the study-buddy matcher:
-
-`X = [CS1, DB1, ALG1]`
-`Y = [DB1, ALG1, NET1]`
-
-1. Write the LCS recurrence.
-2. Find the longest common subsequence by hand.
+Student A's course sequence: [CS101, MATH201, ENG150, PHYS110].
+Student B's: [MATH201, CS101, PHYS110, ART100]. Find the longest
+common subsequence (shared courses, in the order each student has
+them).
 
 ---
 
 # Answer 4
 
-- Recurrence: if `X[i] == Y[j]`, `dp[i][j] = dp[i-1][j-1] + 1`;
-  otherwise `dp[i][j] = max(dp[i-1][j], dp[i][j-1])`.
-- `DB1` and `ALG1` appear, in order, in both sequences; `CS1` and `NET1` don't line up.
-- **LCS = [DB1, ALG1]**, length 2 - the two students share a real, orderable course history, which is exactly what the matcher needs.
+Checking length-3 candidates: "MATH201, CS101, PHYS110" needs
+MATH201 before CS101 in **both** sequences - true in B, but false in
+A (CS101 comes first in A). No length-3 common subsequence exists.
+
+Length-2 candidates that work in both orders: **{CS101, PHYS110}** -
+in A, CS101 (pos 1) before PHYS110 (pos 4); in B, CS101 (pos 2)
+before PHYS110 (pos 3). Both consistent.
+
+**LCS length = 2**, e.g. CS101, PHYS110 - that's what CampusNav's
+study-buddy matcher reports these two students share, in order.
 
 ---
 
@@ -182,39 +196,79 @@ Two students' course-code sequences, for the study-buddy matcher:
 
 # Review Question 5
 
-CampusNav's campus graph has 8 buildings and 10 walkways - sparse, like a
-real campus. A teammate proposes an adjacency **matrix** "for simplicity."
-
-Is that a good default here? Justify with space complexity.
+CampusNav's full campus graph has $V = 50$ (buildings/junctions) and
+$E = 140$ (walkways). Should CampusNav use an adjacency matrix or an
+adjacency list? Justify with space complexity.
 
 ---
 
 # Answer 5
 
-- An adjacency matrix costs $O(V^2)$ space regardless of how many edges actually exist: $8^2 = 64$ cells to represent 10 real walkways - mostly wasted, mostly zeros.
-- An adjacency list costs $O(V + E)$: about 18 entries for the same graph.
-- For a sparse graph, the list wins on space (and on iterating a node's neighbors). A matrix only pays off for dense graphs or when $O(1)$ edge-existence queries matter more than memory - "adjacency matrix is always fine" is the misconception, not the rule.
+- Adjacency **matrix**: $O(V^2) = 50^2 = 2{,}500$ cells, regardless
+  of how many walkways actually exist.
+- Adjacency **list**: $O(V + E) = 50 + 140 = 190$ entries total.
+
+The graph is sparse - 140 actual edges against up to $\binom{50}{2} =
+1{,}225$ possible undirected pairs, roughly 11% density. **Adjacency
+list** is the right choice: it uses over 10× less space here, and
+listing one vertex's neighbors is still fast - exactly the
+Week 13 decision CampusNav actually made.
 
 ---
 
-<!-- Review Question 6 - Week 14, Shortest Path + P vs. NP -->
+<!-- Review Question 6 - Week 14, Shortest Path & P/NP -->
 
 # Review Question 6
 
-CampusNav adds a "covered-walkway credit": a negative-weight edge that
-rewards a rainy-day shortcut. Dijkstra starts returning wrong shortest
-paths.
+(a) Run Dijkstra by hand from $S$ on: $S{-}A=2$, $S{-}B=5$, $A{-}B=1$,
+$A{-}C=7$, $B{-}C=2$. Find $\delta(S, C)$.
 
-1. Why does Dijkstra break with a negative edge, and what algorithm fixes it?
-2. Separately: why is "visit every building exactly once" (the scavenger hunt) a fundamentally *different kind* of problem from shortest path, even though both are about paths on the same graph?
+(b) True or False, with a one-sentence justification: "The
+campus-wide scavenger hunt is in P because we already know how to
+solve shortest path efficiently."
 
 ---
 
 # Answer 6
 
-- Dijkstra finalizes each node's distance the moment it's popped as the current minimum, assuming no later edge could ever improve it. A **negative edge encountered later can retroactively beat an already-"settled" distance** - the assumption breaks, and the algorithm returns a wrong (too-high) answer without any error.
-- **Bellman-Ford** fixes this by relaxing every edge $V-1$ times, allowing distances to keep improving until they're correct (as long as there's no negative cycle).
-- Shortest path is in **P**: a known polynomial-time algorithm exists. The scavenger-hunt route is Hamiltonian-path-shaped - no known polynomial-time algorithm exists, though a *proposed* route can be **verified** in polynomial time. That verifiable-vs-solvable gap is precisely what P vs. NP asks - not "NP means it can't be solved in polynomial time," which is the common misconception.
+**(a)** Settle $S$(0). Frontier: $A=2, B=5$. Settle $A$(2); relax
+$A{-}B$: $B = \min(5, 2+1)=3$; relax $A{-}C$: $C=\min(\infty,2+7)=9$.
+Settle $B$(3); relax $B{-}C$: $C=\min(9,3+2)=5$. Settle $C$(5).
+
+$$\delta(S, C) = 5 \quad \text{(path } S{\to}A{\to}B{\to}C\text{)}$$
+
+**(b) False.** Shortest path solves "cheapest route between two
+fixed points" - a single-destination problem. The scavenger hunt adds
+a "visit every location exactly once" constraint, which is a
+fundamentally different (Hamiltonian-path/TSP-shaped) problem;
+solving one does not give an efficient algorithm for the other.
+
+---
+
+<!-- Review Question 7 - Week 13, Graph Traversal (BFS/DFS) -->
+
+# Review Question 7
+
+Using CampusNav's 6-node campus graph and its adjacency list
+(`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`), trace
+BFS starting from the Gate. List the visit order, and state how many
+"hops" (edges) the Cafeteria is from the Gate.
+
+---
+
+# Answer 7
+
+Queue trace: enqueue G. Dequeue G, enqueue L, D. Dequeue L, enqueue C,
+Y (G already visited). Dequeue D - both neighbors already
+visited/enqueued. Dequeue C, enqueue F (L already visited). Dequeue Y
+- all neighbors already visited/enqueued. Dequeue F - done.
+
+**Visit order: G, L, D, C, Y, F.**
+
+Layer by layer: G is 0 hops; L and D are 1 hop (direct neighbors of
+G); C and Y are 2 hops (first reached via L); F is first reached via
+C, so **Cafeteria is 3 hops from the Gate** - exactly what BFS's
+layer-by-layer order is built to answer.
 
 ---
 
