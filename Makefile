@@ -15,9 +15,10 @@ pdf:
 html:
 	$(MARP) -I $(SLIDES) --theme-set $(THEME) --html --allow-local-files -o $(OUT)
 
-## Render every deck in slides/ to PowerPoint, in dist/.
+## Render every deck in slides/ to PowerPoint, one deck at a time with a
+## per-deck timeout (PPTX_TIMEOUT_SECONDS, default 300), in dist/.
 pptx:
-	$(MARP) -I $(SLIDES) --theme-set $(THEME) --html --pptx --allow-local-files -o $(OUT)
+	node scripts/build-pptx.js $(OUT)
 
 ## Build materials/**/*.md (handouts, worksheets, quizzes, assignments) to dist/materials/.
 materials:
