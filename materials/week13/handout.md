@@ -22,11 +22,15 @@ answers.
 | **Degree** | How many edges touch a vertex. |
 | **Adjacent** | Two vertices directly connected by an edge. |
 | **Path** | A sequence of edges connecting one vertex to another. |
+| **Cycle** | A path that starts and ends at the *same* vertex. |
 | **Sparse graph** | A graph with close to the fewest possible edges relative to its vertex count - most real-world networks (roads, campuses, social graphs). |
 | **Dense graph** | A graph with close to the maximum possible edges - most pairs of vertices are connected. |
 | **Adjacency matrix** | A $\lvert V \rvert \times \lvert V \rvert$ grid; cell $(i, j)$ holds the weight of edge $(i, j)$, or a marker for "no edge." |
 | **Adjacency list** | One list per vertex, holding only its actual neighbors (and their edge weights, if weighted). |
 | **Traversal** | Systematically visiting every vertex reachable from a starting vertex. |
+| **Queue** | A FIFO (first-in-first-out) structure: `enqueue` adds to the back, `dequeue` removes from the front. What BFS uses to decide what to visit next. |
+| **Stack** | A LIFO (last-in-first-out) structure: `push` adds to the top, `pop` removes from the top. The same structure driving recursive calls (Week 4's call stack); what DFS uses, explicitly or via recursion. |
+| **Priority queue** | An ADT where each element carries a priority; `insert` adds an element, `extract-min` removes and returns the smallest-priority element. A binary heap implements one with $O(\log n)$ `insert` and `extract-min` - the tool Week 14's Dijkstra uses. |
 | **BFS (breadth-first search)** | Traversal using a queue; visits vertices in layers by distance (edge count) from the start. |
 | **DFS (depth-first search)** | Traversal using a stack (or recursion); plunges as deep as possible down one path before backtracking. |
 | **Connectivity** | Whether every vertex can be reached from a given start vertex. |

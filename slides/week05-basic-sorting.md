@@ -371,6 +371,8 @@ early, and we know the array is sorted without checking further.
 
 # Bubble Sort: Cost and Stability
 
+<div class="thread">Average case: the expected cost over a "typical," randomly-ordered input - not the worst case (an adversarial input) or the best case (already sorted).</div>
+
 | | |
 |---|---|
 | Worst case | $O(n^2)$ - reverse-sorted input, every pair swaps every pass |

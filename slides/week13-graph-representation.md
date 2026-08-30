@@ -286,6 +286,7 @@ one-way, unweighted graphs too (e.g., "who follows whom" online).
 - **Degree:** how many edges touch a vertex - e.g., the Library's degree is how many walkways lead to it.
 - **Adjacent:** two vertices connected directly by an edge.
 - **Path:** a sequence of edges connecting one vertex to another.
+- **Cycle:** a path that starts and ends at the *same* vertex - relevant later in this deck, and central to Week 14's negative-cycle discussion.
 - **Sparse / dense:** whether a graph has close to the fewest possible edges (sparse) or close to the most possible (dense) - today's whole argument hinges on this.
 
 <!-- notes: Read each term aloud. Say "sparse vs. dense" returns in about ten minutes with real numbers. -->
@@ -509,7 +510,68 @@ After 15 minutes, ask one pair to read their adjacency list aloud and check it a
 - **Stack (or recursion):** a last-in-first-out structure - what DFS uses instead.
 - **Connectivity:** whether every vertex can be reached from a given start vertex.
 
-<!-- notes: Read each term aloud. Say these four words are about to appear in real pseudocode. -->
+<!-- notes: Read each term aloud. Say these four words get a proper definition, not just a name-drop, on the next two slides. -->
+
+---
+
+<!-- NEW: queue/stack mini-lesson, properly defining the two ADTs BFS/DFS lean on -->
+
+# Two Data Structures: Queue and Stack
+
+<div class="thread">Not new algorithms - two ways of ordering "what to do next," each with exactly two operations.</div>
+
+**Queue - FIFO (first in, first out).** Operations: `enqueue` (add to
+the back), `dequeue` (remove from the front).
+
+| Operation | Queue (front &rarr; back) |
+|---|---|
+| enqueue A | [A] |
+| enqueue B | [A, B] |
+| dequeue &rarr; returns A | [B] |
+
+BFS uses a queue: the first vertex found is the first one explored
+further.
+
+---
+
+# Stack: The Second Data Structure
+
+<div class="thread">Same idea, opposite end.</div>
+
+**Stack - LIFO (last in, first out).** Operations: `push` (add to the
+top), `pop` (remove from the top).
+
+| Operation | Stack (bottom &rarr; top) |
+|---|---|
+| push A | [A] |
+| push B | [A, B] |
+| pop &rarr; returns B | [A] |
+
+<div class="why">
+Stack isn't a new idea: it's the exact same LIFO structure driving
+recursive calls, from Week 4's call stack. DFS via recursion <em>is</em>
+using a stack - just an implicit one.
+</div>
+
+---
+
+<!-- NEW: priority queue, a third ADT, stated as a tool not proven here -->
+
+# A Third ADT: Priority Queue
+
+<div class="thread">Not used until Week 14 - introduced now so the name isn't new when Dijkstra needs it.</div>
+
+A **priority queue** holds elements each tagged with a priority (for
+Dijkstra, a distance). Two operations: `insert` (add an element with
+its priority), `extract-min` (remove and return the element with the
+smallest priority).
+
+<div class="why">
+Given fact, not proven here: a <strong>binary heap</strong> implements a
+priority queue with $O(\log n)$ <code>insert</code> and $O(\log n)$
+<code>extract-min</code>. Treat this as a tool this course hands you for
+Week 14's Dijkstra, not something to build or prove from scratch.
+</div>
 
 ---
 

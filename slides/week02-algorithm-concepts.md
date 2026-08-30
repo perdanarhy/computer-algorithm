@@ -260,6 +260,38 @@ A procedure that fails even one of these is not an algorithm - it's a suggestion
 
 ---
 
+<!-- NEW: pseudocode conventions, continued (1 of 2) -->
+
+# Pseudocode Conventions, Continued
+
+<div class="thread">Five more rules before we can read anything on the next few slides.</div>
+
+<div class="steps">
+<div class="step-row"><div class="step-num">6</div><div class="step-text"><code>=</code> means <strong>assignment</strong> (store a value); <code>==</code> and <code>!=</code> mean <strong>comparison</strong> (a true/false test) - never confuse them: <code>x = 5</code> sets <code>x</code> to 5, <code>x == 5</code> asks whether it already is.</div></div>
+<div class="step-row"><div class="step-num">7</div><div class="step-text"><code>if condition:</code> followed by an indented block is everything that runs when the condition is true - indentation alone marks a block's extent, no closing keyword needed.</div></div>
+<div class="step-row"><div class="step-num">8</div><div class="step-text"><code>while condition:</code> repeats its indented block as long as the condition holds. Use <code>while</code> when the number of passes isn't known in advance; use <code>for</code> when it is.</div></div>
+<div class="step-row"><div class="step-num">9</div><div class="step-text"><code>return value</code> ends the function immediately and hands <code>value</code> back to whoever called it.</div></div>
+<div class="step-row"><div class="step-num">10</div><div class="step-text"><code>mod</code> (modulo) is the remainder after division: <code>17 mod 5 = 2</code>, because $17 = 3 \times 5 + 2$. We lean on it constantly starting with GCD, a few slides from here.</div></div>
+</div>
+
+---
+
+<!-- NEW: pseudocode conventions, continued (2 of 2) -->
+
+# Pseudocode Conventions, Continued (2)
+
+<div class="thread">The rest of this semester's vocabulary, in one more pass.</div>
+
+<div class="steps">
+<div class="step-row"><div class="step-num">11</div><div class="step-text"><code>swap A[i] and A[j]</code> exchanges their two values. What happens under the hood (usually a temporary variable) never matters for reading pseudocode - only that both values trade places.</div></div>
+<div class="step-row"><div class="step-num">12</div><div class="step-text">Boolean conditions combine with <code>and</code>, <code>or</code>, <code>not</code>. <code>and</code>/<code>or</code> evaluate left to right, so <code>i &lt; length(A) and A[i] == target</code> is safe - the length check runs first and can block the unsafe index read before it happens.</div></div>
+<div class="step-row"><div class="step-num">13</div><div class="step-text"><code>break</code> exits the nearest enclosing loop immediately, skipping any remaining passes.</div></div>
+<div class="step-row"><div class="step-num">14</div><div class="step-text"><code>A[lo..hi]</code> means the subarray from index <code>lo</code> to index <code>hi</code>, <strong>inclusive</strong> of both ends.</div></div>
+<div class="step-row"><div class="step-num">15</div><div class="step-text">A <strong>record</strong> (or struct) groups named fields together; <code>someRecord.field</code> reads one of them - <code>directory[i].room</code>, a few slides from here, is exactly this.</div></div>
+</div>
+
+---
+
 # Flowchart Conventions
 
 <div class="thread">Same rules, drawn instead of written.</div>

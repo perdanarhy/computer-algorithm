@@ -429,6 +429,8 @@ FIND-CROSSING(A, low, mid, high):
     return (start, end, best-left + best-right)
 ```
 
+<div class="thread"><code>downto</code> counts a <code>for</code> loop down instead of up (Week 2's reference card). The <code>return (...)</code> on the last line hands back three values in one tuple - also previewed in Week 2, unpacked the same way a caller would write <code>(a, b, c) = FIND-CROSSING(...)</code>.</div>
+
 ---
 
 # Trace: Divide the Array
@@ -573,12 +575,40 @@ $a^n$ by squaring.
 
 <div class="thread">Same trick as fast exponentiation, applied to a counting recurrence.</div>
 
-A pair of identities lets you jump from $\text{ways}(k)$
-straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$ in $O(1)$ arithmetic:
+A pair of doubling identities lets you jump from $\text{ways}(k)$ and
+$\text{ways}(k-1)$ straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$,
+using each smaller value only once:
+
+$$
+\text{ways}(2k) = \text{ways}(k)^2 + \text{ways}(k-1)^2
+$$
+
+$$
+\text{ways}(2k+1) = \text{ways}(k)^2 + 2 \cdot \text{ways}(k) \cdot \text{ways}(k-1)
+$$
+
+Each identity does $O(1)$ arithmetic on two already-known values, so
+computing the pair $(\text{ways}(k), \text{ways}(k-1))$ from
+$(\text{ways}(k/2), \text{ways}(k/2 - 1))$ - halving $k$ each time - gives:
 
 $$
 T(n) = T(n/2) + O(1) = \Theta(\log n)
 $$
+
+---
+
+# Checking the Identities on Small Numbers
+
+<div class="thread">Plug in $k=2$ and compare against the values traced directly.</div>
+
+Directly: $\text{ways}(0){=}1$, $\text{ways}(1){=}1$, $\text{ways}(2){=}2$,
+$\text{ways}(3){=}3$, $\text{ways}(4){=}5$, $\text{ways}(5){=}8$.
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">$k=2$: $\text{ways}(k){=}2$, $\text{ways}(k-1){=}1$.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">$\text{ways}(4) = \text{ways}(2k) = 2^2 + 1^2 = 4 + 1 = 5$ - matches the direct value.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">$\text{ways}(5) = \text{ways}(2k+1) = 2^2 + 2 \cdot 2 \cdot 1 = 4 + 4 = 8$ - matches too.</div></div>
+</div>
 
 ---
 

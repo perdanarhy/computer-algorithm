@@ -75,6 +75,51 @@ tree finite at all.
 
 ---
 
+## Part 2b: A Clean Induction Example, Before the Real Thing
+
+Before applying induction to a recurrence (harder, because the formula
+involves $T$ calling itself), it helps to see induction proved once on
+something simpler and completely non-algorithmic.
+
+**Claim:** for every integer $n \ge 1$,
+
+$$
+1 + 2 + \cdots + n = \frac{n(n+1)}{2}
+$$
+
+**Base case ($n = 1$):** the left side is just $1$. The right side is
+$\frac{1 \cdot 2}{2} = 1$. Equal - the base case holds.
+
+**Inductive hypothesis:** assume the claim is true for some $n$, i.e.
+assume $1 + 2 + \cdots + n = \frac{n(n+1)}{2}$.
+
+**Inductive step:** show the claim then holds for $n + 1$ too:
+
+$$
+1 + 2 + \cdots + n + (n+1) = \frac{n(n+1)}{2} + (n+1)
+$$
+
+using the inductive hypothesis to replace $1 + 2 + \cdots + n$ with
+$\frac{n(n+1)}{2}$. Simplify the right side:
+
+$$
+\frac{n(n+1)}{2} + (n+1) = \frac{n(n+1) + 2(n+1)}{2} = \frac{(n+1)(n+2)}{2}
+$$
+
+which is exactly the claimed formula with $n+1$ in place of $n$. The
+inductive step holds.
+
+**Conclusion:** base case + inductive step together prove the formula
+true for every $n \ge 1$. **QED.**
+
+This is the same two-part shape (base case, inductive step) the
+substitution-method proof in Part 3 uses - the only difference is that
+Part 3's inductive hypothesis is a statement about a recurrence, $T(n)$,
+instead of a sum. Getting comfortable with the shape here first, on
+plain arithmetic, makes the recurrence version far less mysterious.
+
+---
+
 ## Part 3: The Substitution Method, Fully Proven
 
 **Claim:** for the recurrence $T(n) = T(n-1) + d$ (constant work $d$

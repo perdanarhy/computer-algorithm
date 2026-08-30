@@ -334,6 +334,8 @@ Goal: grant the room to the **maximum number** of non-overlapping requests.
 
 # The Greedy Rule: Earliest Finish Time
 
+<div class="thread"><code>{}</code> is the empty set; <code>add r to granted</code> inserts <code>r</code> into it - set notation, previewed back in Week 2's reference card.</div>
+
 ```text
 BOOK_ROOM(requests):
     sort requests by end time, ascending
@@ -349,8 +351,7 @@ BOOK_ROOM(requests):
 - The rule: among whatever requests are still possible, always grant
   the one that **frees up the room soonest**.
 - Why finish time, not start time or duration? Finishing soonest
-  leaves the most room open for everything still to come - the
-  exchange argument, coming up, makes that intuition rigorous.
+  leaves the most room open for everything still to come.
 
 ---
 
@@ -389,7 +390,7 @@ BOOK_ROOM(requests):
 
 # Exchange Argument: Setup
 
-<div class="thread">Assume, for contradiction, that greedy and optimal disagree on the first pick.</div>
+<div class="thread">Assume, for contradiction, that greedy and optimal disagree on the first pick (the contradiction move from Week 7).</div>
 
 <div class="steps">
 <div class="step-row"><div class="step-num">1</div><div class="step-text">Let G be the greedy algorithm's solution, and let O be <em>any</em> optimal solution (one granting the maximum possible number of bookings).</div></div>

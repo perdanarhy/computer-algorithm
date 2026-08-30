@@ -18,6 +18,7 @@ and practice problems with answers.
 | **Pass** | One full sweep of a sorting algorithm's main loop. |
 | **Comparison / swap / shift** | The three basic operations a sort performs: comparing two elements, exchanging two elements' positions, or moving one element over by one slot. |
 | **Loop invariant** | A statement that is true before, during, and after every pass of a loop - used to *prove* an algorithm correct on every input, not just tested ones. |
+| **Average case** | The expected running time over a "typical," randomly-ordered input - distinct from the worst case (an adversarial input built to be as bad as possible) and the best case (already sorted). |
 | **Bubble sort** | Repeatedly swap out-of-order neighbors; the largest unsorted element "bubbles" to the end each pass. |
 | **Selection sort** | Repeatedly find the minimum of the unsorted remainder and swap it into place at the front. |
 | **Insertion sort** | Repeatedly take the next element and slide it left into its correct spot among the already-sorted prefix - how most people sort a hand of cards. |

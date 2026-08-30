@@ -310,8 +310,8 @@ Let $L(i,j)$ = length of the LCS of $X[1..i]$ and $Y[1..j]$.
 - **If $x_i = y_j$:** this matched pair *can always* be the last
   element of *some* LCS of $X[1..i], Y[1..j]$ - if an optimal common
   subsequence didn't already end there, we could append this shared
-  element to it and get a strictly longer one, a contradiction. So
-  $L(i,j) = L(i-1, j-1) + 1$.
+  element to it and get a strictly longer one, a contradiction (the
+  contradiction move from Week 7). So $L(i,j) = L(i-1, j-1) + 1$.
 - **If $x_i \ne y_j$:** the LCS cannot use *both* $x_i$ and $y_j$ as
   its final matched element (they aren't equal, so they can't be the
   *same* matched pair). So the best answer either drops $x_i$ or
@@ -356,7 +356,7 @@ $$
 
 # Worked Example: Filling the Table
 
-<div class="thread">X = "ALGDP", Y = "ALGRDP" - the first few course codes of a real CampusNav pair, see the worked example ahead.</div>
+<div class="thread">X = "ALGDP", Y = "ALGRDP" - the first few course codes of a real CampusNav pair, see the worked example ahead. (ε = the empty prefix, zero characters taken.)</div>
 
 <div class="tracetable">
 <div class="row"><div class="rowlabel"></div><div class="cell empty">ε</div><div class="cell">A</div><div class="cell">L</div><div class="cell">G</div><div class="cell">R</div><div class="cell">D</div><div class="cell">P</div></div>
@@ -407,7 +407,7 @@ Path: (5,6)→(4,5)→**(3,4) detour, R doesn't match**→(3,3)→(2,2)→(1,1).
 
 # Complexity
 
-<div class="thread">Last piece: how much does this cost?</div>
+<div class="thread">Last piece: how much does this cost? (Big-O can take more than one variable - $O(mn)$ tracks two input sizes at once, not just one $n$.)</div>
 
 - **Time: O(mn).** Each of the (m+1)(n+1) cells is filled in O(1) from already-computed neighbors - total work is proportional to the number of cells.
 - **Space: O(mn).** The full table must be kept if you need the traceback (the actual subsequence).

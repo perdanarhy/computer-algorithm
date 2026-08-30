@@ -224,7 +224,8 @@ CampusNav grows. It gets categorically worse.
    array.
 3. Explain why pivot choice - not quicksort itself - determines
    whether it runs in $O(n \log n)$ or collapses to $O(n^2)$, and
-   construct the adversarial input that triggers the worst case.
+   construct the **adversarial input** (an input specifically built to
+   trigger an algorithm's worst case) that triggers the worst case.
 4. Compare merge sort and quicksort on time, space, stability, and
    in-place-ness, and justify which one fits a given constraint.
 
@@ -375,8 +376,9 @@ MERGE(A, p, q, r):
 
 <div class="thread">Two details worth naming before tracing it by hand.</div>
 
-- The sentinel $\infty$ values mean we never need a separate check for
-  "one side ran out" - it just always loses every comparison.
+- The **sentinel** $\infty$ values - placeholder values chosen so they
+  never win a comparison - mean we never need a separate check for
+  "one side ran out"; it just always loses every comparison.
 - `L` and `R` are **brand-new arrays**, copied out of `A` - this is
   exactly where merge sort's extra memory cost comes from.
 
@@ -578,6 +580,8 @@ QUICKSORT(A, low, high):
 ---
 
 # Pseudocode: Hoare Partition
+
+<div class="thread"><code>repeat ... until</code>: runs the body at least once, then repeats until the condition is finally true (checked after the body, not before) - previewed in Week 2's reference card.</div>
 
 ```text
 HOARE-PARTITION(A, low, high):

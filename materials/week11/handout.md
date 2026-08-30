@@ -73,7 +73,7 @@ many times:
 
 At $n = 30$, that's roughly **90,000× more work** for the naive
 version - to compute the exact same number. This is the exact call
-tree Week 4's handout and worksheet had you trace by hand; today's fix
+tree from Week 4's `fib(5)` call tree slide, scaled up; today's fix
 is what makes it usable at real scale.
 
 **Trace snapshot** (tabulation, `table[i] = table[i-1] + table[i-2]`):
@@ -141,7 +141,7 @@ best enjoyment-per-minute option first" found.
 ### Example 3 (brief) - Climbing stairs = Fibonacci in disguise
 
 CampusNav's "20-step shortcut" counter (Week 9's numeric trick; the
-same exploding recursion tree from Week 4's handout and worksheet)
+same exploding recursion tree as Week 4's `fib(5)` call tree slide)
 asks: how many distinct ways to climb
 $n$ steps, 1 or 2 at a time? `ways(n) = ways(n-1) + ways(n-2)`,
 `ways(0) = ways(1) = 1` - literally Fibonacci's recurrence with

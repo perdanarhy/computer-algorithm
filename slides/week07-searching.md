@@ -380,6 +380,26 @@ target sits - versus up to 1,200 for linear search.
 
 ---
 
+# A Quick Primer: Proof by Contradiction
+
+<div class="thread">One of today's proof's own moves, named before we lean on it.</div>
+
+A second proof technique, alongside loop invariants, shows up in a
+moment - it has a simple, three-line shape:
+
+1. **Assume the opposite** of what you want to prove is true.
+2. **Show that assumption leads to something impossible** - a
+   contradiction with a fact you already know.
+3. **Conclude** the original statement must be true after all, since
+   its opposite is impossible.
+
+Tiny non-algorithmic example: *there is no largest integer.* Assume
+there is one, call it $N$. But $N + 1$ is also an integer, and
+$N + 1 > N$ - contradicting "$N$ is the largest." So no largest
+integer exists.
+
+---
+
 # What We're Going to Prove
 
 <div class="thread">Not "it worked on the examples I tried." An actual proof.</div>

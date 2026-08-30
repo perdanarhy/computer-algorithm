@@ -370,21 +370,79 @@ the stronger, more informative claim when it holds.
 
 ---
 
+<!-- NEW: math toolbox (1 of 2), before the growth-rate hierarchy -->
+
+# Math Background You Need Today
+
+<div class="thread">Two building blocks show up in every growth rate from here on. Let's ground them first.</div>
+
+- **Logarithm** ($\log_2 n$): "how many times do you halve $n$ before you
+  reach 1?" $\log_2 8 = 3$, because $8 \to 4 \to 2 \to 1$ takes 3
+  halvings. This is exactly the shape Week 7's binary search runs on -
+  repeatedly cutting a search space in half.
+
+| $n$ | $\log_2 n$ |
+|---|---|
+| 8 | 3 |
+| 16 | 4 |
+| 1,000 | ~10 |
+| 1,000,000 | ~20 |
+
+- Unless stated otherwise, "$\log n$" in this course always means
+  $\log_2 n$ - the base rarely matters for Big-O anyway, since
+  different bases only differ by a constant factor.
+
+---
+
+<!-- NEW: math toolbox (2 of 2) -->
+
+# Math Background, Continued
+
+<div class="thread">One more shape, and two symbols you're about to meet.</div>
+
+- **Factorial** ($n!$): multiply every positive integer up to $n$.
+  $4! = 4 \times 3 \times 2 \times 1 = 24$. It shows up whenever an
+  algorithm considers every possible *ordering* of $n$ items.
+- **$\exists$ ("there exists"):** reads like plain English -
+  "$\exists\, c > 0$" means "there exists some constant $c > 0$" - you
+  only need to produce **one**, not find every one.
+- **$\prec$ ("grows strictly slower than"):** $f(n) \prec g(n)$ means
+  $f$'s growth rate stays strictly below $g$'s once $n$ is large
+  enough - the exact symbol the next slide uses to rank every growth
+  rate in this course.
+
+---
+
 # The Growth-Rate Hierarchy
 
 <div class="thread">Every algorithm this semester lands on this one line, slowest to fastest.</div>
 
 <span class="bignotation">O(1)</span> &#8826;
 <span class="bignotation">O(log n)</span> &#8826;
+<span class="bignotation">O(&radic;n)</span> &#8826;
 <span class="bignotation">O(n)</span> &#8826;
 <span class="bignotation">O(n log n)</span> &#8826;
+<span class="bignotation">O(n$^{1.5}$)</span> &#8826;
 <span class="bignotation">O(n&sup2;)</span> &#8826;
 <span class="bignotation">O(n&sup3;)</span> &#8826;
 <span class="bignotation">O(2&#8319;)</span> &#8826;
 <span class="bignotation">O(n!)</span>
 
-- **Polynomial** ($O(1)$ through $O(n^3)$ and beyond): considered *tractable* - cost grows, but manageably.
-- **Exponential and factorial** ($O(2^n)$, $O(n!)$): considered *intractable* at any real scale - the next two slides show exactly why.
+- **Polynomial** ($O(1)$ through $O(n^3)$ and beyond): *tractable* - cost grows, but manageably.
+- **Exponential and factorial** ($O(2^n)$, $O(n!)$): *intractable* at any real scale - shown next.
+
+---
+
+# Where Do $\sqrt{n}$ and $n^{1.5}$ Fit?
+
+<div class="thread">Two growth rates from the hierarchy above, placed precisely.</div>
+
+- $\sqrt{n}$ grows slower than $n$ - it's the halfway point between
+  $O(1)$ and $O(n)$ on a log scale.
+- $n^{1.5} = n \cdot \sqrt{n}$ grows faster than $n \log n$ but slower
+  than $n^2$.
+- You'll meet both again: `materials/assignment1.md` asks you to place
+  them in a growth-rate ordering exercise.
 
 ---
 

@@ -26,6 +26,47 @@ reading, and practice problems with answers.
 
 ---
 
+## Part 1b: Pseudocode Reference Card
+
+Everything below is the fixed set of conventions this course's pseudocode
+follows, all semester. Come back to this page whenever a new symbol shows
+up mid-course and you can't remember what it means.
+
+| Construct | Meaning |
+|---|---|
+| One operation per line | No line does two things at once. |
+| `for i = 1 to n` | A loop with an explicit bound, stated up front. |
+| 0-based indexing | Array indices run `0` to `length(A) - 1`. |
+| No vague verbs | "Check," "look," "handle" never appear without saying exactly what operation happens. |
+| `NAME(param1, param2)` | Every function names its input and output on the signature line. |
+| `=` | **Assignment** - store a value: `x = 5` sets `x` to 5. |
+| `==`, `!=` | **Comparison** - a true/false test: `x == 5` asks whether `x` already is 5. |
+| `if condition:` (indented block) | Everything indented under it runs only when the condition is true. Indentation alone marks the block - no closing keyword. |
+| `while condition:` | Repeats its indented block as long as the condition holds. Use it when the number of passes isn't known in advance; use `for` when it is. |
+| `return value` | Ends the function immediately, handing `value` back to the caller. |
+| `mod` | The remainder after division: `17 mod 5 = 2`, because $17 = 3 \times 5 + 2$. Used constantly starting with the GCD example a few pages ahead. |
+| `swap A[i] and A[j]` | Exchanges their two values. How it happens under the hood (usually a temporary variable) never matters for reading pseudocode - only that both values trade places. |
+| `and`, `or`, `not` | Boolean combinators. `and`/`or` evaluate **left to right** - so `i < length(A) and A[i] == target` is safe: the length check runs first and can block the unsafe index read before it happens. |
+| `break` | Exits the nearest enclosing loop immediately, skipping any remaining passes. |
+| `A[lo..hi]` | The subarray from index `lo` to index `hi`, **inclusive** of both ends. |
+| `someRecord.field` | Dot access on a record (or struct) - reads one named field out of a group, e.g. `directory[i].room`. |
+
+### Previewed here, arriving later in the course
+
+These constructs don't appear in pseudocode until later weeks. They're
+listed here so you have one place to look them up the first time you meet
+one - each also gets a short reminder gloss on the slide where it first
+shows up.
+
+| Construct | Meaning | First appears |
+|---|---|---|
+| `repeat ... until condition` | A post-test loop: the body runs *at least once*, then repeats until the condition becomes true (checked *after* the body, not before). | Week 6, Hoare partition |
+| `for i = n downto 1` | A `for` loop that counts *down* instead of up. | Week 9, divide-and-conquer |
+| `(a, b, c) = SOMETHING(...)` | A function returning more than one value at once, unpacked into several variables in one line. | Week 9, max-subarray |
+| `{}`, `add x to S` | Set notation: `{}` is the empty set; `add x to S` inserts `x` into set `S`. | Week 10, greedy scheduling |
+
+---
+
 ## Part 2: The Worked Examples, Step by Step
 
 ### Worked example 1 - Euclid's GCD (a clean, classic case)

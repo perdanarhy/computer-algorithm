@@ -362,6 +362,27 @@ $$
 
 ---
 
+<!-- NEW: induction primer, before the substitution method -->
+
+# A Quick Primer: Mathematical Induction
+
+<div class="thread">Dominoes, not magic - and it's about to become this course's main proof tool.</div>
+
+To prove a statement true for **every** whole number $n$, two steps
+replace checking each $n$ one at a time:
+
+1. **Base case:** true for the smallest $n$ (the first domino falls).
+2. **Inductive step:** if it's true for some $n$, it must also be true
+   for $n+1$ (each falling domino knocks over the next one) - like
+   climbing a staircase, knowing each step leads to the next.
+
+<div class="why">
+This is exactly what the substitution method, next, does: guess the
+closed-form answer, then use induction to prove the guess is right.
+</div>
+
+---
+
 <!-- Act 3 / BUILD: substitution method -->
 
 # Solving Recurrences: Substitution Method
@@ -456,6 +477,45 @@ as recursive and stayed cheap. **`allOrders` explodes because it
 branches into every remaining stop at every level, not because it
 recurses.** Week 11's Dynamic Programming shows how to stop
 re-deriving the same partial answers - the exact fix for this exact explosion.
+
+---
+
+<!-- NEW: naive Fibonacci call tree, makes "re-deriving the same partial answers" concrete -->
+
+# The `fib(5)` Call Tree
+
+<div class="thread">Naive recursive `fib(n) = fib(n-1) + fib(n-2)`, drawn out - the same disease as `allOrders`.</div>
+
+```text
+fib(5)
+├─ fib(4)
+│   ├─ fib(3)
+│   │   ├─ fib(2)
+│   │   │   ├─ fib(1)  [base]
+│   │   │   └─ fib(0)  [base]
+│   │   └─ fib(1)  [base]
+│   └─ fib(2)
+│       ├─ fib(1)  [base]
+│       └─ fib(0)  [base]
+└─ fib(3)
+    ├─ fib(2)
+    │   ├─ fib(1)  [base]
+    │   └─ fib(0)  [base]
+    └─ fib(1)  [base]
+```
+
+---
+
+# The Waste, Counted
+
+<div class="thread">Same tree as the last slide. Now count the repeats.</div>
+
+`fib(3)` gets computed **twice**, `fib(2)` **three** times, `fib(1)`
+**five** times - 15 total calls to answer one number a loop reaches in 5
+additions. Unlike `allOrders`, nothing here branches into ever-more
+choices - the same two smaller subproblems just get asked for, over
+and over. **Week 11** names this *overlapping subproblems* and fixes it
+by storing each distinct answer once.
 
 ---
 

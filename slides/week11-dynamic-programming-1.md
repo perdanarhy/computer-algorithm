@@ -163,7 +163,7 @@ picking choices in the wrong order.
   on the table every single time.
 - Checking every possible combination by hand (or by brute-force
   code) doesn't scale - the same combinatorial explosion Week 4's
-  handout/worksheet Fibonacci call tree showed, and Week 4's
+  `fib(5)` call tree slide showed, and Week 4's
   `allOrders` (counting tour orders) showed again.
 
 <div class="why">
@@ -277,10 +277,10 @@ repeatedly.
 
 # A Motivating Example: The Same Question, Asked Millions of Times
 
-<div class="thread">Back to Week 4's handout and worksheet. Let's actually measure what that recursion tree cost.</div>
+<div class="thread">Back to Week 4's `fib(5)` call tree slide. Let's actually measure what that recursion tree cost.</div>
 
-Recall the naive recursive Fibonacci from Week 4's handout and
-worksheet: `fib(n) = fib(n-1) + fib(n-2)`. Its call tree past $n = 5$
+Recall the naive recursive Fibonacci from Week 4's call tree slide:
+`fib(n) = fib(n-1) + fib(n-2)`. Its call tree past $n = 5$
 has the same smaller calls - `fib(3)`, `fib(2)`, `fib(1)` - reappearing
 over and over, deeper and deeper in the tree.
 
@@ -362,7 +362,7 @@ machinery.
 
 # Condition 2: Overlapping Subproblems - Where Have We Seen This?
 
-<div class="thread">Week 4's handout/worksheet Fibonacci call tree, revisited.</div>
+<div class="thread">Week 4's `fib(5)` call tree slide, revisited.</div>
 
 - **Definition:** the same smaller subproblem recurs many times while
   solving the bigger one.

@@ -19,7 +19,7 @@ problems with answers.
 | **Big-Theta, $\Theta(g(n))$** | A tight bound: $f(n)$ is both $O(g(n))$ and $\Omega(g(n))$ - the growth rate is exactly this shape. |
 | **Constants $c$, $n_0$** | The two values a Big-O proof must exhibit to exist: $c$ scales the comparison function, $n_0$ is the point past which the bound is guaranteed to hold. |
 | **Dominant term** | The single term in a formula that grows fastest as $n \to \infty$ - the only one that survives inside a Big-O bound. |
-| **Growth-rate hierarchy** | The standard order, slowest to fastest: $O(1) \prec O(\log n) \prec O(n) \prec O(n\log n) \prec O(n^2) \prec O(n^3) \prec O(2^n) \prec O(n!)$. |
+| **Growth-rate hierarchy** | The standard order, slowest to fastest: $O(1) \prec O(\log n) \prec O(\sqrt{n}) \prec O(n) \prec O(n\log n) \prec O(n^{1.5}) \prec O(n^2) \prec O(n^3) \prec O(2^n) \prec O(n!)$. |
 | **Polynomial time** | Any growth rate $O(n^k)$ for a fixed constant $k$ - considered *tractable*, however large $k$ is. |
 | **Exponential / factorial time** | Growth rates like $O(2^n)$ or $O(n!)$ - considered *intractable*: they become uncomputable at realistic input sizes. |
 | **Worst case** | The input that makes an algorithm do the most work - Big-O bounds in this course describe the worst case unless stated otherwise. |
@@ -105,6 +105,90 @@ An algorithm that is $O(2^n)$ is not "slow." It is **uncomputable**
 for any input past a fairly small size, no matter how much faster
 computers get. This is why the growth-rate *shape*, not the constant
 factor, is what this entire course trains you to identify.
+
+---
+
+## Part 3b: Math Toolbox
+
+Everything below is background math this course leans on, starting this
+week. None of it is new material to master on its own - it's here so you
+have one place to look a symbol up.
+
+### Logarithms
+
+$\log_b n$ answers: "how many times do I multiply 1 by $b$ to reach $n$?"
+- equivalently, for the base this course uses almost exclusively,
+$\log_2 n$ answers "how many times do I halve $n$ to reach 1?"
+$\log_2 8 = 3$, because $8 \to 4 \to 2 \to 1$ is 3 halvings.
+
+**Change of base**, if you ever need a base other than 2 or 10:
+
+$$
+\log_b(x) = \frac{\log(x)}{\log(b)}
+$$
+
+using any other base's log on the right (calculators usually only offer
+base 10 or base $e$). This is also *why* the base almost never matters
+inside Big-O: switching base only multiplies by a constant factor
+($1/\log(b)$), and Big-O ignores constant factors.
+
+### Factorial
+
+$n!$ multiplies every positive integer up to $n$:
+
+$$
+4! = 4 \times 3 \times 2 \times 1 = 24
+$$
+
+By convention, $0! = 1$ (an empty product). Factorial growth is what
+"try every possible ordering of $n$ items" costs.
+
+### Summation ($\Sigma$) notation
+
+$\sum_{i=1}^{n} f(i)$ means "add up $f(i)$ for every integer $i$ from 1 to
+$n$." Worked example:
+
+$$
+\sum_{i=1}^{4} i = 1 + 2 + 3 + 4 = 10
+$$
+
+You'll see this notation used to total up per-iteration costs across a
+loop - it's just precise notation for "add up this quantity, once per
+pass."
+
+### Floor and ceiling
+
+$\lfloor x \rfloor$ (floor) rounds $x$ **down** to the nearest integer;
+$\lceil x \rceil$ (ceiling) rounds **up**. $\lfloor 4.7 \rfloor = 4$,
+$\lceil 4.2 \rceil = 5$. These show up constantly in this course wherever
+an algorithm splits an array of size $n$ into two halves - $\lfloor n/2
+\rfloor$ and $\lceil n/2 \rceil$ - since array lengths must be whole
+numbers.
+
+### "As $n$ grows" / limit language
+
+Big-O is only a claim about large $n$ - informally, "as $n$ gets very
+large" or "in the limit as $n \to \infty$." A formula can behave oddly
+for small $n$ (that's exactly what the constant $n_0$ in Big-O's formal
+definition is for) and still have a clean, well-defined growth rate once
+$n$ is large enough.
+
+### Inequality algebra for Big-O proofs
+
+Big-O proofs (like the worked proof in Part 2) lean on a small set of
+legal moves for manipulating inequalities:
+
+- You may multiply or divide **both sides** of an inequality by the same
+  **positive** constant or by $n$ (for $n > 0$) without flipping the
+  inequality's direction: if $a \le b$ and $c > 0$, then $ac \le bc$.
+- You may add the same quantity to both sides without flipping direction.
+- Multiplying or dividing by a **negative** number *does* flip the
+  direction - this rarely comes up in this course, since costs and $n$
+  are always non-negative, but it's worth knowing the rule has that
+  exception.
+
+These are exactly the moves used in Part 2's proof: multiplying $1 \le n$
+by $n \ge 0$ to get $n \le n^2$, for instance.
 
 ---
 

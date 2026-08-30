@@ -193,9 +193,29 @@ There is, however, a genuine D&C trick available: instead of dividing
 the *steps*, halve the *step number* itself - the same idea fast
 exponentiation uses to compute $a^n$ in $O(\log n)$ multiplications by
 repeated squaring rather than $n-1$ one-at-a-time multiplications. A
-pair of doubling identities lets you jump from $\text{ways}(k)$ straight
-to $\text{ways}(2k)$ and $\text{ways}(2k+1)$ with a constant amount of
-arithmetic, giving
+pair of doubling identities lets you jump from $\text{ways}(k)$ and
+$\text{ways}(k-1)$ straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$,
+each in a constant amount of arithmetic:
+
+$$
+\text{ways}(2k) = \text{ways}(k)^2 + \text{ways}(k-1)^2
+$$
+
+$$
+\text{ways}(2k+1) = \text{ways}(k)^2 + 2 \cdot \text{ways}(k) \cdot \text{ways}(k-1)
+$$
+
+**Checked on small numbers.** Directly tracing the recurrence gives
+$\text{ways}(0){=}1$, $\text{ways}(1){=}1$, $\text{ways}(2){=}2$,
+$\text{ways}(3){=}3$, $\text{ways}(4){=}5$, $\text{ways}(5){=}8$. Take
+$k=2$, so $\text{ways}(k)=2$ and $\text{ways}(k-1)=1$:
+
+- $\text{ways}(4) = \text{ways}(2k) = 2^2 + 1^2 = 5$ - matches.
+- $\text{ways}(5) = \text{ways}(2k+1) = 2^2 + 2 \cdot 2 \cdot 1 = 8$ - matches.
+
+Computing the pair $(\text{ways}(k), \text{ways}(k-1))$ from the pair
+$(\text{ways}(k/2), \text{ways}(k/2-1))$ this way, halving $k$ each
+time, gives the recurrence
 
 $$
 T(n) = T(n/2) + O(1) = \Theta(\log n)
