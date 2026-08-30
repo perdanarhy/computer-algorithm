@@ -22,7 +22,7 @@ Full pedagogical rules (chain-linking, slot structure) live in
 | 8 | Midterm (Wk 1-7) | `slides/week08-midterm-review.md` | Short review |
 | 9 | Divide and Conquer | `slides/week09-divide-and-conquer.md` | Full |
 | 10 | Greedy Algorithms | `slides/week10-greedy-algorithms.md` | Full - Assignment 3 released |
-| 11 | Dynamic Programming I | `slides/week11-dynamic-programming-1.md` | Full - Assignment 2 due |
+| 11 | Dynamic Programming I | `slides/week11-dynamic-programming-1.md` | Full - Assignment 2 returned and discussed |
 | 12 | Dynamic Programming II (LCS) | `slides/week12-dynamic-programming-2.md` | Full - Assignment 3 due |
 | 13 | Graph Representation | `slides/week13-graph-representation.md` | Full - Assignment 4 released |
 | 14 | Shortest Path | `slides/week14-shortest-path.md` | Full - final review blueprint |

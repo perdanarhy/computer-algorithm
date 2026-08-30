@@ -83,9 +83,9 @@ Plant the seed: ask "what would a *bad* landmark paper look like?" Don't resolve
 
 # Last Week, This Week
 
-- **Last week delivered:** Week 5 proved bubble, insertion, and
-  selection sort correct with loop invariants - not just traced
-  correct, *proven* correct on every input.
+- **Last week delivered:** Week 5 proved insertion sort correct with a
+  loop invariant - not just traced correct, *proven* correct on every
+  input.
 - **Last week left broken:** correctness alone was never the whole
   goal. All three sorts are $O(n^2)$ in the worst and average case:
   fine on a 40-room sample, noticeably lagging on the real 1,200-room
@@ -794,7 +794,7 @@ changed, not just today's directory size.
 <div class="thread">Same pair, same worksheet. This time: break quicksort on purpose.</div>
 
 Open **[Worksheet Part B](materials/week06/worksheet.html)**. Trace
-Lomuto partition on an already-sorted array with a fixed first-element
+Lomuto partition on an already-sorted array with a fixed last-element
 pivot, and watch the worst case happen by hand.
 
 **~15 minutes.** Raise your hand if you get stuck.

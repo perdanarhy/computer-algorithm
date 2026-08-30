@@ -71,10 +71,11 @@ directly, without the drawing.
 
 ## Part 3: The Maximum Subarray Problem, Full Trace
 
-CampusNav's "best free time block" feature: a student's day is logged
-in 10-minute slots, each `+1` (free) or `-1` (busy). Consecutive
-same-type slots are merged into one number to keep the example short (a
-`+4` means four free slots in a row). The array traced in class:
+CampusNav's "best energy window" feature: a student's day is logged
+in 10-minute slots, each `+1` (energizing) or `-1` (draining).
+Consecutive same-type slots are merged into one number to keep the
+example short (a `+4` means four energizing slots in a row). The array
+traced in class:
 
 $$
 A = [\,4,\ -3,\ 5,\ -2,\ -1,\ 6,\ -3,\ 4,\ -8,\ 5\,] \qquad \text{(indices 0-9)}
@@ -168,8 +169,9 @@ over `[0,7]`.
 | **Crossing** | $[0,7]$ | **10** |
 
 **Winner: the crossing subarray, `[0,7]`, sum = 10** - the subarray
-`[4,-3,5,-2,-1,6,-3,4]`. CampusNav's best free-time block runs straight
-through the middle of the day.
+`[4,-3,5,-2,-1,6,-3,4]`. CampusNav's best energy window runs straight
+through the middle of the day, dipping through a draining patch that
+the surrounding gains more than make up for.
 
 (You can check this against a straightforward left-to-right scan
 tracking "best sum ending here" - known as Kadane's algorithm, a

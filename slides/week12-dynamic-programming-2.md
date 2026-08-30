@@ -435,7 +435,7 @@ The short pair you just traced by hand, `ALGDP` / `ALGRDP`, is
 literally the first five and six codes of these two real sequences -
 you've already solved a prefix of CampusNav's real problem. Building
 the full 12×11 table and traceback for these exact sequences is
-**Assignment 4, Task 1** (due Week 15). Once solved, CampusNav can
+**Assignment 4, Task 1** (released Week 13, due Week 15). Once solved, CampusNav can
 finally tell Minji and Junho exactly which courses they share, and
 in what order - not "no match."
 

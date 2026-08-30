@@ -695,7 +695,7 @@ an edge weight negative, Bellman-Ford) computes CampusNav's actual
 - Adjacency matrix (O(V²) space, O(1) edge lookup) and adjacency list (O(V+E) space, O(deg(u)) edge lookup) store the *same* graph differently - and the real DEU campus's sparsity (≈300 nodes, ≈600 edges) makes the list the clear winner, 60× less storage.
 - BFS (queue, layer-by-layer, shortest paths on unweighted graphs) and DFS (stack/recursion, deep-first, connectivity) both traverse a graph in O(V+E), but visit it in different orders.
 - **Assignment 4 released this week** (Dynamic Programming & Graphs) - see `materials/assignments/assignment4.md`. Due Week 15, before the final exam.
-- **Reading:** CLRS, Chapter 22 (Sections 22.1-22.2) - graph representations and BFS/DFS.
+- **Reading:** CLRS, Chapter 20 (Sections 20.1-20.2) - graph representations and BFS/DFS.
 - **Prepare:** think about how you'd find the *shortest* walking route on the campus graph if some walkways were much longer than others. Bring your intuition to Week 14.
 
 ---

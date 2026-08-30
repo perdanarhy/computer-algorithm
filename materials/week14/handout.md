@@ -352,7 +352,7 @@ already know how to solve shortest path efficiently."
 
 ## Part 6: Optional Reading
 
-- CLRS, Chapter 24 - Single-Source Shortest Paths: the full
+- CLRS, Chapter 22 - Single-Source Shortest Paths: the full
   correctness proofs for Dijkstra and Bellman-Ford this handout only
   sketched, plus the Bellman-Ford negative-cycle proof in detail.
 - CLRS, Chapter 34 - NP-Completeness (skim): the formal definitions

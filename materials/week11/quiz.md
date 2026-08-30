@@ -32,7 +32,7 @@ B. Exponentially more calls than the tabulated version's linear steps
 C. Fewer calls, because recursion is always more efficient
 D. It depends only on the programming language used
 
-**4.** In the CampusNav Tour Planner example (slot 4), always picking
+**4.** In the CampusNav Tour Planner example, always picking
 whichever remaining activity gave the best enjoyment-per-minute:
 
 A. Always finds the mathematically best combination

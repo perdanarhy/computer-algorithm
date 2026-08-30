@@ -360,8 +360,19 @@ n \to \frac{n}{2} \to \frac{n}{4} \to \cdots \to 1
 $$
 
 This is the recurrence $T(n) = T(n/2) + O(1)$ - constant work per
-step, then recurse on half - which Week 4 already showed solves to
-<span class="bignotation">O(log n)</span>.
+step, then recurse on half - the same halving pattern as Week 4's
+recursion tree, just one subproblem per level instead of two:
+
+| Level | Size | Cost at this level |
+|---|---|---|
+| 0 | $n$ | $O(1)$ |
+| 1 | $n/2$ | $O(1)$ |
+| 2 | $n/4$ | $O(1)$ |
+| $\vdots$ | $\vdots$ | $O(1)$ |
+| $\log_2 n$ | $1$ | $O(1)$ |
+
+There are $\log_2 n + 1$ levels, each doing $O(1)$ work, so
+$T(n) = O(1) \cdot (\log_2 n + 1) =$ <span class="bignotation">O(log n)</span>.
 
 For CampusNav's 1,200-room directory: $\log_2(1200) \approx 11$.
 Eleven comparisons, worst case, no matter where in the directory the
@@ -404,7 +415,7 @@ when the loop stops).
 - If `target` is present in `A` at all, it is trivially present
   somewhere within the entire array.
 
-The invariant holds vacuously true at the start. ∎
+The invariant holds trivially true at the start. ∎
 
 ---
 

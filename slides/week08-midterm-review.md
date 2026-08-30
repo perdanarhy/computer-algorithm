@@ -91,7 +91,7 @@ walk the room, answer questions, then hand off to the exam itself.
 
 - **Algorithm Concepts** - check a written procedure against the five required properties (finite, definite, input, output, effective)
 - **Complexity Analysis** - prove an O(g(n)) bound from the formal definition (produce valid constants c, n₀)
-- **Recursion & Recurrence** - trace a recursion tree and solve the recurrence it produces (substitution, recursion tree, or Master theorem)
+- **Recursion & Recurrence** - trace a recursion tree and solve the recurrence it produces (substitution or recursion tree)
 - **Basic Sorting** - trace an O(n²) sort by hand and prove it correct with a loop invariant
 - **Advanced Sorting** - trace merge sort/quicksort, and explain what makes quicksort's worst case O(n²)
 - **Searching** - prove binary search correct with a loop invariant, and state why it requires sorted input
@@ -154,18 +154,21 @@ CampusNav's merge-sort-based directory sort satisfies
 
 $$T(n) = 2T(n/2) + n$$
 
-Solve it with the Master theorem and state the resulting bound.
+Solve it with the recursion-tree method and state the resulting bound.
 
 ---
 
 # Answer 3
 
-$a = 2$, $b = 2$, $f(n) = n$.
+Each level of the recursion tree splits work into 2 subproblems of
+half the size, but the **combine work at each level still totals
+$n$**: level 0 does $n$, level 1 does $2 \cdot (n/2) = n$, level 2
+does $4 \cdot (n/4) = n$, and so on. The tree has depth $\log_2 n$
+(halving until size 1), so:
 
-$n^{\log_b a} = n^{\log_2 2} = n^1 = n$
-
-Since $f(n) = \Theta(n^{\log_b a})$, this is **Master theorem Case
-2**, so:
+$$
+T(n) = \underbrace{n + n + \cdots + n}_{\log_2 n \text{ levels}} = n \log_2 n
+$$
 
 <div class="bignotation">T(n) = Θ(n log n)</div>
 
@@ -208,7 +211,7 @@ is stable **in general**, not just in this example.
 
 CampusNav's directory is already sorted, and someone re-runs
 quicksort on it (e.g., after a filter is cleared), always choosing
-the **first element** as pivot.
+the **last element** as pivot.
 
 What's the running time on this input, why, and what's one fix?
 
@@ -216,8 +219,8 @@ What's the running time on this input, why, and what's one fix?
 
 # Answer 5
 
-**O(n²).** On already-sorted data, the first element is always the
-*smallest* remaining element - every partition splits into one
+**O(n²).** On already-sorted data, the last element is always the
+*largest* remaining element - every partition splits into one
 subproblem of size $n-1$ and one of size $0$. That's $n$ levels of
 $O(n)$ partition work, not $\log n$ levels - $O(n^2)$ total.
 
@@ -299,8 +302,10 @@ first of four general strategies for *inventing* new algorithms.
 - Today was a checkpoint, not new material: use the Coverage list and
   the six review questions above to find your own gaps before the
   exam.
-- **Reading:** review CLRS Chapters 1-7-ish material (skim what you've
-  already read) - no new reading assigned.
+- **Reading:** review CLRS Chapters 1-4 (algorithm properties,
+  analyzing algorithms, growth of functions, recursion/recurrences)
+  and Chapters 2 and 7 (sorting) - skim what you've already read, no
+  new reading assigned.
 - **Prepare:** Assignment 2 (Sorting) is due before the exam per the
   syllabus; bring only what the instructor's exam announcement
   permits.

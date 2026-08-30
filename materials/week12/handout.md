@@ -233,4 +233,5 @@ Build the table yourself to check your work.
 > **Answer:** Length 4. One valid LCS is "BCBA" (another equally
 > correct answer some traceback paths find is "BDAB" - again, LCS
 > is not unique here). Building the full table is good, thorough
-> practice for Assignment 4's larger sequences.
+> practice for Assignment 4's larger sequences (released Week 13,
+> due Week 15).

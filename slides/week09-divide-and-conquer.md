@@ -112,9 +112,9 @@ Do not name "divide and conquer" yet - let them describe the shape informally.
 
 <div class="pain">
 
-The CampusNav team wants to add a "best free time block" feature: look at
-a student's whole day and tell them the single longest, most useful
-stretch of free time between classes. One developer just starts writing
+The CampusNav team wants to add a "best energy window" feature: look at
+a student's whole day and tell them the single longest, most valuable
+stretch where their logged energy stays net-positive. One developer just starts writing
 code - checking every possible starting point, then every possible
 ending point after it, adding everything in between up each time. It
 works on the small example she tried. But on a busy day with hundreds of
@@ -134,7 +134,7 @@ again.
 # What Else This Actually Costs
 
 - Sorting and searching solved *one shape* of problem - "put things in
-  order" and "find a match." "Best free time block" is a different shape
+  order" and "find a match." "Best energy window" is a different shape
   entirely, and CampusNav will keep meeting new shapes for the rest of
   the semester.
 - Without a general strategy, every new feature means starting design
@@ -367,18 +367,21 @@ gets you there in three lines instead of a whole tree diagram.
 
 <!-- NEW: CampusNav worked example intro, sets up the max-subarray build -->
 
-# CampusNav: The Best Free Time Block Feature
+# CampusNav: The Best Energy Window Feature
 
 <div class="thread">Back to today's pain - now with a plan.</div>
 
-A student's day is logged in 10-minute slots, each marked **+1 free** or
-**−1 busy**. CampusNav wants the single longest, most useful contiguous
-stretch of free time - the run of slots whose values sum to the largest
-number.
+A student's day is logged in 10-minute slots, each scored **+1
+energizing** or **−1 draining** (a break or a class you enjoy scores
+positive; a stressful meeting or a rough exam block scores negative).
+CampusNav wants the single longest, most valuable contiguous stretch of
+the day - the run of slots whose values sum to the largest number - even
+if a draining patch sits in the middle, as long as it's outweighed by
+strong enough stretches on either side.
 
 For today's trace, consecutive same-type slots are already merged into
-one block, to keep the array short: a `+4` means four free slots in a
-row (worth 40 minutes); a `−3` means three busy slots in a row. This
+one block, to keep the array short: a `+4` means four energizing slots in a
+row (worth 40 minutes); a `−3` means three draining slots in a row. This
 doesn't change the algorithm, only how compact the picture is.
 
 $$
@@ -477,9 +480,10 @@ Compare all three candidates at the top level:
 <div class="row"><div class="rowlabel">value</div><div class="cell hl">4</div><div class="cell hl">-3</div><div class="cell hl">5</div><div class="cell hl">-2</div><div class="cell hl">-1</div><div class="cell hl">6</div><div class="cell hl">-3</div><div class="cell hl">4</div><div class="cell">-8</div><div class="cell">5</div></div>
 </div>
 
-The crossing case wins: CampusNav's best free-time block runs straight
-through the middle of the day, worth **10** - longer and better than the
-best block hiding in either half alone. (Full multi-level trace in the handout.)
+The crossing case wins: CampusNav's best energy window runs straight
+through the middle of the day - through a draining dip and out the
+other side - worth **10**, better than the best window hiding in either
+half alone. (Full multi-level trace in the handout.)
 
 ---
 
@@ -601,7 +605,7 @@ one-off trick, and Week 4's exploding recursion tree finally fixed for good.
 
 <div class="thread">Everything above, together, on the actual features.</div>
 
-- **Best free-time block:** divide the day in half, recurse on each
+- **Best energy window:** divide the day in half, recurse on each
   half, handle the crossing case in linear time - $T(n)=2T(n/2)+\Theta(n)
   = \Theta(n\log n)$. A genuinely faster algorithm than checking every
   start/end pair, discovered by *applying the paradigm*, not by luck.
@@ -683,7 +687,7 @@ answer key and discuss as a group any question most of the class missed.
 <div class="limits">
 Divide-and-conquer works when a problem's subproblems are genuinely
 independent and a combine step can stitch their answers back together -
-CampusNav's free-time finder and shortcut counter both prove it. But
+CampusNav's energy-window finder and shortcut counter both prove it. But
 divide-and-conquer assumes a problem splits cleanly into independent
 left/right halves that can be solved separately and then merged - not
 every problem is shaped like that. Some reward one purely local choice,

@@ -274,19 +274,26 @@ correct.
 duration**." Construct a small counterexample (3-4 requests) where
 this rule grants fewer bookings than the earliest-finish-time rule.
 
-> **Answer:** Many valid counterexamples exist. One: Request X
-> (09:00-09:50, duration 50 min) and Requests Y (09:40-10:30) and Z
-> (09:45-10:20, duration 35 min, the *shortest* of the three).
-> Shortest-duration-first grants Z first (09:45-10:20). Both X and Y
-> conflict with Z (X ends at 09:50, inside Z's span from Z's
-> perspective depends on exact overlap - construct so both truly
-> conflict), so shortest-duration grants only 1 request. Earliest
-> finish time instead grants X first (ends 09:50, earliest), which may
-> leave room for a later non-conflicting request depending on exact
-> times - the key point accepted here is any construction showing
-> shortest-duration-first can strictly underperform earliest-finish-time.
-> (See Worksheet Part A for the guided version of this exercise, with a
-> fully worked instructor answer.)
+> **Answer:** One concrete construction: Request A (09:00-09:50,
+> duration 50 min), Request B (09:40-10:00, duration 20 min - the
+> *shortest* of the three), and Request C (09:50-10:40, duration 50
+> min).
+>
+> - A and B overlap (09:40-09:50). B and C overlap (09:50-10:00). A
+>   and C do **not** overlap - A ends exactly when C starts, so both
+>   can be granted together.
+> - **Shortest-duration-first** grants B first (20 min, the shortest).
+>   Both A and C conflict with B, so nothing else can be granted -
+>   **1 request total**.
+> - **Earliest-finish-time-first** grants A first (finishes 09:50,
+>   earliest of the three). B conflicts with A and is dropped; C does
+>   not conflict with A, so it is granted too - **2 requests total**
+>   (A and C).
+>
+> Shortest-duration-first strictly underperforms earliest-finish-time
+> here (1 grant vs. 2) because the shortest request happens to sit in
+> the middle, conflicting with two requests that are themselves
+> compatible with each other.
 
 **5.** In the exchange-argument proof (Part 2a), which single fact
 about $g$ (greedy's first choice) is the one the entire safety

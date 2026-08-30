@@ -197,7 +197,7 @@ one path as far as it will go before trying another.
 ## Part 5: Optional Reading
 
 - CLRS (Cormen, Leiserson, Rivest, Stein), *Introduction to
-  Algorithms*, Chapter 22, Sections 22.1–22.2: graph representations,
+  Algorithms*, Chapter 20, Sections 20.1–20.2: graph representations,
   breadth-first search, and depth-first search, with full correctness
   arguments and additional worked examples.
 - Kleinberg & Tardos, *Algorithm Design*, Chapter 3: graph basics and

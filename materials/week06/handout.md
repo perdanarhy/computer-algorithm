@@ -154,7 +154,7 @@ determines whether a given run hits the best case or the worst case.
 
 **Why this matters for Assignment 2.** Task 3 asks you to time your
 Lomuto-partition quicksort on an *already-sorted* array of size 5,000
-with a fixed first-element pivot, specifically to reproduce this
+with a fixed last-element pivot, specifically to reproduce this
 $O(n^2)$ collapse yourself, empirically - not just read about it.
 
 **Where this course is headed:**

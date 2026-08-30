@@ -5,7 +5,8 @@ Computer Algorithms (506994-002). Released Week 3. **Due Week 5,
 
 ## Tasks
 
-**1. Pseudocode (30 pts).** Write CLRS-style pseudocode for each of
+**1. Pseudocode (30 pts).** Write pseudocode, following the course's
+pseudocode conventions (Week 2 house rules), for each of
 the following. Each must satisfy all five algorithm properties
 (finiteness, definiteness, input, output, effectiveness):
 

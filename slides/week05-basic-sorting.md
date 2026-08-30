@@ -720,14 +720,32 @@ slot 4, we can now *prove* the result is sorted, on any input.
 <div class="thread">Time to practice. Trace it yourself, precisely.</div>
 
 Work with your neighbor. Open **[Worksheet Part
-A](materials/week05/worksheet.html)**. Fully hand-trace one sort,
-pass by pass, on a small array.
+A](materials/week05/worksheet.html)**. Fully hand-trace insertion
+sort, pass by pass, on a small array.
 
 **~15 minutes.** Raise your hand if you get stuck.
 
 <!--
 notes: Hand out or project Worksheet Part A. Walk the room while pairs work.
-After 15 minutes, ask 2 pairs to compare which sort they were assigned and how many passes it took.
+After 15 minutes, ask 2 pairs to compare how many shifts each pass took.
+-->
+
+---
+
+<!-- NEW: Try-It hand-off, Part B stability lab -->
+
+# Now: Worksheet Part B
+
+<div class="thread">Same pair. This time: catch selection sort breaking a promise.</div>
+
+Open **[Worksheet Part B](materials/week05/worksheet.html)**. Run
+selection sort by hand on an array with duplicate keys, and track
+whether equal-key elements keep their original relative order.
+
+**~15 minutes.** Raise your hand if you get stuck.
+
+<!--
+notes: Hand out or project Worksheet Part B. After 15 minutes, ask a pair to report whether the duplicate keys stayed in order and why.
 -->
 
 ---

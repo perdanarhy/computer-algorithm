@@ -571,16 +571,16 @@ all; it would simply report a wrong, finite answer.
 
 # A Cleaner Example of the Same Failure
 
-<div class="thread">Same mechanism, smaller graph, no lucky tie.</div>
+<div class="thread">Same mechanism, smaller graph, no lucky tie - this time Dijkstra is just wrong.</div>
 
-Source $S$, with $S{\to}A = 2$, $S{\to}B = 5$, $A{\to}B = 1$, and one
-more edge $B{\to}A = -4$ (directed).
+Source $S$, with $S{\to}C = 2$, $S{\to}B = 3$, and one more edge
+$B{\to}C = -4$ (directed).
 
 <div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Settle $S$ (0). Frontier: $A=2$, $B=5$.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Smallest is $A$ (2) - settle it. Relax $A{\to}B$: $B = \min(5, 2+1) = 3$.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Smallest is $B$ (3) - settle it, final. Dijkstra reports $\delta(S,B) = 3$.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">But $B{\to}A$ was never relaxed <em>into</em> anything, because $A$ was already settled at step 2 - so this edge is irrelevant here. The true shortest path is still $S{\to}A{\to}B = 2+1=3$. Dijkstra is right this time <em>only because $A$ happened to settle before $B$</em> - swap which vertex is closer to $S$ and the same blind spot silently returns a wrong number.</div></div>
+<div class="step-row"><div class="step-num">1</div><div class="step-text">Settle $S$ (0). Frontier: $C=2$, $B=3$.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">Smallest is $C$ (2) - settle it, <strong>final</strong>. Dijkstra reports $\delta(S,C) = 2$.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">Smallest remaining is $B$ (3) - settle it. Relax $B{\to}C$: candidate $3 + (-4) = -1$.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-text">$-1$ is less than $C$'s current distance of $2$ - but $C$ is already settled, so standard Dijkstra <strong>silently skips this update</strong>. The true shortest distance, via $S{\to}B{\to}C$, is $-1$. Dijkstra's reported answer, $2$, is simply wrong - no lucky tie saves it this time.</div></div>
 </div>
 
 <div class="why">
@@ -1142,7 +1142,7 @@ practice questions you just worked through.
   most common misreading.
 - Shortest path is in P; the campus scavenger hunt is NP-hard - same
   campus, two very different kinds of problem.
-- **Reading:** CLRS, Chapter 24 (Shortest Paths) and Chapter 34
+- **Reading:** CLRS, Chapter 22 (Shortest Paths) and Chapter 34
   (NP-Completeness, skim).
 - **Prepare:** rework all six final-exam practice questions without
   looking at the answers first. Bring questions to Week 15.

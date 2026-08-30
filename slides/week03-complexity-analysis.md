@@ -528,6 +528,24 @@ After 15 minutes, ask 2 pairs to justify one adjacent pair in their card orderin
 
 ---
 
+<!-- NEW: Try-It hand-off, Part B proof practice -->
+
+# Now: Worksheet Part B
+
+<div class="thread">Same pair. This time: finish a Big-O proof yourself.</div>
+
+Open **[Worksheet Part B](materials/week03/worksheet.html)**.
+Complete a fill-in-the-blank Big-O proof, spot the bug in a broken
+proof, and connect today's bound back to a real feature.
+
+**~15 minutes.** Raise your hand if you get stuck.
+
+<!--
+notes: Hand out or project Worksheet Part B. After 15 minutes, reveal the correct constants for B1 and discuss B2's bug as a class.
+-->
+
+---
+
 <!-- _class: section -->
 
 # End of Session 2

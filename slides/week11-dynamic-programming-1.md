@@ -163,8 +163,8 @@ picking choices in the wrong order.
   on the table every single time.
 - Checking every possible combination by hand (or by brute-force
   code) doesn't scale - the same combinatorial explosion Week 4's
-  recursive Fibonacci trace showed, and Week 9's tour-order counting
-  showed again.
+  handout/worksheet Fibonacci call tree showed, and Week 4's
+  `allOrders` (counting tour orders) showed again.
 
 <div class="why">
 <strong>In industry:</strong> "Knapsack," "Coin Change," and "House
@@ -277,12 +277,12 @@ repeatedly.
 
 # A Motivating Example: The Same Question, Asked Millions of Times
 
-<div class="thread">Back to Week 4. Let's actually measure what that recursion tree cost.</div>
+<div class="thread">Back to Week 4's handout and worksheet. Let's actually measure what that recursion tree cost.</div>
 
-Recall Week 4's naive recursive Fibonacci: `fib(n) = fib(n-1) +
-fib(n-2)`. Draw its call tree past $n = 5$ and the same smaller calls -
-`fib(3)`, `fib(2)`, `fib(1)` - reappear over and over, deeper and
-deeper in the tree.
+Recall the naive recursive Fibonacci from Week 4's handout and
+worksheet: `fib(n) = fib(n-1) + fib(n-2)`. Its call tree past $n = 5$
+has the same smaller calls - `fib(3)`, `fib(2)`, `fib(1)` - reappearing
+over and over, deeper and deeper in the tree.
 
 At $n = 30$, that naive tree makes **2,692,537** recursive calls to
 compute a single number that an ordinary loop reaches in **30**
@@ -352,8 +352,9 @@ we re-asked the same small question.
 <div class="thread">Same optimal substructure. Different test for which technique applies.</div>
 
 **Test:** room-booking (Week 10) has the greedy-choice property, so
-greedy alone sufficed. Tour Planner does not (slot 4 just showed
-it) - it needs the full machinery.
+greedy alone sufficed. Tour Planner does not (the greedy Tour Planner
+attempt earlier this session already showed it) - it needs the full
+machinery.
 
 ---
 
@@ -361,7 +362,7 @@ it) - it needs the full machinery.
 
 # Condition 2: Overlapping Subproblems - Where Have We Seen This?
 
-<div class="thread">Week 4's own recursion tree, revisited.</div>
+<div class="thread">Week 4's handout/worksheet Fibonacci call tree, revisited.</div>
 
 - **Definition:** the same smaller subproblem recurs many times while
   solving the bigger one.
@@ -485,7 +486,7 @@ cell is touched exactly once, in either implementation.
 
 # Worked Example: The "20-Step Shortcut," Finally Fixed
 
-<div class="thread">Week 9 sped this up with a numeric trick. Week 4 showed its naive recursion tree explode. Now, properly.</div>
+<div class="thread">Week 9 sped this up with a numeric trick. Week 4's handout/worksheet showed this same recurrence (Fibonacci) explode. Now, properly.</div>
 
 - Recall CampusNav's shortcut counter: how many distinct ways to climb
   $n$ steps, taking 1 or 2 steps at a time?
@@ -501,11 +502,11 @@ cell is touched exactly once, in either implementation.
 
 # Tabulating It: 20 Additions, Not Millions
 
-<div class="thread">Same recurrence Week 4 traced exploding. This time, filled bottom-up.</div>
+<div class="thread">Same recurrence Week 4's handout/worksheet traced exploding, as Fibonacci. This time, filled bottom-up.</div>
 
 Tabulate it: $O(n)$ time. For the real 20-step shortcut,
 **ways(20) = 10,946** distinct routes - 20 additions, not the
-millions of calls Week 4's naive tree implied at that depth.
+millions of calls that same naive tree implied at that depth.
 
 <div class="tracetable">
 <div class="row"><div class="rowlabel">n</div>
@@ -522,7 +523,7 @@ millions of calls Week 4's naive tree implied at that depth.
 
 # Worked Example: The Tour Planner, Solved Properly
 
-<div class="thread">Back to slot 4's failure. Let's test the two conditions and fix it for real.</div>
+<div class="thread">Back to the greedy Tour Planner's failure. Let's test the two conditions and fix it for real.</div>
 
 Free block: **60 minutes**. Activities: Coffee (20 min, enjoyment 15),
 Gallery (30 min, enjoyment 25), Friend (10 min, enjoyment 8), Music
@@ -548,6 +549,9 @@ activities within $t$ minutes):
 $$
 best(i,t) = \max\big(\, best(i{-}1,t),\ \ value_i + best(i{-}1,\ t - duration_i)\, \big)
 $$
+
+(the second term only applies **if** $duration_i \le t$ - you can't
+spend time you don't have.)
 
 ---
 
@@ -579,8 +583,8 @@ $$
 </div>
 
 The final cell (blue) reads `best(3, 20) = 15` (gold) and adds Music's
-40 → **55**, beating the 48 that "best-per-minute first" found in
-slot 4. The optimal plan: **Coffee + Music**, exactly 60 minutes, 0
+40 → **55**, beating the 48 that "best-per-minute first" found
+earlier. The optimal plan: **Coffee + Music**, exactly 60 minutes, 0
 minutes wasted.
 
 ---
@@ -595,9 +599,10 @@ minutes wasted.
   nearby activities for any free block - not a locally-greedy guess -
   using the 0/1 knapsack recurrence above, in $O(\text{activities}
   \times \text{minutes})$ time via tabulation.
-- The **20-step shortcut counter**, first attempted recursively in
-  Week 4 (where its call tree was shown to blow up) and sped up
-  numerically in Week 9, is now solved the "right" way: a genuine
+- The **20-step shortcut counter**, first attempted recursively back
+  in Week 4's handout/worksheet (where its call tree was shown to blow
+  up) and sped up numerically in Week 9, is now solved the "right"
+  way: a genuine
   $O(n)$ DP that both counts routes *and* explains why it's fast
   (overlapping subproblems, cached).
 - Both features ship as the same shape of code: a small table, filled

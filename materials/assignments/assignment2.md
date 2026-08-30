@@ -23,7 +23,7 @@ does the *shape* of your empirical curve match the theoretical
 O-bound of each algorithm (O(n²) for bubble/insertion, O(n log n) for
 merge/quicksort)? Also time quicksort specifically on an
 **already-sorted** input of size 5,000 using your Lomuto partition
-with a fixed first-element pivot, and explain what you observe in
+with a fixed last-element pivot, and explain what you observe in
 light of Week 6's worst-case discussion.
 
 **4. Stability analysis (15 pts).** Using an array of `(key, original

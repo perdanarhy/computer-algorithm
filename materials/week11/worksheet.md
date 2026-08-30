@@ -127,7 +127,7 @@ _____________________________________________________________
   value as A2. Use this to make the point explicit: greedy isn't
   *always* wrong (this instance happens to match), which is exactly
   why you can't trust it without a proof - you only find out it fails
-  on instances like the in-class Tour Planner example (slot 4), not
+  on instances like the in-class Tour Planner example, not
   by testing one case that happens to work.
 
 ### Part B
