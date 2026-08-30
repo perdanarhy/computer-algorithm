@@ -291,11 +291,11 @@ enough for it to still matter for the next assignment or exam.
 - **Attendance** is 10% of your grade and is recorded every session.
 - **Late arrival:** arriving within 15 minutes of the start is on-time;
   after that, you're marked late. Three lates equal one absence.
-- **Can't attend?** Email the instructor *before* the session to be
+- **Can't attend?** Email the professor *before* the session to be
   marked excused - unexcused absences aren't eligible for makeup credit.
 - **Late work:** loses 10% of that assignment's grade per day late, up
   to 3 days. No credit after 3 days, unless arranged with the
-  instructor in advance.
+  professor in advance.
 
 ---
 

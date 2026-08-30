@@ -127,12 +127,12 @@ available on request.
   as on-time; after 15 minutes, you're marked late for that session.
   Three late arrivals equal one absence, applied to the attendance
   score (10% ÷ 15 sessions ≈ 0.67% per session).
-- **Can't attend a session?** Email the instructor *before* it starts
+- **Can't attend a session?** Email the professor *before* it starts
   to be marked excused. Unexcused absences are not eligible for makeup
   credit.
 - **Late work:** loses 10% of that assignment's grade per day late, up
   to 3 days. No credit after 3 days, unless arranged with the
-  instructor in advance.
+  professor in advance.
 - **Academic integrity:** submit your own work. Copying another
   student's work, having someone else complete it for you, or
   submitting unattributed AI-generated work as your own is a
