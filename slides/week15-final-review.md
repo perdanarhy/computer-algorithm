@@ -85,7 +85,7 @@ close the loop." Keep the tone warm, not just administrative.
 2. **Greedy** - local choices, exchange-argument proofs, and when greedy fails.
 3. **Dynamic Programming I** - overlapping subproblems, memoization vs. tabulation.
 4. **Dynamic Programming II / LCS** - DP across two sequences at once.
-5. **Graph Representation** - adjacency list vs. matrix, and why the choice matters.
+5. **Graph Representation** - adjacency list vs. matrix, and why the choice matters; breadth-first / depth-first search for traversing the result.
 6. **Shortest Path** - Dijkstra, Bellman-Ford, and where each one breaks.
 7. **P vs. NP** - polynomial-time solvable vs. polynomial-time verifiable.
 

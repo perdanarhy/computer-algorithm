@@ -67,6 +67,58 @@ This is the same $\Theta(n\log n)$ bound Week 6 derived by drawing out
 the whole recursion tree level by level. The Master theorem gets there
 directly, without the drawing.
 
+### Application: a Case 1 example, worked in full
+
+$$
+T(n) = 9T(n/3) + n
+$$
+
+- $a = 9$, $b = 3$ → watershed $= n^{\log_3 9} = n^2$ (since
+  $3^2 = 9$, $\log_3 9 = 2$ exactly).
+- $f(n) = n$. Compare: is $f(n) = O(n^{2 - \varepsilon})$ for some
+  $\varepsilon > 0$? Yes - take $\varepsilon = 1$: $O(n^{2-1}) = O(n^1)$,
+  which matches $f(n) = n$ exactly.
+- **Numeric check**, at $n = 100$: watershed $= 100^2 = 10{,}000$;
+  $f(n) = 100$. The watershed outweighs $f(n)$ by two full orders of
+  magnitude - exactly the "recursive calls dominate" shape Case 1
+  describes.
+- This is **Case 1**:
+
+$$
+T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)
+$$
+
+### Application: a Case 3 example, worked in full
+
+$$
+T(n) = 3T(n/2) + n^2
+$$
+
+- $a = 3$, $b = 2$ → watershed $= n^{\log_2 3} \approx n^{1.585}$
+  ($\log_2 3 \approx 1.585$, since $2^{1.585} \approx 3$).
+- $f(n) = n^2$. Compare: is $f(n) = \Omega(n^{1.585 + \varepsilon})$
+  for some $\varepsilon > 0$? Yes - take $\varepsilon = 0.4$:
+  $1.585 + 0.4 = 1.985 < 2$, and $n^2$ eventually exceeds any constant
+  multiple of $n^{1.985}$, so $f(n) = \Omega(n^{1.985})$ holds.
+- **Numeric check**, at $n = 1{,}000$: watershed $\approx 57{,}000$
+  (since $1{,}000^{1.585} \approx 57{,}000$); $f(n) = 1{,}000{,}000$
+  (since $1{,}000^2 = 1{,}000{,}000$) - $f(n)$ outweighs the watershed
+  by roughly 17&times;, confirming "$f(n)$ grows polynomially faster."
+- **Regularity condition** (required for Case 3, and easy to forget):
+  does $a\,f(n/b) \le c\,f(n)$ for some constant $c < 1$ and all large
+  $n$? Check it: $a\,f(n/b) = 3 \cdot (n/2)^2 = \frac{3}{4}n^2$. Taking
+  $c = 3/4 < 1$: $\frac{3}{4}n^2 \le \frac{3}{4}n^2$ - holds, with
+  equality, for every $n$.
+- Both conditions hold, so this is **Case 3**:
+
+$$
+T(n) = \Theta(f(n)) = \Theta(n^2)
+$$
+
+These two are exactly the shape of check Worksheet Part B asks you to
+run yourself - same three steps (watershed, comparison, and a
+regularity check whenever Case 3 is a candidate), different numbers.
+
 ---
 
 ## Part 3: The Maximum Subarray Problem, Full Trace

@@ -79,6 +79,100 @@ to get one valid $c$, with $n_0 = 1$.
 
 ---
 
+## Part 2b: A Log-Bound Proof, and Why Exponential Absorbs Polynomial
+
+These two worked examples model exactly what Assignment 1's tasks
+2(b) and 2(c) ask you to do yourself - a log-factor bound, and a
+"tightest bound only needs the dominant term" justification.
+
+### Worked proof: $5n\log n + 2n = O(n \log n)$
+
+**Claim:** $5n\log n + 2n = O(n\log n)$ (base-2 logarithm throughout).
+
+We must exhibit constants $c > 0$ and $n_0 > 0$ such that
+$0 \le 5n\log n + 2n \le c \cdot n\log n$ for every $n \ge n_0$.
+
+**Step 1 - bound the second term using the first term's own shape.**
+For all $n \ge 2$, $\log n \ge 1$ (since $\log_2 2 = 1$ and $\log n$
+is increasing). Multiplying both sides by $n \ge 0$:
+
+$$
+n \le n\log n \quad \text{for all } n \ge 2
+$$
+
+so
+
+$$
+2n \le 2n\log n \quad \text{for all } n \ge 2
+$$
+
+**Step 2 - add the two bounds together.** For all $n \ge 2$:
+
+$$
+5n\log n + 2n \;\le\; 5n\log n + 2n\log n \;=\; 7n\log n
+$$
+
+**Step 3 - name the constants.** Choose $c = 7$ and $n_0 = 2$. Then
+
+$$
+0 \le 5n\log n + 2n \le 7n\log n \quad \text{for all } n \ge 2
+$$
+
+which is exactly the definition of $5n\log n + 2n = O(n\log n)$.
+$\blacksquare$
+
+**Sanity-check the arithmetic** at $n=2$: $\log_2 2 = 1$, so the left
+side is $5(2)(1) + 2(2) = 10 + 4 = 14$; the right side is
+$7(2)(1) = 14$. $14 \le 14$ holds (equality is allowed).
+
+**The general pattern:** whenever a lower-order term (here, $2n$) is
+already dominated by the leading term's *own* growth factor once $n$
+is past some small threshold (here, $n \le n\log n$ once $\log n \ge 1$),
+you can fold it directly into the leading term's coefficient,
+exactly like Part 2's polynomial case - the only difference is that
+the bounding inequality here uses $\log n \ge 1$ instead of $n \ge 1$.
+
+### Worked argument: why $2^n$ eventually absorbs $n^3$
+
+**Claim:** for $f(n) = n^3 + 2^n$, the tightest bound is
+$O(2^n)$ - the $n^3$ term can be dropped entirely.
+
+**The values, side by side:**
+
+| $n$ | $n^3$ | $2^n$ |
+|---|---|---|
+| 5 | 125 | 32 |
+| 10 | 1,000 | 1,024 |
+| 20 | 8,000 | 1,048,576 |
+| 30 | 27,000 | 1,073,741,824 |
+| 40 | 64,000 | ~1.1 &times; $10^{12}$ |
+
+At $n=5$, $n^3$ is still bigger. By $n=10$, $2^n$ has already
+overtaken it - and the gap only widens catastrophically from there:
+by $n=30$, $2^n$ outweighs $n^3$ by roughly 40,000&times;.
+
+**Why this is inevitable, not a coincidence of these particular
+numbers.** Compare how each function grows from one $n$ to the next:
+
+- $n^3$'s growth *rate relative to its own size* shrinks as $n$ grows:
+  $\frac{(n+1)^3}{n^3} \to 1$ as $n \to \infty$ (each step is a
+  smaller and smaller percentage increase).
+- $2^n$'s growth rate relative to its own size never changes:
+  $\frac{2^{n+1}}{2^n} = 2$, always, for every $n$ - each step
+  *doubles* the value, no matter how large it already is.
+
+A quantity that multiplies by a fixed factor $> 1$ every step
+eventually outpaces one whose relative growth keeps shrinking - so
+$2^n$ must eventually overtake $n^3$, and stay ahead forever once it
+does (this holds for *any* fixed-degree polynomial against *any*
+exponential with base $> 1$, which is exactly why the growth-rate
+hierarchy in Part 3 places every polynomial before every exponential).
+Since $2^n$ eventually dominates $n^3$ and never falls back behind it,
+the $n^3$ term contributes nothing to the tightest bound for large
+$n$, and $f(n) = n^3 + 2^n = O(2^n)$.
+
+---
+
 ## Part 3: Growth Rates, With Real Numbers
 
 | Growth rate | $n = 10$ | $n = 100$ | $n = 1{,}000$ |

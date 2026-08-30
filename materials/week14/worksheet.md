@@ -109,6 +109,35 @@ Anything changed after round 1? _______   Guaranteed-correct rounds needed: ____
 
 ---
 
+## Worksheet Part C (~10 minutes) - P vs. NP Practice
+
+**C1.** Is "find the shortest path between two given buildings on
+CampusNav's campus graph" in P, in NP, or both? Justify in one sentence.
+
+_____________________________________________________________
+
+**C2.** True or False, with a one-sentence justification: "NP stands
+for 'not polynomial,' meaning these problems can never be solved
+quickly."
+
+_____________________________________________________________
+
+**C3.** CampusNav's scavenger hunt (visit all 8 buildings exactly
+once, minimize total distance) gets a specific proposed 8-building
+route from a student.
+
+(a) How would you check, in polynomial time, whether that specific
+route is valid and compute its total distance?
+
+_____________________________________________________________
+
+(b) Why doesn't being able to check that one route quickly mean
+CampusNav can *find* the best route quickly?
+
+_____________________________________________________________
+
+---
+
 <!-- ============================================================ -->
 <!-- Instructor Answer Key - do not hand out this section -->
 <!-- ============================================================ -->
@@ -167,3 +196,26 @@ Anything changed after round 1? _______   Guaranteed-correct rounds needed: ____
   correct rounds needed for any 6-vertex graph, regardless of edge
   order: **V − 1 = 5** (plus one more pass if you want to confirm no
   negative cycle exists).
+
+### Part C
+
+- **C1.** **Both.** It's in P because Dijkstra/Bellman-Ford solve it
+  in polynomial time; it's therefore also in NP, because every
+  problem in P is automatically in NP (if you can solve it fast, you
+  can verify a candidate answer fast too - just solve it yourself and
+  compare).
+- **C2. False.** NP stands for **N**ondeterministic **P**olynomial
+  time - it describes how fast a *candidate solution* can be
+  *verified*, not how slow the problem is to solve. A problem being in
+  NP says nothing by itself about whether it's also in P.
+- **C3.(a)** Walk the proposed route once: check each of the 8
+  buildings appears exactly one time (a linear scan), and sum the edge
+  weights along the route (also linear in the route's length) - both
+  polynomial-time checks.
+  **C3.(b)** Verifying *one* proposed route is cheap, but finding the
+  *best* route means comparing it against all possible orderings of 8
+  buildings - the scavenger hunt is Hamiltonian-path/TSP-shaped, and no
+  known algorithm solves it faster than roughly trying all of them
+  (exponential). "Easy to verify a candidate" and "easy to find the
+  best one" are different claims - that gap is exactly what makes P
+  vs. NP a real, unresolved question.

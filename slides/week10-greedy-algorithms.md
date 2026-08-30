@@ -416,6 +416,37 @@ step, into an optimal solution without ever losing a booking - so G
 
 ---
 
+<!-- NEW: greedy cost analysis, closes the missing Big-O thread for Week 10 -->
+
+# BOOK_ROOM's Cost: The Two Pieces
+
+<div class="thread">Correctness just proven. Now, exactly like every other week: how fast is it?</div>
+
+`BOOK_ROOM` (the pseudocode from two slides ago) does exactly two
+things, in order:
+
+- **Sort `requests` by end time:** a comparison-based sort over $n$
+  requests - $O(n \log n)$ (Week 6's merge sort or quicksort).
+- **One linear pass over the sorted list:** for each request, one
+  comparison (`r.start >= lastEnd`) and, at most, one insert into
+  `granted` - $O(1)$ work per request, $O(n)$ total.
+
+---
+
+# BOOK_ROOM's Cost: O(n log n)
+
+<div class="thread">Same two pieces, added together.</div>
+
+$$
+T(n) = \underbrace{O(n \log n)}_{\text{sort}} + \underbrace{O(n)}_{\text{one pass}} = O(n \log n)
+$$
+
+<span class="bignotation">O(n log n)</span> - the sort dominates.
+Dropping the slower-growing $O(n)$ term (Week 3's Big-O rules) leaves
+the sort's cost as the whole algorithm's cost.
+
+---
+
 # A Second Greedy Idea: Huffman Coding
 
 <div class="thread">Not every greedy algorithm is about scheduling. A classic from data compression.</div>
@@ -431,6 +462,89 @@ step, into an optimal solution without ever losing a booking - so G
 - Like room-booking, Huffman coding is provably optimal - it has both
   the greedy-choice property and optimal substructure. (Full
   construction and proof: CLRS §16.3, not required this week.)
+
+---
+
+<!-- NEW: Huffman worked example, part 1 - building the tree -->
+
+# Huffman Coding: Building the Tree
+
+<div class="thread">Same six frequencies. Every merge, one at a time.</div>
+
+`A=5, B=9, C=12, D=13, E=16, F=45` (100 total).
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">Smallest two: A(5), B(9) &rarr; merge into AB(14)</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">Smallest two remaining: C(12), D(13) &rarr; merge into CD(25)</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">Smallest two remaining: AB(14), E(16) &rarr; merge into ABE(30)</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-text">Smallest two remaining: CD(25), ABE(30) &rarr; merge into CDABE(55)</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-text">Only two nodes left: F(45), CDABE(55) &rarr; merge into the root (100)</div></div>
+</div>
+
+Five symbols merge down to one root in exactly $n - 1 = 5$ merges -
+always true for $n$ symbols.
+
+---
+
+<!-- NEW: Huffman worked example, part 2 - the resulting tree -->
+
+# Huffman Coding: The Resulting Tree
+
+<div class="thread">Same five merges, drawn as one tree. Branch left = 0, right = 1.</div>
+
+```text
+(100)
+├─0 F(45)
+└─1 (55)
+    ├─0 (25)
+    │   ├─0 C(12)
+    │   └─1 D(13)
+    └─1 (30)
+        ├─0 (14)
+        │   ├─0 A(5)
+        │   └─1 B(9)
+        └─1 E(16)
+```
+
+A symbol's code is the sequence of 0/1 edge labels on the path from
+the root down to it - the **more frequent** a symbol (F=45), the
+**shorter** its path, by construction.
+
+---
+
+<!-- NEW: Huffman worked example, part 3 - codes and decoding -->
+
+# Huffman Coding: The Codes
+
+<div class="thread">Reading the tree's paths, symbol by symbol.</div>
+
+| Symbol | Frequency | Code | Bits |
+|---|---|---|---|
+| F | 45 | `0` | 1 |
+| C | 12 | `100` | 3 |
+| D | 13 | `101` | 3 |
+| E | 16 | `111` | 3 |
+| A | 5 | `1100` | 4 |
+| B | 9 | `1101` | 4 |
+
+No code is a prefix of another - so decoding never needs a lookahead:
+the next few bits always match exactly one symbol's code, never two.
+
+---
+
+# Huffman Coding: Decoding
+
+<div class="thread">Same codes, used to decode a message with no lookahead.</div>
+
+Decode `01100100111` left to right, one matched code at a time:
+
+`0`&rarr;**F**, `1100`&rarr;**A**, `100`&rarr;**C**, `111`&rarr;**E** -
+message: **FACE**.
+
+Weighted total:
+$45(1){+}12(3){+}13(3){+}16(3){+}5(4){+}9(4) = 224$ bits for 100
+symbols, versus $300$ bits at a fixed 3 bits/symbol - real compression,
+not just a shorter-looking code.
 
 ---
 

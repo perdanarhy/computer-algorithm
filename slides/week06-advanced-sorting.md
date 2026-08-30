@@ -429,6 +429,52 @@ what makes `MERGE` run in $O(n_1 + n_2) = O(n)$ time.
 
 ---
 
+<!-- NEW: full merge-sort trace, part 1 - the split -->
+
+# Merge Sort, Full Trace: The Split
+
+<div class="thread">One MERGE call, traced. Now the whole sort, start to finish - splitting first.</div>
+
+Six elements, `[5, 2, 4, 7, 1, 3]`, split at the midpoint recursively
+until every piece is a single element (trivially sorted):
+
+```text
+[5,2,4,7,1,3]
+├─ [5,2,4]
+│   ├─ [5]         [base]
+│   └─ [2,4]
+│       ├─ [2]     [base]
+│       └─ [4]     [base]
+└─ [7,1,3]
+    ├─ [7]         [base]
+    └─ [1,3]
+        ├─ [1]     [base]
+        └─ [3]     [base]
+```
+
+Splitting does no comparisons at all - the real work is next slide.
+
+---
+
+<!-- NEW: full merge-sort trace, part 2 - the merge back up -->
+
+# Merge Sort, Full Trace: The Merge Back Up
+
+<div class="thread">Same split tree, now combined bottom-up, one level at a time.</div>
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">Level 3, singletons: 5, 2, 4, 7, 1, 3 - each trivially sorted</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">Level 2: MERGE(2,4) &rarr; [2,4]; MERGE(1,3) &rarr; [1,3]; 5 and 7 have no sibling yet</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">Level 1: MERGE([5],[2,4]) &rarr; [2,4,5]; MERGE([7],[1,3]) &rarr; [1,3,7]</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-text">Level 0: MERGE([2,4,5],[1,3,7]) &rarr; [1,2,3,4,5,7] - fully sorted</div></div>
+</div>
+
+Every level's total work is one full pass over however many elements
+exist at that level - exactly the $O(n)$-per-level the recurrence on
+the next slide counts.
+
+---
+
 # Merge Sort's Cost: The Recurrence
 
 <div class="thread">Week 4 previewed solving recurrences by hand. Here's a real one.</div>
@@ -614,6 +660,33 @@ HOARE-PARTITION(A, low, high):
 
 ---
 
+<!-- NEW: compact Hoare partition trace (full step-by-step lives in the handout) -->
+
+# Tracing Hoare Partition
+
+<div class="thread">A = [5, 3, 8, 4, 2, 7], pivot = first element = 5.</div>
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">Before</div><div class="cell hl">5</div><div class="cell">3</div><div class="cell">8</div><div class="cell">4</div><div class="cell">2</div><div class="cell">7</div></div>
+</div>
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">j scans down to 5 (A[5]=2 &le; 5), i scans up to 1 (A[1]=5 &ge; 5); i&lt;j &rarr; swap A[1],A[5] &rarr; [2,3,8,4,5,7]</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">j scans down to 4 (A[4]=4 &le; 5), i scans up to 3 (A[3]=8 &ge; 5); i&lt;j &rarr; swap A[3],A[4] &rarr; [2,3,4,8,5,7]</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">j scans down to 3 (A[3]=4 &le; 5), i scans up to 4 (A[4]=8 &ge; 5); i&ge;j &rarr; return j=3</div></div>
+</div>
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">After</div><div class="cell hl2">2</div><div class="cell hl2">3</div><div class="cell hl2">4</div><div class="cell">8</div><div class="cell">5</div><div class="cell">7</div></div>
+</div>
+
+Split at `j=3`: `A[1..3]=[2,3,4]` all $\le 5$; `A[4..6]=[8,5,7]` all
+$\ge 5$. Unlike Lomuto, the pivot value `5` does **not** land at its
+own final sorted index - it's just sitting inside the right partition.
+Full step-by-step (every individual `repeat` move) is in the handout.
+
+---
+
 # Tracing Lomuto Partition
 
 <div class="thread">A = [8, 3, 5, 1, 9, 2], pivot = last element = 2.</div>
@@ -636,6 +709,46 @@ HOARE-PARTITION(A, low, high):
 
 Pivot `2` sits at its final sorted index. Left of it: `[1]`, all
 $\le 2$. Right of it: `[5,8,9,3]`, all $> 2$.
+
+---
+
+<!-- NEW: normal-case quicksort trace, converging across levels -->
+
+# Quicksort, Normal Case: Three Levels Down
+
+<div class="thread">One partition call converges eventually. Here's what happens across several, on an ordinary input.</div>
+
+`A = [6, 3, 8, 1, 9, 2, 7]`. Lomuto partition, last-element pivot,
+called recursively:
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">Start</div><div class="cell">6</div><div class="cell">3</div><div class="cell">8</div><div class="cell">1</div><div class="cell">9</div><div class="cell">2</div><div class="cell hl">7</div></div>
+<div class="row"><div class="rowlabel">Lvl 1: pivot 7</div><div class="cell">6</div><div class="cell">3</div><div class="cell">1</div><div class="cell">2</div><div class="cell hl2">7</div><div class="cell">8</div><div class="cell">9</div></div>
+<div class="row"><div class="rowlabel">Lvl 2: pivot 2</div><div class="cell">1</div><div class="cell hl">2</div><div class="cell">6</div><div class="cell">3</div><div class="cell hl2">7</div><div class="cell">8</div><div class="cell">9</div></div>
+<div class="row"><div class="rowlabel">Lvl 3: pivot 3</div><div class="cell">1</div><div class="cell hl2">2</div><div class="cell hl">3</div><div class="cell">6</div><div class="cell hl2">7</div><div class="cell">8</div><div class="cell">9</div></div>
+</div>
+
+Three levels, three partition calls, and the array is already fully
+sorted - a very different shape from the adversarial case coming up
+next.
+
+---
+
+# Quicksort, Normal Case: Step by Step
+
+<div class="thread">Reading the trace, one partition call at a time.</div>
+
+- **Level 1**, `low=1, high=7`, pivot `A[7]=7`: partitions to
+  `[6,3,1,2,7,8,9]`. Pivot lands at index 5. Left `[6,3,1,2]` (indices
+  1-4) still needs work; right `[8,9]` (indices 6-7) resolves in one
+  trivial call.
+- **Level 2**, `low=1, high=4` on the left piece, pivot `A[4]=2`:
+  partitions to `[1,2,6,3]`. Pivot lands at index 2. Left `[1]` is
+  already a base case (size 1); right `[6,3]` (indices 3-4) still
+  needs one more call.
+- **Level 3**, `low=3, high=4`, pivot `A[4]=3`: partitions to `[3,6]`.
+  Pivot lands at index 3. Both remaining pieces are size $\le 1$ -
+  recursion bottoms out, and the full array `[1,2,3,6,7,8,9]` is sorted.
 
 ---
 

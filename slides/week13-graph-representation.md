@@ -608,6 +608,36 @@ BFS(G, s):
 
 ---
 
+<!-- NEW: BFS queue-contents trace -->
+
+# BFS: The Queue, Step by Step
+
+<div class="thread">Same graph as the CampusNav trace ahead - this time, what's actually inside the queue.</div>
+
+`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`. Initialize:
+mark `G` visited, enqueue `G` - `Q = [G]`.
+
+| Step | Dequeue (visit) | Enqueue this step | Queue after |
+|---|---|---|---|
+| 1 | G | L, D | [L, D] |
+| 2 | L | C, Y | [D, C, Y] |
+| 3 | D | - (both neighbors already visited) | [C, Y] |
+| 4 | C | F | [Y, F] |
+| 5 | Y | - (all neighbors already visited) | [F] |
+| 6 | F | - (all neighbors already visited) | [] |
+
+---
+
+# BFS: Reading the Queue Trace
+
+<div class="thread">Same table. What it actually tells you.</div>
+
+Visit order, read down "Dequeue": **G, L, D, C, Y, F** - exactly what
+FIFO order guarantees: whichever vertex enters the queue first is the
+one explored first.
+
+---
+
 # Depth-First Search (DFS)
 
 ```text

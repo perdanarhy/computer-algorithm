@@ -686,6 +686,68 @@ already reaches the final answer:
 
 ---
 
+<!-- NEW: per-edge Bellman-Ford trace, round 1, part 1 -->
+
+# Bellman-Ford Round 1, Edge by Edge (1/3)
+
+<div class="thread">The table above is the summary. Here's every single check that produced it.</div>
+
+Relaxing every directed edge once, visiting vertices `G, L, C, D, Y, F`
+in turn and each one's outgoing edges in adjacency-list order. Gate
+and Library's edges first:
+
+| Edge | Check | Result |
+|---|---|---|
+| G&rarr;L (3) | $0+3=3 < \infty$ | `dist[L] = 3` |
+| G&rarr;D (4) | $0+4=4 < \infty$ | `dist[D] = 4` |
+| L&rarr;G (3) | $3+3=6$, not $< 0$ | no change |
+| L&rarr;C (2) | $3+2=5 < \infty$ | `dist[C] = 5` |
+| L&rarr;Y (5) | $3+5=8 < \infty$ | `dist[Y] = 8` |
+
+Four of these five edges already improve a distance.
+
+---
+
+<!-- NEW: per-edge Bellman-Ford trace, round 1, part 2 -->
+
+# Bellman-Ford Round 1, Edge by Edge (2/3)
+
+<div class="thread">Same pass, continued - CS-Building, Dorm, and Gym's edges.</div>
+
+| Edge | Check | Result |
+|---|---|---|
+| C&rarr;L (2) | $5+2=7$, not $< 3$ | no change |
+| C&rarr;F (2) | $5+2=7 < \infty$ | `dist[F] = 7` |
+| D&rarr;G (4) | $4+4=8$, not $< 0$ | no change |
+| D&rarr;Y (6) | $4+6=10$, not $< 8$ | no change |
+| Y&rarr;L (5) | $8+5=13$, not $< 3$ | no change |
+
+One more update here, C&rarr;F - the rest of this round finds nothing
+left to improve.
+
+---
+
+<!-- NEW: per-edge Bellman-Ford trace, round 1, part 3 -->
+
+# Bellman-Ford Round 1, Edge by Edge (3/3)
+
+<div class="thread">Gym and Cafeteria's remaining edges, including the -4 credit.</div>
+
+| Edge | Check | Result |
+|---|---|---|
+| Y&rarr;D (6) | $8+6=14$, not $< 4$ | no change |
+| Y&rarr;F (3) | $8+3=11$, not $< 7$ | no change |
+| F&rarr;Y (3) | $7+3=10$, not $< 8$ | no change |
+| F&rarr;C (2) | $7+2=9$, not $< 5$ | no change |
+| F&rarr;L (-4) | $7-4=3$, not $< 3$ (ties) | no change |
+
+None of these five change anything - `F→L (-4)` only *ties* Library's
+already-settled distance. This particular edge order happened to
+finish in one pass; a different order could take longer, which is
+exactly why Bellman-Ford can't stop early in general.
+
+---
+
 # Why Bellman-Ford Still Runs Five More Rounds
 
 <div class="thread">One round already found the answer - the algorithm can't know that yet.</div>
@@ -949,7 +1011,7 @@ notes: Distribute or project the quiz. After about 10 minutes, discuss as a grou
 - **Format:** same style as the midterm - a mix of short-answer,
   trace-by-hand, and proof-sketch questions, worth 25% of the final
   grade.
-- **The best preparation:** the six practice questions on the next
+- **The best preparation:** the seven practice questions on the next
   several slides span every topic above. Work each one out yourself
   *before* looking at its answer.
 
@@ -1097,6 +1159,33 @@ solving one does not give an efficient algorithm for the other.
 
 ---
 
+<!-- NEW: Practice Q7, BFS/DFS - restores graph traversal to the final-exam practice set -->
+
+# Practice Q7 - Graph Traversal (BFS/DFS)
+
+Using CampusNav's 6-node campus graph and its adjacency list
+(`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`), trace
+BFS starting from the Gate. List the visit order, and state how many
+"hops" (edges) the Cafeteria is from the Gate.
+
+---
+
+# Practice A7
+
+Queue trace: enqueue G. Dequeue G, enqueue L, D. Dequeue L, enqueue C,
+Y (G already visited). Dequeue D - both neighbors already
+visited/enqueued. Dequeue C, enqueue F (L already visited). Dequeue Y
+- all neighbors already visited/enqueued. Dequeue F - done.
+
+**Visit order: G, L, D, C, Y, F.**
+
+Layer by layer: G is 0 hops; L and D are 1 hop (direct neighbors of
+G); C and Y are 2 hops (first reached via L); F is first reached via
+C, so **Cafeteria is 3 hops from the Gate** - exactly what BFS's
+layer-by-layer order is built to answer.
+
+---
+
 <!-- SLOT N+1: Limits (Act 4 / CLOSE) -->
 
 # What This Week's Toolkit Cannot Do
@@ -1123,7 +1212,7 @@ all** an open question - P vs. NP is unsolved, not just unsolved *by
 us*. There is no Week 16 to answer it. **Week 15 is the Final Exam**,
 covering everything from Weeks 9-14: divide-and-conquer, greedy
 algorithms, dynamic programming (twice), graph representation, and
-this week's shortest path and P/NP material - exactly the six
+this week's shortest path and P/NP material - exactly the seven
 practice questions you just worked through.
 
 ---
@@ -1144,7 +1233,7 @@ practice questions you just worked through.
   campus, two very different kinds of problem.
 - **Reading:** CLRS, Chapter 22 (Shortest Paths) and Chapter 34
   (NP-Completeness, skim).
-- **Prepare:** rework all six final-exam practice questions without
+- **Prepare:** rework all seven final-exam practice questions without
   looking at the answers first. Bring questions to Week 15.
 
 ---

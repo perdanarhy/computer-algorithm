@@ -17,7 +17,10 @@ the following. Each must satisfy all five algorithm properties
   value, or report that fewer than two distinct values exist.
 - (c) Given two sorted arrays of equal length, merge them into one
   sorted array (this is the merge step you'll meet formally in Week 6
-  - write it now from first principles).
+  - write it now from first principles). *Hint: think of two fingers,
+  one pointing into each sorted pile, always taking the smaller of
+  the two you're currently pointing at.* Partial credit is available
+  for a correct idea even if your pseudocode syntax isn't perfect.
 
 **2. Big-O proofs (40 pts).** For each function below, state its
 tightest O-bound and prove it directly from the formal definition

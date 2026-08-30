@@ -62,9 +62,19 @@ order the edges were introduced above (G–L, G–D, L–C, L–Y, D–Y, Y–F,
 C–F).
 
 **B1. Trace BFS from the Gate.** Using a queue (first-in, first-out),
-write down the order vertices are *visited* (not just enqueued).
+fill in the queue's contents at each step, then read off the visit
+order.
 
-Start: enqueue G.
+Start: enqueue G. Queue: `[G]`
+
+| Step | Dequeue (visit) | Enqueue this step | Queue after |
+|---|---|---|---|
+| 1 | | | |
+| 2 | | | |
+| 3 | | | |
+| 4 | | | |
+| 5 | | | |
+| 6 | | | |
 
 Visit order: _______________________________________________
 
@@ -131,7 +141,17 @@ Matrix cells: _______   List entries: _______   My choice: _______
 Adjacency list neighbor order (as fixed in the prompt): G→[L,D],
 L→[G,C,Y], C→[L,F], D→[G,Y], Y→[L,D,F], F→[Y,C].
 
-- **B1. BFS order: G, L, D, C, Y, F.**
+- **B1. BFS order: G, L, D, C, Y, F.** Filled queue table:
+
+  | Step | Dequeue (visit) | Enqueue this step | Queue after |
+  |---|---|---|---|
+  | 1 | G | L, D | [L, D] |
+  | 2 | L | C, Y | [D, C, Y] |
+  | 3 | D | - (both neighbors already visited) | [C, Y] |
+  | 4 | C | F | [Y, F] |
+  | 5 | Y | - (all neighbors already visited) | [F] |
+  | 6 | F | - (all neighbors already visited) | [] |
+
   Trace: visit G, enqueue L,D. Visit L, enqueue C,Y (G already
   visited). Visit D, neighbors G,Y already visited/enqueued - nothing
   new. Visit C, enqueue F (L already visited). Visit Y, neighbors

@@ -105,16 +105,66 @@ Pivot `2` now sits at index 2, its final sorted position. Left of it,
 `[1]`, is entirely $\le 2$. Right of it, `[5, 8, 9, 3]`, is entirely
 $> 2$ - a correct partition in exactly 5 comparisons.
 
-**A note on Hoare's partition, same array, different pivot.** Hoare
-fixes the pivot as the *first* element instead. Running
-`HOARE-PARTITION` on the original `[8, 3, 5, 1, 9, 2]` (pivot `= 8`)
-ends with `[2, 3, 5, 1, 9, 8]` and a returned split index of 4 - note
-that, unlike Lomuto, **the pivot does not land at its final sorted
-index**. Hoare's partition only guarantees that everything in
-`A[low..j]` is $\le$ pivot and everything in `A[j+1..high]` is $\ge$
-pivot; the recursive calls must be `QUICKSORT(A, low, p)` and
-`QUICKSORT(A, p+1, high)` (using `p`, not `p-1`/`p+1` like Lomuto) to
-account for this.
+---
+
+## Part 3b: The Hoare Partition, Fully Traced
+
+```text
+HOARE-PARTITION(A, low, high):
+    pivot = A[low]
+    i = low - 1
+    j = high + 1
+    while true:
+        repeat j = j - 1 until A[j] <= pivot
+        repeat i = i + 1 until A[i] >= pivot
+        if i < j:
+            swap A[i], A[j]
+        else:
+            return j
+```
+
+Partitioning `A = [5, 3, 8, 4, 2, 7]` (`low = 1`, `high = 6`), pivot
+fixed as the **first** element, `A[1] = 5`. Starting pointers:
+`i = low - 1 = 0`, `j = high + 1 = 7`.
+
+**Outer iteration 1**
+
+- `repeat j = j - 1 until A[j] <= 5`: `j=6`, `A[6]=7 <= 5`? No. `j=5`,
+  `A[5]=2 <= 5`? Yes, stop. `j = 5`.
+- `repeat i = i + 1 until A[i] >= 5`: `i=1`, `A[1]=5 >= 5`? Yes, stop.
+  `i = 1`.
+- `i < j` (`1 < 5`)? Yes &rarr; swap `A[1], A[5]` &rarr;
+  `[2, 3, 8, 4, 5, 7]`.
+
+**Outer iteration 2**
+
+- `repeat j = j - 1 until A[j] <= 5`: `j=4`, `A[4]=4 <= 5`? Yes, stop.
+  `j = 4`.
+- `repeat i = i + 1 until A[i] >= 5`: `i=2`, `A[2]=3 >= 5`? No. `i=3`,
+  `A[3]=8 >= 5`? Yes, stop. `i = 3`.
+- `i < j` (`3 < 4`)? Yes &rarr; swap `A[3], A[4]` &rarr;
+  `[2, 3, 4, 8, 5, 7]`.
+
+**Outer iteration 3**
+
+- `repeat j = j - 1 until A[j] <= 5`: `j=3`, `A[3]=4 <= 5`? Yes, stop.
+  `j = 3`.
+- `repeat i = i + 1 until A[i] >= 5`: `i=4`, `A[4]=8 >= 5`? Yes, stop.
+  `i = 4`.
+- `i < j` (`4 < 3`)? No &rarr; **return `j = 3`**. Loop ends.
+
+**Result:** `A = [2, 3, 4, 8, 5, 7]`, split index `j = 3`.
+`A[1..3] = [2, 3, 4]` is entirely $\le 5$; `A[4..6] = [8, 5, 7]` is
+entirely $\ge 5$ - a correct partition, in 5 pointer moves and 2
+swaps.
+
+**Note, unlike Lomuto:** the pivot value `5` does **not** land at its
+own final sorted index - it's simply sitting inside the right
+partition, at position 5. Hoare's partition only guarantees
+`A[low..j]` is $\le$ pivot and `A[j+1..high]` is $\ge$ pivot; the
+recursive calls must be `QUICKSORT(A, low, p)` and
+`QUICKSORT(A, p+1, high)` (using `p` itself, not `p-1`/`p+1` like
+Lomuto) to account for this.
 
 ---
 

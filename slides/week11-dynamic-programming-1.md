@@ -482,6 +482,49 @@ cell is touched exactly once, in either implementation.
 
 ---
 
+<!-- NEW: memoization cache-fill trace, pairs with the tabulation trace above -->
+
+# Trace: FIB_MEMO's Call Tree
+
+<div class="thread">Same fib(5). Top-down this time - watch repeats turn into cache hits.</div>
+
+```text
+FIB_MEMO(5)
+├─ FIB_MEMO(4)
+│   ├─ FIB_MEMO(3)
+│   │   ├─ FIB_MEMO(2)
+│   │   │   ├─ FIB_MEMO(1)  [base]
+│   │   │   └─ FIB_MEMO(0)  [base]
+│   │   └─ FIB_MEMO(1)  [base]
+│   └─ FIB_MEMO(2)  [cache HIT]
+└─ FIB_MEMO(3)  [cache HIT]
+```
+
+Compare to Week 4's naive `fib(5)` tree (15 calls, `fib(3)` expanded
+twice, `fib(2)` expanded three times): this tree has only **9** calls,
+and `fib(3)` and `fib(2)`'s *second* visits are one-line cache hits,
+not new subtrees.
+
+---
+
+# Trace: FIB_MEMO's Cache-Fill Order
+
+<div class="thread">Same tree. Now the cache, filled in the order recursion actually returns.</div>
+
+| Fill # | Cache entry | Computed as | Value |
+|---|---|---|---|
+| 1 | `cache[2]` | `FIB_MEMO(1) + FIB_MEMO(0)` = 1 + 0 | 1 |
+| 2 | `cache[3]` | `cache[2] + FIB_MEMO(1)` = 1 + 1 | 2 |
+| 3 | `cache[4]` | `cache[3] + cache[2]` = 2 + 1 | 3 |
+| 4 | `cache[5]` | `cache[4] + cache[3]` = 3 + 2 | 5 |
+
+The cache fills in the same ascending order tabulation used
+(`2, 3, 4, 5`) - but memoization *reaches* that order by recursing all
+the way down to the base cases first, then filling on the way back up,
+not by looping forward from the start.
+
+---
+
 <!-- Act 3 / BUILD: worked example 3, climbing stairs fixed -->
 
 # Worked Example: The "20-Step Shortcut," Finally Fixed
@@ -586,6 +629,27 @@ The final cell (blue) reads `best(3, 20) = 15` (gold) and adds Music's
 40 → **55**, beating the 48 that "best-per-minute first" found
 earlier. The optimal plan: **Coffee + Music**, exactly 60 minutes, 0
 minutes wasted.
+
+---
+
+<!-- NEW: interior-cell trace, where max() genuinely has to choose -->
+
+# Inside One Cell: best(Music, 40)
+
+<div class="thread">The final cell adds Music. Here's the earlier cell where that decision actually gets made.</div>
+
+`best(4, 40)`: best value using all four activities, 40 minutes
+available. `max()` compares two real options:
+
+| Option | Value |
+|---|---|
+| **Exclude Music:** `best(3, 40)` (the "+Friend" row, column 40) | 33 |
+| **Include Music:** duration 40 uses the whole budget - `40 + best(3, 40-40)` = `40 + best(3, 0)` = `40 + 0` | 40 |
+
+$\max(33, 40) = 40$ - **including Music wins**, because Music's own
+value (40) alone already beats the best 40-minute plan without it
+(33). This is the exact cell that later combines with Coffee's
+leftover 20 minutes to produce the final 55.
 
 ---
 

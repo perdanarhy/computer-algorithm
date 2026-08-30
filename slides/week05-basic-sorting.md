@@ -388,6 +388,66 @@ sorted (or nearly-sorted) array instead of blindly grinding through it.
 
 ---
 
+<!-- NEW: code-to-cost bridge, part 1 -->
+
+# Bubble Sort: Counting the Comparisons
+
+<div class="thread">The same trace as before - this time, counting what it actually costs.</div>
+
+Same array, `[5, 2, 4, 1, 3]`, no early exit (worst case: assume
+`swapped` never trips false early). Each pass's inner loop runs one
+fewer comparison than the pass before it, because one more element -
+the previous pass's largest - is now settled at the end and never
+needs checking again.
+
+| Pass | Inner loop | Comparisons this pass |
+|---|---|---|
+| 1 | `j = 0` to `3` | 4 |
+| 2 | `j = 0` to `2` | 3 |
+| 3 | `j = 0` to `1` | 2 |
+| 4 | `j = 0` to `0` | 1 |
+
+**Total: $4 + 3 + 2 + 1 = 10$ comparisons** to sort these 5 elements.
+
+---
+
+<!-- NEW: code-to-cost bridge, part 2 -->
+
+# From Counting to O(n²): The Sum
+
+<div class="thread">Same pattern, any array of size n - not just this one.</div>
+
+For an array of size $n$, pass 1 makes $n-1$ comparisons, pass 2 makes
+$n-2$, and so on down to pass $n-1$, which makes exactly 1:
+
+$$
+(n-1) + (n-2) + \cdots + 1 = \sum_{k=1}^{n-1} k = \frac{n(n-1)}{2}
+$$
+
+Check against the trace above: $n = 5 \Rightarrow \frac{5 \cdot
+4}{2} = 10$ - matches.
+
+---
+
+# From Counting to O(n²): The Bound
+
+<div class="thread">Same sum, one algebra step from a Big-O bound.</div>
+
+$$
+\frac{n(n-1)}{2} = \frac{n^2 - n}{2}
+$$
+
+Dropping the slower-growing term and the constant factor (Week 3's
+Big-O rules) leaves the dominant term:
+
+<div class="why">
+<span class="bignotation">O(n²)</span> - and this derivation, not just
+the label, is what backs <strong>every</strong> "O(n²)" claim for
+bubble, selection, and insertion sort across Weeks 5 and 6.
+</div>
+
+---
+
 <!-- Act 3 / BUILD: Selection sort -->
 
 # Selection Sort: The Idea
@@ -513,6 +573,27 @@ become a formal proof.
 
 Notice the sorted region (everything left of, and including, the key)
 only ever *grows* - that observation is the loop invariant.
+
+---
+
+<!-- NEW: within-pass element-level trace -->
+
+# Insertion Sort: Inside One Pass (i=3, key=1)
+
+<div class="thread">Same pass-level trace, i=3 row - now every comparison and shift, one at a time.</div>
+
+Entering `i=3`: array is `[2, 4, 5, 1, 3]`. `key = A[3] = 1`, `j`
+starts at `i - 1 = 2`.
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">j=2: A[2]=5 &gt; key(1) &rarr; shift A[3]=5, j=1 &rarr; [2,4,5,5,3]</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">j=1: A[1]=4 &gt; key(1) &rarr; shift A[2]=4, j=0 &rarr; [2,4,4,5,3]</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">j=0: A[0]=2 &gt; key(1) &rarr; shift A[1]=2, j=-1 &rarr; [2,2,4,5,3]</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-text">j=-1: loop stops (j &lt; 0) &rarr; place key: A[0]=1 &rarr; [1,2,4,5,3]</div></div>
+</div>
+
+Three comparisons, three shifts, one placement - four individual
+operations the pass-level trace above compressed into a single row.
 
 ---
 

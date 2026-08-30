@@ -157,6 +157,26 @@ counterexample is enough to disqualify stability, even though many
 
 ---
 
+## Part 3b: Where "O(n²)" Actually Comes From
+
+Bubble sort on `[5, 2, 4, 1, 3]`, worst case (no early exit): pass 1
+makes 4 comparisons, pass 2 makes 3, pass 3 makes 2, pass 4 makes 1 -
+one fewer each time, because the previous pass's largest element is
+now settled and never needs re-checking.
+
+$$
+4 + 3 + 2 + 1 = 10, \qquad \text{and in general: } (n-1) + (n-2) +
+\cdots + 1 = \sum_{k=1}^{n-1} k = \frac{n(n-1)}{2}
+$$
+
+For $n = 5$: $\frac{5 \cdot 4}{2} = 10$ - matches the count above.
+$\frac{n(n-1)}{2} = \frac{n^2-n}{2}$; dropping the slower-growing term
+and the constant factor leaves the dominant term, $O(n^2)$. This
+counted derivation - not just the label - is what backs every
+"$O(n^2)$" claim made for bubble, selection, and insertion sort.
+
+---
+
 ## Part 4: Optional Reading - Why Stability Isn't Just a Technicality
 
 Every mainstream standard-library sort is a documented example of why
