@@ -4,6 +4,11 @@
 // leaves no output. Skips decks whose .pptx is already newer than the
 // source (and the theme). Usage: node scripts/build-pptx.js [outDir]
 // Timeout per deck: PPTX_TIMEOUT_SECONDS env var, default 300.
+// Editable (native, re-editable in PowerPoint) pptx instead of the default
+// pre-rendered-image pptx: PPTX_EDITABLE=1. Experimental (marp-cli #82:
+// https://github.com/orgs/marp-team/discussions/82) - needs LibreOffice
+// Impress installed, and can fail on individual slides/themes; failures
+// still surface per-deck in the summary below rather than hanging.
 'use strict';
 
 const fs = require('fs');
@@ -19,6 +24,7 @@ const themeFile = path.join(repoRoot, 'themes', 'algorithms.css');
 
 const timeoutSeconds = Number(process.env.PPTX_TIMEOUT_SECONDS) || 300;
 const timeoutMs = timeoutSeconds * 1000;
+const editable = /^(1|true)$/i.test(process.env.PPTX_EDITABLE || '');
 
 function newestMtime(...files) {
   return Math.max(...files.map((f) => fs.statSync(f).mtimeMs));
@@ -32,6 +38,7 @@ function buildDeck(srcPath, destPath) {
     '--html', '--pptx', '--allow-local-files',
     '-o', destPath,
   ];
+  if (editable) args.push('--pptx-editable');
   return spawnSync('npx', args, { timeout: timeoutMs, encoding: 'utf8' });
 }
 
@@ -41,6 +48,10 @@ function main() {
     return;
   }
   fs.mkdirSync(outDir, { recursive: true });
+
+  if (editable) {
+    console.log('PPTX_EDITABLE=1: generating editable pptx (needs LibreOffice Impress; experimental).');
+  }
 
   const decks = fs.readdirSync(slidesDir)
     .filter((f) => f.endsWith('.md'))

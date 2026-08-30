@@ -17,6 +17,9 @@ html:
 
 ## Render every deck in slides/ to PowerPoint, one deck at a time with a
 ## per-deck timeout (PPTX_TIMEOUT_SECONDS, default 300), in dist/.
+## PPTX_EDITABLE=1 generates native, re-editable PPTX instead of the
+## default pre-rendered-image PPTX (needs LibreOffice Impress installed;
+## experimental - https://github.com/orgs/marp-team/discussions/82).
 pptx:
 	node scripts/build-pptx.js $(OUT)
 
