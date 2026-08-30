@@ -107,7 +107,10 @@ function protectMath(md) {
     return token;
   };
   let out = md.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => stow(tex, '\\[', '\\]'));
-  out = out.replace(/\$([^$\n]+)\$/g, (_, tex) => stow(tex, '\\(', '\\)'));
+  // Inline math may soft-wrap across a single line break in the source, but
+  // never spans a blank line (paragraph break) - that's how we stop this
+  // from swallowing unrelated later text between two stray "$" characters.
+  out = out.replace(/\$((?:[^$\n]|\n(?!\n))+)\$/g, (_, tex) => stow(tex, '\\(', '\\)'));
   return { out, stash };
 }
 
