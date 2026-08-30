@@ -127,6 +127,12 @@ different builds for the same instruction.
 </div>
 </div>
 
+---
+
+# Two Different Apps, Same Instruction: Why?
+
+<div class="thread">Same spec, two builds - what actually went wrong.</div>
+
 In the demo, nobody in the room can say which one is *wrong* - the
 instruction never pinned down what "look around" or "ask someone"
 actually means as steps a program executes.

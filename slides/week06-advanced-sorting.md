@@ -67,15 +67,21 @@ they're returned. Two TAs propose different methods.
   "after" it in the other. Repeat that same trick separately on each
   smaller pile.
 
-- Which method needs more helpers working at once? Which one risks
-  redoing a lot of work if the landmark paper turns out to be a bad
-  pick?
-
 <!--
 notes: Give students 30 seconds to think, alone, before asking.
 Do not name "merge sort" or "quicksort" yet - let them describe "split and combine" vs "pick a landmark and separate" in their own words.
 Plant the seed: ask "what would a *bad* landmark paper look like?" Don't resolve it - this pays off later today.
 -->
+
+---
+
+# Before We Start: Two Questions to Hold Onto
+
+<div class="thread">Same warm-up, the question that drives today's deck.</div>
+
+- Which method needs more helpers working at once? Which one risks
+  redoing a lot of work if the landmark paper turns out to be a bad
+  pick?
 
 ---
 

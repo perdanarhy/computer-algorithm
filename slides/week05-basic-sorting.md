@@ -337,6 +337,12 @@ if they're out of order, swap them. The largest unsorted element
 Repeat, one fewer element each time, until a pass makes no swaps at
 all.
 
+---
+
+# Bubble Sort: Pseudocode
+
+<div class="thread">The idea above, written out precisely.</div>
+
 ```text
 BUBBLE-SORT(A):
     n = length(A)
@@ -394,11 +400,10 @@ sorted (or nearly-sorted) array instead of blindly grinding through it.
 
 <div class="thread">The same trace as before - this time, counting what it actually costs.</div>
 
-Same array, `[5, 2, 4, 1, 3]`, no early exit (worst case: assume
-`swapped` never trips false early). Each pass's inner loop runs one
-fewer comparison than the pass before it, because one more element -
-the previous pass's largest - is now settled at the end and never
-needs checking again.
+Same array, `[5, 2, 4, 1, 3]`, no early exit (worst case: `swapped`
+never trips false early). Each pass's inner loop runs one fewer
+comparison than before, because one more element - the previous
+pass's largest - is now settled and never needs checking again.
 
 | Pass | Inner loop | Comparisons this pass |
 |---|---|---|

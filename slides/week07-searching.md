@@ -362,7 +362,13 @@ $$
 
 This is the recurrence $T(n) = T(n/2) + O(1)$ - constant work per
 step, then recurse on half - the same halving pattern as Week 4's
-recursion tree, just one subproblem per level instead of two:
+recursion tree, just one subproblem per level instead of two.
+
+---
+
+# Why Binary Search Is O(log n), the Levels
+
+<div class="thread">One subproblem per level, not two - so this table is shorter than Week 4's.</div>
 
 | Level | Size | Cost at this level |
 |---|---|---|
@@ -371,6 +377,14 @@ recursion tree, just one subproblem per level instead of two:
 | 2 | $n/4$ | $O(1)$ |
 | $\vdots$ | $\vdots$ | $O(1)$ |
 | $\log_2 n$ | $1$ | $O(1)$ |
+
+---
+
+<!-- NEW: binary search cost, continued - CampusNav example -->
+
+# Why Binary Search Is O(log n), Continued
+
+<div class="thread">The bound in numbers, for CampusNav's actual directory.</div>
 
 There are $\log_2 n + 1$ levels, each doing $O(1)$ work, so
 $T(n) = O(1) \cdot (\log_2 n + 1) =$ <span class="bignotation">O(log n)</span>.
