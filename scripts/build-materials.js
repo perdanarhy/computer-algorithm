@@ -12,7 +12,9 @@ const { execFileSync } = require('child_process');
 const COURSE_NAME = 'Computer Algorithms (506994-002)';
 
 const repoRoot = path.join(__dirname, '..');
-const outDir = path.join(repoRoot, process.argv[2] || 'dist');
+// resolve (not join): an absolute argv[2] must override repoRoot, not be
+// concatenated onto it.
+const outDir = path.resolve(repoRoot, process.argv[2] || 'dist');
 const materialsDir = path.join(repoRoot, 'materials');
 const slidesDir = path.join(repoRoot, 'slides');
 
@@ -118,6 +120,12 @@ function restoreMath(html, stash) {
   return html.replace(/@@MATH(\d+)@@/g, (_, i) => stash[Number(i)]);
 }
 
+// Instructor-only answer keys (materials/<week>/worksheet-answers.md) are
+// never built into the deployed site by default - the public GitHub Pages
+// site must never serve them, not just leave them unlinked. Set
+// BUILD_ANSWER_KEYS=1 to render them locally (e.g. for instructor review).
+const buildAnswerKeys = /^(1|true)$/i.test(process.env.BUILD_ANSWER_KEYS || '');
+
 function main() {
   if (!fs.existsSync(materialsDir)) {
     console.log('No materials/ directory, nothing to build.');
@@ -128,9 +136,17 @@ function main() {
     fs.statSync(path.join(materialsDir, w)).isDirectory());
 
   let count = 0;
+  let skippedAnswerKeys = 0;
   for (const week of weeks) {
     const weekDir = path.join(materialsDir, week);
-    const files = fs.readdirSync(weekDir).filter((f) => f.endsWith('.md'));
+    const files = fs.readdirSync(weekDir).filter((f) => {
+      if (!f.endsWith('.md')) return false;
+      if (!buildAnswerKeys && f.endsWith('-answers.md')) {
+        skippedAnswerKeys += 1;
+        return false;
+      }
+      return true;
+    });
     const destDir = path.join(outDir, 'materials', week);
     fs.mkdirSync(destDir, { recursive: true });
 
@@ -156,7 +172,10 @@ function main() {
       count += 1;
     }
   }
-  console.log(`Done: ${count} materials page(s) built to ${path.relative(repoRoot, outDir)}/materials/`);
+  const skippedNote = skippedAnswerKeys
+    ? ` (${skippedAnswerKeys} answer-key file(s) skipped - set BUILD_ANSWER_KEYS=1 to include)`
+    : '';
+  console.log(`Done: ${count} materials page(s) built to ${path.relative(repoRoot, outDir)}/materials/${skippedNote}`);
 }
 
 main();

@@ -18,7 +18,9 @@ const { spawnSync } = require('child_process');
 const MARP_PKG = '@marp-team/marp-cli@^4.0.1';
 
 const repoRoot = path.join(__dirname, '..');
-const outDir = path.join(repoRoot, process.argv[2] || 'dist');
+// resolve (not join): an absolute argv[2] must override repoRoot, not be
+// concatenated onto it.
+const outDir = path.resolve(repoRoot, process.argv[2] || 'dist');
 const slidesDir = path.join(repoRoot, 'slides');
 const themeFile = path.join(repoRoot, 'themes', 'algorithms.css');
 
