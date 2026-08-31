@@ -315,6 +315,58 @@ A procedure that fails even one of these is not an algorithm - it's a suggestion
 
 ---
 
+# What Is a GCD?
+
+<div class="thread">Before the algorithm: what are we even computing?</div>
+
+The **greatest common divisor** of two whole numbers is the largest whole number that divides both of them with no remainder.
+
+**GCD(12, 18), the slow way - list every divisor:**
+- Divisors of 12: 1, 2, 3, 4, 6, 12
+- Divisors of 18: 1, 2, 3, 6, 9, 18
+- Common to both: 1, 2, 3, 6
+- **Greatest** of those: **6** - so GCD(12, 18) = 6.
+
+That works for small numbers, but listing every divisor of two 12-digit numbers is hopeless. Euclid's algorithm gets the same answer without ever listing a single divisor - the next two slides show how, drawn and then written.
+
+---
+
+# Flowchart: Euclid's GCD
+
+<div class="thread">The pseudocode on the next slide, drawn instead of written - same algorithm, converted.</div>
+
+<svg viewBox="0 0 560 460" width="380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="gcdArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="var(--brand)"/>
+</marker>
+</defs>
+<ellipse cx="250" cy="35" rx="95" ry="28" fill="var(--navy)"/>
+<text x="250" y="40" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">GCD(a, b)</text>
+<line x1="250" y1="63" x2="250" y2="103" stroke="var(--brand)" stroke-width="2" marker-end="url(#gcdArrow)"/>
+<polygon points="250,103 345,160 250,217 155,160" fill="var(--brand)"/>
+<text x="250" y="165" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">b != 0?</text>
+<line x1="250" y1="217" x2="250" y2="252" stroke="var(--brand)" stroke-width="2" marker-end="url(#gcdArrow)"/>
+<text x="268" y="238" font-size="14" fill="var(--navy)">yes</text>
+<rect x="150" y="252" width="200" height="42" rx="6" fill="var(--pale)" stroke="var(--brand)" stroke-width="1.5"/>
+<text x="250" y="278" font-size="15" fill="var(--navy)" text-anchor="middle" font-family="monospace">r = a mod b</text>
+<line x1="250" y1="294" x2="250" y2="319" stroke="var(--brand)" stroke-width="2" marker-end="url(#gcdArrow)"/>
+<rect x="150" y="319" width="200" height="42" rx="6" fill="var(--pale)" stroke="var(--brand)" stroke-width="1.5"/>
+<text x="250" y="345" font-size="15" fill="var(--navy)" text-anchor="middle" font-family="monospace">a = b</text>
+<line x1="250" y1="361" x2="250" y2="386" stroke="var(--brand)" stroke-width="2" marker-end="url(#gcdArrow)"/>
+<rect x="150" y="386" width="200" height="42" rx="6" fill="var(--pale)" stroke="var(--brand)" stroke-width="1.5"/>
+<text x="250" y="412" font-size="15" fill="var(--navy)" text-anchor="middle" font-family="monospace">b = r</text>
+<path d="M150,407 L60,407 L60,160 L153,160" fill="none" stroke="var(--brand)" stroke-width="2" marker-end="url(#gcdArrow)"/>
+<line x1="345" y1="160" x2="403" y2="160" stroke="var(--brand)" stroke-width="2" marker-end="url(#gcdArrow)"/>
+<text x="374" y="148" font-size="14" fill="var(--navy)" text-anchor="middle">no</text>
+<ellipse cx="480" cy="160" rx="75" ry="28" fill="var(--navy)"/>
+<text x="480" y="165" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">return a</text>
+</svg>
+
+<div class="graphviz-note">Same three lines as the loop body in the pseudocode next: r = a mod b, then a = b, then b = r - the diamond re-checks after each pass around the loop.</div>
+
+---
+
 # Worked Example: Euclid's GCD
 
 <div class="thread">A clean, classic case before we return to CampusNav's messier one.</div>
