@@ -197,7 +197,7 @@ the network.
 
 # Single-Source Shortest Path: Definition
 
-<div class="thread">Formal, now that the pain is fresh.</div>
+<div class="thread">Formal, now that the pain is fresh. (CLRS 4th ed, Ch 22)</div>
 
 > Given a weighted graph $G = (V, E)$ with edge weights $w(u, v)$ and
 > a single **source vertex** $s$, the **single-source shortest path
@@ -260,7 +260,7 @@ the network.
 
 # Dijkstra's Algorithm: The Greedy Idea
 
-<div class="thread">Back to the warm-up: how do you find the shortest route without walking every one?</div>
+<div class="thread">Back to the warm-up: how do you find the shortest route without walking every one? (CLRS 4th ed, &sect;22.3)</div>
 
 1. Start at the source; its distance is 0, every other vertex starts at $\infty$.
 2. Repeatedly pick the **unvisited** vertex with the smallest tentative distance - this one is now guaranteed final ("settled").
@@ -579,7 +579,7 @@ work here" is a guarantee.
 
 # Bellman-Ford: The Idea
 
-<div class="thread">If you can't trust "settle and never revisit," stop settling permanently.</div>
+<div class="thread">If you can't trust "settle and never revisit," stop settling permanently. (CLRS 4th ed, &sect;22.1)</div>
 
 - Initialize distances exactly like Dijkstra: source = 0, everything
   else = $\infty$.
@@ -794,7 +794,7 @@ checking Library, then run Bellman-Ford on the same graph and compare.
 
 # P: Polynomial-Time Solvable
 
-<div class="thread">The class shortest path belongs to.</div>
+<div class="thread">The class shortest path belongs to. (CLRS 4th ed, &sect;34.1)</div>
 
 > A problem is in **P** if there exists an algorithm that **solves**
 > it - produces a correct answer, for every valid input - in time
@@ -811,7 +811,7 @@ checking Library, then run Bellman-Ford on the same graph and compare.
 
 # NP: Polynomial-Time Verifiable
 
-<div class="thread">The most common misconception in this entire topic - let's fix it directly.</div>
+<div class="thread">The most common misconception in this entire topic - let's fix it directly. (CLRS 4th ed, &sect;34.2)</div>
 
 > A problem is in **NP** if, given a **candidate solution**, you can
 > **verify** whether it's correct in polynomial time - *even if
@@ -849,6 +849,48 @@ minimizing total walking distance.
   roughly trying all orderings, which is *exponential* in the number
   of buildings. Knowing how to solve shortest path (one destination)
   gives no shortcut here - a fundamentally different shape of problem.
+
+---
+
+<!-- NEW: worked example of CLRS 4th ed section 34.2's polynomial-time-verification idea, using the scavenger-hunt framing already in the deck -->
+
+# Verifying a Scavenger-Hunt Route, By Hand
+
+<div class="thread">"Hard to find" and "hard to check" are not the same claim - watch the check actually happen. (CLRS 4th ed, &sect;34.2)</div>
+
+A CampusNav intern proposes this candidate route: **Gate &rarr; Dorm
+&rarr; Gym &rarr; Cafeteria &rarr; CS-Building &rarr; Library**. Is it
+a valid scavenger-hunt route, and if so, how long is it? Verifying
+needs only two checks, both fast:
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">Every one of the six locations appears <strong>exactly once</strong> - a single pass down the list, $O(V)$.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">Every <strong>consecutive pair</strong> is an actual edge on the campus graph, and their weights sum correctly - one adjacency-list lookup per step, $O(V)$ lookups total.</div></div>
+</div>
+
+---
+
+<!-- NEW: continuation of the verification worked example - the actual arithmetic -->
+
+# The Check, Worked Out
+
+<div class="thread">Same candidate route - here is every lookup the verifier performs.</div>
+
+| Consecutive pair | Edge exists? | Weight |
+|---|---|---|
+| Gate &rarr; Dorm | yes | 4 |
+| Dorm &rarr; Gym | yes | 6 |
+| Gym &rarr; Cafeteria | yes | 3 |
+| Cafeteria &rarr; CS-Building | yes | 2 |
+| CS-Building &rarr; Library | yes | 2 |
+
+All six locations appeared exactly once, every consecutive pair is a
+real edge, and the total route length is $4+6+3+2+2 = 17$ minutes.
+**Verified valid, in five quick lookups** - even though *finding* this
+route among all the ways to order six locations (up to $6!/2 = 360$
+distinct routes on an undirected graph this size) offers no comparable
+shortcut. That gap, fast to check versus slow to find, is exactly what
+puts the scavenger hunt in NP without putting it in P.
 
 ---
 
@@ -994,6 +1036,30 @@ practice set waiting for you there.
 
 ---
 
+<!-- NEW: CLRS reference slide, positioned immediately before Summary per course design -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">Everything above, mapped to the textbook - and where to look if you want more.</div>
+
+| This week's topic | CLRS 4th ed |
+|---|---|
+| Bellman-Ford algorithm | &sect;22.1 |
+| Dijkstra's algorithm | &sect;22.3 |
+| Polynomial time (the definition of "efficient") | &sect;34.1 |
+| Polynomial-time verification (P vs. NP) | &sect;34.2 |
+
+<div class="why">
+<strong>If you want to go deeper</strong> (not required this semester):
+CLRS Chapter 21 (Minimum Spanning Trees - connecting every vertex as
+cheaply as possible, a different optimization goal than shortest
+path) and Chapter 23 (All-Pairs Shortest Paths - every vertex's
+distance to every other, not just from one source) are the natural
+next structures built on top of this week's single-source algorithms.
+</div>
+
+---
+
 <!-- SLOT N+3: Summary (Act 4 / CLOSE) -->
 
 # Summary
@@ -1008,8 +1074,9 @@ practice set waiting for you there.
   most common misreading.
 - Shortest path is in P; the campus scavenger hunt is NP-hard - same
   campus, two very different kinds of problem.
-- **Reading:** CLRS, Chapter 22 (Shortest Paths) and Chapter 34
-  (NP-Completeness, skim).
+- **Reading:** CLRS, Chapter 22 - &sect;22.1 (Bellman-Ford), &sect;22.3
+  (Dijkstra); Chapter 34 - &sect;34.1 (polynomial time), &sect;34.2
+  (polynomial-time verification).
 - **Prepare:** work through Week 15's full practice set (seven
   questions, Weeks 9-14) without looking at the answers first.
 

@@ -272,6 +272,439 @@ layer-by-layer order is built to answer.
 
 ---
 
+<!-- NEW: transition slide introducing the deeper per-topic practice block -->
+
+# One More Pass: New Practice, One Per Topic
+
+<div class="thread">The seven questions above were a quick pass. Here's one new, harder problem per week - full solutions, worked out completely.</div>
+
+For each of Weeks 9-14: a one-slide recap of the core technique, then
+a brand-new CampusNav-flavored practice problem (not copied from that
+week's own deck), then its complete worked solution - the same
+difficulty a real final-exam question would ask.
+
+---
+
+<!-- NEW: Week 9 recap card -->
+
+# Recap: Week 9, Divide & Conquer
+
+- **Idea:** split a problem into independent subproblems of the same shape, solve each recursively, combine the results.
+- **Analyzing the cost:** a recurrence $T(n) = aT(n/b) + f(n)$, solved with the **Master theorem** by comparing $f(n)$ to $n^{\log_b a}$.
+- **CampusNav features:** the best-free-time-block maximum-subarray problem, and the fast-halving shortcut-step counter.
+
+---
+
+<!-- NEW: Week 9 new practice problem -->
+
+# New Practice: A Three-Way Split
+
+CampusNav's engineering team prototypes a variant of the shortcut
+counter that recursively splits each subproblem into **three** equal
+halves instead of two, doing $O(n)$ combining work per level:
+
+$$T(n) = 3T(n/2) + O(n)$$
+
+Use the Master theorem to find $T(n)$'s growth rate.
+
+---
+
+<!-- NEW: Week 9 worked solution -->
+
+# Worked Solution
+
+Master theorem form $T(n) = aT(n/b) + f(n)$ with $a=3$, $b=2$, $f(n) = O(n)$.
+
+$n^{\log_b a} = n^{\log_2 3} \approx n^{1.585}$. Since $f(n) = O(n^1)$
+and $1 < \log_2 3$, $f(n)$ grows **strictly slower** than
+$n^{\log_2 3}$ - this is **Case 1** (the recursive splitting work
+dominates the combining work).
+
+$$T(n) = \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$$
+
+Slower-growing than the real $T(n) = 2T(n/2) + O(1)$ shortcut counter
+(Week 9's actual feature, itself $\Theta(n)$ by the same theorem) -
+a concrete reminder that changing *either* $a$ or $f(n)$ can change
+which Master theorem case applies.
+
+---
+
+<!-- NEW: Week 10 recap card -->
+
+# Recap: Week 10, Greedy Algorithms
+
+- **Idea:** at each step, make the locally best-looking choice and never reconsider it - correctness must be *proved*, typically with an exchange argument.
+- **When it works:** earliest-finish-time scheduling (CampusNav's room-booking assistant) - provably optimal.
+- **When it fails:** change-making with denominations like {1, 3, 4} - the classic counterexample showing greedy is not universally safe.
+
+---
+
+<!-- NEW: Week 10 new practice problem -->
+
+# New Practice: Campus Points, the Hard Way
+
+CampusNav's gamified "campus points" system uses denominations
+{1, 3, 4}. A student earns exactly **6** points as a single reward.
+Using greedy (always take the largest denomination that still fits),
+how many coins does greedy use? Is that optimal - and if not, what's
+the true minimum?
+
+---
+
+<!-- NEW: Week 10 worked solution -->
+
+# Worked Solution
+
+**Greedy trace:** remaining = 6 &rarr; largest denomination &le; 6 is
+**4**, remaining = 2 &rarr; largest &le; 2 is **1**, remaining = 1
+&rarr; take **1**, remaining = 0. Greedy uses **{4, 1, 1} = 3 coins**.
+
+**Checking for better:** {3, 3} also sums to 6, using only **2
+coins** - fewer than greedy's 3. Greedy is **not optimal** here.
+
+This is the {1, 3, 4} counterexample from Week 10's misconception
+bank, made concrete: greedy's "always take the biggest" rule has no
+correctness proof for this denomination set, and this instance shows
+why no such proof could exist.
+
+---
+
+<!-- NEW: Week 11 recap card -->
+
+# Recap: Week 11, Dynamic Programming I
+
+- **Idea:** overlapping subproblems + optimal substructure, solved bottom-up (tabulation) or top-down (memoization) - two implementations of the *same* recurrence, not two different algorithms.
+- **CampusNav feature:** the Tour Planner - given a free block of time and activities with (duration, enjoyment), maximize enjoyment without running late (0/1 knapsack).
+
+---
+
+<!-- NEW: Week 11 new practice problem -->
+
+# New Practice: A Different Free Block
+
+A free block of **5** (10-minute units) and activities (duration,
+enjoyment): Movie (2, 4), Board Game (3, 5), Trivia (1, 2), Photo Walk
+(4, 6). Using the 0/1 knapsack DP recurrence, find the maximum total
+enjoyment without exceeding 5 units - and which activities achieve it.
+
+---
+
+<!-- NEW: Week 11 worked solution, part 1 -->
+
+# Worked Solution: the DP Table
+
+<div class="thread">dp[i][w] = best enjoyment using the first i activities, budget w.</div>
+
+| Items included | w=0 | w=1 | w=2 | w=3 | w=4 | w=5 |
+|---|---|---|---|---|---|---|
+| (none) | 0 | 0 | 0 | 0 | 0 | 0 |
+| + Movie (2,4) | 0 | 0 | 4 | 4 | 4 | 4 |
+| + Board Game (3,5) | 0 | 0 | 4 | 5 | 5 | 9 |
+| + Trivia (1,2) | 0 | 2 | 4 | 6 | 7 | 9 |
+| + Photo Walk (4,6) | 0 | 2 | 4 | 6 | 7 | 9 |
+
+---
+
+<!-- NEW: Week 11 worked solution, part 2 -->
+
+# Worked Solution: Reading the Table
+
+`dp[4][5] = 9` - the maximum possible enjoyment. Tracing back: adding
+Photo Walk didn't change `w=5` (still 9), so Photo Walk isn't used;
+adding Trivia also left `w=5` unchanged, so Trivia isn't used either;
+adding Board Game raised `w=5` from 4 to 9, using its own budget 3
+plus Movie's budget 2 - exactly 5.
+
+**Maximum enjoyment = 9, via Movie + Board Game** (2+3 = 5 units,
+4+5 = 9 enjoyment) - the exact same "include vs. exclude" recurrence
+as the Tour Planner, just a new free block and a new activity list.
+
+---
+
+<!-- NEW: Week 12 recap card -->
+
+# Recap: Week 12, Dynamic Programming II (LCS)
+
+- **Idea:** the same overlapping-subproblems/optimal-substructure idea, extended to comparing *two* sequences at once: `dp[i][j] = dp[i-1][j-1] + 1` if the two elements match, else `max(dp[i-1][j], dp[i][j-1])`.
+- **CampusNav feature:** the study-buddy matcher - the longest common subsequence of two students' course-code sequences.
+
+---
+
+<!-- NEW: Week 12 new practice problem -->
+
+# New Practice: Two More Students
+
+Student C's sequence: [MATH201, CS101, ENG150, STAT210]. Student D's:
+[CS101, MATH201, STAT210, ART100]. Find the longest common
+subsequence (shared courses, in order).
+
+---
+
+<!-- NEW: Week 12 worked solution, part 1 -->
+
+# Worked Solution: the DP Table
+
+<div class="thread">Rows = Student C's courses, columns = Student D's courses.</div>
+
+| | &empty; | CS101 | MATH201 | STAT210 | ART100 |
+|---|---|---|---|---|---|
+| &empty; | 0 | 0 | 0 | 0 | 0 |
+| MATH201 | 0 | 0 | 1 | 1 | 1 |
+| CS101 | 0 | 1 | 1 | 1 | 1 |
+| ENG150 | 0 | 1 | 1 | 1 | 1 |
+| STAT210 | 0 | 1 | 1 | 2 | 2 |
+
+---
+
+<!-- NEW: Week 12 worked solution, part 2 -->
+
+# Worked Solution: Reading the Table
+
+`dp[4][4] = 2` - the LCS has length 2. Tracing back from the
+bottom-right corner: STAT210 matches STAT210 (contributing the final
+"2"), and one diagonal step up-left, CS101 matches CS101
+(contributing the "1") - MATH201 and ENG150 contribute no match
+either sequence can use consistently.
+
+**LCS = [CS101, STAT210], length 2** - both appear in this relative
+order in *both* students' sequences, exactly what CampusNav's
+study-buddy matcher would report for this pair.
+
+---
+
+<!-- NEW: Week 13 recap card -->
+
+# Recap: Week 13, Graph Representation
+
+- **Idea:** a graph is vertices + edges; adjacency **matrix** (O(V²) space, O(1) edge lookup) and adjacency **list** (O(V+E) space, O(deg(u)) lookup) store the same graph differently - list wins once the graph is sparse.
+- **Traversal:** BFS (queue, layer-by-layer, shortest paths on unweighted graphs) and DFS (stack/recursion, deep-first, connectivity), both O(V+E).
+
+---
+
+<!-- NEW: Week 13 new practice problem -->
+
+# New Practice: A Five-Room Floor
+
+A building floor has 5 rooms, connected (unweighted, undirected):
+A-B, A-C, B-D, C-D, D-E. (a) Write the adjacency list, and how many
+cells would an adjacency matrix need? (b) Trace BFS starting from A.
+
+---
+
+<!-- NEW: Week 13 worked solution, part 1 -->
+
+# Worked Solution: Representation
+
+**Adjacency list:** A:[B,C], B:[A,D], C:[A,D], D:[B,C,E], E:[D] - a
+total of $V + 2E = 5 + 2(5) = 15$ entries (5 edges, each stored at
+both endpoints). **Adjacency matrix:** $V^2 = 5^2 = 25$ cells.
+
+---
+
+<!-- NEW: Week 13 worked solution, part 2 -->
+
+# Worked Solution: BFS Trace
+
+Enqueue A. Dequeue A, enqueue B, C - `Q=[B,C]`. Dequeue B, enqueue D
+(A already visited) - `Q=[C,D]`. Dequeue C - both neighbors (A, D)
+already visited/enqueued - `Q=[D]`. Dequeue D, enqueue E (B, C
+already visited) - `Q=[E]`. Dequeue E - done.
+
+**Visit order: A, B, C, D, E.** Hops from A: B and C are 1 hop, D is
+2 hops (first reached via B or C), E is 3 hops.
+
+---
+
+<!-- NEW: Week 14 recap card -->
+
+# Recap: Week 14, Shortest Path & P/NP
+
+- **Dijkstra:** greedy, settle-and-never-revisit, $O((V+E)\log V)$ - correct only with non-negative weights.
+- **Bellman-Ford:** relax every edge $V-1$ times, $O(VE)$ - correct even with negative weights, and detects negative cycles.
+- **P** = solvable in polynomial time. **NP** = a candidate solution is *verifiable* in polynomial time - the campus scavenger hunt is in NP but believed not in P.
+
+---
+
+<!-- NEW: Week 14 new practice problem, Dijkstra -->
+
+# New Practice: the Night Shuttle Network
+
+CampusNav's night shuttle stops P, Q, R, S, T, with one-way segments:
+P&rarr;Q = 3, P&rarr;R = 1, R&rarr;Q = 1, Q&rarr;T = 2, R&rarr;S = 4,
+S&rarr;T = 1, Q&rarr;S = 5. Run Dijkstra from P. Find $\delta(P, T)$
+and the route that achieves it.
+
+---
+
+<!-- NEW: Week 14 worked solution, Dijkstra -->
+
+# Worked Solution: Dijkstra Trace
+
+Settle P(0). Frontier: Q=3, R=1. Settle **R**(1) - relax R&rarr;Q:
+$Q=\min(3,1+1)=2$; relax R&rarr;S: $S=\min(\infty,1+4)=5$. Settle
+**Q**(2) - relax Q&rarr;T: $T=\min(\infty,2+2)=4$; relax Q&rarr;S:
+$S=\min(5,2+5)=5$ (no change). Settle **T**(4) - the smallest
+remaining tentative distance, so it settles before S; T has no
+outgoing edges to relax. Settle **S**(5) last.
+
+$$\delta(P, T) = 4 \quad \text{(route } P \to R \to Q \to T\text{)}$$
+
+---
+
+<!-- NEW: Week 14 new practice problem, P/NP -->
+
+# New Practice: Classify These Two
+
+(a) "Verify that a proposed graduation seating chart has no two
+*listed feuding families* seated next to each other" (a candidate
+chart is given). (b) "Find *any* seating chart for a full guest list
+such that no two feuding families sit adjacent, given the full list
+of feuding pairs." Classify each: in P, in NP (but not known to be in
+P), or both.
+
+---
+
+<!-- NEW: Week 14 worked solution, P/NP -->
+
+# Worked Solution: P vs. NP, Applied
+
+**(a)** is in **P** - and it's easy to solve outright, not just
+verify: scan the seating order once, checking each adjacent pair
+against the feuding list, $O(n)$ - trivially both solvable and
+verifiable in polynomial time.
+
+**(b)** is in **NP** (a candidate chart, once proposed, is checked
+exactly as in (a), in polynomial time) but is **not known to be in
+P** - it has the same shape as graph-coloring / independent-set
+problems (seats form a cycle graph, feuding pairs become "must
+differ" constraints), which are NP-complete in general. Finding a
+chart from scratch has no known efficient algorithm; checking one
+someone hands you does.
+
+---
+
+<!-- NEW: topic-cluster mistakes + check-yourself, D&C and Greedy -->
+
+# Common Final-Exam Mistakes: D&C and Greedy
+
+- **Misapplying the Master theorem** to a recurrence that doesn't divide the problem size - e.g. $T(n) = T(n-1) + O(n)$ has no $b$ to plug in; it must be expanded/summed directly, not run through the three Master-theorem cases.
+- **Assuming greedy always finds the optimal solution.** The {1, 3, 4} coin-denomination counterexample (Week 10) exists precisely to break this assumption - greedy needs a proof (an exchange argument), not just an intuition.
+- **Sorting by the wrong key** in a greedy scheduler - earliest-*finish*-time is what makes the room-booking assistant provably optimal; sorting by start time or duration instead does not carry the same guarantee.
+
+---
+
+# Check Yourself
+
+A recurrence is $T(n) = T(n-1) + O(n)$ (note: $n-1$, not $n/2$). Can
+the Master theorem be applied directly? What is $T(n)$'s growth rate?
+
+---
+
+# Answer
+
+No. The Master theorem only applies to recurrences of the form
+$T(n) = aT(n/b) + f(n)$, where the subproblem size is *divided* by a
+constant $b > 1$. Here the subproblem shrinks by *subtracting* 1, not
+dividing - there is no valid $b$ to substitute.
+
+Solving directly by expansion: $T(n) = O(n) + O(n-1) + \dots + O(1)$,
+an arithmetic series summing to $O(n^2)$. This is the same recurrence
+shape as simple linear recursion (e.g. an unoptimized recursive scan),
+not a divide-and-conquer split at all.
+
+---
+
+<!-- NEW: topic-cluster mistakes + check-yourself, Dynamic Programming -->
+
+# Common Final-Exam Mistakes: Dynamic Programming
+
+- **Treating memoization and tabulation as different algorithms.** They implement the exact same recurrence - one top-down with a cache, one bottom-up with a table - not two competing techniques.
+- **Skipping the base row/column** when hand-filling a DP table. `dp[0][*]` and `dp[*][0]` anchor every later cell - get them wrong and every downstream cell is wrong too.
+- **Confusing 0/1 knapsack with unbounded (reuse-allowed) knapsack.** Reading from the *same* row $i$ instead of the previous row $i-1$ when excluding item $i$ silently allows item $i$ to be reused.
+
+---
+
+# Check Yourself
+
+In a 0/1 knapsack DP table, why must the "exclude item $i$" case
+always read from row $i-1$, never row $i$?
+
+---
+
+# Answer
+
+Row $i-1$ represents the best achievable value using only items
+$1, \dots, i-1$ - the state *before* item $i$ was ever considered. If
+the "exclude" case read from row $i$ instead, it could see a cell
+that already includes item $i$ from earlier in that same row's own
+computation, effectively allowing item $i$ to be counted more than
+once. That single row-index choice is the entire difference between
+0/1 knapsack (each item used at most once) and unbounded knapsack
+(items may repeat).
+
+---
+
+<!-- NEW: topic-cluster mistakes + check-yourself, Graphs and Shortest Paths -->
+
+# Common Final-Exam Mistakes: Graphs and Shortest Paths
+
+- **Defaulting to an adjacency matrix regardless of density.** At real campus scale (~300 nodes, ~600 edges) the matrix costs 60x more space than a list - matrix vs. list is a density decision, never a habit.
+- **Assuming Dijkstra is safe whenever there's "no negative cycle."** A single negative *edge*, with no cycle at all, is already enough to break Dijkstra - only Bellman-Ford is safe once any weight can be negative.
+- **Forgetting an undirected edge needs an entry in *both* endpoints' adjacency lists** - missing one direction silently breaks traversal from the other side.
+
+---
+
+# Check Yourself
+
+A graph has exactly one negative edge, and you're told "there's
+definitely no negative cycle." Is Dijkstra now safe to use?
+
+---
+
+# Answer
+
+No. Dijkstra's unsafety comes from having *any* negative edge present
+at all, not specifically from negative cycles - negative cycles are
+what make Bellman-Ford's own answer undefined, a separate failure
+mode. Even one negative edge with zero cycles can let a
+later-discovered path beat an already-"settled" distance that
+Dijkstra will never re-check, exactly as in the $S, A, B, C$
+counterexample from Week 14 ($\delta(S,C)$ reported as 2, true value
+$-1$). Only Bellman-Ford is safe the moment any edge can be negative.
+
+---
+
+<!-- NEW: topic-cluster mistakes + check-yourself, P vs NP -->
+
+# Common Final-Exam Mistakes: P vs. NP
+
+- **"NP means not solvable in polynomial time."** False - NP means a *candidate solution* can be verified in polynomial time. Every problem in P is also in NP.
+- **Assuming one graph problem's efficiency generalizes to all graph problems.** Shortest path is in P; the campus scavenger hunt (Hamiltonian-path-shaped) is NP-hard - same campus, two entirely different problem shapes.
+- **Confusing "NP-hard" with "proven outside P."** P =? NP is still open - nobody has proven an NP-complete problem *cannot* have a polynomial algorithm, only that none has ever been found.
+
+---
+
+# Check Yourself
+
+True or False: "If someone proved P = NP, every currently NP-complete
+problem (like the campus scavenger hunt) would have a polynomial-time
+algorithm." Justify.
+
+---
+
+# Answer
+
+**True.** By definition, every problem in NP can be transformed
+(reduced) into any NP-complete problem in polynomial time, and every
+NP-complete problem is itself in NP. If P = NP, then every problem in
+NP - including every NP-complete one - would already have a
+polynomial-time algorithm under that equality. This is exactly why
+P =? NP is such a consequential open question: resolving it one way
+would instantly reclassify every NP-complete problem, the campus
+scavenger hunt included.
+
+---
+
 <!-- SLOT N+1: "What to Focus On Next" (Act 4 / CLOSE), replaces Limits - reflective, since this is the last week -->
 
 # What to Focus On Next

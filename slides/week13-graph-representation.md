@@ -230,12 +230,20 @@ That is **Worksheet Part A**. Keep a pen ready.
   impossible - not by measuring distances, but by reducing the whole
   map to just dots (landmasses) and lines (bridges), throwing away
   everything else. That reduction is graph theory's birth.
-- Two centuries later, when graphs moved into computers, "what's
-  connected to what" needed an actual data structure, not just a
-  diagram on paper - and two natural answers emerged: a grid
-  (borrowed from linear algebra's matrices) and a set of per-vertex
-  lists (built for the sparse, memory-constrained reality of real
-  programs).
+
+---
+
+<!-- NEW: split from "This Problem Is Not New" - the second historical beat gets its own slide -->
+
+# From Paper to Memory
+
+<div class="thread">Two centuries later, the same reduction needed an actual data structure.</div>
+
+- When graphs moved into computers, "what's connected to what" needed
+  an actual data structure, not just a diagram on paper - and two
+  natural answers emerged: a grid (borrowed from linear algebra's
+  matrices) and a set of per-vertex lists (built for the sparse,
+  memory-constrained reality of real programs).
 
 ---
 
@@ -255,7 +263,7 @@ same question CampusNav's team is about to face at full campus scale.
 
 # Graph: Definition
 
-<div class="thread">Two centuries of dots-and-lines, formalized.</div>
+<div class="thread">Two centuries of dots-and-lines, formalized. (CLRS 4th ed, &sect;20.1)</div>
 
 > A **graph** $G = (V, E)$ is a set of **vertices** $V$ (the "things")
 > together with a set of **edges** $E$ (the connections between pairs
@@ -263,6 +271,14 @@ same question CampusNav's team is about to face at full campus scale.
 
 - **Directed vs. undirected:** does an edge $(u, v)$ only mean $u \to v$, or does it mean both $u \to v$ and $v \to u$?
 - **Weighted vs. unweighted:** does each edge carry a number (a cost, a distance, a time), or just say "connected" / "not connected"?
+
+---
+
+<!-- NEW: split from "Graph: Definition" - the CampusNav-specific instantiation gets its own slide -->
+
+# What CampusNav's Graph Will Be
+
+<div class="thread">The general definition, narrowed to this week's actual data.</div>
 
 CampusNav's campus map will be **undirected** (walkways go both ways)
 and **weighted** (walking minutes) - but the same definition covers
@@ -449,6 +465,14 @@ this counts *locations* (buildings and path junctions), a coarser unit
 than the ~1,200 individual *rooms* the directory-lookup weeks used -
 one building is one node here, but dozens of rooms there.
 
+---
+
+<!-- NEW: split from "Why It Matters: the Full DEU Campus" - the comparison table gets its own slide -->
+
+# The Numbers, Side by Side
+
+<div class="thread">Same two representations, now at both scales.</div>
+
 | | 6-node demo (V=6, E=7) | Full DEU campus (V≈300, E≈600) |
 |---|---|---|
 | Adjacency matrix cells | 36 | 90,000 |
@@ -502,7 +526,7 @@ After 15 minutes, ask one pair to read their adjacency list aloud and check it a
 
 # Two Data Structures: Queue and Stack
 
-<div class="thread">Not new algorithms - two ways of ordering "what to do next," each with exactly two operations.</div>
+<div class="thread">Not new algorithms - two ways of ordering "what to do next," each with exactly two operations. (CLRS 4th ed, &sect;10.1)</div>
 
 **Queue - FIFO (first in, first out).** Operations: `enqueue` (add to
 the back), `dequeue` (remove from the front).
@@ -543,7 +567,7 @@ using a stack - just an implicit one.
 
 # A Third ADT: Priority Queue
 
-<div class="thread">Not used until Week 14 - introduced now so the name isn't new when Dijkstra needs it.</div>
+<div class="thread">Not used until Week 14 - introduced now so the name isn't new when Dijkstra needs it. (CLRS 4th ed, &sect;6.5)</div>
 
 A **priority queue** holds elements each tagged with a priority (for
 Dijkstra, a distance). Two operations: `insert` (add an element with
@@ -589,6 +613,8 @@ BFS(G, s):
 - Uses a **queue**: the first vertex found is the first one explored further.
 - On an **unweighted** graph, BFS's discovery order already gives the shortest path (fewest edges) from the start - full *weighted* shortest paths are next week.
 - Runtime: <span class="bignotation">O(V + E)</span> - every vertex enqueued once, every edge examined once.
+
+<div class="thread">(CLRS 4th ed, &sect;20.2)</div>
 
 ---
 
@@ -637,6 +663,73 @@ DFS(G, u):
 - A natural fit for "is the whole graph connected?" or "does this graph have a cycle?" - not for shortest paths.
 - Runtime: <span class="bignotation">O(V + E)</span> - same bound as BFS, same reason.
 
+<div class="thread">(CLRS 4th ed, &sect;20.3)</div>
+
+---
+
+<!-- NEW: full DFS worked trace, discovery/finish times + explicit recursion stack -->
+
+# DFS: Discovery, Step by Step
+
+<div class="thread">Same adjacency list as the BFS queue trace - this time, the recursion stack.</div>
+
+`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`. DFS
+always recurses into the *first unvisited* neighbor in the list, so
+one call chain plunges as deep as it can before anything returns.
+
+| Step | Call | Stack (top &rarr; bottom) | Discover |
+|---|---|---|---|
+| 1 | DFS(G) | G | d[G] = 1 |
+| 2 | DFS(L) | L, G | d[L] = 2 |
+| 3 | DFS(C) | C, L, G | d[C] = 3 |
+| 4 | DFS(F) | F, C, L, G | d[F] = 4 |
+| 5 | DFS(Y) | Y, F, C, L, G | d[Y] = 5 |
+| 6 | DFS(D) | D, Y, F, C, L, G | d[D] = 6 |
+
+---
+
+<!-- NEW: DFS trace, part 2 - the unwind (finish times) -->
+
+# DFS: Finishing, Step by Step
+
+<div class="thread">Every neighbor of D is already visited - nothing left to discover, so the stack starts unwinding.</div>
+
+D has no unvisited neighbor (G and Y are both already on the stack, mid-call) - so D finishes immediately, and every enclosing call finishes right behind it, in exactly the reverse order it was opened:
+
+| Vertex | Discover | Finish |
+|---|---|---|
+| G | 1 | 12 |
+| L | 2 | 11 |
+| C | 3 | 10 |
+| F | 4 | 9 |
+| Y | 5 | 8 |
+| D | 6 | 7 |
+
+Discovery order matches the earlier worked example (G, L, C, F, Y, D);
+finish order is its exact mirror here, because this particular
+adjacency-list order never gives DFS a second unvisited branch to try.
+
+---
+
+<!-- NEW: DFS trace, part 3 - connects the explicit stack back to Week 4's call stack -->
+
+# DFS's Stack vs. Week 4's Call Stack
+
+<div class="thread">Not a metaphor - the same mechanism, revisited.</div>
+
+<div class="why">
+At step 6 above, the call stack literally holds six waiting frames:
+DFS(G) is paused waiting on DFS(L), which is paused waiting on
+DFS(C), and so on down to DFS(D) - the exact same last-in-first-out
+structure as any recursive function traced back in Week 4's recursion
+&amp; recurrence unit. Recursive DFS <em>is</em> a stack-based algorithm; it
+just uses the runtime's implicit call stack instead of a `push`/`pop`
+structure you manage yourself. Implementing DFS iteratively with an
+explicit stack (as introduced earlier this week) produces the exact
+same discovery order - proof that "recursion" and "stack" were never
+two different ideas here, just two ways of writing one.
+</div>
+
 ---
 
 <!-- SLOT N-2: Worked example -->
@@ -665,7 +758,14 @@ path first.
 
 - **"Adjacency matrix is always fine - it's simpler."** Fine at 6 nodes (36 cells). At the full campus (~300 nodes) it's 90,000 mostly-empty cells versus about 1,500 for a list - a 60× waste that gets *worse*, not better, as CampusNav grows. Matrix vs. list is a density decision, not a taste decision.
 - **Forgetting an undirected edge is two list entries, not one.** If G–L is a walkway, L must list G as a neighbor *and* G must list L - miss one direction and a traversal from the other side silently can't reach back.
-- **Assuming DFS also finds the shortest path.** Only BFS's layer-by-layer order guarantees fewest edges to reach each vertex on an unweighted graph; DFS's order says nothing about distance at all.
+
+---
+
+<!-- NEW: split from "Common Mistakes" - the DFS/BFS misconception gets room to breathe -->
+
+# Common Mistakes, Continued
+
+- **Assuming DFS also finds the shortest path.** Only BFS's layer-by-layer order guarantees fewest edges to reach each vertex on an unweighted graph; DFS's order says nothing about distance at all - DFS can easily reach a vertex by a long, winding path first.
 
 ---
 
@@ -684,6 +784,84 @@ path first.
 1. 20 entries (6 vertex list headers + 14 neighbor entries). It's 2× the edge count (7 edges × 2 = 14) because each undirected edge is stored once in *each* endpoint's list.
 2. No. BFS explores in layers via a queue (nearest first); DFS commits to one path via a stack/recursion (deepest first) - different data structures, different order, even though both eventually visit every reachable vertex.
 3. Its space is O(V²), which grows with the *square* of the vertex count regardless of how many edges actually exist. As V grows with the edge count staying roughly proportional to V (sparse), the fraction of the matrix that's real data shrinks toward zero, while the adjacency list's O(V + E) space tracks only what's actually there.
+
+---
+
+<!-- NEW: Check Yourself pair 2 (DFS from a different start vertex) -->
+
+# Check Yourself: DFS From a Different Start
+
+Using the same adjacency list (`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]
+Y→[L,D,F]  F→[Y,C]`), trace DFS starting from the **Library** instead
+of the Gate. What is the discovery order?
+
+---
+
+# Answer
+
+DFS(L): discover L (neighbors G, C, Y, in that order) → G is
+unvisited, recurse. DFS(G): neighbor L visited, neighbor D unvisited,
+recurse. DFS(D): neighbor G visited, neighbor Y unvisited, recurse.
+DFS(Y): neighbor L visited, neighbor D visited, neighbor F unvisited,
+recurse. DFS(F): neighbor Y visited, neighbor C unvisited, recurse.
+DFS(C): both neighbors (L, F) already visited - finishes, then every
+enclosing call finishes in reverse.
+
+**Discovery order: L, G, D, Y, F, C.** Notice it's a completely
+different order than starting from the Gate (G, L, C, F, Y, D) -
+DFS's order depends heavily on where it starts, unlike BFS's
+guarantee about hop-count layers.
+
+---
+
+<!-- NEW: Check Yourself pair 3 (a 7th vertex, testing O(V+E) vs O(V^2) growth intuition) -->
+
+# Check Yourself: Adding a Seventh Location
+
+CampusNav adds **Parking Lot (P)**, connected only to the Gate, weight
+2 (so G's list becomes `G→[L,D,P]`). Now $V=7$, $E=8$. How many
+adjacency-matrix cells and adjacency-list entries does the graph
+need now, and which representation's cost grew faster from this one
+new edge?
+
+---
+
+# Answer
+
+- Adjacency matrix: $V^2 = 7^2 = 49$ cells (up from 36 - a jump of
+  **13 cells** for one new vertex and one new edge).
+- Adjacency list: $V + 2E = 7 + 16 = 23$ entries (up from 20 - a jump
+  of just **3 entries**: one new header for P, plus P's one neighbor
+  entry and G's one new neighbor entry).
+
+The matrix's cost grew over **4× faster** than the list's for the
+exact same change - a concrete instance of why O(V²) space is the
+*worse* growth rate, not just a bigger constant.
+
+---
+
+<!-- NEW: Check Yourself pair 4 (BFS on the same extended graph, reinforcing layer order) -->
+
+# Check Yourself: BFS on the Extended Graph
+
+Using the seven-location graph from the previous question
+(`G→[L,D,P]`, P connected only to G), trace BFS from the Gate. Where
+does Parking Lot appear in the visit order, and how many hops away is it?
+
+---
+
+# Answer
+
+Queue trace: enqueue G. Dequeue G, enqueue L, D, P (G's neighbors, in
+list order) - `Q=[L,D,P]`. Dequeue L, enqueue C, Y - `Q=[D,P,C,Y]`.
+Dequeue D - both neighbors already visited/enqueued - `Q=[P,C,Y]`.
+Dequeue P - its only neighbor (G) already visited - `Q=[C,Y]`. Dequeue
+C, enqueue F - `Q=[Y,F]`. Dequeue Y, then F - nothing left to enqueue.
+
+**Visit order: G, L, D, P, C, Y, F.** Parking Lot is visited fourth
+overall, but it's only **1 hop** from the Gate - a direct neighbor,
+just like Library and Dorm - visited later only because it happens to
+be third in G's neighbor list, not because it's farther away.
 
 ---
 
@@ -709,6 +887,14 @@ Social networks (who's reachable within 2 connections), web crawlers
 (BFS from a seed page), dependency resolution (DFS to detect a cycle
 in a build system), maze and puzzle solvers, network broadcast and
 routing - all the same two traversal ideas, over and over.
+
+---
+
+<!-- NEW: split from "Where This Shows Up Everywhere Else" - the interview-relevance note gets its own slide -->
+
+# Why This Comes Up in Interviews
+
+<div class="thread">The same two decisions, asked about a hundred different problems.</div>
 
 <div class="why">
 "Given a graph, traverse it" is one of the most frequently asked
@@ -763,6 +949,30 @@ an edge weight negative, Bellman-Ford) computes CampusNav's actual
 
 ---
 
+<!-- NEW: CLRS reference slide, positioned immediately before Summary per course design -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">Everything above, mapped to the textbook - and where to look if you want more.</div>
+
+| This week's topic | CLRS 4th ed |
+|---|---|
+| Graph representations (adjacency list / matrix) | &sect;20.1 |
+| Breadth-first search | &sect;20.2 |
+| Depth-first search | &sect;20.3 |
+| Queue / stack ADTs | &sect;10.1 |
+| Priority queue (stated as a tool, not proven) | &sect;6.5 |
+
+<div class="why">
+<strong>If you want to go deeper</strong> (not required this semester):
+CLRS &sect;20.4 (topological sort - ordering tasks with dependencies)
+and &sect;20.5 (strongly connected components - which vertices can
+all reach each other) are the natural next structures built on top of
+this week's representations and traversals.
+</div>
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -771,7 +981,7 @@ an edge weight negative, Bellman-Ford) computes CampusNav's actual
 - Adjacency matrix (O(V²) space, O(1) edge lookup) and adjacency list (O(V+E) space, O(deg(u)) edge lookup) store the *same* graph differently - and the real DEU campus's sparsity (≈300 nodes, ≈600 edges) makes the list the clear winner, 60× less storage.
 - BFS (queue, layer-by-layer, shortest paths on unweighted graphs) and DFS (stack/recursion, deep-first, connectivity) both traverse a graph in O(V+E), but visit it in different orders.
 - **Assignment 4 released this week** (Dynamic Programming & Graphs) - see `materials/assignments/assignment4.md`. Due Week 15, before the final exam.
-- **Reading:** CLRS, Chapter 20 (Sections 20.1-20.2) - graph representations and BFS/DFS.
+- **Reading:** CLRS, Chapter 20 - &sect;20.1 (representations), &sect;20.2 (BFS), &sect;20.3 (DFS); also &sect;10.1 (queue/stack ADTs) and &sect;6.5 (priority queues).
 - **Prepare:** think about how you'd find the *shortest* walking route on the campus graph if some walkways were much longer than others. Bring your intuition to Week 14.
 
 ---
