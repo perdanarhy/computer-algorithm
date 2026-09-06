@@ -301,7 +301,7 @@ we trade away to go faster.
 
 # Binary Search: The Idea
 
-<div class="thread">Back to "Guess the Number" - same idea, now on a sorted array.</div>
+<div class="thread">Back to "Guess the Number" - same idea, now on a sorted array. (CLRS 4th ed, Exercise 2.3-6)</div>
 
 If $A$ is **sorted**, you don't need to check every entry: check the
 **middle** one.
@@ -416,7 +416,7 @@ integer exists.
 
 # The Loop Invariant
 
-<div class="thread">The one sentence the whole proof leans on.</div>
+<div class="thread">The one sentence the whole proof leans on. (Loop-invariant style per CLRS 4th ed, §2.1)</div>
 
 **Loop invariant:**
 
@@ -581,6 +581,40 @@ A 16-entry sample of CampusNav's sorted room-code directory
 
 Four comparisons. At the real 1,200-room scale, this is ~11 steps -
 never up to 1,200.
+
+---
+
+<!-- NEW: binary search trace variant, target absent - makes the not-found case concrete -->
+
+# CampusNav: "Jump to Room," Target Not Found
+
+<div class="thread">Same 16-entry array. This time, room code 550 doesn't exist.</div>
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">A</div><div class="cell">101</div><div class="cell">206</div><div class="cell">302</div><div class="cell">415</div><div class="cell">512</div><div class="cell">615</div><div class="cell">703</div><div class="cell">802</div><div class="cell">910</div><div class="cell">1005</div><div class="cell">1108</div><div class="cell">1220</div><div class="cell">1301</div><div class="cell">1405</div><div class="cell">1502</div><div class="cell">1600</div></div>
+<div class="row"><div class="rowlabel">Step 1</div><div class="cell hl2">101</div><div class="cell">206</div><div class="cell">302</div><div class="cell">415</div><div class="cell">512</div><div class="cell">615</div><div class="cell">703</div><div class="cell hl">802</div><div class="cell">910</div><div class="cell">1005</div><div class="cell">1108</div><div class="cell">1220</div><div class="cell">1301</div><div class="cell">1405</div><div class="cell">1502</div><div class="cell hl2">1600</div></div>
+<div class="row"><div class="rowlabel">Step 2</div><div class="cell hl2">101</div><div class="cell">206</div><div class="cell">302</div><div class="cell hl">415</div><div class="cell">512</div><div class="cell">615</div><div class="cell hl2">703</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div></div>
+<div class="row"><div class="rowlabel">Step 3</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell hl2">512</div><div class="cell hl">615</div><div class="cell hl2">703</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div></div>
+<div class="row"><div class="rowlabel">Step 4</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell hl">512</div><div class="cell hl2">615</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div></div>
+</div>
+
+---
+
+# CampusNav: Target Not Found, Step by Step
+
+<div class="thread">Reading the trace above - watch the range shrink to nothing, not to a match.</div>
+
+- Step 1: `lo=0,hi=15,mid=7` &rarr; `A[7]=802 > 550` &rarr; search left, `hi=6`
+- Step 2: `lo=0,hi=6,mid=3` &rarr; `A[3]=415 < 550` &rarr; search right, `lo=4`
+- Step 3: `lo=4,hi=6,mid=5` &rarr; `A[5]=615 > 550` &rarr; search left, `hi=4`
+- Step 4: `lo=4,hi=4,mid=4` &rarr; `A[4]=512 < 550` &rarr; search right, `lo=5`
+- Now `lo=5, hi=4`: `lo > hi`, the loop condition fails, and the loop
+  ends &rarr; **returns NOT-FOUND**
+
+This is the termination proof's second case (Part 3, earlier): the
+range shrank to empty without ever matching, so - by the invariant -
+`550` provably isn't in `A`. Same four comparisons as finding `703`,
+just ending in the other exit.
 
 ---
 
@@ -909,6 +943,29 @@ algorithm, not just applying ones we already have.
 
 ---
 
+<!-- NEW: CLRS reference slide, immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">A map, for anyone reading alongside the lectures.</div>
+
+| Topic | CLRS 4th ed |
+|---|---|
+| Loop-invariant proof style (used for binary search today) | §2.1 |
+| Binary search | Exercise 2.3-6 |
+
+- **If you want to go deeper:** CLRS Ch 12 (Binary Search Trees) is
+  the natural next structure once linear search of a sorted array
+  feels limiting - a data structure built so that "search," "insert,"
+  and "delete" are all fast, not just search. Not required for this
+  course, but a preview of where sorted-order search ideas go next.
+- Also worth a look: CLRS §2.3 (merge sort) and Ch 7 (quicksort) from
+  Week 6 are the two techniques that got CampusNav's directory sorted
+  in the first place - this week's binary search only works because
+  of that earlier work.
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -922,9 +979,10 @@ algorithm, not just applying ones we already have.
 - Off-by-one bugs in bound updates (`hi = mid` vs. `mid - 1`, `lo =
   mid` vs. `mid + 1`) are the single most common way binary search
   breaks - trace a 2-element range by hand to check your convention.
-- **Reading:** CLRS, review Chapter 2 (loop invariants) and Exercise
-  2.3-5 (binary search); Sedgewick, *Algorithms*, §1.1 has a full
-  correctness discussion if you want a second treatment.
+- **Reading:** CLRS 4th ed, review §2.1 (loop-invariant style) and
+  Exercise 2.3-6 (binary search) - see the CLRS map above; Sedgewick,
+  *Algorithms*, §1.1 has a full correctness discussion if you want a
+  second treatment.
 - **Prepare for Week 8:** rework every proof and trace from Weeks 1-7
   from scratch, on paper, without looking at the slides first.
 

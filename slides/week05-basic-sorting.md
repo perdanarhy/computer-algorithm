@@ -280,7 +280,7 @@ practice proving an algorithm correct before tackling faster ones
 
 # Sorting, Stated Precisely
 
-<div class="thread">Fifty years of study, and a card game you just played, point at one precise problem. Here it is.</div>
+<div class="thread">Fifty years of study, and a card game you just played, point at one precise problem. Here it is. (CLRS 4th ed, §2.1)</div>
 
 > Given an array $A[0..n-1]$, rearrange its elements into a new order
 > $A'[0..n-1]$ such that $A'[0] \le A'[1] \le \cdots \le A'[n-1]$, using
@@ -320,7 +320,7 @@ the other two on CampusNav's real workload - new rooms trickling in, not a full 
 
 # Bubble Sort: The Idea
 
-<div class="thread">First of three. Repeatedly swap neighbors out of order.</div>
+<div class="thread">First of three. Repeatedly swap neighbors out of order. (CLRS 4th ed, Problem 2-2)</div>
 
 Walk left to right through the array. Compare each pair of neighbors;
 if they're out of order, swap them. The largest unsorted element
@@ -444,11 +444,39 @@ bubble, selection, and insertion sort across Weeks 5 and 6.
 
 ---
 
+<!-- NEW: check-yourself pair, bubble sort adaptive behavior -->
+
+# Check Yourself: Bubble Sort's Early Exit
+
+<div class="thread">Reusing the trace above - now with the early-exit flag actually doing something.</div>
+
+The array `[1, 2, 3, 5, 4]` has only its last two elements out of
+order. Using bubble sort *with* the `swapped` flag, how many passes
+does it take before the loop exits? What does that tell you about
+bubble sort's best-case behavior on nearly-sorted input?
+
+---
+
+# Answer
+
+Pass 1: compare (1,2) no swap, (2,3) no swap, (3,5) no swap, (5,4)
+swap &rarr; `[1,2,3,4,5]`, `swapped = true`. Pass 2: every neighbor
+pair is already in order, zero swaps, `swapped` stays false, loop
+exits.
+
+**Two passes total** - not the full $n - 1 = 4$ passes a reverse-sorted
+input would need. This is exactly bubble sort's adaptive property: a
+nearly-sorted array costs close to $O(n)$, not $O(n^2)$, because the
+early-exit flag lets the algorithm stop the moment one clean pass
+confirms the array is sorted.
+
+---
+
 <!-- Act 3 / BUILD: Selection sort -->
 
 # Selection Sort: The Idea
 
-<div class="thread">Second of three. Repeatedly grab the smallest remaining.</div>
+<div class="thread">Second of three. Repeatedly grab the smallest remaining. (CLRS 4th ed, Exercise 2.2-2)</div>
 
 Scan the unsorted remainder for its minimum, swap it into the next
 open position at the front, repeat on the shrinking remainder - this
@@ -522,11 +550,42 @@ never adapts to a nearly-sorted array the way bubble or insertion sort do.
 
 ---
 
+<!-- NEW: check-yourself pair, selection sort comparison count -->
+
+# Check Yourself: Counting Selection Sort's Comparisons
+
+<div class="thread">Same counting exercise as bubble sort above - now applied to selection sort.</div>
+
+Selection sort's inner loop, for a fixed outer index `i`, always runs
+from `j = i+1` to `n-1`, no matter what the array looks like. For an
+array of size $n$, exactly how many comparisons does selection sort
+make in total - and how does that number compare to bubble sort's
+worst-case count of $\frac{n(n-1)}{2}$, derived a few slides ago?
+
+---
+
+# Answer
+
+For each outer index $i = 0, 1, \ldots, n-2$, the inner loop makes
+exactly $(n - 1 - i)$ comparisons: $i=0$ gives $n-1$, $i=1$ gives
+$n-2$, and so on down to $i = n-2$, which gives 1. Total:
+
+$$(n-1) + (n-2) + \cdots + 1 = \frac{n(n-1)}{2}$$
+
+**Identical formula** to bubble sort's worst case. The difference
+isn't the comparison count - both are $\Theta(n^2)$ by the same sum.
+The difference is that selection sort makes this many comparisons on
+**every** input, including an already-sorted one, while bubble sort
+only reaches this total in the worst case and can exit early (previous
+slide) on nearly-sorted input.
+
+---
+
 <!-- Act 3 / BUILD: Insertion sort -->
 
 # Insertion Sort: The Idea
 
-<div class="thread">Third of three. This is Method B from the warm-up - sorting a hand of cards.</div>
+<div class="thread">Third of three. This is Method B from the warm-up - sorting a hand of cards. (CLRS 4th ed, §2.1)</div>
 
 Grow a sorted prefix one element at a time: take the next element
 (`key`) and slide it left past every sorted element greater than it,
@@ -673,6 +732,32 @@ sort correct on **every** valid input - not just the one we traced.
 
 ---
 
+<!-- NEW: check-yourself pair, necessity of all three proof parts -->
+
+# Check Yourself: Why All Three Parts?
+
+<div class="thread">One more question before moving from proof to cost.</div>
+
+Suppose someone showed only **initialization** and **maintenance** for
+insertion sort's loop invariant, and skipped **termination** entirely.
+Would that be a complete correctness proof? Why or why not?
+
+---
+
+# Answer
+
+**No.** Initialization and maintenance together only show that the
+invariant holds at the start of every iteration the loop happens to
+run - they never say anything about what's true when the loop
+*stops*, or even that it stops at all. Termination is the step that
+connects "the invariant keeps holding" to "here is what the invariant
+tells us about the finished array." Without it, you've proven a true
+statement about every intermediate step and never connected it back to
+the actual claim - "the whole array ends up sorted" - that the proof
+was supposed to establish.
+
+---
+
 # Insertion Sort: Cost and Stability
 
 | | |
@@ -726,6 +811,31 @@ Gym, Library]`. Insertion sort, alphabetically:
 
 Five entries, four passes, done - and, unlike the staff member from
 slot 4, we can now *prove* the result is sorted, on any input.
+
+---
+
+<!-- NEW: second worked trace, same CampusNav data, contrasting sort -->
+
+# CampusNav: The Same Directory, via Selection Sort
+
+<div class="thread">Same five entries as the insertion-sort trace above - now selection sort's turn.</div>
+
+Same start: `[Music, Arts, Science, Gym, Library]`. Selection sort
+repeatedly finds the alphabetically-first remaining entry and swaps it
+into place:
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">Start</div><div class="cell">Music</div><div class="cell">Arts</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">Pass 1</div><div class="cell hl">Arts</div><div class="cell">Music</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">Pass 2</div><div class="cell hl2">Arts</div><div class="cell hl">Gym</div><div class="cell">Science</div><div class="cell">Music</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">Pass 3</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl">Library</div><div class="cell">Music</div><div class="cell">Science</div></div>
+<div class="row"><div class="rowlabel">Pass 4</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl2">Library</div><div class="cell hl">Music</div><div class="cell hl2">Science</div></div>
+</div>
+
+Same final order as insertion sort - but notice pass 4's minimum
+(`Music`) was already sitting in its correct spot, and selection sort
+still had to scan the whole remainder to confirm that. That's the "no
+early exit" row from the cost table above, made concrete.
 
 ---
 
@@ -933,6 +1043,29 @@ soon recognize everywhere in this course.
 
 ---
 
+<!-- NEW: CLRS reference slide, immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">A map, for anyone reading alongside the lectures.</div>
+
+| Topic | CLRS 4th ed |
+|---|---|
+| Insertion sort | §2.1 |
+| Analyzing algorithms (worst/avg/best case, loop invariants) | §2.2 |
+| Bubble sort | Problem 2-2 |
+| Selection sort | Exercise 2.2-2 |
+
+- **If you want to go deeper:** CLRS §2.3 previews divide-and-conquer
+  and merge sort - one section ahead of where we are today, and
+  exactly what Week 6 covers.
+- The loop-invariant proof style used on insertion sort today
+  (initialization / maintenance / termination) is the same shape CLRS
+  uses for correctness arguments throughout the book - Week 7 reuses
+  it, almost unchanged, for binary search.
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -946,7 +1079,9 @@ soon recognize everywhere in this course.
 - Stability isn't cosmetic - it's what makes multi-key sorting (and
   every `ORDER BY`) work correctly.
 - **Reminder:** Assignment 1 due this week - submit before Week 6.
-- **Reading:** CLRS, Chapter 2 (Insertion Sort, Analyzing Algorithms).
+- **Reading:** CLRS 4th ed, §2.1 (Insertion Sort) and §2.2 (Analyzing
+  Algorithms); bubble sort is Problem 2-2, selection sort is Exercise
+  2.2-2 - see the CLRS map above.
 - **Prepare:** think about why comparing *neighbors* (today) might be
   slower than *splitting the array in half* - guess for Week 6.
 

@@ -293,7 +293,7 @@ hardware you wish you had.
 
 # Divide-and-Conquer Sorting
 
-<div class="thread">The warm-up's two methods, now named precisely.</div>
+<div class="thread">The warm-up's two methods, now named precisely. (CLRS 4th ed, §2.3)</div>
 
 > A **divide-and-conquer algorithm** solves a problem by (1) dividing
 > it into smaller subproblems of the same shape, (2) solving each
@@ -313,7 +313,7 @@ hardware you wish you had.
 
 # Merge Sort: Divide, Conquer, Combine
 
-<div class="thread">Method A from the warm-up, made precise.</div>
+<div class="thread">Method A from the warm-up, made precise. (CLRS 4th ed, §2.3)</div>
 
 <div class="pipeline">
 <div class="stage"><div class="h">Divide</div><div class="s">Split the array at its midpoint into two halves</div></div>
@@ -526,6 +526,35 @@ arrays every call, for a guaranteed $O(n \log n)$ in return.
 
 ---
 
+<!-- NEW: check-yourself pair, MERGE's tie-break rule -->
+
+# Check Yourself: MERGE's Tie-Break Rule
+
+<div class="thread">One comparison operator, doing a lot of work.</div>
+
+`MERGE`'s copy loop uses `if L[i] <= R[j]`, never strict `<`. Suppose
+someone "simplified" it to `if L[i] < R[j]`. Using `L = [2, 5]`,
+`R = [2, 9]` (the two `2`s being equal-key elements, the left one
+originally earlier in the array), trace what changes - and say
+whether merge sort is still stable.
+
+---
+
+# Answer
+
+With `<=`: comparing `L[1]=2` and `R[1]=2`, the condition
+`L[i] <= R[j]` is true, so the **left** `2` is taken first - matching
+its original earlier position. Merged result: `2, 2, 5, 9`, left `2`
+before right `2`.
+
+With strict `<`: `L[1]=2 < R[1]=2` is **false**, so the `else` branch
+fires and the **right** `2` is taken first instead - the two equal
+keys swap relative order. That one-character change is exactly the
+difference between a stable merge and an unstable one; the `<=` in
+the pseudocode is not a stylistic choice.
+
+---
+
 <!-- NEW: Try-It hand-off, session 2 -->
 
 # Now: Worksheet Part A
@@ -576,7 +605,7 @@ What if we sort **in place** instead?
 
 # Quicksort: The Partition Idea
 
-<div class="thread">Method B from the warm-up - the "landmark paper" - made precise.</div>
+<div class="thread">Method B from the warm-up - the "landmark paper" - made precise. (CLRS 4th ed, Ch 7, §7.1)</div>
 
 - Pick one element as the **pivot**.
 - **Partition:** rearrange the array so everything $\le$ pivot ends up
@@ -707,6 +736,38 @@ $\le 2$. Right of it: `[5,8,9,3]`, all $> 2$.
 
 ---
 
+<!-- NEW: check-yourself pair, Lomuto vs Hoare final pivot position -->
+
+# Check Yourself: Lomuto vs. Hoare, One Key Difference
+
+<div class="thread">Both traces above, compared directly.</div>
+
+In the Hoare trace above, the pivot value `5` ended up sitting inside
+the *right* partition, not at its own final sorted index. In the
+Lomuto trace, the pivot value `2` landed exactly at its final sorted
+index. Why does this difference happen - what specifically differs
+between the two partition schemes that causes it?
+
+---
+
+# Answer
+
+Lomuto's loop explicitly tracks a boundary `i` for the "$\le$ pivot"
+region and, as its very last step, swaps the pivot itself
+(`A[high]`) into place right after that boundary (`swap A[i+1],
+A[high]`) - the pivot's final position is guaranteed by construction.
+
+Hoare's loop never performs that dedicated final swap. It only
+guarantees that everything at or before the returned index `j` is
+$\le$ pivot and everything after is $\ge$ pivot - the pivot *value*
+itself can end up anywhere inside either side, not necessarily at
+index `j`. This is why Hoare's recursive calls split at
+`[low, p]`/`[p+1, high]` (the pivot may still need sorting within one
+of those halves) instead of Lomuto's `[low, p-1]`/`[p+1, high]` (the
+pivot at `p` is already finished).
+
+---
+
 <!-- NEW: normal-case quicksort trace, converging across levels -->
 
 # Quicksort, Normal Case: Three Levels Down
@@ -782,6 +843,48 @@ That recurrence resolves to <strong>O(n²)</strong> - the exact growth
 rate this week set out to escape. The input wasn't unusual. The pivot
 strategy was.
 </div>
+
+---
+
+<!-- NEW: outlook mini-section, randomized quicksort (CLRS §7.3), not required content -->
+
+# Outlook: Randomized Quicksort
+
+<div class="thread">Not required for this course - CLRS §7.3, if you want the strongest fix for the adversarial case above.</div>
+
+The "random pivot" row in the strategy table above named the idea;
+CLRS's own version makes it precise as `RANDOMIZED-PARTITION`: before
+partitioning, swap `A[high]` with `A[random index between low and
+high]`, then run ordinary `LOMUTO-PARTITION` as before.
+
+```text
+RANDOMIZED-PARTITION(A, low, high):
+    i = random integer in [low, high]
+    swap A[i], A[high]
+    return LOMUTO-PARTITION(A, low, high)
+```
+
+Nothing about the partition logic changes - only *which* element ends
+up in the pivot slot before partitioning begins.
+
+---
+
+# Outlook: Why Randomization Actually Fixes the Adversary
+
+<div class="thread">Same already-sorted directory from the adversarial-case slide - now with a random pivot instead of a fixed one.</div>
+
+The earlier adversarial case worked because CampusNav's already-sorted
+directory paired with a **fixed** last-element pivot rule that an
+adversary (or just ordinary already-sorted data) can always predict in
+advance - guaranteeing the worst 0/$(n-1)$ split, every single call.
+
+`RANDOMIZED-PARTITION` breaks that guarantee: on that same
+already-sorted array, the pivot index is chosen fresh, uniformly at
+random, each call. No fixed input can force a bad split *every* time,
+because the algorithm's own randomness - not the data - decides which
+element becomes the pivot. CLRS §7.3 proves this gives an
+**expected** $O(n \log n)$ running time on *any* input, including the
+one that defeats every fixed pivot rule.
 
 ---
 
@@ -965,6 +1068,29 @@ up to 1,200 entries.
 
 ---
 
+<!-- NEW: CLRS reference slide, immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">A map, for anyone reading alongside the lectures.</div>
+
+| Topic | CLRS 4th ed |
+|---|---|
+| Divide-and-conquer, merge sort | §2.3 (in the Ch 2 "Getting Started" chapter) |
+| Quicksort description | Ch 7, §7.1 |
+| Quicksort performance (worst/average case) | §7.2 |
+| Randomized quicksort | §7.3 |
+| Quicksort analysis | §7.4 |
+
+- **If you want to go deeper:** §7.3's `RANDOMIZED-PARTITION` (the
+  outlook slides above) is the standard fix for the adversarial-input
+  problem this week's "Common Mistakes" slot warns about.
+- Also worth a look: CLRS §9.2 (the SELECT algorithm) reuses
+  quicksort's own partition step to find a median in linear time - a
+  different problem, same mechanism.
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -979,8 +1105,9 @@ up to 1,200 entries.
 - **Assignment 2 (Sorting)** is released - see
   `materials/assignments/assignment2.md`, due **Week 8**, before the
   midterm exam begins.
-- **Reading:** CLRS, Chapter 2.3 (Merge Sort) and Chapter 7
-  (Quicksort) - read before Week 7.
+- **Reading:** CLRS 4th ed, §2.3 (Merge Sort, in Ch 2) and Ch 7
+  (Quicksort: §7.1 Description, §7.2 Performance, §7.3 Randomized
+  version, §7.4 Analysis) - see the CLRS map above; read before Week 7.
 - **Prepare:** think about how you'd search a *sorted* list without
   checking every entry. Bring your idea to Week 7.
 
