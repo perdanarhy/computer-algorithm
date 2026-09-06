@@ -142,12 +142,18 @@ Seven more stops turned "instant" into "did not finish before class ended."
 
 ---
 
-<!-- SLOT 5: Cost of not knowing -->
+<!-- SLOT 5: Cost of not knowing, split: the app-level cost here, the industry angle next -->
 
 # What This Actually Costs
 
 - A recursive method with no clear stopping point - or one that branches too eagerly - can freeze or crash an app (a **stack overflow**) with zero warning until someone finally hits the input that triggers it.
 - Without a way to predict a recursive method's cost *before* running it, "it worked in the demo" tells you nothing about what happens with 10 stops instead of 3, or 1,200 rooms instead of 12.
+
+---
+
+<!-- NEW: continuation - the industry angle, split out of the same slide -->
+
+# What This Actually Costs, In Industry
 
 <div class="why">
 <strong>In industry:</strong> tracing a call stack and writing down a
@@ -194,14 +200,22 @@ That is the **Worksheet, Parts A and B**. Keep a pen ready.
 
 ---
 
-<!-- SLOT 8: Origin -->
+<!-- SLOT 8: Origin, split into two -->
 
-# This Problem Is Not New
+# This Problem Is Not New (1)
 
 <div class="thread">You just felt the pain. Now: who else felt it, and what did they do?</div>
 
 - Self-reference is far older than computers: "$n! = n \times (n-1)!$" and the Fibonacci sequence are centuries-old mathematical definitions written *in terms of themselves*. Mathematical induction - proving a statement for all $n$ by showing it for a base case and then for "$n$ given $n-1$" - is the same idea, formalized for proofs.
 - Early programming languages didn't automatically support it: **FORTRAN (1957)** explicitly forbade a procedure from calling itself, because nobody had yet built a runtime mechanism to keep track of many "waiting" calls at once.
+
+---
+
+<!-- NEW: continuation of Origin -->
+
+# This Problem Is Not New (2)
+
+<div class="thread">The mechanism that finally made recursion practical.</div>
 
 <div class="why">
 That mechanism is the <strong>call stack</strong>. Once <strong>LISP
@@ -222,7 +236,16 @@ n! = \begin{cases} 1 & n = 0 \\ n \times (n-1)! & n > 0 \end{cases}
 $$
 
 - $0! = 1$ - an answer given directly, no further self-reference.
-- $4! = 4 \times 3! = 4 \times 3 \times 2! = 4 \times 3 \times 2 \times 1! = 4 \times 3 \times 2 \times 1 \times 0!$
+
+---
+
+<!-- NEW: continuation - the expansion trace, split out of the same slide -->
+
+# Unwinding $4!$
+
+<div class="thread">The same definition, expanded one step at a time.</div>
+
+$4! = 4 \times 3! = 4 \times 3 \times 2! = 4 \times 3 \times 2 \times 1! = 4 \times 3 \times 2 \times 1 \times 0!$
 
 Notice the shape: one case that answers directly, one case that
 answers in terms of a smaller version of the same question. That shape
@@ -234,12 +257,20 @@ is what today formalizes.
 
 # Recursion: Definition
 
-<div class="thread">A mathematical habit centuries old, a warm-up you just ran by hand, and a frozen demo all point at one idea. Here it is, precisely.</div>
+<div class="thread">A mathematical habit centuries old, a warm-up you just ran by hand, and a frozen demo all point at one idea. Here it is, precisely (CLRS 4th ed, §4.3-4.5).</div>
 
 > A **recursive algorithm** solves a problem by solving one or more
 > smaller instances of the *same* problem (the **recursive case**),
 > until it reaches an instance small enough to answer directly (the
 > **base case**).
+
+---
+
+<!-- NEW: continuation of the core concept, split out of the same slide -->
+
+# Recursion: Base Case vs. Recursive Case
+
+<div class="thread">The definition, unpacked into its two working parts.</div>
 
 - **Base case:** the smallest input the algorithm can answer with no further self-call - it is what *stops* the recursion.
 - **Recursive case:** expresses the answer for a bigger input in terms of the answer for a smaller one.
@@ -330,6 +361,73 @@ The base case is what the whole unwind is built from - it is not just "where you
 
 ---
 
+<!-- NEW: check-yourself pair on the call-stack trace -->
+
+# Check Yourself: Reading the Stack
+
+1. At the exact moment `factorial(0)` returns, how many call-stack frames are still "waiting," and for what?
+2. If `factorial`'s base case were accidentally written as `if n == -1`, what would happen when you called `factorial(4)`?
+
+---
+
+# Answers
+
+1. **Four frames are waiting:** `factorial(1)`, `factorial(2)`, `factorial(3)`, and `factorial(4)`, each one paused on its own `return n * factorial(n - 1)` line until the call below it finishes.
+2. It would never hit the base case: `n` counts down `4, 3, 2, 1, 0, -1, -2, ...` forever, since `n == -1` is only reached after `n == 0` is skipped past. The call stack grows without bound - exactly a stack overflow, from a one-character base-case bug.
+
+---
+
+<!-- NEW: a second recursion/iteration conversion pair, distinct from factorial -->
+
+# Another Conversion: Summing 1 to $n$
+
+<div class="thread">Same recursive/iterative shape as factorial - a different base operation.</div>
+
+<div class="two-col">
+<div>
+
+**Recursive**
+```text
+SUM(n):
+    if n == 0:
+        return 0
+    return n + SUM(n - 1)
+```
+
+</div>
+<div>
+
+**Iterative**
+```text
+SUM(n):
+    total = 0
+    for i = 1 to n:
+        total = total + i
+    return total
+```
+
+</div>
+</div>
+
+Same recurrence shape as `factorial`: $T(n) = T(n-1) + O(1)$.
+
+---
+
+<!-- NEW: continuation - tracing the unwind, condensed instead of frame-by-frame -->
+
+# Tracing SUM(4)
+
+<div class="thread">Same unwind pattern as factorial(4), condensed into one line.</div>
+
+$$
+SUM(4) = 4 + SUM(3) = 4+3+SUM(2) = 4+3+2+SUM(1) = 4+3+2+1+SUM(0) = 4+3+2+1+0 = 10
+$$
+
+Five frames deep, same as `factorial(4)` - the base case `SUM(0) = 0`
+is what the whole chain unwinds from.
+
+---
+
 <!-- Act 3 / BUILD: recurrence relations -->
 
 # Recurrence Relations: Writing Cost as a Formula
@@ -343,7 +441,17 @@ T(n) = T(n-1) + O(1), \qquad T(0) = O(1)
 $$
 
 - This **is** the "self-referential formula" that stumped us at the end of last week - a cost defined in terms of itself, on smaller input.
-- Not every recursive algorithm shrinks by 1 each call. Algorithms that split their input in half give a different shape:
+
+---
+
+<!-- NEW: continuation - the divide-in-half shape, split out of the same slide -->
+
+# Not Every Recursion Shrinks by One
+
+<div class="thread">A second shape, distinct from `factorial`'s.</div>
+
+Not every recursive algorithm shrinks by 1 each call. Algorithms that
+split their input in half give a different shape:
 
 $$
 T(n) = 2T(n/2) + O(n)
@@ -383,6 +491,15 @@ closed-form answer, then use induction to prove the guess is right.
 **Guess:** $T(n) = O(n)$ for $T(n) = T(n-1) + d$ (some constant $d$). Formally: $T(n) \le cn$ for a constant $c$ and all $n \ge n_0$.
 
 - **Base case:** true for small $n$ once $c$ is chosen large enough to cover $T(n_0)$.
+
+---
+
+<!-- NEW: continuation of the substitution method, split out of the same slide -->
+
+# Substitution Method: The Inductive Step
+
+<div class="thread">The base case held. Now the step that carries it for every larger $n$.</div>
+
 - **Inductive step:** assume $T(n-1) \le c(n-1)$. Then
 
 $$
@@ -390,6 +507,22 @@ T(n) = T(n-1) + d \le c(n-1) + d = cn - c + d \le cn \quad \text{whenever } c \g
 $$
 
 - Choosing $c = d$ makes the last step hold. **QED** - $T(n) = O(n)$, matching the 4-frame trace we hand-counted for `factorial(4)` above.
+
+---
+
+<!-- NEW: check-yourself pair on the substitution method -->
+
+# Check Yourself: Substitution on a New Recurrence
+
+1. For $T(n) = T(n-1) + 3$, $T(0) = 1$, guess $T(n) = O(n)$, i.e. $T(n) \le cn$ for $n \ge n_0$. What constant $c$ makes the inductive step $T(n) = T(n-1) + 3 \le c(n-1) + 3 \le cn$ hold?
+2. Does the substitution method ever tell you *what* to guess, or only whether a guess you already have is correct?
+
+---
+
+# Answers
+
+1. Any $c \ge 3$ works, by the same algebra as the worked proof: $c(n-1) + 3 = cn - c + 3 \le cn$ exactly when $c \ge 3$. Choosing $c = 3$ (and checking the base case $T(0) = 1 \le c \cdot n_0$ for a suitable $n_0$) completes the proof.
+2. **Only whether a guess is correct.** The guess itself has to come from somewhere else - intuition, a recursion tree, or experience with similar recurrences (like today's `factorial` shape). This is exactly why the recursion-tree method, next, is useful even when substitution is available: it can *suggest* a guess to check.
 
 ---
 
@@ -414,7 +547,42 @@ $T(n) = n(\log_2 n + 1) = O(n \log n)$ - the result we'll reuse, unpreviewed, st
 
 ---
 
-<!-- Act 3 / BUILD: Master Theorem preview -->
+<!-- NEW: a second, distinct recursion-tree example, exercising Master Theorem Case 1 instead of Case 2 -->
+
+# A Second Recursion Tree: $T(n) = 3T(n/2) + n$
+
+<div class="thread">A different split factor, and a different case of the pattern - the same method still works.</div>
+
+| Level | Subproblems | Size each | Cost at this level |
+|---|---|---|---|
+| 0 | 1 | $n$ | $n$ |
+| 1 | 3 | $n/2$ | $3 \cdot (n/2) = 1.5n$ |
+| 2 | 9 | $n/4$ | $9 \cdot (n/4) = 2.25n$ |
+| $\vdots$ | $\vdots$ | $\vdots$ | growing each level |
+| $\log_2 n$ | $3^{\log_2 n} = n^{\log_2 3}$ | $1$ | $n^{\log_2 3}$ |
+
+---
+
+<!-- NEW: continuation - summing the tree above -->
+
+# Summing the Second Recursion Tree
+
+<div class="thread">Same tree as the last slide. Here's what makes it different from merge sort's.</div>
+
+Unlike $T(n) = 2T(n/2) + O(n)$, each level here costs *more* than the
+last - the branching factor (3) outpaces the halving of size. The sum
+is dominated by the bottom level, the leaves: there are
+$n^{\log_2 3} \approx n^{1.585}$ of them, each costing $O(1)$, so
+
+$$
+T(n) = \Theta(n^{\log_2 3})
+$$
+
+This is exactly **Case 1** of the Master Theorem, next slide - the
+many small subproblems dominate, unlike merge sort's Case 2 where
+every level costs the same.
+
+---
 
 # A First Look: the Master Theorem
 
@@ -428,7 +596,26 @@ For $T(n) = aT(n/b) + f(n)$, compare $f(n)$ against $n^{\log_b a}$:
 | 2 | $f(n)$ grows about the same | every level costs about the same | $T(n) = \Theta(n^{\log_b a}\log n)$ |
 | 3 | $f(n)$ grows faster | the split itself dominates | $T(n) = \Theta(f(n))$ |
 
-Merge sort ($a{=}2, b{=}2, f(n){=}n$) lands in **Case 2** - matching the recursion-tree result exactly.
+Merge sort ($a{=}2, b{=}2, f(n){=}n$) lands in **Case 2** - matching
+the recursion-tree result exactly. $T(n) = 3T(n/2) + n$
+($a{=}3,b{=}2,f(n){=}n$) lands in **Case 1**, since $f(n)=n$ grows
+slower than $n^{\log_2 3}$ - matching the tree above too.
+
+---
+
+<!-- NEW: check-yourself pair on the Master Theorem cases -->
+
+# Check Yourself: Which Master Theorem Case?
+
+1. For $T(n) = 4T(n/2) + n^2$: is $f(n) = n^2$ growing slower than, about the same as, or faster than $n^{\log_2 4} = n^2$? Which case applies?
+2. For $T(n) = T(n/2) + 1$ (this is binary search's recurrence, previewed for Week 7): compute $n^{\log_2 1}$, and say which case applies.
+
+---
+
+# Answers
+
+1. $f(n) = n^2$ grows **about the same** as $n^{\log_2 4} = n^2$ - **Case 2** applies, giving $T(n) = \Theta(n^2 \log n)$.
+2. $n^{\log_2 1} = n^0 = 1$, and $f(n) = 1$ grows about the same as that - **Case 2** applies, giving $T(n) = \Theta(\log n)$, matching binary search's well-known cost.
 
 ---
 
@@ -510,11 +697,34 @@ by storing each distinct answer once.
 
 ---
 
+<!-- NEW: check-yourself pair distinguishing branching-growth from repeated-work growth -->
+
+# Check Yourself: Two Different Diseases
+
+1. `allOrders` and naive `fib` are both exponential-ish and both recursive. What's the actual structural difference between why each one is slow?
+2. Would rewriting naive `fib` iteratively (a `for` loop computing `fib(0), fib(1), ..., fib(5)` in order, storing each result) fix its waste? Would the same trick fix `allOrders`?
+
+---
+
+# Answers
+
+1. `allOrders` is slow because it genuinely **branches into more and more distinct choices** at every level - there is no repeated work to eliminate, only an unavoidably large number of true orderings. Naive `fib` is slow because it **re-derives identical subproblems** (`fib(3)`, `fib(2)`, ...) many times over - the waste is redundant computation, not the true size of the answer.
+2. **Yes for `fib`** - storing each `fib(k)` once as you compute it turns 15 calls into 6, an $O(n)$ pass (this is exactly Week 11's dynamic programming). **No for `allOrders`** - there is no repeated subproblem to cache; every one of the $n!$ orderings is genuinely distinct, so an iterative rewrite still does $n!$ work.
+
+---
+
 <!-- SLOT N-1: Common mistakes -->
 
-# Common Mistakes
+# Common Mistakes (1)
 
 - **"Recursion is always less efficient than iteration."** Tempting because every recursive call has function-call overhead - but the real cost driver is how *many* calls happen and whether they repeat work. `factorial` and `tourTime` are just as cheap, $O(n)$, as their iterative twins; `allOrders` is expensive because of its branching shape, not because it recurses.
+
+---
+
+<!-- NEW: continuation of Common Mistakes -->
+
+# Common Mistakes (2)
+
 - **"The base case is just where you stop."** Tempting because it feels like a technicality. It is actually what *bounds the entire recursion tree's depth* (and, once a method branches, its size) - miss it, or shrink the wrong thing, and the tree never stops growing.
 
 ---
@@ -649,6 +859,27 @@ order, traced and proven correct by hand.
 
 ---
 
+<!-- NEW: "Where This Week Lives in CLRS" reference slide, immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">This week's ideas, mapped to the textbook.</div>
+
+| This week's topic | CLRS 4th ed |
+|---|---|
+| Substitution method | §4.3 |
+| Recursion-tree method | §4.4 |
+| Master method | §4.5 |
+
+**If you want to go deeper:** §4.6-4.7 cover the continuous Master
+theorem and Akra-Bazzi recurrences, for shapes that don't fit the
+standard Master method - useful once you meet a recurrence that
+doesn't cleanly match one of today's three cases. (§4.1-4.2, matrix
+multiplication and Strassen's algorithm, are not this week's
+reading - they return in **Week 9**.)
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -657,7 +888,7 @@ order, traced and proven correct by hand.
 - Tracing `factorial(4)`'s call stack shows exactly what's "waiting" at each depth, and why the base case bounds that depth.
 - A recursive algorithm's cost is a **recurrence relation**; substitution (guess + prove by induction) and the recursion tree (sum level by level) both solve one, and the Master Theorem previews a shortcut for the divide-and-conquer shape (full rigor Week 9).
 - Recursion itself isn't slow - `tourTime` and `factorial` are both $O(n)$; `allOrders` explodes from *branching*, not recursion, and that is exactly what Week 11's DP will fix.
-- **Reading:** CLRS Chapter 4 (skim §4.3-4.4, recurrences) - no exercises due.
+- **Reading:** CLRS 4th ed, §4.3-4.5 - no exercises due.
 - **Prepare:** think about how you'd put a shuffled stack of 10 index cards in order by hand. Bring your method to Week 5.
 
 ---

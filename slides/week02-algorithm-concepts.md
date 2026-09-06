@@ -95,9 +95,9 @@ the trap.
 
 ---
 
-<!-- SLOT 4: The pain (Act 1 / MOTIVATE), zero jargon -->
+<!-- SLOT 4: The pain (Act 1 / MOTIVATE), zero jargon. Split from the original combined pain+two-col slide: pain alone here, the two builds on the next slide. -->
 
-# Two Developers, One Instruction, Two Different Apps
+# Two Developers, One Instruction
 
 <div class="pain">
 
@@ -107,6 +107,16 @@ say, honestly, that they implemented the spec - and ship completely
 different builds for the same instruction.
 
 </div>
+
+<!-- notes: Do not say "definiteness" yet. Let the class feel the mess first; the two builds are on the next slide. -->
+
+---
+
+<!-- NEW: continuation - the two builds, side by side -->
+
+# Two Different Builds, Side by Side
+
+<div class="thread">Same spec. Here's what each developer actually shipped.</div>
 
 <div class="two-col">
 <div>
@@ -193,14 +203,23 @@ Keep a pen ready.
 
 ---
 
-<!-- SLOT 8: Origin -->
+<!-- SLOT 8: Origin. Split into two: the older history here, Knuth's fix next. -->
 
-# Precision Is Not New
+# Precision Is Not New (1)
 
 <div class="thread">You just felt the mess. Now: who fixed it, and how long ago?</div>
 
 - **Euclid's algorithm** for the greatest common divisor (~300 BCE) is the oldest algorithm still taught today - a precise, step-by-step procedure, written down long before "computer" meant a machine.
 - In 1936, **Alan Turing** and **Alonzo Church**, working independently, formalized exactly what "a step-by-step procedure a machine can follow" even means - the moment "algorithm" stopped being an informal word.
+
+---
+
+<!-- NEW: continuation of Origin -->
+
+# Precision Is Not New (2)
+
+<div class="thread">One more name, then the rulebook itself, next slide.</div>
+
 - **Donald Knuth**, in *The Art of Computer Programming* (1968), wrote down the five properties on the next slide precisely because, without them, two people who both claimed to have "an algorithm" could be describing completely different things - exactly like our two CampusNav developers.
 
 <div class="why">
@@ -216,7 +235,7 @@ the five properties.
 
 # Algorithm: The Five Required Properties
 
-<div class="thread">This is the rulebook. Every algorithm this semester gets checked against all five.</div>
+<div class="thread">This is the rulebook. Every algorithm this semester gets checked against all five (CLRS 4th ed, Ch 1).</div>
 
 1. **Finiteness** - must terminate after a finite number of steps, for *every* valid input.
 2. **Definiteness** - every step must be precisely and unambiguously specified; no room for interpretation.
@@ -289,6 +308,69 @@ A procedure that fails even one of these is not an algorithm - it's a suggestion
 
 ---
 
+<!-- NEW: CLRS's own pseudocode conventions, as a second reference point (CLRS 4th ed, §2.1-2.2) -->
+
+# CLRS's Own Pseudocode Style
+
+<div class="thread">Our house style isn't the only one. Here's the textbook's (CLRS 4th ed, §2.1-2.2).</div>
+
+Every algorithm in CLRS is written in a slightly different dialect of
+the same idea:
+
+- **1-indexed arrays:** CLRS arrays run `A[1..n]`, not `A[0..n-1]` -
+  the very first thing to translate when moving between the book and
+  our own pseudocode.
+- **Numbered lines:** every statement gets its own line number, so a
+  proof (like a loop invariant) can say "after line 5" precisely.
+- **`//` comments:** a trailing note that isn't executed - the same
+  role as a comment in real code.
+- Same underlying rules as ours: definiteness and effectiveness still
+  apply - only the surface notation differs.
+
+---
+
+<!-- NEW: worked example in CLRS's own style, style reference only per SPINE.md (insertion sort content itself isn't taught until Week 5) -->
+
+# Worked Example: INSERTION-SORT, CLRS-Style
+
+<div class="thread">Not today's content - just today's notation, on the algorithm you'll meet properly in Week 5.</div>
+
+```text
+INSERTION-SORT(A, n)
+1   for i = 2 to n
+2       key = A[i]
+3       // Insert A[i] into the sorted subarray A[1..i-1].
+4       j = i - 1
+5       while j > 0 and A[j] > key
+6           A[j + 1] = A[j]
+7           j = j - 1
+8       A[j + 1] = key
+```
+
+Notice `A[i]` starts at index 2 (1-indexed), and each line is
+numbered. Same five properties apply to this procedure as to any
+other - we are not analyzing its cost yet, only reading its shape.
+
+---
+
+<!-- NEW: check-yourself pair on the two pseudocode styles -->
+
+# Check Yourself: Two Styles, One Idea
+
+1. `FIND_ROOM` (our house style) and `INSERTION-SORT` (CLRS style) use different indexing conventions. Does that make them different *algorithms* by definition, or just differently-notated ones?
+2. Why does CLRS bother numbering every line, when our house style doesn't?
+
+---
+
+# Answers
+
+1. **Different notation, not a different algorithm** - exactly the algorithm/program distinction from a few slides back, one level up: the same idea can be *written down* two ways, as long as each is precise.
+2. Line numbers let a proof (e.g. a loop invariant argument) refer to an exact step - "true before line 5 executes" - without ambiguity. It's a tool for *writing about* the algorithm, not a requirement of the algorithm itself.
+
+---
+
+<!-- Flowchart conventions, split: shapes here, the two rules + cross-check next -->
+
 # Flowchart Conventions
 
 <div class="thread">Same rules, drawn instead of written.</div>
@@ -301,10 +383,21 @@ A procedure that fails even one of these is not an algorithm - it's a suggestion
 </div>
 
 - Exactly **one** Start oval, and every path must reach an **End** oval - draw one and you're checking finiteness visually.
+
+---
+
+<!-- NEW: continuation of Flowchart Conventions -->
+
+# Flowchart Conventions, Continued
+
+<div class="thread">The rest of the rules - and why they matter.</div>
+
 - Every Diamond must have exactly two labeled exits (e.g. "yes" / "no") - an unlabeled or missing branch is a definiteness violation, drawn.
 - Pseudocode and flowcharts describe the *same* algorithm two ways; if you can't convert one into the other, one of them is still vague.
 
 ---
+
+<!-- What Is a GCD?, split: the definition alone here, the slow worked method next -->
 
 # What Is a GCD?
 
@@ -312,7 +405,15 @@ A procedure that fails even one of these is not an algorithm - it's a suggestion
 
 The **greatest common divisor** of two whole numbers is the largest whole number that divides both of them with no remainder.
 
-**GCD(12, 18), the slow way - list every divisor:**
+---
+
+<!-- NEW: continuation - the slow, brute-force method -->
+
+# GCD(12, 18), the Slow Way
+
+<div class="thread">One correct method, before we meet the fast one.</div>
+
+**List every divisor:**
 - Divisors of 12: 1, 2, 3, 4, 6, 12
 - Divisors of 18: 1, 2, 3, 6, 9, 18
 - Common to both: 1, 2, 3, 6
@@ -360,7 +461,7 @@ That works for small numbers, but listing every divisor of two 12-digit numbers 
 
 # Worked Example: Euclid's GCD
 
-<div class="thread">A clean, classic case before we return to CampusNav's messier one.</div>
+<div class="thread">A clean, classic case before we return to CampusNav's messier one (CLRS 4th ed, §31.2).</div>
 
 ```text
 GCD(a, b):
@@ -378,7 +479,9 @@ GCD(a, b):
 
 ---
 
-# Is GCD Finite? Prove It, Don't Assume It
+<!-- Is GCD Finite?, split: the trace here, the proof reasoning next -->
+
+# Is GCD Finite? Trace It First
 
 <div class="thread">The property everyone assumes, and nobody checks.</div>
 
@@ -391,12 +494,59 @@ Trace `GCD(48, 18)`:
 <div class="row"><div class="rowlabel">Step 3</div><div class="cell">a=6</div><div class="cell hl2">b=0</div><div class="cell hl">r=0</div></div>
 </div>
 
-`b` hit 0, so `while b != 0` is false and the loop ends. But *why*
-must this always happen? `r = a mod b` is always strictly smaller than
-`b` and can't go below 0, so `b` strictly decreases toward 0 -
-guaranteeing termination **for every valid pair `(a, b)`**, not just
-this one. That argument, not the one successful run, is what
-finiteness requires.
+`b` hit 0, so `while b != 0` is false and the loop ends.
+
+---
+
+<!-- NEW: continuation - the actual proof, not just the one trace -->
+
+# Is GCD Finite? Prove It, Don't Assume It
+
+<div class="thread">One successful trace is not a proof - here's the actual argument.</div>
+
+*Why* must the loop above always end? `r = a mod b` is always
+strictly smaller than `b` and can't go below 0, so `b` strictly
+decreases toward 0 - guaranteeing termination **for every valid pair
+`(a, b)`**, not just this one. That argument, not the one successful
+run, is what finiteness requires.
+
+---
+
+<!-- NEW: a second, slower trace, from CLRS's own worst-case family for Euclid's algorithm -->
+
+# Another GCD Trace: A Slower Case
+
+<div class="thread">Not every pair shrinks this fast - let's find one that doesn't.</div>
+
+Trace `GCD(89, 55)` - consecutive Fibonacci numbers:
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">Start</div><div class="cell">a=89</div><div class="cell">b=55</div><div class="cell empty"></div></div>
+<div class="row"><div class="rowlabel">Step 1</div><div class="cell">a=55</div><div class="cell">b=34</div><div class="cell hl">r=34</div></div>
+<div class="row"><div class="rowlabel">Step 2</div><div class="cell">a=34</div><div class="cell">b=21</div><div class="cell hl">r=21</div></div>
+<div class="row"><div class="rowlabel">Step 3</div><div class="cell">a=21</div><div class="cell">b=13</div><div class="cell hl">r=13</div></div>
+<div class="row"><div class="rowlabel">Step 4</div><div class="cell">a=13</div><div class="cell">b=8</div><div class="cell hl">r=8</div></div>
+<div class="row"><div class="rowlabel">Step 5</div><div class="cell">a=8</div><div class="cell hl2">b=5</div><div class="cell hl">r=5</div></div>
+</div>
+
+Five steps and still shrinking, versus three for `GCD(48, 18)` -
+already noticeably slower, from similarly-sized inputs.
+
+---
+
+<!-- NEW: what the slower trace tells us -->
+
+# What That Slower Trace Tells Us
+
+<div class="thread">Same finiteness proof still holds - it just takes longer to cash in.</div>
+
+Consecutive Fibonacci numbers are the worst case for Euclid's
+algorithm: every step's remainder is as large as it can possibly be,
+so the number of steps grows, but only slowly, with the size of the
+input. The strictly-decreasing-`b` argument from the last slide
+covers this case too - finiteness was never in doubt, only the exact
+step count. Precisely bounding that step count is a Big-O question,
+which is next week's entire subject.
 
 ---
 
@@ -440,6 +590,22 @@ step is precisely stated, nothing seems to rely on a "feeling." The
 bug is in whether the stated loop bound is the *correct* one, not
 whether it's precisely stated. "I tested it and it worked" is never
 proof of that - a silent, harmless-looking garbage read is still a bug.
+
+---
+
+<!-- NEW: check-yourself pair on "tested vs. proven" finiteness, reusing MAX and GCD -->
+
+# Check Yourself: Tested vs. Proven
+
+1. A classmate claims: "My function is finite because it finished every time I ran it in testing." Is that a valid finiteness proof? Why or why not?
+2. `MAX`'s bug fires on *every* run, yet it never produced a visibly wrong answer for its author. What does that tell you about "no bugs showed up in testing" as evidence of correctness?
+
+---
+
+# Answers
+
+1. **No.** Finiteness needs an argument that holds for *every* valid input (like GCD's strictly-decreasing `b`), not a report that some finite set of test runs happened to stop.
+2. It tells you almost nothing on its own - a bug can fire on every run while still producing a value that happens to look correct, purely by luck of what garbage sat in memory. Testing can show the *presence* of a bug, but passing tests never proves its *absence*.
 
 ---
 
@@ -502,12 +668,51 @@ counted as an algorithm at all.
 
 ---
 
-<!-- SLOT N-1: Common mistakes -->
+<!-- NEW: compact recap of FIND_ROOM against all five properties, at a glance -->
 
-# Common Mistakes
+# `FIND_ROOM`: All Five, At a Glance
+
+<div class="thread">Everything from the last two slides, in one table.</div>
+
+| Property | Where it's satisfied |
+|---|---|
+| Finiteness | Loop bound `length(directory) - 1` is fixed before the loop starts |
+| Definiteness | `==` on `target` is a precise, single-meaning comparison |
+| Input | Well-defined array `directory` and string `target` |
+| Output | A location, or the explicit sentinel `NOT_FOUND` |
+| Effectiveness | Array indexing and string equality are basic operations |
+
+---
+
+<!-- NEW: check-yourself pair on well-defined output, reusing FIND_ROOM's sentinel -->
+
+# Check Yourself: The Sentinel Value
+
+1. Why does `FIND_ROOM` returning `NOT_FOUND` count as part of a *well-defined* output, rather than a missing case the spec forgot?
+2. Suppose a rewritten `FIND_ROOM` instead returned `-1` when the room isn't found. Same algorithm, or does that change which property is at stake?
+
+---
+
+# Answers
+
+1. Output only counts as well-defined if *every* valid input has a specified result - including the input "the room isn't in the directory." A version that silently did nothing, or crashed, on that input would leave output undefined for some inputs.
+2. **Same algorithm, same property satisfied** - `-1` and `NOT_FOUND` are both a single, well-defined sentinel value for "not found." It would only become a *problem* if `-1` were also a valid room index somewhere else in the system, making the sentinel ambiguous with real data - a definiteness risk, not a difference in algorithm.
+
+---
+
+<!-- SLOT N-1: Common mistakes, split into two -->
+
+# Common Mistakes (1)
 
 - **Confusing "an algorithm" with "a program."** An algorithm is the language-independent idea - the steps themselves; a program is one specific implementation of it, in one specific language. `FIND_ROOM` above could be written in Python, Java, or C and still be the *same* algorithm.
 - **Assuming any loop that eventually stops is automatically finite.** It's tempting because, in casual testing, the loop *did* stop. But finiteness requires a proof that covers every valid input - like GCD's "`b` strictly decreases and can't go below 0" argument - not just the one run you happened to try. "Keep improving the guess until it feels right" might stop on your machine today and loop forever on a harder input tomorrow; you have no way to know without a bound.
+
+---
+
+<!-- NEW: continuation of Common Mistakes -->
+
+# Common Mistakes (2)
+
 - **"It ran and gave the right answer, so it's correct."** Exactly the `MAX` bug above: one passing run proves nothing about the inputs you didn't try.
 
 ---
@@ -529,6 +734,22 @@ counted as an algorithm at all.
 2. One successful trace only shows it stopped on *that* input; finiteness requires an argument (like `b` strictly decreasing and bounded below by 0) that holds for *every* valid input, not just the one tried.
 3. **Same algorithm.** The steps, their order, and their logic are identical - only the language-specific syntax differs. The algorithm is the idea; the Python code is one program that implements it.
 4. The out-of-bounds read at index `length(A)` happens every time, but the garbage value it returns might just happen to be small enough that `A[i] > m` evaluates false - so the final answer comes out right by luck, not because the bug didn't fire.
+
+---
+
+<!-- NEW: check-yourself pair on flowchart diamond labeling -->
+
+# Check Yourself: Reading the Flowchart
+
+1. In Euclid's flowchart a few slides back, what would go wrong - and which property would it violate - if the `b != 0?` diamond had only one labeled exit instead of two?
+2. Could you redraw `FIND_ROOM` as a flowchart using only the four shapes from Flowchart Conventions? What would the one Diamond in your drawing test?
+
+---
+
+# Answers
+
+1. It would violate **definiteness**: whoever reads the flowchart would not know what to do in the unlabeled case, so two readers could build two different behaviors from the same diagram - the drawn equivalent of "look around until you find it."
+2. Yes - one Diamond testing `directory[i].room == target`, one Rectangle for advancing `i`, one Start oval, and two End ovals (found / `NOT_FOUND`). The loop itself is drawn as an arrow back up to the Diamond.
 
 ---
 
@@ -631,6 +852,26 @@ qualify as real algorithms.
 
 ---
 
+<!-- NEW: "Where This Week Lives in CLRS" reference slide, immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">This week's ideas, mapped to the textbook.</div>
+
+| This week's topic | CLRS 4th ed |
+|---|---|
+| The five properties of an algorithm | Ch 1 |
+| Pseudocode conventions (our house style vs. CLRS's) | §2.1-2.2 (style reference - INSERTION-SORT isn't taught until Week 5) |
+| Euclid's GCD | §31.2 |
+
+**If you want to go deeper:** §2.1's INSERTION-SORT is worth a first
+read now for the notation alone; Chapter 31 (Number-Theoretic
+Algorithms) covers what GCD is used for beyond this week, including
+modular arithmetic and an early look at what becomes Week 9's fast
+exponentiation.
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -639,7 +880,7 @@ qualify as real algorithms.
 - Pseudocode and flowchart conventions let us write and *check* these properties precisely, instead of just describing intent.
 - **Algorithm ≠ program:** the language-independent idea vs. one specific implementation of it.
 - Finiteness needs a *proof* (like GCD's shrinking `b`), not just one successful run.
-- **Reading:** CLRS, Chapter 2 (skim) - no exercises due, but read before Week 3.
+- **Reading:** CLRS 4th ed, Ch 1; §2.1-2.2 (pseudocode style reference); §31.2 (Euclid's GCD) - no exercises due, but read before Week 3.
 - **Prepare:** think of two different, both-correct ways you could search CampusNav's directory, and which one you *guess* is faster. Bring your reasoning to Week 3.
 
 ---
