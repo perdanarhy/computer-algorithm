@@ -221,10 +221,25 @@ array, and classify a few recurrences with the Master theorem. That's
   recurring shape out of individual algorithms and teach it as its own
   reusable strategy - one of a small handful of general **paradigms**.
 
+---
+
+<!-- NEW: split off the naming-the-pattern insight onto its own slide -->
+
+# Why Naming the Pattern Mattered
+
+<div class="thread">Merge sort, Strassen's algorithm, and the textbook that connected them.</div>
+
 <div class="why">
 Once the pattern had a name, computer scientists could point it at new
 problems on purpose, instead of stumbling onto it by luck.
 </div>
+
+- Before 1974, "divide, solve the pieces, combine" was a coincidence
+  two different algorithms happened to share - nobody had a name to
+  search for, teach, or reuse on purpose.
+- Naming a pattern is itself a kind of invention: it turns a one-off
+  trick into a checklist you can apply to a problem you've never seen,
+  which is exactly the shortcut this week's driving question asks for.
 
 ---
 
@@ -244,6 +259,8 @@ problems on purpose, instead of stumbling onto it by luck.
   must not overlap or depend on each other's answers.
 - Skip the combine step, or let the subproblems overlap, and it is
   recursion - just not *this* paradigm. More on that later.
+
+<div class="graphviz-note">CLRS 4th ed - Ch 4, Sections 4.1 (Multiplying square matrices), 4.2 (Strassen's algorithm), 4.5 (the master method); CLRS Section 31.6 for fast exponentiation.</div>
 
 ---
 
@@ -308,12 +325,31 @@ Three cases, one for each possibility. No tracing the whole tree required.
 | **2** | $f(n) = \Theta(n^{\log_b a})$ (grows at the *same rate*) | $T(n) = \Theta(n^{\log_b a}\log n)$ |
 | **3** | $f(n) = \Omega(n^{\log_b a + \varepsilon})$ for some $\varepsilon>0$ (grows *polynomially faster*), **and** the regularity condition $a\,f(n/b) \le c\,f(n)$ holds for some constant $c<1$ and all large $n$ | $T(n) = \Theta(f(n))$ |
 
+---
+
+<!-- NEW: split off the Master Theorem's applicability caveat onto its own slide -->
+
+# When the Master Theorem Doesn't Apply
+
+<div class="thread">Three cases, but they don't cover every recurrence.</div>
+
 <div class="why">
 Not every recurrence fits one of these three cases cleanly - if f(n)
 falls in the gap between cases, or case 3's regularity condition fails,
 the Master theorem simply doesn't apply, and you're back to tracing the
 tree by hand (Week 4).
 </div>
+
+- **Gap example:** $f(n) = n / \log n$ against watershed $n$ - this is
+  smaller than $n$, but not *polynomially* smaller by any fixed
+  $\varepsilon > 0$, so it fits neither Case 1 nor Case 2.
+- **Regularity failure example:** $f(n)$ that oscillates wildly between
+  very small and very large values as $n$ grows can satisfy Case 3's
+  growth condition while still failing the regularity condition
+  $a f(n/b) \le c f(n)$.
+- The lesson: the Master theorem is a shortcut for the *common* case,
+  not a universal solver. Tracing the recursion tree (Week 4) always
+  works, even when this shortcut doesn't apply.
 
 ---
 
@@ -336,6 +372,38 @@ $$
 <span class="bignotation">Θ(n log n)</span> - exactly the bound Week 6
 established by tracing the recursion tree by hand. The Master theorem
 gets you there in three lines instead of a whole tree diagram.
+
+---
+
+<!-- NEW: Check Yourself pair, binary search recurrence -->
+
+# Check Yourself: An Old Recurrence, Revisited
+
+<div class="thread">Week 7's binary search, seen through today's new tool.</div>
+
+Week 7's binary search has the recurrence $T(n) = T(n/2) + O(1)$ - one
+recursive call on half the array, plus constant work to compare against
+the midpoint.
+
+- Classify this recurrence with the Master theorem. Which case, and
+  what is $T(n)$?
+
+---
+
+# Answer: Binary Search's Recurrence
+
+$a = 1$, $b = 2$ → watershed $= n^{\log_2 1} = n^0 = 1$.
+
+$f(n) = O(1) = \Theta(n^0)$ - exactly matches the watershed. That's
+**Case 2**:
+
+$$
+T(n) = \Theta(n^{\log_b a}\log n) = \Theta(1 \cdot \log n) = \Theta(\log n)
+$$
+
+The Master theorem confirms, in three lines, the $\Theta(\log n)$ bound
+Week 7 established by direct reasoning about halving the search space
+each step.
 
 ---
 
@@ -369,6 +437,14 @@ CampusNav wants the single longest, most valuable contiguous stretch of
 the day - the run of slots whose values sum to the largest number - even
 if a draining patch sits in the middle, as long as it's outweighed by
 strong enough stretches on either side.
+
+---
+
+<!-- NEW: split off the compacted-array setup onto its own slide -->
+
+# Setting Up the Trace Array
+
+<div class="thread">Same feature, made concrete as one array of numbers.</div>
 
 For today's trace, consecutive same-type slots are already merged into
 one block, to keep the array short: a `+4` means four energizing slots in a
@@ -410,6 +486,14 @@ The answer is whichever of these three candidates has the largest sum.
 <div class="step-row"><div class="step-num">2</div><div class="step-text">Scan rightward from just after the midpoint toward the end, tracking a running sum, and remember the best sum of any run that starts exactly one past the midpoint.</div></div>
 <div class="step-row"><div class="step-num">3</div><div class="step-text">The best crossing run = best-left-sum + best-right-sum. Each scan touches every element once - together, this step is Θ(n).</div></div>
 </div>
+
+---
+
+<!-- NEW: split off the pseudocode + reference-card note onto its own slide -->
+
+# The Crossing Step, in Pseudocode
+
+<div class="thread">The same three steps, written out.</div>
 
 ```text
 FIND-CROSSING(A, low, mid, high):
@@ -480,6 +564,25 @@ half alone. (Full multi-level trace in the handout.)
 
 ---
 
+<!-- NEW: closes the loop on what "recursively" means for the left/right halves -->
+
+# What About the Recursive Calls Themselves?
+
+<div class="thread">This slide's trace stopped at the top level. Recursion doesn't.</div>
+
+"Left half's best turns out to be `[4,-3,5]` = 6" wasn't computed by
+inspection - it's the answer *that same recursive call* returns after
+splitting `[4,-3,5,-2,-1]` again, checking its own left/right/crossing
+cases, and so on down to single-element base cases (where the best
+subarray is just that one element).
+
+- Every level of this recursion does the same three things: split,
+  recurse twice, run the linear crossing step.
+- The full multi-level trace in the handout shows this happening at
+  every level - the top-level trace here is one slice of it.
+
+---
+
 # The Recurrence for Max Subarray
 
 <div class="thread">Same shape as merge sort - that's not a coincidence.</div>
@@ -533,6 +636,112 @@ After 20 minutes, ask 2 pairs to share their Part B classifications.
   needs before it's safe to apply.
 
 <!-- notes: Read each term aloud. Say Week 11 gives overlapping subproblems their own paradigm. -->
+
+---
+
+<!-- NEW: fast exponentiation worked example, CLRS Section 31.6, D&C's second technique this week -->
+
+# A Second D&C Technique: Fast Exponentiation
+
+<div class="thread">Divide-and-conquer isn't only for arrays and matrices. It also speeds up arithmetic.</div>
+
+Computing $a^n$ the obvious way takes $n-1$ multiplications: $a \times a
+\times a \times \dots$, one at a time. Divide-and-conquer does better,
+by splitting the *exponent* in half instead of the data:
+
+$$
+a^n =
+\begin{cases}
+(a^{n/2})^2 & n \text{ even} \\
+a \cdot (a^{(n-1)/2})^2 & n \text{ odd}
+\end{cases}
+$$
+
+Each step does $O(1)$ work (one squaring, and one extra multiply if $n$
+is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
+\Theta(\log n)$. (CLRS 4th ed, Section 31.6.)
+
+---
+
+# Trace: Computing a^13 by Repeated Squaring
+
+<div class="thread">13 in binary is 1101. Watch the exponent halve each step.</div>
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">n=13 (odd): a^13 = a &middot; (a^6)^2. Recurse on a^6.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">n=6 (even): a^6 = (a^3)^2. Recurse on a^3.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">n=3 (odd): a^3 = a &middot; (a^1)^2. Recurse on a^1.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-text">n=1 (odd): a^1 = a &middot; (a^0)^2. Recurse on a^0.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-text">n=0: base case, a^0 = 1.</div></div>
+</div>
+
+Exponent sequence: $13 \to 6 \to 3 \to 1 \to 0$ - five levels for an
+exponent of 13, matching $\Theta(\log_2 13) \approx 3.7$, rounded up.
+
+---
+
+# Unwinding the Recursion: Building a^13 Back Up
+
+<div class="thread">Same five levels, now read bottom-up - each answer built from the one below it.</div>
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">level</div><div class="cell">a^0</div><div class="cell">a^1</div><div class="cell">a^3</div><div class="cell">a^6</div><div class="cell hl">a^13</div></div>
+<div class="row"><div class="rowlabel">built as</div><div class="cell">1</div><div class="cell">a&middot;1^2</div><div class="cell">a&middot;a^2</div><div class="cell">(a^3)^2</div><div class="cell hl">a&middot;(a^6)^2</div></div>
+</div>
+
+Each level costs at most one squaring plus one extra multiply by $a$
+(free at the base, where $a^0=1$ and $a^1=a$ need no real arithmetic) -
+never more than $O(1)$ work per level, and $\Theta(\log n)$ levels
+total: 3 real squarings and 2 extra multiplies, 5 in all.
+
+---
+
+# Counting the Multiplications: log n vs. n
+
+<div class="thread">The whole point, made concrete with a single number.</div>
+
+- **Naive approach:** $a^{13}$ needs 12 multiplications ($a \times a$,
+  twelve times over).
+- **Repeated squaring:** the trace above does one squaring at each of
+  the $a^1{\to}a^2$, $a^2{\to}a^3$'s squaring, $a^3{\to}a^6$, and
+  $a^6{\to}a^{13}$ levels (3 real squarings - squaring $a^0=1$ costs
+  nothing), plus one extra multiply by $a$ at each of the two odd
+  levels above the base ($a^{13}$ and $a^3$) - **5 total
+  multiplications**, not 12.
+- The gap only widens as $n$ grows: $a^{1000}$ needs 999 naive
+  multiplications, but only about 10-15 with repeated squaring.
+
+<span class="bignotation">Θ(log n) vs. Θ(n)</span> - the same
+exponential-savings shape as every divide-and-conquer win this week.
+
+---
+
+<!-- NEW: Check Yourself pair, fast exponentiation -->
+
+# Check Yourself: One More Power
+
+<div class="thread">Same technique, a fresh exponent.</div>
+
+Using repeated squaring, how many multiplications does it take to
+compute $a^{21}$? Trace the halving sequence of exponents first, then
+count.
+
+---
+
+# Answer: a^21 by Repeated Squaring
+
+Exponent sequence: $21 \to 10 \to 5 \to 2 \to 1 \to 0$ - five halvings.
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">n=21 (odd): a^21 = a &middot; (a^10)^2 - 1 square + 1 extra multiply.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">n=10 (even): a^10 = (a^5)^2 - 1 square.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">n=5 (odd): a^5 = a &middot; (a^2)^2 - 1 square + 1 extra multiply.</div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-text">n=2 (even): a^2 = (a^1)^2 - 1 square.</div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-text">n=1 (odd): a^1 = a &middot; (a^0)^2 - free, since a^0=1 and a^1=a need no real arithmetic.</div></div>
+</div>
+
+**Total: 4 squarings + 2 extra multiplies = 6 multiplications**, versus
+20 for the naive approach - again $\Theta(\log n)$ against $\Theta(n)$.
 
 ---
 
@@ -596,6 +805,36 @@ $\text{ways}(3){=}3$, $\text{ways}(4){=}5$, $\text{ways}(5){=}8$.
 
 ---
 
+<!-- NEW: Check Yourself pair, verify the doubling identities for k=3 -->
+
+# Check Yourself: Verify k=3
+
+<div class="thread">Same two identities, one step further out.</div>
+
+Directly: $\text{ways}(6){=}13$, $\text{ways}(7){=}21$ (each is the sum
+of the two before it, same as before).
+
+- Using $k=3$ ($\text{ways}(3){=}3$, $\text{ways}(2){=}2$), compute
+  $\text{ways}(6)$ and $\text{ways}(7)$ from the doubling identities.
+  Do they match the direct values above?
+
+---
+
+# Answer: k=3 Checks Out
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">$k=3$: $\text{ways}(k){=}3$, $\text{ways}(k-1){=}2$.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">$\text{ways}(6) = \text{ways}(2k) = 3^2 + 2^2 = 9 + 4 = 13$ - matches the direct value.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">$\text{ways}(7) = \text{ways}(2k+1) = 3^2 + 2 \cdot 3 \cdot 2 = 9 + 12 = 21$ - matches too.</div></div>
+</div>
+
+Two checks (k=2 and k=3) are not a proof for every $k$, but they're
+strong evidence the identities are doing exactly what they claim -
+jumping straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$ without
+ever computing every value in between.
+
+---
+
 # Why This Trick Is Special-Cased
 
 <div class="thread">A preview, not the real fix.</div>
@@ -623,6 +862,15 @@ one-off trick, and Week 4's exploding recursion tree finally fixed for good.
   half, handle the crossing case in linear time - $T(n)=2T(n/2)+\Theta(n)
   = \Theta(n\log n)$. A genuinely faster algorithm than checking every
   start/end pair, discovered by *applying the paradigm*, not by luck.
+
+---
+
+<!-- NEW: split the second feature onto its own slide -->
+
+# CampusNav: The Second Feature
+
+<div class="thread">Same paradigm, a different technique inside it.</div>
+
 - **Shortcut-counter speedup:** halving the step index, fast-exponentiation
   style, gets a brute-force-exponential count down to $\Theta(\log n)$ -
   though this one is a specialized trick, not the general fix (that's Week 11).
@@ -641,11 +889,26 @@ Both features exist today only because CampusNav's team finally had a
   shortcut-counter recursion from Week 4 is recursive but not D&C - its
   two calls overlap the same smaller subproblems, which is exactly what
   dynamic programming (Week 11) is built to handle differently.
+- A quick test: does the recursion re-derive the *same* smaller answer
+  more than once anywhere in its call tree? If yes, it's overlapping
+  subproblems, not independent ones - not D&C, no matter how recursive
+  it looks on the page.
+
+---
+
+<!-- NEW: split off the Master-theorem-applicability mistake onto its own slide -->
+
+# Common Mistakes, Continued
+
 - **"The Master theorem always applies."** It only classifies
   recurrences shaped like $T(n)=aT(n/b)+f(n)$ where $f(n)$ fits cleanly
   into one of the three cases. If $f(n)$ falls in the gap between cases,
   or Case 3's regularity condition fails, you're back to tracing the
   tree (Week 4) or need a different tool entirely.
+- This mistake is tempting precisely because the three-case table
+  *looks* exhaustive. It classifies every recurrence of this specific
+  shape whose $f(n)$ fits cleanly - it is not a universal solver for
+  every recurrence you will ever write.
 
 ---
 
@@ -722,6 +985,27 @@ no combine step, just one correct local choice repeated.
 
 ---
 
+<!-- NEW: CLRS reference slide, placed immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+| This week's topic | CLRS 4th ed section |
+|---|---|
+| Matrix multiplication (the historical D&C example) | 4.1 |
+| Strassen's algorithm | 4.2 |
+| The Master method / Master theorem | 4.5 |
+| Fast exponentiation (repeated squaring) | 31.6 |
+
+<div class="why">
+<strong>If you want to go deeper (not required this week):</strong>
+CLRS Sections 4.6-4.7 prove the continuous version of the Master
+theorem and cover Akra-Bazzi recurrences - a more general tool for
+recurrences whose subproblems aren't all the same size, which this
+week's Master theorem assumes.
+</div>
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -734,15 +1018,19 @@ no combine step, just one correct local choice repeated.
 - The **maximum-subarray** problem needs a linear-time crossing step in
   addition to the two recursive halves - the combine step is where the
   real design work happens.
+- **Fast exponentiation** (CLRS 31.6) is a second D&C technique this
+  week - splitting the exponent, not the data, for $\Theta(\log n)$
+  instead of $\Theta(n)$ multiplications.
 - **Not every recursive algorithm is D&C** - overlapping subproblems
   (Week 4's shortcut counter) need a different paradigm (DP, Week 11).
 - **Reading:** CLRS, Chapter 4 (Divide-and-Conquer: 4.1 Matrix
   Multiplication and 4.2 Strassen's Algorithm, as another
   divide-and-conquer example; 4.3-4.5 the Master theorem and its
-  proof). The maximum-subarray problem used in this week's worked
-  example is a classic divide-and-conquer teaching example (covered in
-  earlier CLRS editions); its recurrence and crossing-step argument
-  are exactly the pattern CLRS 4.1-4.2 formalize.
+  proof) and Section 31.6 (fast exponentiation). The maximum-subarray
+  problem used in this week's worked example is a classic
+  divide-and-conquer teaching example (covered in earlier CLRS
+  editions); its recurrence and crossing-step argument are exactly the
+  pattern CLRS 4.1-4.2 formalize.
 - **Prepare:** think of one everyday scheduling decision where making
   the locally best choice, once, feels obviously right. Bring it to Week 10.
 

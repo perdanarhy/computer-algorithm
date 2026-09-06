@@ -257,12 +257,26 @@ That is **Worksheet Part A**. Keep a pen ready.
   distrusted the words "research" and "mathematical." "Programming"
   here means *planning/scheduling*, nothing to do with writing code.
 
+---
+
+# Where That Idea Went Next
+
+<div class="thread">One insight, decades of reuse - the same shape, over and over.</div>
+
 <div class="why">
 The same reuse-a-solved-subproblem idea now underlies route planners,
 compilers, spell-checkers, and DNA sequence alignment - anywhere a big
 decision breaks into stages that ask the same small question
 repeatedly.
 </div>
+
+- A route planner never re-solves "shortest path from this
+  intersection to downtown" twice - it caches that stage's answer.
+- A compiler never re-optimizes the identical sub-expression twice
+  inside one function.
+- A spell-checker's "closest known word" comparison and a DNA
+  aligner's "best match so far" both cache the same kind of
+  overlapping subproblem this week formalizes.
 
 ---
 
@@ -293,6 +307,8 @@ we re-asked the same small question.
 > *distinct* subproblem exactly once, storing its answer, and
 > combining stored answers - applicable exactly when a problem has
 > both **optimal substructure** and **overlapping subproblems**.
+
+<div class="graphviz-note">CLRS 4th ed - Ch 14, Sections 14.1 (rod cutting) and 14.3 (elements of dynamic programming).</div>
 
 - Optimal substructure *alone* is what already let D&C (Week 9) and
   greedy (Week 10) work directly, with nothing stored.
@@ -330,11 +346,23 @@ we re-asked the same small question.
 - **Tour Planner has it:** the best 60-minute plan either includes the
   live music or it doesn't - whichever way, the rest of the plan must
   be the *best possible* plan for whatever time and activities remain.
-- **The catch:** greedy commits to one locally-best choice and never
-  looks back. DP's insight is that when the locally-best choice can be
-  *wrong* - no greedy-choice property (Week 10) - you must consider a
+
+---
+
+# The Catch: What DP Adds That Greedy Doesn't
+
+<div class="thread">Same optimal substructure. A different response to it.</div>
+
+- Greedy commits to one locally-best choice and never looks back - it
+  bets that today's best-looking option can't hurt the final answer.
+- DP's insight is that when the locally-best choice can be *wrong* -
+  no greedy-choice property (Week 10) - you must consider a
   subproblem's answer under *every* relevant scenario, not just the
   one greedy would have picked.
+- Concretely: greedy Tour Planner asks "what's best right now?" once,
+  per step. DP asks "what's the best plan for *every* remaining
+  time budget?" and keeps all of those answers around, in case a
+  later choice needs one it hasn't picked yet.
 
 ---
 
@@ -378,6 +406,45 @@ at all.
 
 ---
 
+<!-- NEW: rod-cutting comparison, CLRS's classic version of this same idea -->
+
+# CLRS's Classic Version: Rod Cutting
+
+<div class="thread">Same idea, a different costume - the textbook's own worked example.</div>
+
+CLRS Section 14.1 develops this exact recurrence on a different
+problem, **rod cutting**: given a rod of length $n$ and a price for
+each possible cut length, choose a set of cuts that maximizes total
+revenue.
+
+| Rod cutting (CLRS 14.1) | Tour Planner (this deck) |
+|---|---|
+| A rod of length $n$ | A 60-minute free block |
+| Each possible cut length, with its own price | Each activity, with its own duration and enjoyment |
+| Choose cuts to maximize total revenue under length $n$ | Choose activities to maximize enjoyment under 60 minutes |
+
+---
+
+# Rod Cutting: The Same Optimal Substructure
+
+<div class="thread">Not just a similar-looking table - the identical argument.</div>
+
+CLRS's rod-cutting recurrence says: the best revenue for a rod of
+length $n$ either leaves the rod uncut, or makes one cut and adds the
+best revenue for whatever length remains. That is the *same* choice
+structure as `best(i,t)` above - "include this option or don't, then
+solve optimally for what's left" - applied to a length budget instead
+of a time budget.
+
+<div class="why">
+This is why the paradigm, not the problem, is what transfers: once you
+can write "include this option or don't, then recurse on the
+remainder," you can solve rod cutting, the Tour Planner, or any other
+0/1-choice-under-a-budget problem with the same recurrence shape.
+</div>
+
+---
+
 <!-- Act 3 / BUILD: quantify the blow-up -->
 
 # Quantifying the Blow-Up
@@ -390,11 +457,23 @@ at all.
 | 20 | 21,891 | 20 |
 | 30 | 2,692,537 | 30 |
 
+---
+
+# What 90,000x More Work Actually Means
+
+<div class="thread">Same table. Now: why the gap gets worse, not better, as n grows.</div>
+
 At $n = 30$, the naive approach performs roughly **90,000× more work**
 than necessary - to compute the exact same number. This is the same
 shape of gap you've seen between a slow growth rate and a fast one all
 semester, just far more dramatic: here the bad approach isn't linear,
 it's exponential ($O(2^n)$ calls) against a fix that's linear ($O(n)$).
+
+- The naive tree's redundant work **doubles**, roughly, with every
+  added step - the fix's loop only adds one more addition.
+- This is exactly why "it worked on my small test case" is not
+  evidence a recursive solution scales: the naive version is fine at
+  $n=10$ and catastrophic by $n=30$.
 
 ---
 
@@ -447,6 +526,24 @@ distinct subproblems solved exactly once, same $O(n)$ time. Only the
 **direction** differs: memoization recurses top-down and fills the
 cache lazily, as needed; tabulation iterates bottom-up and fills every
 entry, in order, up front.
+
+---
+
+<!-- NEW: Check Yourself pair, FIB_TAB by hand -->
+
+# Check Yourself: Fill It By Hand
+
+Using `table[i] = table[i-1] + table[i-2]`, `table[0] = 0`,
+`table[1] = 1`: fill `table[2]` through `table[6]` by hand, one cell
+at a time. What is `table[6]`?
+
+---
+
+# Answer
+
+`table[2]=1, table[3]=2, table[4]=3, table[5]=5, table[6]=8`. Each
+cell only ever reads the two cells directly before it - never
+recomputed, never re-derived from scratch.
 
 ---
 
@@ -553,6 +650,51 @@ millions of calls that same naive tree implied at that depth.
 
 ---
 
+<!-- NEW: Check Yourself pair, greedy-choice property recognition -->
+
+# Check Yourself: Could Greedy Have Solved This?
+
+Does CampusNav's 20-step shortcut counter
+(`ways(n) = ways(n-1) + ways(n-2)`) have the **greedy-choice
+property**? Why or why not?
+
+---
+
+# Answer
+
+No. There is no meaningful "locally best" hop to commit to at each
+step - a 1-step hop isn't better or worse than a 2-step hop in
+isolation, since the final count depends on *both* branches being
+counted, not on picking one and discarding the other. With no
+greedy-choice property, only optimal substructure plus overlapping
+subproblems remain available - exactly DP's combination, not
+greedy's.
+
+---
+
+<!-- NEW: formalized trace of the greedy Tour Planner's failure, referenced but never traced on the pain slide -->
+
+# Tracing Greedy's Failure, Step by Step
+
+<div class="thread">The pain slide narrated this in prose. Here it is, traced.</div>
+
+Same four activities: Coffee (20 min, 15 enjoyment), Gallery (30 min,
+25 enjoyment), Friend (10 min, 8 enjoyment), Music (40 min, 40
+enjoyment). Greedy rule: always take the best enjoyment-per-minute
+option that still fits.
+
+<div class="steps">
+<div class="step-row"><div class="step-num">1</div><div class="step-text">Ratios: Coffee 15/20=0.75, Gallery 25/30=0.83, Friend 8/10=0.80, Music 40/40=1.00. Music has the best ratio - take it. 40 of 60 minutes used, 20 remain.</div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-text">Among what's left, Gallery (30 min) no longer fits in 20 remaining minutes. Between Coffee (0.75) and Friend (0.80), Friend has the better ratio - take it. 50 of 60 minutes used, 10 remain.</div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-text">Coffee needs 20 minutes; only 10 remain. Nothing else fits. Stop.</div></div>
+</div>
+
+**Greedy's result: Music + Friend = 40 + 8 = 48 enjoyment, 10 minutes
+unused** - exactly the number the pain slide claimed, now proven by
+tracing the rule itself, not just asserted.
+
+---
+
 <!-- Act 3 / BUILD: worked example 2, Tour Planner setup -->
 
 # Worked Example: The Tour Planner, Solved Properly
@@ -616,10 +758,40 @@ spend time you don't have.)
 </div>
 </div>
 
+Every row adds one more activity to what's allowed; every column is a
+possible time budget. Filled left to right, row by row, exactly as
+the recurrence requires.
+
+---
+
+# What the Final Cell Proves
+
+<div class="thread">One cell, read carefully, is the whole answer.</div>
+
 The final cell (blue) reads `best(3, 20) = 15` (gold) and adds Music's
 40 → **55**, beating the 48 that "best-per-minute first" found
 earlier. The optimal plan: **Coffee + Music**, exactly 60 minutes, 0
 minutes wasted.
+
+---
+
+<!-- NEW: Check Yourself pair, hand-verify a Tour Planner cell -->
+
+# Check Yourself: Verify a Cell by Hand
+
+Using the recurrence `best(i,t) = max(best(i-1,t), value_i +
+best(i-1, t-duration_i))`, compute `best(2, 30)` - the best value
+using only Coffee and Gallery within 30 minutes - by hand. Then check
+it against the table (row "+Gallery", column 30).
+
+---
+
+# Answer
+
+`best(2,30) = max(best(1,30), 25 + best(1, 0))` = `max(15, 25+0)` =
+**25** - taking Gallery alone beats keeping Coffee, since Gallery's 30
+minutes uses the whole budget and its enjoyment (25) already exceeds
+Coffee's (15). Matches the table's "+Gallery" row, column 30 exactly.
 
 ---
 
@@ -823,6 +995,27 @@ genuinely 2-D DP recurrence.
 
 ---
 
+<!-- NEW: CLRS reference slide, Act 4 slot N+3 minus one -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">Everything above, mapped to the textbook.</div>
+
+| Topic this week | CLRS 4th ed |
+|---|---|
+| Rod cutting (structural twin of the Tour Planner) | §14.1 |
+| Optimal substructure + overlapping subproblems, memoization vs. tabulation | §14.3 |
+
+<div class="why">
+<strong>If you want to go deeper</strong> (not required this week):
+CLRS §14.2, matrix-chain multiplication - a harder 2-D DP problem
+where the choice is *where* to place parentheses, not *whether* to
+include an item. Week 12 starts down that same 2-D road with a
+different problem (longest common subsequence).
+</div>
+
+---
+
 <!-- SLOT N+3: Summary -->
 
 # Summary
@@ -836,8 +1029,8 @@ genuinely 2-D DP recurrence.
   exact same DP machinery Fibonacci taught us.
 - **Reminder:** Assignment 2 (Sorting) results are being returned and
   discussed this week.
-- **Reading:** CLRS, Dynamic Programming chapter (Ch. 14) - focus on
-  the rod-cutting and elements-of-DP sections.
+- **Reading:** CLRS, Chapter 14 (Dynamic Programming), Sections 14.1
+  (rod cutting) and 14.3 (elements of dynamic programming).
 - **Prepare:** think of two sequences you'd want to compare (two class
   schedules, two playlists, two strings) - bring one to Week 12.
 

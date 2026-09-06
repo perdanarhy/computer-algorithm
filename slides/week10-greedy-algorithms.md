@@ -227,9 +227,21 @@ That's **Worksheet Part A and B**. Keep a pen ready.
   sit the final exam. He found a purely greedy rule - repeatedly merge
   the two least-frequent symbols - and proved it always produces the
   shortest possible code. It's still called Huffman coding.
+
+---
+
+# This Idea Is Not New, Continued: Formalizing *Why*
+
+<div class="thread">Telephone exchanges and Huffman both worked by instinct. Researchers wanted to know why.</div>
+
 - Researchers spent decades afterward formalizing *why* some
-  local-choice tricks are always safe (matroid theory, 1960s-70s) and
-  why others - like change-making with arbitrary denominations - are not.
+  local-choice tricks are always safe - **matroid theory** (1960s-70s)
+  identifies a precise mathematical structure a problem must have for
+  greedy to be automatically guaranteed correct, no case-by-case
+  exchange argument needed.
+- Other problems - like change-making with arbitrary denominations -
+  do **not** have that structure, and no amount of clever rule design
+  makes greedy safe for them. Telling the two apart is this week's job.
 
 ---
 
@@ -256,6 +268,8 @@ which.
 > making the choice that looks best *right now* - and never
 > reconsidering that choice - trusting that the sequence of
 > locally-best choices adds up to a globally optimal solution.
+
+<div class="graphviz-note">CLRS 4th ed - Ch 15, Sections 15.1 (activity selection), 15.2 (elements of the greedy strategy), 15.3 (Huffman codes).</div>
 
 A problem is safe for a greedy algorithm only when it has **both**:
 
@@ -346,7 +360,7 @@ BOOK_ROOM(requests):
 
 ---
 
-# Trace: Running the Rule by Hand
+# Trace: Running the Rule by Hand, Part 1
 
 <div class="thread">Same five requests. Let's run it.</div>
 
@@ -354,6 +368,17 @@ BOOK_ROOM(requests):
 <div class="step-row"><div class="step-num">1</div><div class="step-text">Sort by end time: B (10:00), A (10:30), C (11:00), E (12:00), D (12:15).</div></div>
 <div class="step-row"><div class="step-num">2</div><div class="step-text">Consider B (09:30-10:00): room is free. Grant it. lastEnd = 10:00.</div></div>
 <div class="step-row"><div class="step-num">3</div><div class="step-text">Consider A (09:00-10:30): starts before 10:00 - conflicts. Skip.</div></div>
+</div>
+
+So far: **granted = {B}**, lastEnd = 10:00. Two requests still to consider.
+
+---
+
+# Trace: Running the Rule by Hand, Part 2
+
+<div class="thread">Picking up where Part 1 left off: granted = {B}, lastEnd = 10:00.</div>
+
+<div class="steps">
 <div class="step-row"><div class="step-num">4</div><div class="step-text">Consider C (10:00-11:00): starts at 10:00, free. Grant it. lastEnd = 11:00.</div></div>
 <div class="step-row"><div class="step-num">5</div><div class="step-text">Consider E (11:00-12:00): starts at 11:00, free. Grant it. lastEnd = 12:00.</div></div>
 <div class="step-row"><div class="step-num">6</div><div class="step-text">Consider D (10:15-12:15): starts before 12:00 - conflicts. Skip.</div></div>
@@ -438,6 +463,29 @@ the sort's cost as the whole algorithm's cost.
 
 ---
 
+<!-- NEW: Check Yourself pair resolving the opening warm-up (Method A vs Method B) -->
+
+# Check Yourself: Back to the Warm-Up
+
+<div class="thread">Remember Method A (shortest duration) vs. Method B (earliest finish)? Now you have the tools to settle it.</div>
+
+Three requests: **P** = 09:00-13:00 (4 hours), **Q** = 12:00-14:00 (2
+hours), **R** = 13:00-17:00 (4 hours).
+
+1. Run Method A (always grant whichever remaining request has the *shortest duration*). How many requests get granted?
+2. Run Method B (always grant whichever remaining request *ends soonest* - this week's proven rule). How many requests get granted?
+3. Does Method A have the greedy-choice property here? What does that tell you about "shortest first" as a general rule?
+
+---
+
+# Answers
+
+1. **Method A:** Q is shortest (2 hours), so it's granted first. Both P (09:00-13:00) and R (13:00-17:00) now conflict with Q (12:00-14:00) - P overlaps 12:00-13:00, R overlaps 13:00-14:00. Nothing else can be granted. **1 request total.**
+2. **Method B:** sorted by end time, P (ends 13:00) comes first. Grant P, lastEnd = 13:00. Q (12:00-14:00) starts before 13:00 - conflicts, skip. R (13:00-17:00) starts exactly at 13:00 - free, grant it. **2 requests total: {P, R}.**
+3. No - Method A does not have the greedy-choice property. Its locally-best pick (Q, the shortest) actively blocks both other requests, while Method B's pick never does. "Shortest first" looks reasonable but is not safe in general; only earliest-finish-time is proven optimal (the exchange argument two slides back).
+
+---
+
 # A Second Greedy Idea: Huffman Coding
 
 <div class="thread">Not every greedy algorithm is about scheduling. A classic from data compression.</div>
@@ -447,12 +495,21 @@ the sort's cost as the whole algorithm's cost.
 - Huffman's greedy rule: repeatedly take the **two least-frequent**
   remaining symbols/nodes, merge them into one combined node, and
   repeat until one node is left.
-- Example frequencies: A=5, B=9, C=12, D=13, E=16, F=45. Merge the two
-  smallest first (A+B=14), then the two smallest of what remains, and
-  so on, building a tree bottom-up.
 - Like room-booking, Huffman coding is provably optimal - it has both
   the greedy-choice property and optimal substructure. (Full
   construction and proof: CLRS §15.3, not required this week.)
+
+---
+
+# Huffman's Rule, Set Up on Real Numbers
+
+<div class="thread">Same rule, one page back. Now the actual frequencies we'll build a tree from.</div>
+
+Example frequencies: A=5, B=9, C=12, D=13, E=16, F=45 (100 symbols
+total). Merge the two smallest first (A+B=14), then the two smallest
+of what remains, and so on, building a tree bottom-up - never
+reconsidering a merge once it's made, exactly like this week's other
+greedy rule never reconsiders a granted booking.
 
 ---
 
@@ -539,6 +596,31 @@ not just a shorter-looking code.
 
 ---
 
+<!-- NEW: Check Yourself pair, decoding a second message with the same Huffman codes -->
+
+# Check Yourself: Decode a Different Message
+
+<div class="thread">Same code table as FACE. A different bitstring this time.</div>
+
+Using the same codes (F=`0`, C=`100`, D=`101`, E=`111`, A=`1100`,
+B=`1101`):
+
+1. Decode `10111111000` left to right, one matched code at a time.
+2. Why does this decoding process never need to "look ahead" at more bits than the code it's currently matching?
+
+---
+
+# Answers
+
+1. `101`&rarr;**D**, `111`&rarr;**E**, `1100`&rarr;**A**, `0`&rarr;**F** -
+   message: **DEAF**. Same left-to-right, match-and-consume process as FACE.
+2. Because no code is a prefix of another (the prefix-free property):
+   once the bits read so far match one symbol's full code, they cannot
+   also be the start of any other symbol's code, so the match is
+   always unambiguous the moment it's found.
+
+---
+
 # When Greedy Fails: Campus Points
 
 <div class="thread">Two examples so far, both provably safe. Now: the same trick, quietly wrong.</div>
@@ -574,6 +656,30 @@ algorithm tells you it failed.
 
 ---
 
+<!-- NEW: Check Yourself pair, a second denomination set to reinforce the counterexample -->
+
+# Check Yourself: A Different Denomination Set
+
+<div class="thread">One counterexample down. Does a different denomination set survive, or fail the same way?</div>
+
+Suppose the campus store instead used denominations **{1, 4, 5}**,
+target = **8 points**, still using the "grab the largest token that
+still fits" rule.
+
+1. Run greedy on target 8 with {1, 4, 5}. How many tokens does it use?
+2. What is the optimal (fewest-token) answer for target 8?
+3. Does {1, 4, 5} also break the greedy-choice property, or does it happen to be safe here?
+
+---
+
+# Answers
+
+1. Greedy: take 5 (largest ≤ 8), remaining 3. Largest token ≤ 3 is 1 (4 and 5 don't fit). Take 1, remaining 2. Take 1, remaining 1. Take 1, remaining 0. **Greedy result: 5+1+1+1 = 4 tokens.**
+2. **Optimal: 4 + 4 = 8, only 2 tokens.**
+3. It also fails - a second, independent counterexample. Greedy grabbing the largest fitting token (5) blocks the two-token answer (4+4), exactly the same *shape* of failure as {1, 3, 4} on target 6, just with different numbers. One counterexample already disproves "always works" - a second one shows the failure isn't a fluke of one specific denomination set.
+
+---
+
 # Fairness Sidebar: Efficient Isn't the Same as Fair
 
 <div class="thread">Even when greedy is provably optimal at its own goal, its goal might not be the only thing that matters.</div>
@@ -584,9 +690,20 @@ algorithm tells you it failed.
   A single 3-hour workshop request competes against three separate
   1-hour requests that fit around it - and the three short ones almost
   always win, because they free up the room sooner.
+
+---
+
+# Fairness Sidebar: Who Actually Loses Out
+
+<div class="thread">The general tension, made concrete on CampusNav's own clubs.</div>
+
 - Clubs that need long or complex bookings (a multi-hour rehearsal, a
   full-day competition prep) get **systematically deprioritized**,
   even though nothing in the algorithm ever "intended" unfairness.
+- Over a whole semester, this means the same handful of clubs - the
+  ones whose activities simply take longer - see their requests
+  rejected far more often than short-event clubs, purely as a side
+  effect of a rule that was never asked to consider fairness at all.
 
 ---
 
@@ -770,6 +887,28 @@ brute-forcing every combination is too slow** unsolved. **Week 11,
 Dynamic Programming I**, addresses it: keeping every still-possibly-optimal
 option alive at once, reusing overlapping subproblems, on CampusNav's
 new Tour Planner feature.
+
+---
+
+<!-- NEW: CLRS reference slide, placed immediately before Summary -->
+
+# Where This Week Lives in CLRS
+
+<div class="thread">Everything this week touched, mapped to its exact section.</div>
+
+| Topic | CLRS 4th ed section |
+|---|---|
+| Activity-selection / interval scheduling | §15.1 |
+| Greedy-choice property, optimal substructure | §15.2 |
+| Huffman codes | §15.3 |
+
+<div class="why">
+<strong>If you want to go deeper (not required this week):</strong>
+fractional knapsack is a classic exercise for practicing exchange
+arguments on a new problem; matroid theory (mentioned earlier today)
+formalizes exactly which problems are guaranteed greedy-safe, beyond
+checking case by case.
+</div>
 
 ---
 
