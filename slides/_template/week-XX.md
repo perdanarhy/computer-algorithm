@@ -63,8 +63,6 @@ language. No technical terms yet.>
 
 <!-- SLOT 6: Driving question (Act 1 / MOTIVATE) -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"<one-sentence driving question>"</div>

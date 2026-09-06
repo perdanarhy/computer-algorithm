@@ -41,7 +41,7 @@ every full-spine week. Act 3 (Build) expands or contracts to fit the topic.
 |---|---|---|
 | 4 | The pain | Concrete broken scenario inside CampusNav. **Zero jargon.** If a technical term appears here, the slide is wrong |
 | 5 | Cost of not knowing | What breaks downstream (wrong answers, slow app, lost work) *and* where this bites in industry (interviews, real outages, job requirements) |
-| 6 | Driving question | One sentence the week must answer. Repeat it verbatim on any section-divider slide inside Act 3 |
+| 6 | Driving question | One sentence the week must answer. Repeat it verbatim on any Act 3 slide that revisits it as a mid-deck transition |
 | 7 | Learning outcomes | 3–4 verbs, each traceable to a syllabus objective |
 
 **Hard rule:** no formal definition before slot 8. If you need one earlier,
