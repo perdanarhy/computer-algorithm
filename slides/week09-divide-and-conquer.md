@@ -347,9 +347,15 @@ tree by hand (Week 4).
   very small and very large values as $n$ grows can satisfy Case 3's
   growth condition while still failing the regularity condition
   $a f(n/b) \le c f(n)$.
-- The lesson: the Master theorem is a shortcut for the *common* case,
-  not a universal solver. Tracing the recursion tree (Week 4) always
-  works, even when this shortcut doesn't apply.
+---
+
+# The Master Theorem: The Lesson
+
+<div class="thread">What the gap and the regularity-failure examples both point to.</div>
+
+The Master theorem is a shortcut for the *common* case, not a
+universal solver. Tracing the recursion tree (Week 4) always works,
+even when this shortcut doesn't apply.
 
 ---
 
@@ -1023,6 +1029,11 @@ week's Master theorem assumes.
   instead of $\Theta(n)$ multiplications.
 - **Not every recursive algorithm is D&C** - overlapping subproblems
   (Week 4's shortcut counter) need a different paradigm (DP, Week 11).
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS, Chapter 4 (Divide-and-Conquer: 4.1 Matrix
   Multiplication and 4.2 Strassen's Algorithm, as another
   divide-and-conquer example; 4.3-4.5 the Master theorem and its

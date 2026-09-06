@@ -886,6 +886,13 @@ needs only two checks, both fast:
 
 All six locations appeared exactly once, every consecutive pair is a
 real edge, and the total route length is $4+6+3+2+2 = 17$ minutes.
+
+---
+
+# Fast to Check, Slow to Find
+
+<div class="thread">The same route, the same five lookups - now the point they make.</div>
+
 **Verified valid, in five quick lookups** - even though *finding* this
 route among all the ways to order six locations (up to $6!/2 = 360$
 distinct routes on an undirected graph this size) offers no comparable
@@ -1074,6 +1081,11 @@ next structures built on top of this week's single-source algorithms.
   most common misreading.
 - Shortest path is in P; the campus scavenger hunt is NP-hard - same
   campus, two very different kinds of problem.
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS, Chapter 22 - &sect;22.1 (Bellman-Ford), &sect;22.3
   (Dijkstra); Chapter 34 - &sect;34.1 (polynomial time), &sect;34.2
   (polynomial-time verification).

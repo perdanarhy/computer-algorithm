@@ -979,6 +979,11 @@ algorithm, not just applying ones we already have.
 - Off-by-one bugs in bound updates (`hi = mid` vs. `mid - 1`, `lo =
   mid` vs. `mid + 1`) are the single most common way binary search
   breaks - trace a 2-element range by hand to check your convention.
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS 4th ed, review §2.1 (loop-invariant style) and
   Exercise 2.3-6 (binary search) - see the CLRS map above; Sedgewick,
   *Algorithms*, §1.1 has a full correctness discussion if you want a

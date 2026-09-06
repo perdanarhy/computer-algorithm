@@ -1082,6 +1082,10 @@ up to 1,200 entries.
 | Randomized quicksort | §7.3 |
 | Quicksort analysis | §7.4 |
 
+---
+
+# Where This Week Lives in CLRS, Continued
+
 - **If you want to go deeper:** §7.3's `RANDOMIZED-PARTITION` (the
   outlook slides above) is the standard fix for the adversarial-input
   problem this week's "Common Mistakes" slot warns about.
@@ -1105,6 +1109,11 @@ up to 1,200 entries.
 - **Assignment 2 (Sorting)** is released - see
   `materials/assignments/assignment2.md`, due **Week 8**, before the
   midterm exam begins.
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS 4th ed, §2.3 (Merge Sort, in Ch 2) and Ch 7
   (Quicksort: §7.1 Description, §7.2 Performance, §7.3 Randomized
   version, §7.4 Analysis) - see the CLRS map above; read before Week 7.

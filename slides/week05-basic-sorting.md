@@ -832,6 +832,12 @@ into place:
 <div class="row"><div class="rowlabel">Pass 4</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl2">Library</div><div class="cell hl">Music</div><div class="cell hl2">Science</div></div>
 </div>
 
+---
+
+# CampusNav: What the Selection Sort Trace Shows
+
+<div class="thread">The same trace, one observation drawn out.</div>
+
 Same final order as insertion sort - but notice pass 4's minimum
 (`Music`) was already sitting in its correct spot, and selection sort
 still had to scan the whole remainder to confirm that. That's the "no
