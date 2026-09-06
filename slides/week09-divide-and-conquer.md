@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -153,8 +153,6 @@ correct, fast approach to a problem you've never seen before.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"When a problem is genuinely new, is there a general recipe for turning it into a fast algorithm?"</div>
@@ -185,13 +183,6 @@ correct, fast approach to a problem you've never seen before.
 Later today, you'll trace the crossing-subarray step yourself on a fresh
 array, and classify a few recurrences with the Master theorem. That's
 **Worksheet Parts A and B**. First, the mechanics.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did "divide and conquer" come from?</div>
 
 ---
 
@@ -529,13 +520,6 @@ After 20 minutes, ask 2 pairs to share their Part B classifications.
 
 ---
 
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: a second D&amp;C trick, then what this paradigm can't do.</div>
-
----
-
 <!-- NEW: Key Words Today, session 3 -->
 
 # Key Words Today
@@ -752,8 +736,13 @@ no combine step, just one correct local choice repeated.
   real design work happens.
 - **Not every recursive algorithm is D&C** - overlapping subproblems
   (Week 4's shortcut counter) need a different paradigm (DP, Week 11).
-- **Reading:** CLRS, Chapter 4 (Divide-and-Conquer: 4.1 Maximum
-  Subarray, 4.3-4.5 the Master theorem and its proof).
+- **Reading:** CLRS, Chapter 4 (Divide-and-Conquer: 4.1 Matrix
+  Multiplication and 4.2 Strassen's Algorithm, as another
+  divide-and-conquer example; 4.3-4.5 the Master theorem and its
+  proof). The maximum-subarray problem used in this week's worked
+  example is a classic divide-and-conquer teaching example (covered in
+  earlier CLRS editions); its recurrence and crossing-step argument
+  are exactly the pattern CLRS 4.1-4.2 formalize.
 - **Prepare:** think of one everyday scheduling decision where making
   the locally best choice, once, feels obviously right. Bring it to Week 10.
 

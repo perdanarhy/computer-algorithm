@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -163,8 +163,6 @@ real parsers and services with stack-overflow errors.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"How do we trace, bound, and predict the cost of an algorithm that calls itself?"</div>
@@ -193,13 +191,6 @@ solve a recurrence yourselves - the same two skills the frozen demo
 was missing.
 
 That is the **Worksheet, Parts A and B**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: who thought of calling a procedure itself?</div>
 
 ---
 
@@ -562,13 +553,6 @@ recursion tree; Part B solves a recurrence.
 notes: Hand out or project the Worksheet. Walk the room while pairs work.
 After 20 minutes, ask 2 pairs to share their Part B answers.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: where recursion shows up beyond CampusNav.</div>
 
 ---
 

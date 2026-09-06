@@ -35,29 +35,29 @@ room directory, sorted alphabetically by building name.
 
 | # | Building | Room |
 |---|---|---|
-| 1 | 가야관 | 101 |
-| 2 | 가야관 | 206 |
-| 3 | 공학관 | 302 |
-| 4 | 공학관 | 415 |
-| 5 | 노트르담관 | 110 |
-| 6 | 대양홀 | 220 |
-| 7 | 미디어센터 | 105 |
-| 8 | 법학관 | 301 |
-| 9 | 산업협력관 | 402 |
-| 10 | 성파관 | 512 |
-| 11 | 성파관 | 615 |
-| 12 | 성파관 | 703 |
-| 13 | 성파관 | 802 |
-| 14 | 예술관 | 210 |
-| 15 | 인당관 | 305 |
-| 16 | 인문관 | 118 |
-| 17 | 자연과학관 | 220 |
-| 18 | 정보통신관 | **330** |
-| 19 | 창의관 | 145 |
-| 20 | 학생회관 | 101 |
+| 1 | Building A | 101 |
+| 2 | Building A | 206 |
+| 3 | Building B | 302 |
+| 4 | Building B | 415 |
+| 5 | Building C | 110 |
+| 6 | Building D | 220 |
+| 7 | Building E | 105 |
+| 8 | Building F | 301 |
+| 9 | Building G | 402 |
+| 10 | Building H | 512 |
+| 11 | Building H | 615 |
+| 12 | Building H | 703 |
+| 13 | Building H | 802 |
+| 14 | Building I | 210 |
+| 15 | Building J | 305 |
+| 16 | Building K | 118 |
+| 17 | Building L | 220 |
+| 18 | Building M | **330** |
+| 19 | Building N | 145 |
+| 20 | Building O | 101 |
 
 A linear scan starts at #1 and checks entries one at a time in order.
-Target: **정보통신관 330** (#18).
+Target: **Building M, room 330** (#18).
 
 Entries checked (list the numbers, in order): _______________________
 

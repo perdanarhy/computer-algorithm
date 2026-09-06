@@ -24,7 +24,7 @@ CampusNav.
   a printed room list, scanned by eye or by asking around, with no
   guarantee of correctness or speed. No technique taught yet; Week 1
   is the course contract (grading, policy, schedule).
-- **Week 2:** "find room 성파703" is written as an actual algorithm
+- **Week 2:** "find room 703 in Building A" is written as an actual algorithm
   for the first time - checked against the five properties
   (finiteness, definiteness, input, output, effectiveness). Vague
   steps like "look around until you find it" are rejected.

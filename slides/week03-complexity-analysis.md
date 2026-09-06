@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703<br/>
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703<br/>
 <strong>Assignment 1 released this week</strong> - due Week 5
 </div>
 
@@ -98,7 +98,7 @@ notes: Give students 30 seconds before asking. Let them notice A wins at n=10 bu
 <div class="pain">
 
 Two students both submit pseudocode for CampusNav's "find room
-성파703" feature. Both pass every test the TA throws at them - every
+703 in Building A" feature. Both pass every test the TA throws at them - every
 single time, the correct room comes back. In the study group, one
 student swears their version is "obviously faster." The other says
 "prove it." Neither can point to anything beyond a stopwatch and a
@@ -182,8 +182,6 @@ stops working the moment it succeeds and gains more users or data.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"How do we precisely measure an algorithm's cost, and predict - not guess - how that cost grows as CampusNav's data grows?"</div>
@@ -227,13 +225,6 @@ growth-rate cards from slowest to fastest, and time CampusNav's
 actual linear scan by hand.
 
 That is **Worksheet Part A**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did this notation come from?</div>
 
 ---
 
@@ -601,13 +592,6 @@ proof, and connect today's bound back to a real feature.
 <!--
 notes: Hand out or project Worksheet Part B. After 15 minutes, reveal the correct constants for B1 and discuss B2's bug as a class.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: what today's tools still can't touch.</div>
 
 ---
 

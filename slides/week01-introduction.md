@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -108,8 +108,6 @@ with exactly this scenario and answers it properly.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Course's Question
 
 <div class="driving-q">"What separates a method that just happens to work from one we can trust, measure, and reuse?"</div>
@@ -128,13 +126,6 @@ with exactly this scenario and answers it properly.
 
 Every one of these three goals gets built, piece by piece, using
 CampusNav as the running illustration - not as an abstract exercise.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: the course contract - what's covered, how you're graded, and what's expected of you.</div>
 
 ---
 
@@ -228,13 +219,6 @@ You will talk in this class, not just listen.
 | 6 | Advanced Sorting - **Assignment 2** | 14 | Shortest Path |
 | 7 | Searching | 15 | **Final Exam** (Wks 9-14) |
 | 8 | **Midterm Exam** (Wks 1-7) | | |
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: grading, assignments, and policy.</div>
 
 ---
 

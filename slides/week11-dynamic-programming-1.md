@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -186,8 +186,6 @@ check. A real campus has a lot more than 20 nearby things to do.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"How do we find the mathematically best combination of choices, without checking every possible combination by hand?"</div>
@@ -240,13 +238,6 @@ a Tour Planner instance of your own - different numbers than the
 slides, same idea.
 
 That is **Worksheet Part A**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: who invented this, and what forced it?</div>
 
 ---
 
@@ -745,13 +736,6 @@ notes: Hand out or project the worksheet. Walk the room while pairs
 work. After ~20 minutes, ask 2 pairs to share their Part B answer for
 the "trap" problem (merge sort) and discuss why it doesn't need DP.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: where this technique shows up beyond CampusNav.</div>
 
 ---
 

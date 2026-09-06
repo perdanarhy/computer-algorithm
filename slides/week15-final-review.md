@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -294,8 +294,6 @@ which paradigm fits, and can I prove it's both correct and fast?
 
 <!-- SLOT N+2: Bridge (Act 4 / CLOSE), repurposed as a closing note - no next week -->
 
-<!-- _class: section -->
-
 # This Course Ends Here
 
 <div class="driving-q">The techniques don't.</div>
@@ -329,7 +327,7 @@ which paradigm fits, and can I prove it's both correct and fast?
 
 <!--
 notes: This is the last slide of the last class. Say it plainly: "Fifteen
-weeks ago, a student was lost looking for 성파703. You now know exactly
+weeks ago, a student was lost looking for Room 703 in Building A. You now know exactly
 what it takes to build the algorithm that finds it - and prove it's
 right." Wish them well on the exam, and beyond it.
 -->

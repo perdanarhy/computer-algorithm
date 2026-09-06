@@ -29,7 +29,7 @@ answers.
 
 ### 2a. The Room-Booking Scheduler and Its Exchange-Argument Proof
 
-**The problem.** CampusNav's shared seminar room in 성파관 can host
+**The problem.** CampusNav's shared seminar room in Building A can host
 only one club at a time. Given $n$ requests, each with a start time
 and an end time, choose the **maximum number** of non-overlapping
 requests to grant.

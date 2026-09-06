@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -142,8 +142,6 @@ programming questions in technical interviews.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"Given two sequences, how do we find the longest sequence of elements that appears in both - in the same relative order, but not necessarily touching - and reconstruct it, not just its length?"</div>
@@ -200,13 +198,6 @@ for a short pair of strings, then perform the traceback together to
 pull out the actual matching sequence.
 
 Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did this idea come from?</div>
 
 ---
 
@@ -494,13 +485,6 @@ subsequence.
 notes: Hand out or project the worksheet. Walk the room while pairs work.
 After time is up, ask 2 pairs to share their reconstructed LCS strings and confirm both A and B parts.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: where this technique still falls short.</div>
 
 ---
 

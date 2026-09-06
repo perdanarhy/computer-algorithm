@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -76,7 +76,6 @@ walk the room, answer questions, then hand off to the exam itself.
 
 ---
 
-<!-- _class: section -->
 <!-- Act 3 / BUILD, expanded per SPINE's short-review variant: "Check yourself" becomes the whole session -->
 
 # Check Yourself: Full Review

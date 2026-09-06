@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -56,9 +56,9 @@ algorithm from a vague instruction that just sounds like one."
 
 <div class="thread">A quick warm-up. No jargon yet.</div>
 
-Three instructions for finding room 성파703:
+Three instructions for finding room 703 in Building A:
 
-- **A:** "Walk to building 성파, take the stairs or elevator to floor 7, and go to room 703."
+- **A:** "Walk to Building A, take the stairs or elevator to floor 7, and go to room 703."
 - **B:** "Look around until you find it."
 - **C:** "Keep improving your guess about where it is until it feels right."
 
@@ -161,8 +161,6 @@ graders, tracing it by hand, would reach the identical conclusion?
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"What makes a written set of steps precise enough that anyone - or any computer - must run it exactly the same way?"</div>
@@ -192,13 +190,6 @@ then hunt for the exact broken property in three more deliberately bad
 "algorithms" (**Part B**).
 
 Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did this rulebook come from?</div>
 
 ---
 
@@ -481,7 +472,7 @@ on **Worksheet Part B**.
 
 <!-- SLOT N-2: Worked example -->
 
-# CampusNav: "Find Room 성파703," Written as a Real Algorithm
+# CampusNav: "Find Room 703 in Building A," Written as a Real Algorithm
 
 <div class="thread">Same five checks. Now on the actual case study, not a clean textbook example.</div>
 
@@ -559,13 +550,6 @@ three more deliberately bad "algorithms."
 notes: Hand out or project the worksheet. Walk the room while pairs work.
 After time is up, ask 2 pairs to share which property each broken example violated.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: what this rulebook still can't tell us.</div>
 
 ---
 

@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <div class="thread">Assignment 4 released this week - Dynamic Programming &amp; Graphs, due Week 15</div>
@@ -175,8 +175,6 @@ career-relevant mistake.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"How do we store 'what connects to what' precisely enough that a computer can compute with it - and which way of storing it should CampusNav actually use?"</div>
@@ -217,13 +215,6 @@ Later today, you and a partner will build both representations, by
 hand, for CampusNav's actual six-location campus map.
 
 That is **Worksheet Part A**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did "graph" come from, and what exactly is one?</div>
 
 ---
 
@@ -491,13 +482,6 @@ adjacency list for CampusNav's six-location campus map, by hand.
 notes: Hand out or project Worksheet Part A. Walk the room while pairs work.
 After 15 minutes, ask one pair to read their adjacency list aloud and check it against the slide.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: now that we can store the map, how do we walk it?</div>
 
 ---
 

@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -116,7 +116,7 @@ Most students guess A (shortest first); B is actually the safe rule, revealed pr
 
 It's the Monday after midterms, and CampusNav's newest feature
 request lands on the team's desk: a booking assistant for the one
-shared seminar room in 성파관. By Wednesday afternoon there are 15
+shared seminar room in Building A. By Wednesday afternoon there are 15
 requests for Friday alone - the coding club, the debate society,
 three different study groups - and most of them overlap. Someone on
 the team tries the same trick that worked last week: split the pile
@@ -180,8 +180,6 @@ a room or quietly waste bookings it could have granted.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"When can a single, purely local choice - made once and never revisited - be proven to produce the best possible overall outcome, and when does that same trick provably fail?"</div>
@@ -211,13 +209,6 @@ and go hunting for a case where a *different*, plausible-looking
 greedy rule quietly fails.
 
 That's **Worksheet Part A and B**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did this idea come from, and what exactly does it promise?</div>
 
 ---
 
@@ -319,7 +310,7 @@ That distinction is exactly where next week's confusion starts.
 
 # Worked Example: The Room-Booking Requests
 
-CampusNav's seminar room in 성파관 can host only one club at a time.
+CampusNav's seminar room in Building A can host only one club at a time.
 Goal: grant the room to the **maximum number** of non-overlapping requests.
 
 | Request | Club | Start | End |
@@ -461,7 +452,7 @@ the sort's cost as the whole algorithm's cost.
   so on, building a tree bottom-up.
 - Like room-booking, Huffman coding is provably optimal - it has both
   the greedy-choice property and optimal substructure. (Full
-  construction and proof: CLRS §16.3, not required this week.)
+  construction and proof: CLRS §15.3, not required this week.)
 
 ---
 
@@ -621,7 +612,7 @@ to weigh that trade-off - the algorithm alone won't do it for them.
 
 - The **room-booking assistant** now ships with the earliest-finish-time
   greedy scheduler, provably granting the maximum number of
-  non-overlapping bookings for 성파관's shared seminar room - proof
+  non-overlapping bookings for Building A's shared seminar room - proof
   included, not just "it worked in testing."
 - The **campus points** reward system deliberately keeps its {1, 3, 4}
   denominations, as a teaching example baked into the app itself -
@@ -699,13 +690,6 @@ run CampusNav's real room-booking scheduler by hand on a full
 notes: Hand out or project the worksheet. Walk the room while pairs work.
 After ~20 minutes, ask a pair to share their Part A counterexample and another to share their Part B granted-bookings list.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: where this shows up beyond CampusNav, and a quick self-check.</div>
 
 ---
 
@@ -807,8 +791,8 @@ new Tour Planner feature.
 
 # Summary, Continued
 
-- **Reading:** CLRS, Chapter 16 (Greedy Algorithms), §16.1 (activity
-  selection) and §16.3 (Huffman codes).
+- **Reading:** CLRS, Chapter 15 (Greedy Algorithms), §15.1 (activity
+  selection) and §15.3 (Huffman codes).
 - **Prepare:** Assignment 3 is due Week 12 - start the exchange-argument
   write-up early. Think about what CampusNav's Tour Planner (Week 11)
   might need that neither last week's recursion nor this week's greedy

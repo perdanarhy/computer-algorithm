@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -130,8 +130,6 @@ exact computation continuously, at massive scale, every day.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"Given a weighted map and a starting point, how do we compute the cheapest route to every other place - provably, not by guessing - and what happens when a 'shortcut' can be worth a negative cost?"</div>
@@ -159,13 +157,6 @@ exact computation continuously, at massive scale, every day.
 - **Tentative distance:** the *best known so far* cost to reach a vertex - may still improve as the algorithm runs.
 
 <!-- notes: Read each term aloud. Say these four words are what today's whole first half is built from. -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: who actually invented this, and how does it work?</div>
 
 ---
 
@@ -468,13 +459,6 @@ distance table round by round.
 <!--
 notes: Walk the room while pairs work. After 15 minutes, ask one pair to read out their final distance table and compare against the slide trace above.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: the one thing that breaks everything you just learned.</div>
 
 ---
 
@@ -802,8 +786,6 @@ checking Library, then run Bellman-Ford on the same graph and compare.
 
 ---
 
-<!-- _class: section -->
-
 # P, NP, and NP-Completeness
 
 <div class="driving-q">A different kind of question: which problems have *any* efficient algorithm at all?</div>
@@ -973,7 +955,6 @@ notes: Distribute or project the quiz. After about 10 minutes, discuss as a grou
 
 ---
 
-<!-- _class: section -->
 <!-- NEW: pointer slide, replaces the moved final-exam-blueprint block (now the central content of slides/week15-final-review.md) -->
 
 # Final Exam Blueprint

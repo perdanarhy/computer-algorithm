@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -177,8 +177,6 @@ it. "It's just halving a list" is deceptively easy to get subtly wrong.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"Now that the directory is sorted, how do we search it fast - and how do we *prove*, not just observe, that it always finds the right answer?"</div>
@@ -199,15 +197,6 @@ it. "It's just halving a list" is deceptively easy to get subtly wrong.
    *correctness*, not just speed.
 5. Apply Weeks 1-7 material - Big-O, recursion, sorting, searching -
    to midterm-style practice questions.
-
----
-
-<!-- NEW: session-1 close -->
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did binary search come from, and who got it wrong?</div>
 
 ---
 
@@ -569,7 +558,7 @@ whole proof - not just the speed - falls apart.
 <div class="thread">Everything above, on real (sample) directory data.</div>
 
 A 16-entry sample of CampusNav's sorted room-code directory
-(index 0-15), searching for room code **703** (성파703):
+(index 0-15), searching for room code **703** (Building A):
 
 <div class="tracetable">
 <div class="row"><div class="rowlabel">A</div><div class="cell">101</div><div class="cell">206</div><div class="cell">302</div><div class="cell">415</div><div class="cell">512</div><div class="cell">615</div><div class="cell hl2">703</div><div class="cell">802</div><div class="cell">910</div><div class="cell">1005</div><div class="cell">1108</div><div class="cell">1220</div><div class="cell">1301</div><div class="cell">1405</div><div class="cell">1502</div><div class="cell">1600</div></div>
@@ -660,13 +649,6 @@ After 15 minutes, ask a pair to read out their lo/mid/hi trace, and another to e
 
 ---
 
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: the midterm - what's on it, and a full practice set.</div>
-
----
-
 <!-- NEW: Key Words Today, session 3 -->
 
 # Key Words Today
@@ -684,7 +666,6 @@ After 15 minutes, ask a pair to read out their lo/mid/hi trace, and another to e
 ---
 
 <!-- Midterm Review mini-block: extra Act-3 content, pre-midterm week -->
-<!-- _class: section -->
 
 # Midterm Review: Weeks 1-7
 

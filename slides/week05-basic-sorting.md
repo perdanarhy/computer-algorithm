@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703
 </div>
 
 <!--
@@ -207,8 +207,6 @@ university-sized directory.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"How do we turn CampusNav's messy directory into a provably sorted list - and how do we know our method is actually correct, not just usually right?"</div>
@@ -242,13 +240,6 @@ pass by pass, on a small array - exactly like the warm-up, but written
 down precisely.
 
 That is **Worksheet Part A**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did these sorting methods come from?</div>
 
 ---
 
@@ -722,15 +713,15 @@ three is still $O(n^2)$ worst case.
 
 <div class="thread">Everything above, applied to the actual pain from slot 4.</div>
 
-A 5-entry sample, scraped in signage order: `[성파, 가야, 인당, 공학,
-노트르담]`. Insertion sort, alphabetically:
+A 5-entry sample, scraped in signage order: `[Music, Arts, Science,
+Gym, Library]`. Insertion sort, alphabetically:
 
 <div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">성파</div><div class="cell">가야</div><div class="cell">인당</div><div class="cell">공학</div><div class="cell">노트르담</div></div>
-<div class="row"><div class="rowlabel">i=1: 가야</div><div class="cell hl">가야</div><div class="cell hl2">성파</div><div class="cell">인당</div><div class="cell">공학</div><div class="cell">노트르담</div></div>
-<div class="row"><div class="rowlabel">i=2: 인당</div><div class="cell hl2">가야</div><div class="cell hl2">성파</div><div class="cell hl">인당</div><div class="cell">공학</div><div class="cell">노트르담</div></div>
-<div class="row"><div class="rowlabel">i=3: 공학</div><div class="cell hl2">가야</div><div class="cell hl">공학</div><div class="cell hl2">성파</div><div class="cell hl2">인당</div><div class="cell">노트르담</div></div>
-<div class="row"><div class="rowlabel">i=4: 노트르담</div><div class="cell hl2">가야</div><div class="cell hl2">공학</div><div class="cell hl">노트르담</div><div class="cell hl2">성파</div><div class="cell hl2">인당</div></div>
+<div class="row"><div class="rowlabel">Start</div><div class="cell">Music</div><div class="cell">Arts</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">i=1: Arts</div><div class="cell hl">Arts</div><div class="cell hl2">Music</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">i=2: Science</div><div class="cell hl2">Arts</div><div class="cell hl2">Music</div><div class="cell hl">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">i=3: Gym</div><div class="cell hl2">Arts</div><div class="cell hl">Gym</div><div class="cell hl2">Music</div><div class="cell hl2">Science</div><div class="cell">Library</div></div>
+<div class="row"><div class="rowlabel">i=4: Library</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl">Library</div><div class="cell hl2">Music</div><div class="cell hl2">Science</div></div>
 </div>
 
 Five entries, four passes, done - and, unlike the staff member from
@@ -835,13 +826,6 @@ whether equal-key elements keep their original relative order.
 <!--
 notes: Hand out or project Worksheet Part B. After 15 minutes, ask a pair to report whether the duplicate keys stayed in order and why.
 -->
-
----
-
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: what these sorts leave unsolved.</div>
 
 ---
 

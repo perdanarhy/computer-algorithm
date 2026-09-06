@@ -13,7 +13,7 @@ footer: 'Department of Intelligent Computing'
 <span class="subtitle">Computer Algorithms (506994-002)</span>
 
 <div class="meta">
-Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · 성파 703<br>
+Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A, Room 703<br>
 <strong>Assignment 2 (Sorting) released today</strong> - due Week 8, before the midterm exam
 </div>
 
@@ -212,8 +212,6 @@ CampusNav grows. It gets categorically worse.
 
 <!-- SLOT 6: Driving question -->
 
-<!-- _class: section -->
-
 # This Week's Question
 
 <div class="driving-q">"How do we sort a large, growing list fast enough that this gap never comes back - no matter how big CampusNav gets?"</div>
@@ -247,13 +245,6 @@ Once we've covered merge sort, you and a partner will hand-trace a
 merge step yourselves, on two small sorted lists.
 
 That is **Worksheet Part A**. Keep a pen ready.
-
----
-
-<!-- _class: section -->
-
-# End of Session 1
-<div class="driving-q">Short break. Next: where did these two strategies come from?</div>
 
 ---
 
@@ -555,13 +546,6 @@ After 15 minutes, ask 1-2 pairs to share their traces.
 
 ---
 
-<!-- _class: section -->
-
-# End of Session 2
-<div class="driving-q">Short break. Next: sorting in place, no extra memory required.</div>
-
----
-
 <!-- NEW: Key Words Today, session 3 -->
 
 # Key Words Today
@@ -580,7 +564,6 @@ After 15 minutes, ask 1-2 pairs to share their traces.
 ---
 
 <!-- Act 3 / BUILD: Quicksort mechanics -->
-<!-- _class: section -->
 
 # Now: A Different Strategy
 
