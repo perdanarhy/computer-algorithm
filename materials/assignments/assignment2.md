@@ -1,7 +1,8 @@
 # Assignment 2 - Sorting
 
 Computer Algorithms (506994-002). Released Week 6. **Due Week 8,
-before the midterm exam begins** (submit via the course LMS).
+before the midterm exam begins** (submit via the course Learning
+Management System, LMS).
 Individual work.
 
 ## Tasks

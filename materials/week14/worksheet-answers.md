@@ -73,7 +73,8 @@ never built into the deployed course site.
   polynomial-time checks.
   **C3.(b)** Verifying *one* proposed route is cheap, but finding the
   *best* route means comparing it against all possible orderings of 8
-  buildings - the scavenger hunt is Hamiltonian-path/TSP-shaped, and no
+  buildings - the scavenger hunt is Hamiltonian-path/travelling-salesman-problem-shaped
+  (TSP-shaped), and no
   known algorithm solves it faster than roughly trying all of them
   (exponential). "Easy to verify a candidate" and "easy to find the
   best one" are different claims - that gap is exactly what makes P

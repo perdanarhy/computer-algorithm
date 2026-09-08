@@ -85,7 +85,7 @@ filled cells: each undirected edge is recorded once at each endpoint.
 
 The 6-node demo graph makes the two representations look close (36
 matrix cells vs. 20 list entries - not a dramatic gap). That's
-misleading. The real DEU campus is not 6 locations; it's every
+misleading. The real Dong-Eui University (DEU) campus is not 6 locations; it's every
 building, junction, and walkway - roughly **300 nodes**, each
 realistically connected to only about **4 neighboring paths** (a
 sparse network, the way real sidewalks are, not a network where every

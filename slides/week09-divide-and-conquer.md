@@ -57,7 +57,7 @@ design paradigms, plus graphs. Today starts paradigm number one." -->
 
 <div class="thread">A quick warm-up. No algorithms vocabulary needed yet.</div>
 
-Two TAs must count and total the scores on a pile of 200 exam papers.
+Two TAs (teaching assistants) must count and total the scores on a pile of 200 exam papers.
 
 - **Method A:** One TA counts through all 200 papers, alone, front to back.
 - **Method B:** Split the pile into two stacks of 100. Each TA counts their
@@ -260,7 +260,7 @@ problems on purpose, instead of stumbling onto it by luck.
 - Skip the combine step, or let the subproblems overlap, and it is
   recursion - just not *this* paradigm. More on that later.
 
-<div class="graphviz-note">CLRS 4th ed - Ch 4, Sections 4.1 (Multiplying square matrices), 4.2 (Strassen's algorithm), 4.5 (the master method); CLRS Section 31.6 for fast exponentiation.</div>
+<div class="graphviz-note">CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed - Ch 4, Sections 4.1 (Multiplying square matrices), 4.2 (Strassen's algorithm), 4.5 (the master method); CLRS Section 31.6 for fast exponentiation.</div>
 
 ---
 
@@ -1028,7 +1028,8 @@ week's Master theorem assumes.
   week - splitting the exponent, not the data, for $\Theta(\log n)$
   instead of $\Theta(n)$ multiplications.
 - **Not every recursive algorithm is D&C** - overlapping subproblems
-  (Week 4's shortcut counter) need a different paradigm (DP, Week 11).
+  (Week 4's shortcut counter) need a different paradigm (dynamic
+  programming, Week 11).
 
 ---
 

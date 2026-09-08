@@ -56,7 +56,7 @@ notes: Welcome the class. Remind them Assignment 2 is now posted to the LMS (mat
 <div class="thread">A quick warm-up. No code needed yet.</div>
 
 Two hundred graded exam papers need alphabetizing by last name before
-they're returned. Two TAs propose different methods.
+they're returned. Two TAs (teaching assistants) propose different methods.
 
 - **Method A:** split the pile in half, hand each half to a partner
   TA, who splits it again, and again, until each pile is tiny and
@@ -124,7 +124,7 @@ Plant the seed: ask "what would a *bad* landmark paper look like?" Don't resolve
 <div class="pain">
 
 CampusNav's room directory has grown from one building's 40 rooms to
-the whole DEU campus's 1,200 - and new rooms get added most semesters.
+the whole Dong-Eui University (DEU) campus's 1,200 - and new rooms get added most semesters.
 Every time a room is added, the app re-alphabetizes the whole
 directory before showing the building list. For the first time,
 students actually notice: the screen visibly freezes for a couple of
@@ -293,7 +293,7 @@ hardware you wish you had.
 
 # Divide-and-Conquer Sorting
 
-<div class="thread">The warm-up's two methods, now named precisely. (CLRS 4th ed, §2.3)</div>
+<div class="thread">The warm-up's two methods, now named precisely. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §2.3)</div>
 
 > A **divide-and-conquer algorithm** solves a problem by (1) dividing
 > it into smaller subproblems of the same shape, (2) solving each

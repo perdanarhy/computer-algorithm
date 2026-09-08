@@ -98,7 +98,7 @@ notes: Give students 30 seconds before asking. Let them notice A wins at n=10 bu
 <div class="pain">
 
 Two students both submit pseudocode for CampusNav's "find room
-703 in Building A" feature. Both pass every test the TA throws at them - every
+703 in Building A" feature. Both pass every test the TA (teaching assistant) throws at them - every
 single time, the correct room comes back. In the study group, one
 student swears their version is "obviously faster." The other says
 "prove it." Neither can point to anything beyond a stopwatch and a
@@ -212,8 +212,8 @@ stops working the moment it succeeds and gains more users or data.
 <div class="thread">Everything from this week, applied on paper.</div>
 
 - **Assignment 1 - Complexity & Pseudocode** is out starting today.
-- Three parts: CLRS-style pseudocode, Big-O proofs from the formal definition, and a growth-rate ordering exercise.
-- **Due Week 5, 23:59**, submitted individually via the course LMS.
+- Three parts: CLRS-style (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed) pseudocode, Big-O proofs from the formal definition, and a growth-rate ordering exercise.
+- **Due Week 5, 23:59**, submitted individually via the course Learning Management System (LMS).
 - Full spec, rubric, and submission format: **`materials/assignments/assignment1.md`**
 
 <!-- notes: Say: "You have two full weeks. Start the pseudocode part now - the proof techniques you need for Part 2 are today's entire lecture." -->

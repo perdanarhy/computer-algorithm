@@ -344,7 +344,8 @@ already know how to solve shortest path efficiently."
 >
 > **Answer (b): False.** Shortest path solves a single-destination
 > problem; the scavenger hunt additionally requires visiting every
-> location exactly once - a Hamiltonian-path/TSP-shaped constraint.
+> location exactly once - a Hamiltonian-path/travelling-salesman-problem-shaped
+> (TSP-shaped) constraint.
 > Solving the first efficiently gives no efficient algorithm for the
 > second; they are different problems.
 

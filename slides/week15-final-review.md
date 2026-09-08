@@ -57,7 +57,7 @@ close the loop." Keep the tone warm, not just administrative.
 - **Week 9, Divide & Conquer:** split into independent subproblems, recurse, combine; recurrences solved with the Master theorem.
 - **Week 10, Greedy:** locally optimal choices, correctness proved with exchange arguments - but not every problem has the structure that makes greedy safe.
 - **Week 11, DP I:** overlapping subproblems and optimal substructure, solved bottom-up (tabulation) or top-down (memoization) - two implementations of one recurrence.
-- **Week 12, DP II (LCS):** the same DP idea, extended from one sequence to comparing two at once.
+- **Week 12, DP II (longest common subsequence, LCS):** the same DP idea, extended from one sequence to comparing two at once.
 - **Week 13, Graph Representation:** networks as adjacency lists or matrices, chosen by density, not by habit.
 - **Week 14, Shortest Path:** Dijkstra for non-negative weights, Bellman-Ford when weights go negative - plus the P vs. NP sidebar on what "efficiently solvable" even means.
 
@@ -240,8 +240,9 @@ $$\delta(S, C) = 5 \quad \text{(path } S{\to}A{\to}B{\to}C\text{)}$$
 **(b) False.** Shortest path solves "cheapest route between two
 fixed points" - a single-destination problem. The scavenger hunt adds
 a "visit every location exactly once" constraint, which is a
-fundamentally different (Hamiltonian-path/TSP-shaped) problem;
-solving one does not give an efficient algorithm for the other.
+fundamentally different (Hamiltonian-path/travelling-salesman-problem-shaped,
+TSP-shaped) problem; solving one does not give an efficient algorithm
+for the other.
 
 ---
 

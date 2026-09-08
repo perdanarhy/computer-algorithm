@@ -153,7 +153,7 @@ programming questions in technical interviews.
 # By the End of This Week, You Can
 
 1. Distinguish a "subsequence" from a "substring," and explain why this problem needs the former.
-2. Derive the LCS recurrence relation and justify both of its cases.
+2. Derive the recurrence relation for the longest common subsequence (LCS) and justify both of its cases.
 3. Build a complete 2-D DP table for two sequences and use traceback to reconstruct the actual longest common subsequence.
 4. State and justify LCS's time and space complexity.
 
@@ -262,11 +262,17 @@ That's today's whole subject, precisely.
 > subsequence of *both*. The **longest common subsequence (LCS)** is
 > the longest such sequence - its length, and the sequence itself.
 
+---
+
+# Subsequence vs. Substring
+
+<div class="thread">One word swapped for another, one requirement dropped.</div>
+
 **Crucial contrast:** a **substring** is a subsequence whose kept
 elements are also *contiguous* (no gaps). "ACE" is a subsequence of
 "ABCDE" but **not** a substring of it. LCS never requires contiguity.
 
-<div class="graphviz-note">CLRS 4th ed - Ch 14, Section 14.4 (Longest common subsequence).</div>
+<div class="graphviz-note">CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed - Ch 14, Section 14.4 (Longest common subsequence).</div>
 
 ---
 
@@ -953,7 +959,7 @@ optimal binary search trees - a third DP problem shaped like LCS's
 - **Prepare:** think about how you'd represent CampusNav's buildings
   and the walkways connecting them as data. Bring one idea to Week 13.
 - **Reminder:** Assignment 3 (Greedy & Divide-and-Conquer) is due
-  this week - submit via the course LMS.
+  this week - submit via the course Learning Management System (LMS).
 
 ---
 

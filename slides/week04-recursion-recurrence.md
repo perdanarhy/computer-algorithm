@@ -257,7 +257,7 @@ is what today formalizes.
 
 # Recursion: Definition
 
-<div class="thread">A mathematical habit centuries old, a warm-up you just ran by hand, and a frozen demo all point at one idea. Here it is, precisely (CLRS 4th ed, §4.3-4.5).</div>
+<div class="thread">A mathematical habit centuries old, a warm-up you just ran by hand, and a frozen demo all point at one idea. Here it is, precisely (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §4.3-4.5).</div>
 
 > A **recursive algorithm** solves a problem by solving one or more
 > smaller instances of the *same* problem (the **recursive case**),

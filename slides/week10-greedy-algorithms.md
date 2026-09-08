@@ -86,7 +86,7 @@ Most students guess A (shortest first); B is actually the safe rule, revealed pr
 
 # Assignment 3: Released This Week
 
-- **Released:** today (Week 10). **Due:** Week 12, 23:59, via the course LMS. Individual work.
+- **Released:** today (Week 10). **Due:** Week 12, 23:59, via the course Learning Management System (LMS). Individual work.
 - **Tasks (preview):** (1) design a greedy room-booking rule and prove it safe with an exchange argument, (2) analyze last week's free-time-block divide-and-conquer recurrence with the Master theorem, (3) explain, in your own words, why the campus-points coin-change example breaks "greedy always works."
 - Full spec and rubric: **`materials/assignments/assignment3.md`**.
 - Task 1 asks you to run your algorithm on a specific 8-request instance - that instance is **Worksheet Part B**, today's in-class exercise. Keep your worksheet.
@@ -269,7 +269,7 @@ which.
 > reconsidering that choice - trusting that the sequence of
 > locally-best choices adds up to a globally optimal solution.
 
-<div class="graphviz-note">CLRS 4th ed - Ch 15, Sections 15.1 (activity selection), 15.2 (elements of the greedy strategy), 15.3 (Huffman codes).</div>
+<div class="graphviz-note">CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed - Ch 15, Sections 15.1 (activity selection), 15.2 (elements of the greedy strategy), 15.3 (Huffman codes).</div>
 
 A problem is safe for a greedy algorithm only when it has **both**:
 

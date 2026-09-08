@@ -807,7 +807,7 @@ first of four general strategies for *inventing* new algorithms.
 - Today was a checkpoint, not new material: use the Coverage list, the
   per-week recap cards and practice problems, and the check-yourself
   questions above to find your own gaps before the exam.
-- **Reading:** review CLRS 4th ed, Chapters 1-4 (algorithm properties,
+- **Reading:** review CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed, Chapters 1-4 (algorithm properties,
   analyzing algorithms, growth of functions, recursion/recurrences),
   §2.1-2.2 (basic sorting), §2.3 and Ch 7 (advanced sorting), and
   Exercise 2.3-6 (binary search) - skim what you've already read, no

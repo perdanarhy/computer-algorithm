@@ -1,7 +1,7 @@
 # Assignment 1 - Complexity & Pseudocode
 
 Computer Algorithms (506994-002). Released Week 3. **Due Week 5,
-23:59** (submit via the course LMS). Individual work.
+23:59** (submit via the course Learning Management System, LMS). Individual work.
 
 ## Tasks
 

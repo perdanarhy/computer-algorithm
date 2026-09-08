@@ -263,7 +263,7 @@ same question CampusNav's team is about to face at full campus scale.
 
 # Graph: Definition
 
-<div class="thread">Two centuries of dots-and-lines, formalized. (CLRS 4th ed, &sect;20.1)</div>
+<div class="thread">Two centuries of dots-and-lines, formalized. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, &sect;20.1)</div>
 
 > A **graph** $G = (V, E)$ is a set of **vertices** $V$ (the "things")
 > together with a set of **edges** $E$ (the connections between pairs
@@ -457,7 +457,7 @@ looking small the moment the graph gets big - next slide.
 
 # Why It Matters: the Full DEU Campus
 
-The real DEU campus isn't 6 locations - it's every building, junction,
+The real Dong-Eui University (DEU) campus isn't 6 locations - it's every building, junction,
 and walkway: roughly **300 nodes**, each realistically connected to
 only about **4 neighboring paths** (a sparse network, like real
 sidewalks - not a place where everywhere connects to everywhere). Note
@@ -565,7 +565,7 @@ using a stack - just an implicit one.
 
 <!-- NEW: priority queue, a third ADT, stated as a tool not proven here -->
 
-# A Third ADT: Priority Queue
+# A Third Abstract Data Type (ADT): Priority Queue
 
 <div class="thread">Not used until Week 14 - introduced now so the name isn't new when Dijkstra needs it. (CLRS 4th ed, &sect;6.5)</div>
 

@@ -301,7 +301,7 @@ we trade away to go faster.
 
 # Binary Search: The Idea
 
-<div class="thread">Back to "Guess the Number" - same idea, now on a sorted array. (CLRS 4th ed, Exercise 2.3-6)</div>
+<div class="thread">Back to "Guess the Number" - same idea, now on a sorted array. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, Exercise 2.3-6)</div>
 
 If $A$ is **sorted**, you don't need to check every entry: check the
 **middle** one.

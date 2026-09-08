@@ -99,7 +99,8 @@ _____________________________________________________________
    This is a claim about checking, not about how hard the problem is
    to solve.
 7. **B** - shortest path is efficiently solvable (in P); the
-   scavenger hunt is Hamiltonian-path/TSP-shaped and believed
+   scavenger hunt is Hamiltonian-path/travelling-salesman-problem-shaped
+   (TSP-shaped) and believed
    NP-hard, with no known efficient algorithm, despite being easy to
    verify.
 8. **A - True.** If a problem can be solved quickly, any candidate

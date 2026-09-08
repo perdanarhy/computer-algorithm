@@ -152,7 +152,7 @@ map/schedule app gives every technique a concrete, familiar shape.
 
 <div class="thread">Before any algorithm exists, here's the problem it has to fix.</div>
 
-New students at DEU get lost constantly: wrong building, wrong room,
+New students at Dong-Eui University (DEU) get lost constantly: wrong building, wrong room,
 missed the first ten minutes of class. In the story, a senior project
 team sets out to build **CampusNav**, a campus assistant app - but
 version 0 is nothing clever yet: a kiosk map, and a printed room list.
@@ -218,7 +218,7 @@ with exactly this scenario and answers it properly.
 | # | Goal (from the syllabus) | Where |
 |---|---|---|
 | 1 | Analyze correctness and efficiency precisely | Weeks 2-3, 5, 7 |
-| 2 | Design algorithms with general paradigms (divide-and-conquer, greedy, DP) | Weeks 4, 9-12 |
+| 2 | Design algorithms with general paradigms (divide-and-conquer, greedy, dynamic programming) | Weeks 4, 9-12 |
 | 3 | Apply classic algorithms (sorting, searching, graphs) and reason about P vs. NP | Weeks 5-7, 13-14 |
 
 Every one of these three goals gets built, piece by piece, using
@@ -293,7 +293,7 @@ concretely:
 <div class="arrow">&rarr;</div>
 <div class="stage"><div class="h">Classic Toolkit</div><div class="s">Sorting and searching, provably correct (Wks 5-7)</div></div>
 <div class="arrow">&rarr;</div>
-<div class="stage"><div class="h">Design Paradigms</div><div class="s">Divide-and-conquer, greedy, DP (Wks 9-12)</div></div>
+<div class="stage"><div class="h">Design Paradigms</div><div class="s">Divide-and-conquer, greedy, dynamic programming (Wks 9-12)</div></div>
 <div class="arrow">&rarr;</div>
 <div class="stage"><div class="h">Graphs &amp; Limits</div><div class="s">Networks, shortest paths, P vs NP (Wks 13-14)</div></div>
 </div>
@@ -526,7 +526,7 @@ the book's own order - not the whole book, but the shape of it.
 
 | Wk | Topic | CLRS 4th ed |
 |---|---|---|
-| 2 | Algorithm Concepts | Ch 1; §2.1-2.2 (pseudocode style); §31.2 (Euclid's GCD) |
+| 2 | Algorithm Concepts | Ch 1; §2.1-2.2 (pseudocode style); §31.2 (Euclid's greatest common divisor, GCD) |
 | 3 | Complexity Analysis | Ch 3 |
 | 4 | Recursion & Recurrence | §4.3-4.5 |
 
@@ -696,7 +696,7 @@ applied component-by-component to your individual score.
 | 1 | Wk 3 | Wk 5 | Pseudocode, Big-O proofs, growth-rate ordering |
 | 2 | Wk 6 | Wk 8 | Sorting: basic + advanced, empirical vs. theoretical |
 | 3 | Wk 10 | Wk 12 | Greedy proof sketch, a divide-and-conquer analysis |
-| 4 | Wk 13 | Wk 15 | LCS with traceback, Dijkstra, a short P/NP question |
+| 4 | Wk 13 | Wk 15 | longest common subsequence (LCS) with traceback, Dijkstra, a short P/NP question |
 
 ---
 

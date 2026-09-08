@@ -1,7 +1,8 @@
 # Assignment 4 - Dynamic Programming & Graphs
 
 Computer Algorithms (506994-002). Released Week 13. **Due Week 15,
-before the final exam begins** (submit via the course LMS). Individual
+before the final exam begins** (submit via the course Learning
+Management System, LMS). Individual
 work.
 
 ## Tasks

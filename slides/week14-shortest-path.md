@@ -197,7 +197,7 @@ the network.
 
 # Single-Source Shortest Path: Definition
 
-<div class="thread">Formal, now that the pain is fresh. (CLRS 4th ed, Ch 22)</div>
+<div class="thread">Formal, now that the pain is fresh. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, Ch 22)</div>
 
 > Given a weighted graph $G = (V, E)$ with edge weights $w(u, v)$ and
 > a single **source vertex** $s$, the **single-source shortest path

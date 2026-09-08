@@ -280,7 +280,7 @@ practice proving an algorithm correct before tackling faster ones
 
 # Sorting, Stated Precisely
 
-<div class="thread">Fifty years of study, and a card game you just played, point at one precise problem. Here it is. (CLRS 4th ed, §2.1)</div>
+<div class="thread">Fifty years of study, and a card game you just played, point at one precise problem. Here it is. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §2.1)</div>
 
 > Given an array $A[0..n-1]$, rearrange its elements into a new order
 > $A'[0..n-1]$ such that $A'[0] \le A'[1] \le \cdots \le A'[n-1]$, using

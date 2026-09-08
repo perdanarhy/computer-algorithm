@@ -308,7 +308,7 @@ we re-asked the same small question.
 > combining stored answers - applicable exactly when a problem has
 > both **optimal substructure** and **overlapping subproblems**.
 
-<div class="graphviz-note">CLRS 4th ed - Ch 14, Sections 14.1 (rod cutting) and 14.3 (elements of dynamic programming).</div>
+<div class="graphviz-note">CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed - Ch 14, Sections 14.1 (rod cutting) and 14.3 (elements of dynamic programming).</div>
 
 - Optimal substructure *alone* is what already let D&C (Week 9) and
   greedy (Week 10) work directly, with nothing stored.

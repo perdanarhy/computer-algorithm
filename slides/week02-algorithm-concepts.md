@@ -195,7 +195,8 @@ graders, tracing it by hand, would reach the identical conclusion?
 <div class="thread">Next in this class: less listening, more doing.</div>
 
 Later today, you and a partner will write CampusNav's "find room"
-logic as real pseudocode and trace Euclid's GCD by hand (**Part A**),
+logic as real pseudocode and trace Euclid's greatest common divisor
+(GCD) algorithm by hand (**Part A**),
 then hunt for the exact broken property in three more deliberately bad
 "algorithms" (**Part B**).
 
@@ -235,7 +236,7 @@ the five properties.
 
 # Algorithm: The Five Required Properties
 
-<div class="thread">This is the rulebook. Every algorithm this semester gets checked against all five (CLRS 4th ed, Ch 1).</div>
+<div class="thread">This is the rulebook. Every algorithm this semester gets checked against all five (CLRS - Cormen, Leiserson, Rivest &amp; Stein's <em>Introduction to Algorithms</em>, 4th ed, Ch 1).</div>
 
 1. **Finiteness** - must terminate after a finite number of steps, for *every* valid input.
 2. **Definiteness** - every step must be precisely and unambiguously specified; no room for interpretation.
