@@ -116,18 +116,23 @@ slot "Check yourself" (expanded into full review questions) + Act 4 (slots
 N+1..N+4, "Limits" replaced by "What to focus on next"). No Pain or Ground
 acts: there is no new concept to motivate.
 
-**Teacher-centric card-format variant** (currently Week 5 only; the
-default variant above remains the standard for all other weeks until each
-is explicitly converted). Same acts, same slot order, same hard rules
-(motivation before definition, Limits→next Pain chain, CampusNav case
-study), with three deltas:
+**Teacher-centric card-format variant** (now the standard for every
+week - piloted on Week 5, then applied to Weeks 1-4 and 6-15; the
+"default variant" described above is this variant's predecessor, kept
+here as documentation of what each week's slots mean, not as a live
+alternative). Same acts, same slot order, same hard rules (motivation
+before definition, Limits→next Pain chain, CampusNav case study), with
+three deltas from the default variant:
 
 - **(a) No student-facing interaction slides.** No warm-up prompts, no
   worksheet/quiz hand-offs, and slot N's "Check yourself" Q+A pairs are
   dissolved: their content is taught directly inside worked examples
   (the question's payload becomes a card or takeaway bar, delivered by
   the instructor instead of asked). "Common mistakes" (slot N-1), Key
-  Words, and all of Act 4 stay as in the default variant.
+  Words, and all of Act 4 stay as in the default variant. Week 1
+  (orientation, no technique taught) had no such slides to begin with;
+  Weeks 8/15 (short review variant) apply the same principle to their
+  per-topic recap-and-practice-problem slides.
 - **(b) Act 3 mechanics use the dense worked-example card layout**
   (`section.dense` + `.eyebrow`/`.wx-top`/`.goalbox`/`.wx-steps`/
   `.conclusion`/`.takeaway` in `themes/algorithms.css`): each technique
@@ -136,10 +141,17 @@ study), with three deltas:
   replacing the default variant's one-idea-per-slide trace/count/bound
   sequences. Slot N-2's worked example also becomes a graduated
   dense-slide run.
-- **(c) Hard cap: 50 slides.** Each such week additionally ships a
-  short graded "Week N Check" in `materials/assignments/weekNN-check.md`
-  (separate from the four major assignments), referenced from slot N+3
-  (Summary).
+- **(c) Hard cap: 50 slides.** Each week (except Weeks 1, 8, and 15 -
+  see below) additionally ships a short graded "Week N Check" in
+  `materials/assignments/weekNN-check.md` (separate from the four
+  major assignments), referenced from slot N+3 (Summary). Week 1 has
+  no technical content yet to check; Week 8's midterm exam and
+  Assignment 2 already land that week, as does Week 15's final exam
+  and Assignment 4, so neither ships a redundant fifth graded item.
+
+`slides/week05-basic-sorting.md` remains this variant's reference
+implementation - consult it first for the dense-slide skeleton before
+touching any other week's deck.
 
 `slides/week05-basic-sorting.md` is this variant's reference
 implementation - copy its dense-slide skeletons (not the default
