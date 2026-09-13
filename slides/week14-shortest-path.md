@@ -297,17 +297,19 @@ exactly what breaks later this week.
 <div class="goalbox"><span class="k">Goal</span>Find every shortest distance from S on S-A=2, S-B=5, A-B=1.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Settle S</div>
 <div class="wx-body">dist[S]=0. Relax S's edges: A becomes 0+2=2, B becomes 0+5=5.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Settle A</div>
 <div class="wx-body">Smallest unvisited: A (2). Relax A-B: 2+1=3 &lt; 5, so B improves to 3.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Settle B</div>
@@ -315,8 +317,8 @@ exactly what breaks later this week.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>&delta;(S,A)=2, &delta;(S,B)=3 - the direct edge (5) is never the answer once a cheaper detour exists.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Relaxation is what finds the detour - without it, Dijkstra would just report the direct edge's weight.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>&delta;(S,A)=2, &delta;(S,B)=3 - the direct edge (5) is never the answer once a cheaper detour exists.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Relaxation is what finds the detour - without it, Dijkstra would just report the direct edge's weight.</div></div>
 
 ---
 
@@ -332,22 +334,25 @@ exactly what breaks later this week.
 <div class="goalbox"><span class="k">Goal</span>Settle all six vertices and read off the shortest-path tree.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Rounds 1-2</div>
 <div class="wx-body">Settle Gate(0): relax to Library=3, Dorm=4. Settle Library(3): relax to CS-Building=3+2=5, Gym=3+5=8.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Rounds 3-4</div>
 <div class="wx-body">Settle Dorm(4): relax Dorm&rarr;Gym offers 4+6=10, not better than 8 - no change. Settle CS-Building(5): relax to Cafeteria=5+2=7.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Rounds 5-6</div>
 <div class="wx-body">Settle Cafeteria(7), smaller than Gym's 8: relax Cafeteria&rarr;Gym offers 7+3=10 - no change. Settle Gym(8) last, nothing left to relax.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Reading the tree</div>
@@ -355,8 +360,8 @@ exactly what breaks later this week.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Six settles, six final distances - every vertex settled exactly once, in increasing distance order.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Cafeteria (7) settles before Gym (8) even though Gym was discovered first - Dijkstra always settles by tentative distance, never by discovery order.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Six settles, six final distances - every vertex settled exactly once, in increasing distance order.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Cafeteria (7) settles before Gym (8) even though Gym was discovered first - Dijkstra always settles by tentative distance, never by discovery order.</div></div>
 
 ---
 
@@ -372,17 +377,19 @@ exactly what breaks later this week.
 <div class="goalbox"><span class="k">Goal</span>Show Dijkstra reports the wrong distance the moment one edge is negative.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">Source S. Directed edges: S&rarr;C=2, S&rarr;B=3, B&rarr;C=&minus;4.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Settle S, then C</div>
 <div class="wx-body">Settle S(0). Frontier: C=2, B=3. Smallest is C (2) - settle it, <strong>final</strong>. Dijkstra reports &delta;(S,C) = 2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Settle B, relax B&rarr;C</div>
@@ -395,8 +402,8 @@ exactly what breaks later this week.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>One negative edge, no lucky tie: Dijkstra's "settle and never revisit" strategy reports 2 when the true answer is &minus;1.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Dijkstra's correctness proof depends entirely on non-negative weights - with even one negative edge, no amount of "it happened to work here" is a guarantee.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>One negative edge, no lucky tie: Dijkstra's "settle and never revisit" strategy reports 2 when the true answer is &minus;1.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Dijkstra's correctness proof depends entirely on non-negative weights - with even one negative edge, no amount of "it happened to work here" is a guarantee.</div></div>
 
 ---
 
@@ -568,17 +575,19 @@ BELLMAN-FORD(G, w, source):
 <div class="goalbox"><span class="k">Goal</span>Find every shortest distance from S on S&rarr;A=4, A&rarr;B=&minus;2, S&rarr;B=5.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">V=3, so V&minus;1=2 rounds are required. dist[S]=0, dist[A]=dist[B]=&infin;.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Round 1</div>
 <div class="wx-body">S&rarr;A: 0+4=4 &lt; &infin;, update A=4. A&rarr;B: 4+(&minus;2)=2 &lt; &infin;, update B=2. S&rarr;B: 0+5=5, not &lt; 2, no change.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Round 2</div>
@@ -586,8 +595,8 @@ BELLMAN-FORD(G, w, source):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>&delta;(S,B)=2, not the direct edge's 5 - the negative edge made the detour through A the true shortest route.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Round 2 found nothing new here, but Bellman-Ford has no way to know that in advance - it always budgets V&minus;1 rounds.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>&delta;(S,B)=2, not the direct edge's 5 - the negative edge made the detour through A the true shortest route.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Round 2 found nothing new here, but Bellman-Ford has no way to know that in advance - it always budgets V&minus;1 rounds.</div></div>
 
 ---
 
@@ -623,22 +632,25 @@ already reaches the final answer:
 <div class="goalbox"><span class="k">Goal</span>Relax all 15 directed checks (7 undirected edges, both ways, plus the one-way credit) once.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Gate, Library</div>
 <div class="wx-body">G&rarr;L: 0+3=3&lt;&infin;, L=3. G&rarr;D: 0+4=4&lt;&infin;, D=4. L&rarr;G: 3+3=6, not&lt;0. L&rarr;C: 3+2=5&lt;&infin;, C=5. L&rarr;Y: 3+5=8&lt;&infin;, Y=8.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">CS-Bldg, Dorm, Gym</div>
 <div class="wx-body">C&rarr;L: 5+2=7, not&lt;3. C&rarr;F: 5+2=7&lt;&infin;, F=7. D&rarr;G: 4+4=8, not&lt;0. D&rarr;Y: 4+6=10, not&lt;8. Y&rarr;L: 8+5=13, not&lt;3.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Gym, Cafeteria</div>
 <div class="wx-body">Y&rarr;D: 8+6=14, not&lt;4. Y&rarr;F: 8+3=11, not&lt;7. F&rarr;Y: 7+3=10, not&lt;8. F&rarr;C: 7+2=9, not&lt;5. F&rarr;L(&minus;4): 7&minus;4=3, ties (not &lt;3) - the credit only ties Library, never beats it.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Why it still runs 5 rounds</div>
@@ -646,8 +658,8 @@ already reaches the final answer:
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>15 edge checks, 4 improve a distance, 1 (the &minus;4 credit) only ties - matching the summary table exactly.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A different edge-visiting order could take longer than one round to converge - that's exactly why Bellman-Ford always budgets the full V&minus;1 rounds.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>15 edge checks, 4 improve a distance, 1 (the &minus;4 credit) only ties - matching the summary table exactly.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A different edge-visiting order could take longer than one round to converge - that's exactly why Bellman-Ford always budgets the full V&minus;1 rounds.</div></div>
 
 ---
 
@@ -698,17 +710,19 @@ already reaches the final answer:
 <div class="goalbox"><span class="k">Goal</span>Show why Bellman-Ford can only ever report this case, never silently guess a wrong number.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">Isolated 3-edge cycle: L&rarr;C=2, C&rarr;F=2, F&rarr;L=&minus;5. For illustration only, start dist[L]=0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Lap 1</div>
 <div class="wx-body">L&rarr;C: 0+2=2, C=2. C&rarr;F: 2+2=4, F=4. F&rarr;L: 4+(&minus;5)=&minus;1 &lt; 0, update L=&minus;1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Lap 2</div>
@@ -721,8 +735,8 @@ already reaches the final answer:
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>A single -1-per-lap cycle makes "shortest path" undefined - Bellman-Ford's extra pass is what catches it.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The deck's actual -4 credit leaves this loop at exactly 0 (no cycle) - this shows what happens once it tips negative.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>A single -1-per-lap cycle makes "shortest path" undefined - Bellman-Ford's extra pass is what catches it.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The deck's actual -4 credit leaves this loop at exactly 0 (no cycle) - this shows what happens once it tips negative.</div></div>
 
 ---
 
@@ -821,17 +835,19 @@ minimizing total walking distance.
 <div class="goalbox"><span class="k">Goal</span>Verify a candidate route in polynomial time, without solving the harder search problem.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The candidate</div>
 <div class="wx-body">Gate &rarr; Dorm &rarr; Gym &rarr; Cafeteria &rarr; CS-Building &rarr; Library. Check 1: all six locations appear exactly once - one pass, O(V).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Check every edge</div>
 <div class="wx-body">Gate&rarr;Dorm(4), Dorm&rarr;Gym(6), Gym&rarr;Cafeteria(3), Cafeteria&rarr;CS-Building(2), CS-Building&rarr;Library(2) - all five pairs are real edges, one adjacency-list lookup each.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Sum it</div>
@@ -844,8 +860,8 @@ minimizing total walking distance.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>A candidate route verifies in a handful of lookups; no known method finds the best one nearly as fast.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>NP is about how fast a solution can be checked - not how slow it is to find, the most common mix-up here.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>A candidate route verifies in a handful of lookups; no known method finds the best one nearly as fast.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>NP is about how fast a solution can be checked - not how slow it is to find, the most common mix-up here.</div></div>
 
 ---
 

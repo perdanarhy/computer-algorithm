@@ -360,8 +360,8 @@ single line of representation code.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same graph: 9 matrix cells vs. 7 list entries - the list is already smaller, even at this toy scale.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A non-edge (A-C) costs the matrix a cell it must still store as "-"; the list simply never mentions it.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same graph: 9 matrix cells vs. 7 list entries - the list is already smaller, even at this toy scale.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A non-edge (A-C) costs the matrix a cell it must still store as "-"; the list simply never mentions it.</div></div>
 
 ---
 
@@ -400,8 +400,8 @@ single line of representation code.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same graph, verified: 20 list entries vs. 36 matrix cells - a gap that only widens as the campus grows.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The matrix's size depends only on V; the list's size depends on what's actually connected - that's the whole reason it wins on sparse graphs.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same graph, verified: 20 list entries vs. 36 matrix cells - a gap that only widens as the campus grows.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The matrix's size depends only on V; the list's size depends on what's actually connected - that's the whole reason it wins on sparse graphs.</div></div>
 
 ---
 
@@ -440,8 +440,8 @@ single line of representation code.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>One new sparse vertex costs the matrix 13 cells and the list 3 entries - the growth-rate gap is the whole argument, not just the absolute numbers.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>O(V&sup2;) is the worse growth rate, not just a bigger constant - this is the concrete instance that proves it.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>One new sparse vertex costs the matrix 13 cells and the list 3 entries - the growth-rate gap is the whole argument, not just the absolute numbers.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>O(V&sup2;) is the worse growth rate, not just a bigger constant - this is the concrete instance that proves it.</div></div>
 
 ---
 
@@ -608,17 +608,19 @@ BFS(G, s):
 <div class="goalbox"><span class="k">Goal</span>Trace BFS from A on A-B-C and watch the queue fill and drain.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Start</div>
 <div class="wx-body">A&rarr;[B], B&rarr;[A,C], C&rarr;[B]. Mark A visited, enqueue A. Q = [A].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Dequeue A</div>
 <div class="wx-body">Visit A. Neighbor B unvisited: mark visited, enqueue. Q = [B].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Dequeue B, then C</div>
@@ -626,8 +628,8 @@ BFS(G, s):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Visit order: A, B, C - identical to what DFS will find on this same tiny graph.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The queue's FIFO order is what forces "nearest first" - even this tiny trace already shows it.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Visit order: A, B, C - identical to what DFS will find on this same tiny graph.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The queue's FIFO order is what forces "nearest first" - even this tiny trace already shows it.</div></div>
 
 ---
 
@@ -643,22 +645,25 @@ BFS(G, s):
 <div class="goalbox"><span class="k">Goal</span>Trace the queue's contents from Gate, round by round.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Dequeue G, then L</div>
 <div class="wx-body">Init: Q=[G]. Dequeue G, enqueue L,D &rarr; Q=[L,D]. Dequeue L, enqueue C,Y &rarr; Q=[D,C,Y].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Dequeue D, then C</div>
 <div class="wx-body">Dequeue D - both neighbors already visited, nothing new &rarr; Q=[C,Y]. Dequeue C, enqueue F &rarr; Q=[Y,F].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Dequeue Y, then F</div>
 <div class="wx-body">Dequeue Y - all neighbors already visited &rarr; Q=[F]. Dequeue F - all neighbors already visited &rarr; Q=[].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Reading the order</div>
@@ -666,8 +671,8 @@ BFS(G, s):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>G, L, D, C, Y, F - six dequeues, matching the graph's layer structure exactly (Gate's layer, then its neighbors' layer, then theirs).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The queue never needs to "decide" an order - FIFO alone reconstructs the layer-by-layer structure.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>G, L, D, C, Y, F - six dequeues, matching the graph's layer structure exactly (Gate's layer, then its neighbors' layer, then theirs).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The queue never needs to "decide" an order - FIFO alone reconstructs the layer-by-layer structure.</div></div>
 
 ---
 
@@ -683,17 +688,19 @@ BFS(G, s):
 <div class="goalbox"><span class="k">Goal</span>Show that visit order and hop-count are related, but not the same number.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Round 1</div>
 <div class="wx-body">Enqueue G. Dequeue G, enqueue L,D,P (in list order) &rarr; Q=[L,D,P].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Rounds 2-4</div>
 <div class="wx-body">Dequeue L, enqueue C,Y &rarr; Q=[D,P,C,Y]. Dequeue D - nothing new &rarr; Q=[P,C,Y]. Dequeue P - its only neighbor (G) already visited &rarr; Q=[C,Y].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Rounds 5-7</div>
@@ -706,8 +713,8 @@ BFS(G, s):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Visit order depends on neighbor-list order; hop-count (layer) depends only on the graph's actual structure - BFS guarantees the layers, not the exact position within a layer.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Visited 4th" and "4 hops away" are different claims - only BFS's layer grouping, not its raw visit sequence, is the guarantee.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Visit order depends on neighbor-list order; hop-count (layer) depends only on the graph's actual structure - BFS guarantees the layers, not the exact position within a layer.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Visited 4th" and "4 hops away" are different claims - only BFS's layer grouping, not its raw visit sequence, is the guarantee.</div></div>
 
 ---
 
@@ -742,17 +749,19 @@ DFS(G, u):
 <div class="goalbox"><span class="k">Goal</span>Trace DFS from A on A-B-C and compare its order to BFS's.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">DFS(A)</div>
 <div class="wx-body">Mark A visited. Neighbor B unvisited &rarr; recurse into DFS(B).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">DFS(B)</div>
 <div class="wx-body">Mark B visited. Neighbor A visited, neighbor C unvisited &rarr; recurse into DFS(C).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">DFS(C)</div>
@@ -760,8 +769,8 @@ DFS(G, u):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Discovery order: A, B, C - identical to BFS's order here, because a straight line offers no branch for the two strategies to disagree on.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>BFS and DFS only visibly differ once a graph actually branches - which is exactly what the next example does.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Discovery order: A, B, C - identical to BFS's order here, because a straight line offers no branch for the two strategies to disagree on.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>BFS and DFS only visibly differ once a graph actually branches - which is exactly what the next example does.</div></div>
 
 ---
 
@@ -777,22 +786,25 @@ DFS(G, u):
 <div class="goalbox"><span class="k">Goal</span>Trace the full discovery-then-finish cycle from Gate.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Plunge: G, L, C</div>
 <div class="wx-body">DFS(G): d=1, recurse to L (first unvisited neighbor). DFS(L): d=2, recurse to C. DFS(C): d=3, recurse to F.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Plunge: F, Y, D</div>
 <div class="wx-body">DFS(F): d=4, recurse to Y. DFS(Y): d=5, recurse to D. DFS(D): d=6 - neighbors G, Y both already on the stack.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Unwind</div>
 <div class="wx-body">D has nothing left: finishes (f=7). Every enclosing call finishes right behind it, in exact reverse: Y(8), F(9), C(10), L(11), G(12).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Read the result</div>
@@ -800,8 +812,8 @@ DFS(G, u):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>One call chain, six discoveries, six finishes, in exactly reverse order - the recursion stack made both orders automatic.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>At the deepest point, the call stack literally holds all six waiting frames - not a metaphor, the exact structure a debugger would show you.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>One call chain, six discoveries, six finishes, in exactly reverse order - the recursion stack made both orders automatic.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>At the deepest point, the call stack literally holds all six waiting frames - not a metaphor, the exact structure a debugger would show you.</div></div>
 
 ---
 
@@ -817,17 +829,19 @@ DFS(G, u):
 <div class="goalbox"><span class="k">Goal</span>Show that DFS's order, unlike BFS's layers, depends heavily on where it starts.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">DFS(L) plunges</div>
 <div class="wx-body">L's neighbors in order: G, C, Y. DFS(L) &rarr; DFS(G) (G's only unvisited neighbor is D) &rarr; DFS(D).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Continue plunging</div>
 <div class="wx-body">DFS(D): neighbor G visited, neighbor Y unvisited &rarr; DFS(Y). DFS(Y): L, D visited, F unvisited &rarr; DFS(F).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Finish</div>
@@ -840,8 +854,8 @@ DFS(G, u):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same six vertices, same edges, two different starting points, two unrelated discovery orders.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>DFS's order depends heavily on where it starts, unlike BFS's guarantee about hop-count layers - that guarantee is specific to BFS, not traversal in general.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same six vertices, same edges, two different starting points, two unrelated discovery orders.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>DFS's order depends heavily on where it starts, unlike BFS's guarantee about hop-count layers - that guarantee is specific to BFS, not traversal in general.</div></div>
 
 ---
 
