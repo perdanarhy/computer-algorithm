@@ -357,17 +357,19 @@ merge sort's extra memory cost comes from.
 <div class="goalbox"><span class="k">Goal</span>Merge two tiny sorted lists and see what happens when one empties first.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Compare 3 vs 1</div>
 <div class="wx-body">L[1]=3, R[1]=1. R is smaller &rarr; take 1. Merged so far: [1].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Compare 3 vs 2</div>
 <div class="wx-body">L[1]=3, R[2]=2. R is smaller &rarr; take 2. Merged so far: [1, 2]. R is now exhausted.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">R's sentinel fires</div>
@@ -375,8 +377,8 @@ merge sort's extra memory cost comes from.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Merged result: [1, 2, 3, 6] - 2 real comparisons, then the sentinel drains the rest with no special-case code.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The &infin; sentinel is what lets one `for` loop handle "a side ran out" without a separate check.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Merged result: [1, 2, 3, 6] - 2 real comparisons, then the sentinel drains the rest with no special-case code.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The &infin; sentinel is what lets one `for` loop handle "a side ran out" without a separate check.</div></div>
 
 ---
 
@@ -392,17 +394,19 @@ merge sort's extra memory cost comes from.
 <div class="goalbox"><span class="k">Goal</span>Merge two equal-length sorted lists, tracking every comparison.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Steps 1-2</div>
 <div class="wx-body">L[1]=2 vs R[1]=1 &rarr; take 1. L[1]=2 vs R[2]=3 &rarr; take 2. Merged: [1, 2].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Steps 3-4</div>
 <div class="wx-body">L[2]=5 vs R[2]=3 &rarr; take 3. L[2]=5 vs R[3]=9 &rarr; take 5. Merged: [1, 2, 3, 5].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Steps 5-6</div>
@@ -415,8 +419,8 @@ merge sort's extra memory cost comes from.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Result: [1, 2, 3, 5, 8, 9] - 6 comparisons for 6 elements, so MERGE runs in O(n1 + n2) = O(n).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>MERGE never looks backward or re-checks an element - that single-pass property is what makes it linear.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Result: [1, 2, 3, 5, 8, 9] - 6 comparisons for 6 elements, so MERGE runs in O(n1 + n2) = O(n).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>MERGE never looks backward or re-checks an element - that single-pass property is what makes it linear.</div></div>
 
 ---
 
@@ -432,17 +436,19 @@ merge sort's extra memory cost comes from.
 <div class="goalbox"><span class="k">Goal</span>Sort all six elements and count the levels of recursion it takes.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Split (no comparisons)</div>
 <div class="wx-body">Recursively halve until every piece is a single element: 5, 2, 4, 7, 1, 3 - each trivially sorted.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Merge level 2</div>
 <div class="wx-body">MERGE(2,4) &rarr; [2,4]. MERGE(1,3) &rarr; [1,3]. 5 and 7 have no sibling yet.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Merge levels 1 &amp; 0</div>
@@ -455,8 +461,8 @@ merge sort's extra memory cost comes from.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Fully sorted in 3 merge levels: the six inputs 5, 2, 4, 7, 1, 3 become [1, 2, 3, 4, 5, 7].</div>
-<div class="takeaway"><span class="k">Key takeaway</span>&Theta;(log n) levels, each doing &Theta;(n) total work - that product is exactly next slide's recurrence.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Fully sorted in 3 merge levels: the six inputs 5, 2, 4, 7, 1, 3 become [1, 2, 3, 4, 5, 7].</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>&Theta;(log n) levels, each doing &Theta;(n) total work - that product is exactly next slide's recurrence.</div></div>
 
 ---
 
@@ -647,22 +653,25 @@ HOARE-PARTITION(A, low, high):
 <div class="goalbox"><span class="k">Goal</span>Partition [3, 1, 2] around the last element and watch `i` track the boundary.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">pivot = A[3] = 2. i = 0 (no elements confirmed &le; 2 yet).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">j = 1: A[1]=3</div>
 <div class="wx-body">3 &gt; 2, not &le; pivot &rarr; nothing happens. i stays 0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">j = 2: A[2]=1</div>
 <div class="wx-body">1 &le; 2 &rarr; i becomes 1, swap A[1], A[2] &rarr; [1, 3, 2].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">&#9733;</div>
 <div class="wx-title">Final swap</div>
@@ -670,8 +679,8 @@ HOARE-PARTITION(A, low, high):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] after 2 comparisons and 2 swaps - pivot 2 is at its final sorted index.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The final swap is not optional cleanup - it is the one step that guarantees the pivot reaches its correct position.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] after 2 comparisons and 2 swaps - pivot 2 is at its final sorted index.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The final swap is not optional cleanup - it is the one step that guarantees the pivot reaches its correct position.</div></div>
 
 ---
 
@@ -687,22 +696,25 @@ HOARE-PARTITION(A, low, high):
 <div class="goalbox"><span class="k">Goal</span>Partition the array and confirm the pivot lands at its correct index.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">pivot = A[6] = 2. i = 0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">j = 1..3</div>
 <div class="wx-body">A[1]=8, A[2]=3, A[3]=5 - all &gt; 2 &rarr; nothing happens each time.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">j = 4, 5</div>
 <div class="wx-body">A[4]=1 &le; 2 &rarr; i=1, swap A[1],A[4] &rarr; [1,3,5,8,9,2]. A[5]=9 &gt; 2 &rarr; nothing.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">&#9733;</div>
 <div class="wx-title">Final swap</div>
@@ -710,8 +722,8 @@ HOARE-PARTITION(A, low, high):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Result: [1, 2, 5, 8, 9, 3] - 5 comparisons, 2 swaps, pivot correctly placed.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Lomuto's `i` boundary only moves on a real "&le; pivot" hit - most of the array (8, 5, 9) never triggers it at all.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Result: [1, 2, 5, 8, 9, 3] - 5 comparisons, 2 swaps, pivot correctly placed.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Lomuto's `i` boundary only moves on a real "&le; pivot" hit - most of the array (8, 5, 9) never triggers it at all.</div></div>
 
 ---
 
@@ -727,17 +739,19 @@ HOARE-PARTITION(A, low, high):
 <div class="goalbox"><span class="k">Goal</span>Partition with Hoare's scheme and see exactly how it differs from Lomuto's.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Round 1</div>
 <div class="wx-body">j scans down to index 5 (A[5]=2 &le; 5); i scans up to index 1 (A[1]=5 &ge; 5). i&lt;j &rarr; swap A[1],A[5] &rarr; [2,3,8,4,5,7].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Round 2</div>
 <div class="wx-body">j scans down to index 4 (A[4]=4 &le; 5); i scans up to index 3 (A[3]=8 &ge; 5). i&lt;j &rarr; swap A[3],A[4] &rarr; [2,3,4,8,5,7].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Round 3</div>
@@ -750,8 +764,8 @@ HOARE-PARTITION(A, low, high):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Split at j=3: A[1..3]=[2,3,4] all &le; 5; A[4..6]=[8,5,7] all &ge; 5 - correct, even though the pivot itself isn't at index 3.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Two partition schemes, two different contracts - always check which one a piece of pseudocode promises before trusting where the pivot ends up.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Split at j=3: A[1..3]=[2,3,4] all &le; 5; A[4..6]=[8,5,7] all &ge; 5 - correct, even though the pivot itself isn't at index 3.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Two partition schemes, two different contracts - always check which one a piece of pseudocode promises before trusting where the pivot ends up.</div></div>
 
 ---
 
@@ -782,17 +796,19 @@ the pivot. Both matter, but only pivot choice decides worst case.
 <div class="goalbox"><span class="k">Goal</span>Show that Lomuto with a fixed last-element pivot hits &Theta;(n&sup2;) on already-sorted data.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The setup</div>
 <div class="wx-body">CampusNav's directory often arrives already alphabetized - most re-sorts happen after just one new room is added near the end.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Every split is 0/(n&minus;1)</div>
 <div class="wx-body">On sorted input, the last element is always the largest remaining value. Partition puts all n&minus;1 others on one side, 0 on the other - every single call.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Recurrence</div>
@@ -805,8 +821,8 @@ the pivot. Both matter, but only pivot choice decides worst case.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Fixed first/last-element pivots hit O(n&sup2;) on any already- or reverse-sorted input - not a rare edge case, a predictable one.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Quicksort's worst case is rare" is only true once the pivot strategy stops being predictable.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Fixed first/last-element pivots hit O(n&sup2;) on any already- or reverse-sorted input - not a rare edge case, a predictable one.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Quicksort's worst case is rare" is only true once the pivot strategy stops being predictable.</div></div>
 
 ---
 
@@ -893,17 +909,19 @@ strategy, whenever raw in-place speed matters more.
 <div class="goalbox"><span class="k">Goal</span>Compare Week 5's O(n&sup2;) cost against today's O(n log n), at real scale.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The old cost</div>
 <div class="wx-body">1,200 rooms, Week 5's sorts: roughly n&sup2;/2 &approx; 1.44 million comparisons, worst case - the freeze from the pain slide, made concrete.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">The new cost</div>
 <div class="wx-body">Merge sort, or quicksort with a random/median-of-three pivot: roughly n log&#8322;n. Since log&#8322;(1,200) &approx; 11, that's about 1,200 &times; 11 &approx; 13,000 comparisons.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">The gap</div>
@@ -911,8 +929,8 @@ strategy, whenever raw in-place speed matters more.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>The freeze disappears, and it stays gone once the partner campuses join and the directory heads toward 10,000 rooms - because the growth rate itself changed, not just today's size.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A ~100x win at 1,200 rooms is not the ceiling - the gap between O(n&sup2;) and O(n log n) only widens as n grows.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>The freeze disappears, and it stays gone once the partner campuses join and the directory heads toward 10,000 rooms - because the growth rate itself changed, not just today's size.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A ~100x win at 1,200 rooms is not the ceiling - the gap between O(n&sup2;) and O(n log n) only widens as n grows.</div></div>
 
 ---
 

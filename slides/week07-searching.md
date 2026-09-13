@@ -408,17 +408,19 @@ when the loop stops).
 <div class="goalbox"><span class="k">Goal</span>Prove: BINARY-SEARCH is correct on every sorted input, not just the traces we draw.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Initialization</div>
 <div class="wx-body">Before the loop: lo=0, hi=length(A)&minus;1, so A[lo..hi] is the entire array. If target is present at all, it's trivially present somewhere in the whole array.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Maintenance</div>
 <div class="wx-body">If A[mid]==target, return - correct. If A[mid]&lt;target, sortedness means every index &le; mid is &le; A[mid]&lt;target, so target (if present) is in A[mid+1..hi]: set lo=mid+1. Symmetric if A[mid]&gt;target.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Termination</div>
@@ -431,8 +433,8 @@ when the loop stops).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Correct on every sorted input - not just the traces we draw below.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Sortedness is used explicitly in the maintenance step - break it, and the whole proof (not just the speed) collapses.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Correct on every sorted input - not just the traces we draw below.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Sortedness is used explicitly in the maintenance step - break it, and the whole proof (not just the speed) collapses.</div></div>
 
 ---
 
@@ -448,17 +450,19 @@ when the loop stops).
 <div class="goalbox"><span class="k">Goal</span>Find 60 in [10, 20, 30, 40, 50, 60, 70] and count the rounds.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Round 1</div>
 <div class="wx-body">lo=0, hi=6, mid=3. A[3]=40 &lt; 60 &rarr; search right, lo=4.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Round 2</div>
 <div class="wx-body">lo=4, hi=6, mid=5. A[5]=60 = target &rarr; found at index 5.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Result</div>
@@ -466,8 +470,8 @@ when the loop stops).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Found at index 5 in 2 rounds - linear search would have needed 6 comparisons for the same target.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every round halves the range regardless of where the target sits - the worst case, not the lucky case, is what the O(log n) bound guarantees.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Found at index 5 in 2 rounds - linear search would have needed 6 comparisons for the same target.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every round halves the range regardless of where the target sits - the worst case, not the lucky case, is what the O(log n) bound guarantees.</div></div>
 
 ---
 
@@ -483,12 +487,13 @@ when the loop stops).
 <div class="goalbox"><span class="k">Goal</span>Trace both classic off-by-one bugs and see exactly where each one fails.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Bug #1: setup</div>
 <div class="wx-body">Array length 4. `hi` initialized to `length(A)`=4 (half-open convention) but the "greater" branch keeps `hi=mid-1` and `while lo<=hi` (closed-style). Target is larger than every element.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Bug #1: trace</div>
@@ -506,8 +511,8 @@ when the loop stops).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Bug #1 reads out of bounds; Bug #2 loops forever - both come from one index boundary being one position off.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Always trace a 2-element range by hand to check your convention is self-consistent before trusting an implementation.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Bug #1 reads out of bounds; Bug #2 loops forever - both come from one index boundary being one position off.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Always trace a 2-element range by hand to check your convention is self-consistent before trusting an implementation.</div></div>
 
 ---
 
@@ -523,17 +528,19 @@ when the loop stops).
 <div class="goalbox"><span class="k">Goal</span>Run BINARY-SEARCH on unsorted data and see it report a present element as missing.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">A = [50, 10, 30, 90, 5] - unsorted. Target = 10, which *is* present, at index 1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Trace</div>
 <div class="wx-body">lo=0,hi=4,mid=2: A[2]=30&gt;10 &rarr; hi=1. lo=0,hi=1,mid=0: A[0]=50&gt;10 &rarr; hi=&minus;1. lo=0,hi=&minus;1: loop ends &rarr; returns NOT-FOUND.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">But it's right there</div>
@@ -546,8 +553,8 @@ when the loop stops).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Binary search on unsorted data can silently report a present element as missing.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Sorted-looking" is not good enough - the proof needs every index &le; mid to be &le; A[mid], which one out-of-order pair anywhere can break.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Binary search on unsorted data can silently report a present element as missing.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Sorted-looking" is not good enough - the proof needs every index &le; mid to be &le; A[mid], which one out-of-order pair anywhere can break.</div></div>
 
 ---
 
@@ -563,22 +570,25 @@ when the loop stops).
 <div class="goalbox"><span class="k">Goal</span>A 16-entry sorted sample of CampusNav's directory, searching for room code 703.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Round 1</div>
 <div class="wx-body">lo=0, hi=15, mid=7. A[7]=802 &gt; 703 &rarr; search left, hi=6.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Round 2</div>
 <div class="wx-body">lo=0, hi=6, mid=3. A[3]=415 &lt; 703 &rarr; search right, lo=4.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Round 3</div>
 <div class="wx-body">lo=4, hi=6, mid=5. A[5]=615 &lt; 703 &rarr; search right, lo=6.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Round 4</div>
@@ -586,8 +596,8 @@ when the loop stops).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Found in 4 rounds. At the real 1,200-room scale, this is ~11 rounds - never up to 1,200.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every round is one A[mid] comparison and one range-halving - exactly the loop invariant, executed.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Found in 4 rounds. At the real 1,200-room scale, this is ~11 rounds - never up to 1,200.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every round is one A[mid] comparison and one range-halving - exactly the loop invariant, executed.</div></div>
 
 ---
 
@@ -602,22 +612,25 @@ when the loop stops).
 <div class="goalbox"><span class="k">Goal</span>Watch the range shrink to empty instead of to a match.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Rounds 1-2</div>
 <div class="wx-body">lo=0,hi=15,mid=7: A[7]=802&gt;550 &rarr; hi=6. lo=0,hi=6,mid=3: A[3]=415&lt;550 &rarr; lo=4.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Round 3</div>
 <div class="wx-body">lo=4, hi=6, mid=5. A[5]=615 &gt; 550 &rarr; search left, hi=4.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Round 4</div>
 <div class="wx-body">lo=4, hi=4, mid=4. A[4]=512 &lt; 550 &rarr; search right, lo=5.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">&#9733;</div>
 <div class="wx-title">Termination</div>
@@ -625,8 +638,8 @@ when the loop stops).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>The range shrank to empty without ever matching - by the invariant, 550 provably isn't in A.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>This is the termination proof's second case, made concrete: an empty range is itself the proof of absence.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>The range shrank to empty without ever matching - by the invariant, 550 provably isn't in A.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>This is the termination proof's second case, made concrete: an empty range is itself the proof of absence.</div></div>
 
 ---
 
@@ -739,8 +752,8 @@ technique from a week you've already sat through.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Every one of these three techniques reappears, unchanged, on the midterm - practice them exactly as shown here.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A full per-week recap, with practice problems for Weeks 1-7 individually, is Week 8's entire session.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Every one of these three techniques reappears, unchanged, on the midterm - practice them exactly as shown here.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A full per-week recap, with practice problems for Weeks 1-7 individually, is Week 8's entire session.</div></div>
 
 ---
 

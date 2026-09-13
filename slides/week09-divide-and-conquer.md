@@ -322,17 +322,19 @@ tree by hand (Week 4), which always works even when this shortcut doesn't.
 <div class="goalbox"><span class="k">Goal</span>Classify T(n) = T(n/2) + O(1) and confirm it matches Week 7's own bound.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Read off a, b, f(n)</div>
 <div class="wx-body">a=1 (one recursive call), b=2 (half the size), f(n)=O(1) (one comparison per call).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Watershed</div>
 <div class="wx-body">n^(log&#8322;a) = n^(log&#8322;1) = n^0 = 1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Match a case</div>
@@ -340,8 +342,8 @@ tree by hand (Week 4), which always works even when this shortcut doesn't.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = &Theta;(n^0 &middot; log n) = &Theta;(log n) - exactly what Week 7 established by direct reasoning about halving the search space.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even a recurrence with only one recursive call and no combine step still fits the same three-case framework.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = &Theta;(n^0 &middot; log n) = &Theta;(log n) - exactly what Week 7 established by direct reasoning about halving the search space.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even a recurrence with only one recursive call and no combine step still fits the same three-case framework.</div></div>
 
 ---
 
@@ -357,17 +359,19 @@ tree by hand (Week 4), which always works even when this shortcut doesn't.
 <div class="goalbox"><span class="k">Goal</span>Classify T(n) = 2T(n/2) + &Theta;(n) with the three-line shortcut.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Read off a, b, f(n)</div>
 <div class="wx-body">a=2, b=2, f(n)=&Theta;(n) (the linear MERGE step).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Watershed</div>
 <div class="wx-body">n^(log&#8322;a) = n^(log&#8322;2) = n^1 = n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Match a case</div>
@@ -380,8 +384,8 @@ tree by hand (Week 4), which always works even when this shortcut doesn't.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>&Theta;(n log n) - confirmed by the Master theorem instead of a full tree diagram.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Whenever f(n) exactly matches the watershed, the recursive calls and the combine step contribute equally - that's Case 2, every time.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>&Theta;(n log n) - confirmed by the Master theorem instead of a full tree diagram.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Whenever f(n) exactly matches the watershed, the recursive calls and the combine step contribute equally - that's Case 2, every time.</div></div>
 
 ---
 
@@ -397,17 +401,19 @@ tree by hand (Week 4), which always works even when this shortcut doesn't.
 <div class="goalbox"><span class="k">Goal</span>Classify T(n) = 4T(n/2) + n, and see why the outcome differs from merge sort's.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Read off a, b, f(n)</div>
 <div class="wx-body">a=4, b=2, f(n)=n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Watershed</div>
 <div class="wx-body">n^(log&#8322;a) = n^(log&#8322;4) = n^2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Match a case</div>
@@ -420,8 +426,8 @@ tree by hand (Week 4), which always works even when this shortcut doesn't.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = &Theta;(n^(log&#8322;a)) = &Theta;(n^2) - the recursive calls dominate, not the combine step.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Two recurrences that look almost identical can land in different Master theorem cases - always recompute the watershed, never guess from the shape alone.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = &Theta;(n^(log&#8322;a)) = &Theta;(n^2) - the recursive calls dominate, not the combine step.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Two recurrences that look almost identical can land in different Master theorem cases - always recompute the watershed, never guess from the shape alone.</div></div>
 
 ---
 
@@ -522,17 +528,19 @@ never re-checking a pair.
 <div class="goalbox"><span class="k">Goal</span>Find the best contiguous run in [2, -1, 3] and see whether crossing wins.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Split and recurse</div>
 <div class="wx-body">low=0, high=2, mid=1. Left half [2,-1]: best is [2]=2. Right half [3]: best is 3 (base case).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Crossing scan</div>
 <div class="wx-body">Left from mid=1: i=1, sum=-1; i=0, sum=2-1=1 &rarr; best-left=1. Right from mid+1=2: j=2, sum=3 &rarr; best-right=3.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Compare all three</div>
@@ -540,8 +548,8 @@ never re-checking a pair.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Best run is the whole array, [2, -1, 3], summing to 4 - exactly 2 + (-1) + 3.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even with just one negative element in the middle, the crossing case can still beat both halves alone.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Best run is the whole array, [2, -1, 3], summing to 4 - exactly 2 + (-1) + 3.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even with just one negative element in the middle, the crossing case can still beat both halves alone.</div></div>
 
 ---
 
@@ -557,22 +565,25 @@ never re-checking a pair.
 <div class="goalbox"><span class="k">Goal</span>Find the best energy window across the full array.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Split</div>
 <div class="wx-body">low=0, high=9, mid=4. Left half (indices 0-4): recursive best is [4,-3,5] = 6. Right half (indices 5-9): recursive best is [6,-3,4] = 7.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Crossing, left scan</div>
 <div class="wx-body">From mid=4 back to 0: sums are -1, -3, 2, -1, **3** (best, at i=0) - best-left=3.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Crossing, right scan</div>
 <div class="wx-body">From mid+1=5 to 9: sums are 6, 3, **7** (best, at j=7), -1, 4 - best-right=7.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">&#9733;</div>
 <div class="wx-title">Compare all three</div>
@@ -580,8 +591,8 @@ never re-checking a pair.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>CampusNav's best energy window runs [0,7], worth 10 - straight through a draining dip and out the other side.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The winning window wasn't visible in either half alone - only the crossing scan could find it.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>CampusNav's best energy window runs [0,7], worth 10 - straight through a draining dip and out the other side.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The winning window wasn't visible in either half alone - only the crossing scan could find it.</div></div>
 
 ---
 
@@ -597,17 +608,19 @@ never re-checking a pair.
 <div class="goalbox"><span class="k">Goal</span>Show every level does the same three things, then confirm the resulting recurrence.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">One level down</div>
 <div class="wx-body">[4,-3,5,-2,-1] (the left half above) splits again at its own midpoint, checks its own left/right/crossing cases, and so on down to single-element base cases.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Every level, same three steps</div>
 <div class="wx-body">Split (free), recurse twice, run one linear crossing scan - repeated at every level until the base case (a single element, trivially its own best subarray).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">The recurrence</div>
@@ -620,8 +633,8 @@ never re-checking a pair.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = 2T(n/2) + &Theta;(n) = &Theta;(n log n) - a genuinely faster algorithm than checking every start/end pair, discovered by applying the paradigm, not by luck.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every level of a divide-and-conquer recursion repeats the exact same three steps - that repetition is what a recurrence is counting.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = 2T(n/2) + &Theta;(n) = &Theta;(n log n) - a genuinely faster algorithm than checking every start/end pair, discovered by applying the paradigm, not by luck.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every level of a divide-and-conquer recursion repeats the exact same three steps - that repetition is what a recurrence is counting.</div></div>
 
 ---
 
@@ -675,17 +688,19 @@ is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
 <div class="goalbox"><span class="k">Goal</span>Count real multiplications for a^5, and compare to the naive approach.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Halving sequence</div>
 <div class="wx-body">5 (odd) &rarr; 2 (even) &rarr; 1 (odd) &rarr; 0 (base). Three halvings.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Build back up</div>
 <div class="wx-body">a^0=1 &rarr; a^1=a&middot;1^2=a (free, no real arithmetic) &rarr; a^2=(a^1)^2 (1 real squaring) &rarr; a^5=a&middot;(a^2)^2 (1 real squaring + 1 real extra multiply).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Count</div>
@@ -693,8 +708,8 @@ is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>a&#8309;: 3 multiplications by repeated squaring vs. 4 naively - a modest saving, but the same mechanism that pays off far more at larger n.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even at n=5, halving the exponent already beats counting by ones - the gap only widens from here.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>a&#8309;: 3 multiplications by repeated squaring vs. 4 naively - a modest saving, but the same mechanism that pays off far more at larger n.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even at n=5, halving the exponent already beats counting by ones - the gap only widens from here.</div></div>
 
 ---
 
@@ -710,17 +725,19 @@ is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
 <div class="goalbox"><span class="k">Goal</span>Count real multiplications for a^13, and see the gap widen.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Halving sequence</div>
 <div class="wx-body">13 &rarr; 6 &rarr; 3 &rarr; 1 &rarr; 0. Four halvings - &Theta;(log&#8322;13) &approx; 3.7, rounded up.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Build back up</div>
 <div class="wx-body">a^0=1 &rarr; a^1=a (free) &rarr; a^3=a&middot;(a^1)^2 (1 square + 1 extra) &rarr; a^6=(a^3)^2 (1 square) &rarr; a^13=a&middot;(a^6)^2 (1 square + 1 extra).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Count</div>
@@ -733,8 +750,8 @@ is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>a&#185;&#179;: 5 multiplications by repeated squaring vs. 12 naively.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The saving isn't fixed - it grows without bound as n grows, which is exactly what &Theta;(log n) vs. &Theta;(n) means.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>a&#185;&#179;: 5 multiplications by repeated squaring vs. 12 naively.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The saving isn't fixed - it grows without bound as n grows, which is exactly what &Theta;(log n) vs. &Theta;(n) means.</div></div>
 
 ---
 
@@ -750,17 +767,19 @@ is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
 <div class="goalbox"><span class="k">Goal</span>Count real multiplications for a^21, and confirm the pattern generalizes.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Halving sequence</div>
 <div class="wx-body">21 &rarr; 10 &rarr; 5 &rarr; 2 &rarr; 1 &rarr; 0. Five halvings.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Build back up</div>
 <div class="wx-body">a^21=a&middot;(a^10)^2 (square+extra); a^10=(a^5)^2 (square); a^5=a&middot;(a^2)^2 (square+extra); a^2=(a^1)^2 (square); a^1=a&middot;(a^0)^2 (free).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Count</div>
@@ -773,8 +792,8 @@ is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>a&#178;&#185;: 6 multiplications by repeated squaring vs. 20 naively.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The halving argument never depended on which specific exponent we picked - that's what makes it a genuine &Theta;(log n) bound, not a lucky count.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>a&#178;&#185;: 6 multiplications by repeated squaring vs. 20 naively.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The halving argument never depended on which specific exponent we picked - that's what makes it a genuine &Theta;(log n) bound, not a lucky count.</div></div>
 
 ---
 
@@ -828,8 +847,8 @@ halving $k$ each time gives $T(n) = T(n/2) + O(1) = \Theta(\log n)$.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Both checks match the direct values - the doubling identities behave exactly as claimed.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Two matches are strong evidence, not a proof for every k - but they show the identities jump straight to ways(2k) and ways(2k+1) without computing every value in between.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Both checks match the direct values - the doubling identities behave exactly as claimed.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Two matches are strong evidence, not a proof for every k - but they show the identities jump straight to ways(2k) and ways(2k+1) without computing every value in between.</div></div>
 
 ---
 

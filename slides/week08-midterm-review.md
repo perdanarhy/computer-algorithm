@@ -132,17 +132,19 @@ weeks at once.
 <div class="goalbox"><span class="k">Goal</span>State precisely what this evidence does and doesn't establish.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">What it establishes</div>
 <div class="wx-body">Only a much weaker claim: the function produced the correct output on these five particular inputs - nothing about the far larger set of inputs never tried.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">What actually closes the gap</div>
 <div class="wx-body">A loop-invariant proof (Weeks 5 and 7): initialization, maintenance, and termination together establish the claim for every valid input, not a sample.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Not a hypothetical</div>
@@ -155,8 +157,8 @@ weeks at once.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>"Looks right on a sample" and "proven correct" are different claims - only the second is what the midterm's proof questions ask for.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>This is the one idea Week 1 planted before the machinery to prove it existed.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>"Looks right on a sample" and "proven correct" are different claims - only the second is what the midterm's proof questions ask for.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>This is the one idea Week 1 planted before the machinery to prove it existed.</div></div>
 
 ---
 
@@ -224,8 +226,8 @@ Week 1 opened and Weeks 5 and 7's proofs closed.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>A real algorithm needs an unambiguous step-by-step definition and a guaranteed end - "looks/feels right" is never a substitute for either.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>When a midterm question asks "which property is violated," look first for a vague qualifier standing in for a precise test.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>A real algorithm needs an unambiguous step-by-step definition and a guaranteed end - "looks/feels right" is never a substitute for either.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>When a midterm question asks "which property is violated," look first for a vague qualifier standing in for a precise test.</div></div>
 
 ---
 
@@ -270,17 +272,19 @@ algorithm - efficiency is a *separate*, later question (all of Week
 <div class="goalbox"><span class="k">Goal</span>Prove 3n&sup2; + 20n + 100 = O(n&sup2;), then find where n&sup2; overtakes 100n.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The proof</div>
 <div class="wx-body">For n &ge; 1: n &le; n&sup2; and 1 &le; n&sup2;, so 3n&sup2;+20n+100 &le; 3n&sup2;+20n&sup2;+100n&sup2; = 123n&sup2;. Constants c=123, n0=1 satisfy the definition.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">The crossover</div>
 <div class="wx-body">For 100n vs. n&sup2;: solving n&sup2; &gt; 100n gives n &gt; 100. Below n=100, 100n is actually the larger value.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Why the crossover matters</div>
@@ -293,8 +297,8 @@ algorithm - efficiency is a *separate*, later question (all of Week
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>c=123, n0=1 proves the bound; n=100 is the concrete point past which n&sup2; wins outright.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A Big-O proof and a crossover calculation are two different tools - the first proves a bound holds eventually and forever, the second finds exactly when.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>c=123, n0=1 proves the bound; n=100 is the concrete point past which n&sup2; wins outright.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A Big-O proof and a crossover calculation are two different tools - the first proves a bound holds eventually and forever, the second finds exactly when.</div></div>
 
 ---
 
@@ -366,8 +370,8 @@ bigger for small $n$.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n)=2T(n/2)+n &rarr; &Theta;(n log n). T(n)=T(n&minus;1)+O(1) &rarr; O(n) - a smaller bound, for structural reasons, not because recursion "got faster."</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Depth and per-level cost are both required inputs to a recurrence's solution - never just one.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n)=2T(n/2)+n &rarr; &Theta;(n log n). T(n)=T(n&minus;1)+O(1) &rarr; O(n) - a smaller bound, for structural reasons, not because recursion "got faster."</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Depth and per-level cost are both required inputs to a recurrence's solution - never just one.</div></div>
 
 ---
 
@@ -417,7 +421,7 @@ cost bound changes.
 <div class="goalbox"><span class="k">Goal</span>Trace insertion sort on [4, 2a, 3, 2b] and pick the fastest sort for a near-sorted update.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The trace</div>
@@ -430,6 +434,7 @@ cost bound changes.
 </div>
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Stability holds</div>
@@ -447,8 +452,8 @@ cost bound changes.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>[4, 2a, 3, 2b] &rarr; [2a, 2b, 3, 4], order preserved; and adaptive sorts (insertion, bubble) win on nearly-sorted real data.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The same "strictly greater" comparison that gives insertion sort its stability is also what lets it detect and exploit a nearly-sorted array.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>[4, 2a, 3, 2b] &rarr; [2a, 2b, 3, 4], order preserved; and adaptive sorts (insertion, bubble) win on nearly-sorted real data.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The same "strictly greater" comparison that gives insertion sort its stability is also what lets it detect and exploit a nearly-sorted array.</div></div>
 
 ---
 
@@ -495,12 +500,13 @@ whole picture.
 <div class="goalbox"><span class="k">Goal</span>State the running time, why, a fix - and when to reach for merge sort instead.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The running time</div>
 <div class="wx-body">O(n&sup2;). On already-sorted data, the last element is always the largest remaining - every partition splits into one subproblem of size n&minus;1 and one of size 0: n levels of O(n) work, not log n levels.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">The fix</div>
@@ -518,8 +524,8 @@ whole picture.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Fixed last-element pivot on sorted data: O(n&sup2;). Fix the pivot strategy, or choose merge sort when the guarantee itself is the requirement.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Faster on average" and "safe to rely on" are different claims - only a worst-case bound answers the second one.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Fixed last-element pivot on sorted data: O(n&sup2;). Fix the pivot strategy, or choose merge sort when the guarantee itself is the requirement.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Faster on average" and "safe to rely on" are different claims - only a worst-case bound answers the second one.</div></div>
 
 ---
 
@@ -565,17 +571,19 @@ hoping the input stays "random."
 <div class="goalbox"><span class="k">Goal</span>State binary search's invariant and confirm the loop always reaches an exit.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The invariant</div>
 <div class="wx-body">If the target is present in the array, it lies within the current search window [lo, hi]. Before the loop, the window is the whole array - trivially true.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Why sortedness is required</div>
 <div class="wx-body">Each step discards the half that provably cannot contain the target, based on one comparison against the midpoint - only valid if everything in that half is known to be on the wrong side of the target.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Narrow-range termination</div>
@@ -588,8 +596,8 @@ hoping the input stays "random."
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>The invariant plus the shrinking-range argument together guarantee both correctness and termination, on every sorted input.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Provably cannot contain the target" is exactly where sortedness is required - on unsorted data the invariant simply breaks.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>The invariant plus the shrinking-range argument together guarantee both correctness and termination, on every sorted input.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Provably cannot contain the target" is exactly where sortedness is required - on unsorted data the invariant simply breaks.</div></div>
 
 ---
 
@@ -620,17 +628,19 @@ when $A$ is actually sorted.
 <div class="goalbox"><span class="k">Goal</span>Solve T(n) = 2T(n/2) + O(1), and compare it honestly to merge sort's recurrence.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Build the tree</div>
 <div class="wx-body">Level k has 2^k nodes, each of size n/2^k, each doing O(1) work - so level k costs O(2^k). Depth is log&#8322;n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Sum the series</div>
 <div class="wx-body">&sum; (k=0 to log&#8322;n) O(2^k) = O(2^(log&#8322;n + 1)) = O(n) - a geometric series dominated by its last (bottom) level alone.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Compare to merge sort, correctly</div>
@@ -643,8 +653,8 @@ when $A$ is actually sorted.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = 2T(n/2) + O(1) resolves to O(n) - smaller than merge sort's &Theta;(n log n), because the per-call work differs, not the branching factor.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Two recurrences that look similar can land on different bounds through very different mechanisms - never pattern-match by shape alone.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = 2T(n/2) + O(1) resolves to O(n) - smaller than merge sort's &Theta;(n log n), because the per-call work differs, not the branching factor.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Two recurrences that look similar can land on different bounds through very different mechanisms - never pattern-match by shape alone.</div></div>
 
 ---
 
@@ -683,8 +693,8 @@ when $A$ is actually sorted.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Avoid insertion sort and fixed-pivot quicksort here; merge sort or randomized/median-of-three quicksort are both safe.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Adaptive" and "guaranteed" are different properties - reverse-sorted data is exactly where the difference shows up.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Avoid insertion sort and fixed-pivot quicksort here; merge sort or randomized/median-of-three quicksort are both safe.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Adaptive" and "guaranteed" are different properties - reverse-sorted data is exactly where the difference shows up.</div></div>
 
 ---
 
@@ -700,17 +710,19 @@ when $A$ is actually sorted.
 <div class="goalbox"><span class="k">Goal</span>Show what's wrong with this plan, as a matter of correctness, not just speed.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">What the proof actually requires</div>
 <div class="wx-body">Binary search's maintenance proof relies on *every* index &le; mid being &le; A[mid], across the entire current range - not a spot-check of one or two boundary values.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Where the heuristic fails</div>
 <div class="wx-body">A "looks ordered" heuristic can pass on a range that isn't actually fully sorted - e.g. a single out-of-order pair buried in the middle, with both ends still looking fine.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">The consequence</div>
@@ -723,8 +735,8 @@ when $A$ is actually sorted.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>A spot-check heuristic cannot replace genuine full sortedness - the maintenance proof needs the whole range, not just its ends.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A precondition that's "probably true" is not the same as one that's proven true - the proof doesn't run on probabilities.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>A spot-check heuristic cannot replace genuine full sortedness - the maintenance proof needs the whole range, not just its ends.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A precondition that's "probably true" is not the same as one that's proven true - the proof doesn't run on probabilities.</div></div>
 
 ---
 
@@ -740,17 +752,19 @@ when $A$ is actually sorted.
 <div class="goalbox"><span class="k">Goal</span>State one genuine similarity and one genuine difference between the two proofs.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The similarity</div>
 <div class="wx-body">Both use initialization (true before the loop starts, usually trivially), maintenance (each iteration preserves the invariant, argued case by case), and termination (what the invariant implies once the exit condition is reached).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">The difference</div>
 <div class="wx-body">Insertion sort's invariant describes what's *true of a growing region* (A[0..i-1] is sorted) - termination confirms the whole array ended up in the claimed state, a positive confirmation.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">The opposite direction</div>
@@ -763,8 +777,8 @@ when $A$ is actually sorted.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same three-part shape, one proof builds a positive claim, the other narrows toward ruling a possibility out.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Learn the shape once, then ask "is this invariant building something, or eliminating something?" for any new proof you meet.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same three-part shape, one proof builds a positive claim, the other narrows toward ruling a possibility out.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Learn the shape once, then ask "is this invariant building something, or eliminating something?" for any new proof you meet.</div></div>
 
 ---
 
