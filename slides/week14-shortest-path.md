@@ -17,7 +17,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 </div>
 
 <!--
-notes: Open with: "Last week CampusNav learned to draw the whole campus as a graph. This week it finally learns to answer the one question everyone actually asks a map app: what's the fastest way from here to there?" This is also the last new-content week - Week 15 is the final exam, covering Weeks 9-14.
+notes: Open with: "Last week CampusNav learned to draw the whole campus as a graph. This week it finally learns to answer the one question everyone actually asks a map app: what's the fastest way from here to there?" This is also the last new-content week - Week 15 is the final exam, covering Weeks 9-14. Flag the new Week 14 Check, due before Week 15 begins.
 -->
 
 ---
@@ -45,27 +45,6 @@ notes: Open with: "Last week CampusNav learned to draw the whole campus as a gra
 </div>
 
 <!-- notes: Point at Week 14, then at Week 15. Say: "This is the last new technique of the semester. Next week is entirely review." -->
-
----
-
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: Two Routes to the Library
-
-<div class="thread">A quick warm-up. No algorithm needed yet.</div>
-
-You're standing at the Gate. A friend says "go through the Dorm and
-the Gym, it's more scenic." Another friend says "just cut past the
-CS Building, it's faster." Neither has actually timed it.
-
-- Both routes are made of segments you already know the walking time
-  for (you memorized them from the campus map last week).
-- Without walking both routes, how would you figure out - for sure,
-  not by guessing - which one is actually shorter?
-
-<!--
-notes: Let students think for 20 seconds. Someone will usually say "add up the segments." Push further: "What if there are five routes, not two? Fifty?" Do not name "Dijkstra" yet.
--->
 
 ---
 
@@ -256,16 +235,45 @@ the network.
 
 ---
 
-<!-- Act 3 / BUILD -->
+<!-- Act 3 / BUILD: Dijkstra idea + pseudocode merged, folds in the old warm-up's payload as a teacher-delivered lead-in -->
 
-# Dijkstra's Algorithm: The Greedy Idea
+# Dijkstra's Algorithm: Idea and Pseudocode
 
-<div class="thread">Back to the warm-up: how do you find the shortest route without walking every one? (CLRS 4th ed, &sect;22.3)</div>
+<div class="thread">Picture two routes to the Library: one "through the Dorm and the Gym," one "past the CS Building" - how do you know which is shorter without walking both? (CLRS 4th ed, &sect;22.3)</div>
+
+<div class="two-col">
+<div>
 
 1. Start at the source; its distance is 0, every other vertex starts at $\infty$.
 2. Repeatedly pick the **unvisited** vertex with the smallest tentative distance - this one is now guaranteed final ("settled").
 3. **Relax** every edge out of it: if going through it makes a neighbor's distance shorter, update that neighbor.
 4. Repeat until every vertex is settled.
+
+`EXTRACT-MIN` is the "settle the closest unvisited vertex" step; the
+inner loop is relaxation.
+
+</div>
+<div>
+
+```text
+DIJKSTRA(G, w, source):
+    for each vertex v in G.V:
+        dist[v] = infinity
+        prev[v] = NIL
+    dist[source] = 0
+    Q = all vertices in G.V, keyed by dist[]
+    while Q is not empty:
+        u = EXTRACT-MIN(Q)
+        for each vertex v adjacent to u:
+            if dist[u] + w(u, v) < dist[v]:
+                dist[v] = dist[u] + w(u, v)
+                prev[v] = u
+                DECREASE-KEY(Q, v, dist[v])
+    return dist, prev
+```
+
+</div>
+</div>
 
 <div class="why">
 Why is step 2 safe? Because every remaining edge weight is
@@ -277,148 +285,118 @@ exactly what breaks later this week.
 
 ---
 
-# Dijkstra's Algorithm: Pseudocode
+<!-- NEW: dense worked example, Dijkstra, simple tier -->
+<!-- _class: dense -->
 
-```text
-DIJKSTRA(G, w, source):
-    for each vertex v in G.V:
-        dist[v] = infinity
-        prev[v] = NIL
-    dist[source] = 0
-    Q = all vertices in G.V, keyed by dist[]
+<div class="eyebrow">Dijkstra · worked example 1 of 3 (simple)</div>
 
-    while Q is not empty:
-        u = EXTRACT-MIN(Q)              // smallest tentative distance
-        for each vertex v adjacent to u:
-            if dist[u] + w(u, v) < dist[v]:
-                dist[v] = dist[u] + w(u, v)
-                prev[v] = u
-                DECREASE-KEY(Q, v, dist[v])
+# Three Nodes: S, A, B
 
-    return dist, prev
-```
-
----
-
-# Reading the Pseudocode
-
-<div class="thread">Two moving parts: which vertex settles next, and what settling it updates.</div>
-
-`EXTRACT-MIN` is the "settle the closest unvisited vertex" step;
-the inner loop is relaxation.
-
----
-
-# Dijkstra Trace, Round 1: Settle Gate
-
-<div class="thread">Source distance is 0 by definition. Everything else starts unknown.</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Gate</div><div class="cell hl">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell">&infin;</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell">&infin;</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell">&infin;</div></div>
+<div class="wx-top">
+<div class="lead">The smallest graph where the direct edge is not the shortest route.</div>
+<div class="goalbox"><span class="k">Goal</span>Find every shortest distance from S on S-A=2, S-B=5, A-B=1.</div>
 </div>
 
-**Settled:** {Gate}. Relaxing Gate's edges: Library becomes 0+3=3,
-Dorm becomes 0+4=4. Everything else is still unreachable so far.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Settle S</div>
+<div class="wx-body">dist[S]=0. Relax S's edges: A becomes 0+2=2, B becomes 0+5=5.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Settle A</div>
+<div class="wx-body">Smallest unvisited: A (2). Relax A-B: 2+1=3 &lt; 5, so B improves to 3.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Settle B</div>
+<div class="wx-body">Only B left, now at 3. Final distances: S=0, A=2, B=3, via S&rarr;A&rarr;B - cheaper than the direct S-B edge (5).</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>&delta;(S,A)=2, &delta;(S,B)=3 - the direct edge (5) is never the answer once a cheaper detour exists.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Relaxation is what finds the detour - without it, Dijkstra would just report the direct edge's weight.</div>
 
 ---
 
-# Dijkstra Trace, Round 2: Settle Library
+<!-- NEW: dense worked example, Dijkstra, moderate tier -->
+<!-- _class: dense -->
 
-<div class="thread">Smallest tentative distance among the unvisited: Library (3).</div>
+<div class="eyebrow">Dijkstra · worked example 2 of 3 (moderate)</div>
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Gate</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell hl">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell hl2">5</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell hl2">8</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell">&infin;</div></div>
+# The Campus Graph, Round by Round
+
+<div class="wx-top">
+<div class="lead">Same six-location graph as this week's core example, source = Gate.</div>
+<div class="goalbox"><span class="k">Goal</span>Settle all six vertices and read off the shortest-path tree.</div>
 </div>
 
-**Settled:** {Gate, Library}. Relaxing Library's edges: CS-Building
-becomes 3+2=5, Gym becomes 3+5=8.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Rounds 1-2</div>
+<div class="wx-body">Settle Gate(0): relax to Library=3, Dorm=4. Settle Library(3): relax to CS-Building=3+2=5, Gym=3+5=8.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Rounds 3-4</div>
+<div class="wx-body">Settle Dorm(4): relax Dorm&rarr;Gym offers 4+6=10, not better than 8 - no change. Settle CS-Building(5): relax to Cafeteria=5+2=7.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Rounds 5-6</div>
+<div class="wx-body">Settle Cafeteria(7), smaller than Gym's 8: relax Cafeteria&rarr;Gym offers 7+3=10 - no change. Settle Gym(8) last, nothing left to relax.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Reading the tree</div>
+<div class="wx-body">Final, proven-optimal distances: Gate 0, Library 3, Dorm 4, CS-Building 5, Cafeteria 7, Gym 8. Tree: Gate&rarr;Library(3), Gate&rarr;Dorm(4), Library&rarr;CS-Building(5), CS-Building&rarr;Cafeteria(7), Library&rarr;Gym(8).</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Six settles, six final distances - every vertex settled exactly once, in increasing distance order.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Cafeteria (7) settles before Gym (8) even though Gym was discovered first - Dijkstra always settles by tentative distance, never by discovery order.</div>
 
 ---
 
-# Dijkstra Trace, Round 3: Settle Dorm
+<!-- NEW: dense worked example, Dijkstra, harder tier (the negative-weight counterexample) -->
+<!-- _class: dense -->
 
-<div class="thread">Smallest tentative distance among the unvisited: Dorm (4).</div>
+<div class="eyebrow">Dijkstra · worked example 3 of 3 (harder)</div>
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Gate</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell hl">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell">5</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell">8</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell">&infin;</div></div>
+# Where Dijkstra Breaks: One Negative Edge
+
+<div class="wx-top">
+<div class="lead">A clean, minimal counterexample - no lucky ties, just a wrong answer.</div>
+<div class="goalbox"><span class="k">Goal</span>Show Dijkstra reports the wrong distance the moment one edge is negative.</div>
 </div>
 
-**Settled:** {Gate, Library, Dorm}. Relaxing Dorm's edges: Dorm→Gym
-would offer 4+6=10 - **not** better than Gym's existing 8, so no
-update. This is relaxation *failing* to improve something, which is
-just as important to trace as when it succeeds.
-
----
-
-# Dijkstra Trace, Round 4: Settle CS-Building
-
-<div class="thread">Smallest tentative distance among the unvisited: CS-Building (5).</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Gate</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell hl">5</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell">8</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell hl2">7</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">Source S. Directed edges: S&rarr;C=2, S&rarr;B=3, B&rarr;C=&minus;4.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Settle S, then C</div>
+<div class="wx-body">Settle S(0). Frontier: C=2, B=3. Smallest is C (2) - settle it, <strong>final</strong>. Dijkstra reports &delta;(S,C) = 2.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Settle B, relax B&rarr;C</div>
+<div class="wx-body">Settle B(3). Relax B&rarr;C: candidate 3+(&minus;4) = &minus;1.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The wrong answer</div>
+<div class="wx-body">&minus;1 is less than C's distance of 2 - but C is already settled, so standard Dijkstra silently skips this update. True shortest distance, via S&rarr;B&rarr;C, is &minus;1. Dijkstra's reported answer, 2, is simply wrong.</div>
+</div>
 </div>
 
-**Settled:** {Gate, Library, Dorm, CS-Building}. Relaxing
-CS-Building's edges: Cafeteria becomes 5+2=7.
-
----
-
-# Dijkstra Trace, Round 5: Settle Cafeteria
-
-<div class="thread">Smallest tentative distance among the unvisited: Cafeteria (7), not Gym (8).</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Gate</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell">5</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell">8</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell hl">7</div></div>
-</div>
-
-**Settled:** {Gate, Library, Dorm, CS-Building, Cafeteria}. Relaxing
-Cafeteria's edges: Cafeteria→Gym would offer 7+3=10 - not better than
-Gym's existing 8, so no update.
-
----
-
-# Dijkstra Trace, Round 6: Settle Gym - Done
-
-<div class="thread">Only one unvisited vertex left.</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Gate</div><div class="cell hl2">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell hl2">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell hl2">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell hl2">5</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell hl2">7</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell hl">8</div></div>
-</div>
-
-Every vertex is now settled. These six numbers are the **final,
-proven-optimal** shortest distances from Gate - the shortest-path
-tree is Gate→Library (3), Gate→Dorm (4), Library→CS-Building (5
-total), CS-Building→Cafeteria (7 total), Library→Gym (8 total).
+<div class="conclusion"><span class="k">Conclusion</span>One negative edge, no lucky tie: Dijkstra's "settle and never revisit" strategy reports 2 when the true answer is &minus;1.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Dijkstra's correctness proof depends entirely on non-negative weights - with even one negative edge, no amount of "it happened to work here" is a guarantee.</div>
 
 ---
 
@@ -440,25 +418,6 @@ campus graph (sparse - a junction connects to only a handful of
 walkways, not every other junction), this is dramatically faster than
 checking every possible route by hand, which grows exponentially with
 the number of stops.
-
----
-
-<!-- NEW: worksheet hand-off -->
-
-# Now: Worksheet Part A
-
-<div class="thread">Time to run the algorithm yourself.</div>
-
-Work with your neighbor. Open **[Worksheet Part
-A](materials/week14/worksheet.html)** and hand-simulate Dijkstra's
-relaxation steps on this same campus graph, from Gate, filling in the
-distance table round by round.
-
-**~15 minutes.** Raise your hand if a relaxation doesn't match.
-
-<!--
-notes: Walk the room while pairs work. After 15 minutes, ask one pair to read out their final distance table and compare against the slide trace above.
--->
 
 ---
 
@@ -554,45 +513,26 @@ all; it would simply report a wrong, finite answer.
 
 ---
 
-# A Cleaner Example of the Same Failure
+<!-- Bellman-Ford idea + pseudocode merged -->
 
-<div class="thread">Same mechanism, smaller graph, no lucky tie - this time Dijkstra is just wrong.</div>
-
-Source $S$, with $S{\to}C = 2$, $S{\to}B = 3$, and one more edge
-$B{\to}C = -4$ (directed).
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Settle $S$ (0). Frontier: $C=2$, $B=3$.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Smallest is $C$ (2) - settle it, <strong>final</strong>. Dijkstra reports $\delta(S,C) = 2$.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Smallest remaining is $B$ (3) - settle it. Relax $B{\to}C$: candidate $3 + (-4) = -1$.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">$-1$ is less than $C$'s current distance of $2$ - but $C$ is already settled, so standard Dijkstra <strong>silently skips this update</strong>. The true shortest distance, via $S{\to}B{\to}C$, is $-1$. Dijkstra's reported answer, $2$, is simply wrong - no lucky tie saves it this time.</div></div>
-</div>
-
-<div class="why">
-The general, provable fact (this week's core misconception to avoid):
-Dijkstra's correctness proof depends entirely on non-negative
-weights. With even one negative edge, no amount of "it happened to
-work here" is a guarantee.
-</div>
-
----
-
-# Bellman-Ford: The Idea
+# Bellman-Ford: Idea and Pseudocode
 
 <div class="thread">If you can't trust "settle and never revisit," stop settling permanently. (CLRS 4th ed, &sect;22.1)</div>
+
+<div class="two-col">
+<div>
 
 - Initialize distances exactly like Dijkstra: source = 0, everything
   else = $\infty$.
 - Instead of picking one vertex at a time, **relax every edge in the
   graph**, in any order, once.
-- Repeat that full pass **$V - 1$ times total**.
+- Repeat that full pass **V − 1 times total**.
 - No priority queue, no "settled" vertices - every distance stays
   open to improvement until the algorithm finishes, so a negative
   edge discovered late can still correct an earlier estimate.
 
----
-
-# Bellman-Ford: Pseudocode
+</div>
+<div>
 
 ```text
 BELLMAN-FORD(G, w, source):
@@ -600,19 +540,114 @@ BELLMAN-FORD(G, w, source):
         dist[v] = infinity
         prev[v] = NIL
     dist[source] = 0
-
-    for i = 1 to |G.V| - 1:                 // V-1 rounds
+    for i = 1 to |G.V| - 1:
         for each edge (u, v) in G.E:
             if dist[u] + w(u, v) < dist[v]:
                 dist[v] = dist[u] + w(u, v)
                 prev[v] = u
-
-    for each edge (u, v) in G.E:             // one more pass
+    for each edge (u, v) in G.E:
         if dist[u] + w(u, v) < dist[v]:
             report "negative-weight cycle detected"
-
     return dist, prev
 ```
+
+</div>
+</div>
+
+---
+
+<!-- NEW: dense worked example, Bellman-Ford, simple tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Bellman-Ford · worked example 1 of 3 (simple)</div>
+
+# Three Nodes, One Negative Edge
+
+<div class="wx-top">
+<div class="lead">The smallest graph where a negative edge actually changes the answer.</div>
+<div class="goalbox"><span class="k">Goal</span>Find every shortest distance from S on S&rarr;A=4, A&rarr;B=&minus;2, S&rarr;B=5.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">V=3, so V&minus;1=2 rounds are required. dist[S]=0, dist[A]=dist[B]=&infin;.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Round 1</div>
+<div class="wx-body">S&rarr;A: 0+4=4 &lt; &infin;, update A=4. A&rarr;B: 4+(&minus;2)=2 &lt; &infin;, update B=2. S&rarr;B: 0+5=5, not &lt; 2, no change.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Round 2</div>
+<div class="wx-body">Every edge re-checked, nothing improves. Final: A=4, B=2, via S&rarr;A&rarr;B - beats the direct S&rarr;B edge (5).</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>&delta;(S,B)=2, not the direct edge's 5 - the negative edge made the detour through A the true shortest route.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Round 2 found nothing new here, but Bellman-Ford has no way to know that in advance - it always budgets V&minus;1 rounds.</div>
+
+---
+
+# Bellman-Ford on the Campus Graph
+
+<div class="thread">Same graph, same walkway edge, the algorithm that's actually safe to use.</div>
+
+Relaxing every edge (both directions of each walkway, plus the
+one-way −4 walkway) just **once**, in the natural reading order,
+already reaches the final answer:
+
+<div class="tracetable">
+<div class="row"><div class="rowlabel">&nbsp;</div><div class="cell hl">Round 0</div><div class="cell hl">Round 1</div></div>
+<div class="row"><div class="rowlabel">Gate</div><div class="cell">0</div><div class="cell">0</div></div>
+<div class="row"><div class="rowlabel">Library</div><div class="cell">&infin;</div><div class="cell">3</div></div>
+<div class="row"><div class="rowlabel">Dorm</div><div class="cell">&infin;</div><div class="cell">4</div></div>
+<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell">&infin;</div><div class="cell">5</div></div>
+<div class="row"><div class="rowlabel">Gym</div><div class="cell">&infin;</div><div class="cell">8</div></div>
+<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell">&infin;</div><div class="cell">7</div></div>
+</div>
+
+---
+
+<!-- NEW: dense worked example, Bellman-Ford, moderate tier (absorbs the 3 edge-by-edge slides and the "still runs 5 more rounds" slide) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Bellman-Ford · worked example 2 of 3 (moderate)</div>
+
+# Round 1, Every Edge
+
+<div class="wx-top">
+<div class="lead">The table above is the summary. Here is every single check that produced it, visiting G, L, C, D, Y, F in turn.</div>
+<div class="goalbox"><span class="k">Goal</span>Relax all 15 directed checks (7 undirected edges, both ways, plus the one-way credit) once.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Gate, Library</div>
+<div class="wx-body">G&rarr;L: 0+3=3&lt;&infin;, L=3. G&rarr;D: 0+4=4&lt;&infin;, D=4. L&rarr;G: 3+3=6, not&lt;0. L&rarr;C: 3+2=5&lt;&infin;, C=5. L&rarr;Y: 3+5=8&lt;&infin;, Y=8.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">CS-Bldg, Dorm, Gym</div>
+<div class="wx-body">C&rarr;L: 5+2=7, not&lt;3. C&rarr;F: 5+2=7&lt;&infin;, F=7. D&rarr;G: 4+4=8, not&lt;0. D&rarr;Y: 4+6=10, not&lt;8. Y&rarr;L: 8+5=13, not&lt;3.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Gym, Cafeteria</div>
+<div class="wx-body">Y&rarr;D: 8+6=14, not&lt;4. Y&rarr;F: 8+3=11, not&lt;7. F&rarr;Y: 7+3=10, not&lt;8. F&rarr;C: 7+2=9, not&lt;5. F&rarr;L(&minus;4): 7&minus;4=3, ties (not &lt;3) - the credit only ties Library, never beats it.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Why it still runs 5 rounds</div>
+<div class="wx-body">Round 1 already reached the final answer here - but Bellman-Ford cannot know that in advance, so it must still run all V&minus;1=5 rounds to guarantee it. Rounds 2-5 change nothing; the extra check pass also finds nothing - no negative cycle, distances confirmed final.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>15 edge checks, 4 improve a distance, 1 (the &minus;4 credit) only ties - matching the summary table exactly.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A different edge-visiting order could take longer than one round to converge - that's exactly why Bellman-Ford always budgets the full V&minus;1 rounds.</div>
 
 ---
 
@@ -651,98 +686,43 @@ BELLMAN-FORD(G, w, source):
 
 ---
 
-# Bellman-Ford on the Campus Graph
+<!-- NEW: dense worked example, Bellman-Ford, harder tier (negative-cycle detection) -->
+<!-- _class: dense -->
 
-<div class="thread">Same graph, same walkway edge, the algorithm that's actually safe to use.</div>
+<div class="eyebrow">Bellman-Ford · worked example 3 of 3 (harder)</div>
 
-Relaxing every edge (both directions of each walkway, plus the
-one-way −4 walkway) just **once**, in the natural reading order,
-already reaches the final answer:
+# A Steeper Credit Would Create a Cycle
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">&nbsp;</div><div class="cell hl">Round 0</div><div class="cell hl">Round 1</div></div>
-<div class="row"><div class="rowlabel">Gate</div><div class="cell">0</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">Library</div><div class="cell">&infin;</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">Dorm</div><div class="cell">&infin;</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">CS-Bldg</div><div class="cell">&infin;</div><div class="cell">5</div></div>
-<div class="row"><div class="rowlabel">Gym</div><div class="cell">&infin;</div><div class="cell">8</div></div>
-<div class="row"><div class="rowlabel">Cafeteria</div><div class="cell">&infin;</div><div class="cell">7</div></div>
+<div class="wx-top">
+<div class="lead">Isolate the Library-CS-Building-Cafeteria loop and make the credit -5 instead of -4, purely to see what a real negative cycle does.</div>
+<div class="goalbox"><span class="k">Goal</span>Show why Bellman-Ford can only ever report this case, never silently guess a wrong number.</div>
 </div>
 
----
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">Isolated 3-edge cycle: L&rarr;C=2, C&rarr;F=2, F&rarr;L=&minus;5. For illustration only, start dist[L]=0.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Lap 1</div>
+<div class="wx-body">L&rarr;C: 0+2=2, C=2. C&rarr;F: 2+2=4, F=4. F&rarr;L: 4+(&minus;5)=&minus;1 &lt; 0, update L=&minus;1.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Lap 2</div>
+<div class="wx-body">L&rarr;C: &minus;1+2=1&lt;2, C=1. C&rarr;F: 1+2=3&lt;4, F=3. F&rarr;L: 3+(&minus;5)=&minus;2&lt;&minus;1, update L=&minus;2.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">It never stops</div>
+<div class="wx-body">Each lap subtracts exactly 1 from L's distance, forever. The extra V-th pass always finds one more improvement, so Bellman-Ford correctly reports "negative-weight cycle detected" instead of a wrong finite number - exactly what Dijkstra has no mechanism to notice at all.</div>
+</div>
+</div>
 
-<!-- NEW: per-edge Bellman-Ford trace, round 1, part 1 -->
-
-# Bellman-Ford Round 1, Edge by Edge (1/3)
-
-<div class="thread">The table above is the summary. Here's every single check that produced it.</div>
-
-Relaxing every directed edge once, visiting vertices `G, L, C, D, Y, F`
-in turn and each one's outgoing edges in adjacency-list order. Gate
-and Library's edges first:
-
-| Edge | Check | Result |
-|---|---|---|
-| G&rarr;L (3) | $0+3=3 < \infty$ | `dist[L] = 3` |
-| G&rarr;D (4) | $0+4=4 < \infty$ | `dist[D] = 4` |
-| L&rarr;G (3) | $3+3=6$, not $< 0$ | no change |
-| L&rarr;C (2) | $3+2=5 < \infty$ | `dist[C] = 5` |
-| L&rarr;Y (5) | $3+5=8 < \infty$ | `dist[Y] = 8` |
-
-Four of these five edges already improve a distance.
-
----
-
-<!-- NEW: per-edge Bellman-Ford trace, round 1, part 2 -->
-
-# Bellman-Ford Round 1, Edge by Edge (2/3)
-
-<div class="thread">Same pass, continued - CS-Building, Dorm, and Gym's edges.</div>
-
-| Edge | Check | Result |
-|---|---|---|
-| C&rarr;L (2) | $5+2=7$, not $< 3$ | no change |
-| C&rarr;F (2) | $5+2=7 < \infty$ | `dist[F] = 7` |
-| D&rarr;G (4) | $4+4=8$, not $< 0$ | no change |
-| D&rarr;Y (6) | $4+6=10$, not $< 8$ | no change |
-| Y&rarr;L (5) | $8+5=13$, not $< 3$ | no change |
-
-One more update here, C&rarr;F - the rest of this round finds nothing
-left to improve.
-
----
-
-<!-- NEW: per-edge Bellman-Ford trace, round 1, part 3 -->
-
-# Bellman-Ford Round 1, Edge by Edge (3/3)
-
-<div class="thread">Gym and Cafeteria's remaining edges, including the -4 credit.</div>
-
-| Edge | Check | Result |
-|---|---|---|
-| Y&rarr;D (6) | $8+6=14$, not $< 4$ | no change |
-| Y&rarr;F (3) | $8+3=11$, not $< 7$ | no change |
-| F&rarr;Y (3) | $7+3=10$, not $< 8$ | no change |
-| F&rarr;C (2) | $7+2=9$, not $< 5$ | no change |
-| F&rarr;L (-4) | $7-4=3$, not $< 3$ (ties) | no change |
-
-None of these five change anything - `F→L (-4)` only *ties* Library's
-already-settled distance. This particular edge order happened to
-finish in one pass; a different order could take longer, which is
-exactly why Bellman-Ford can't stop early in general.
-
----
-
-# Why Bellman-Ford Still Runs Five More Rounds
-
-<div class="thread">One round already found the answer - the algorithm can't know that yet.</div>
-
-Rounds 2-5 change nothing - but Bellman-Ford has no way to know that
-in advance, so it must always run all $V-1=5$ rounds to *guarantee*
-this. Round 6 (the extra check) also finds no improvement: **no
-negative cycle**, so these five numbers are confirmed final - matching
-Dijkstra's answer here only because this particular −4 credit happens
-to leave the Library–CS-Building–Cafeteria loop at exactly 0.
+<div class="conclusion"><span class="k">Conclusion</span>A single -1-per-lap cycle makes "shortest path" undefined - Bellman-Ford's extra pass is what catches it.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The deck's actual -4 credit leaves this loop at exactly 0 (no cycle) - this shows what happens once it tips negative.</div>
 
 ---
 
@@ -768,27 +748,6 @@ Dijkstra is what should actually ship. Bellman-Ford earns its keep
 the moment <em>any</em> feature (like a shortcut credit) can make an edge
 negative.
 </div>
-
----
-
-<!-- NEW: worksheet hand-off -->
-
-# Now: Worksheet Part B
-
-<div class="thread">Watch the failure and the fix, by hand.</div>
-
-With the same partner, open **[Worksheet Part
-B](materials/week14/worksheet.html)**: re-run Dijkstra on the campus
-graph with the covered-walkway edge added, confirm where it stops
-checking Library, then run Bellman-Ford on the same graph and compare.
-
-**~15 minutes.**
-
----
-
-# P, NP, and NP-Completeness
-
-<div class="driving-q">A different kind of question: which problems have *any* efficient algorithm at all?</div>
 
 ---
 
@@ -830,8 +789,6 @@ reverse is also always true.
 
 ---
 
-<!-- TRIMMED: P/NP section reduced to its essential core (definitions, one example, one-line why-we-care) per SPINE decongestion pass. Fuller depth (Shortest Path Is in P, the standalone "why shortest path doesn't help" slide) already lives in materials/week14/handout.md, Part 4. -->
-
 # The Campus Scavenger Hunt: NP-Hard
 
 <div class="thread">Same campus graph, one extra constraint, a completely different kind of problem.</div>
@@ -852,52 +809,43 @@ minimizing total walking distance.
 
 ---
 
-<!-- NEW: worked example of CLRS 4th ed section 34.2's polynomial-time-verification idea, using the scavenger-hunt framing already in the deck -->
+<!-- NEW: dense worked example, verifying a scavenger-hunt route (merges 3 slides into one graduated example) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">P vs. NP · worked example</div>
 
 # Verifying a Scavenger-Hunt Route, By Hand
 
-<div class="thread">"Hard to find" and "hard to check" are not the same claim - watch the check actually happen. (CLRS 4th ed, &sect;34.2)</div>
-
-A CampusNav intern proposes this candidate route: **Gate &rarr; Dorm
-&rarr; Gym &rarr; Cafeteria &rarr; CS-Building &rarr; Library**. Is it
-a valid scavenger-hunt route, and if so, how long is it? Verifying
-needs only two checks, both fast:
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Every one of the six locations appears <strong>exactly once</strong> - a single pass down the list, $O(V)$.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Every <strong>consecutive pair</strong> is an actual edge on the campus graph, and their weights sum correctly - one adjacency-list lookup per step, $O(V)$ lookups total.</div></div>
+<div class="wx-top">
+<div class="lead">"Hard to find" and "hard to check" are not the same claim - watch the check actually happen. (CLRS 4th ed, &sect;34.2)</div>
+<div class="goalbox"><span class="k">Goal</span>Verify a candidate route in polynomial time, without solving the harder search problem.</div>
 </div>
 
----
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The candidate</div>
+<div class="wx-body">Gate &rarr; Dorm &rarr; Gym &rarr; Cafeteria &rarr; CS-Building &rarr; Library. Check 1: all six locations appear exactly once - one pass, O(V).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Check every edge</div>
+<div class="wx-body">Gate&rarr;Dorm(4), Dorm&rarr;Gym(6), Gym&rarr;Cafeteria(3), Cafeteria&rarr;CS-Building(2), CS-Building&rarr;Library(2) - all five pairs are real edges, one adjacency-list lookup each.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Sum it</div>
+<div class="wx-body">4+6+3+2+2 = 17 minutes total. Verified valid, in five quick lookups plus one pass over the list.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Fast to check, slow to find</div>
+<div class="wx-body">Verifying took O(V) work. <em>Finding</em> this route among all orderings of six locations (up to 6!/2 = 360 distinct routes) offers no comparable shortcut - that gap is exactly what puts the scavenger hunt in NP without putting it in P.</div>
+</div>
+</div>
 
-<!-- NEW: continuation of the verification worked example - the actual arithmetic -->
-
-# The Check, Worked Out
-
-<div class="thread">Same candidate route - here is every lookup the verifier performs.</div>
-
-| Consecutive pair | Edge exists? | Weight |
-|---|---|---|
-| Gate &rarr; Dorm | yes | 4 |
-| Dorm &rarr; Gym | yes | 6 |
-| Gym &rarr; Cafeteria | yes | 3 |
-| Cafeteria &rarr; CS-Building | yes | 2 |
-| CS-Building &rarr; Library | yes | 2 |
-
-All six locations appeared exactly once, every consecutive pair is a
-real edge, and the total route length is $4+6+3+2+2 = 17$ minutes.
-
----
-
-# Fast to Check, Slow to Find
-
-<div class="thread">The same route, the same five lookups - now the point they make.</div>
-
-**Verified valid, in five quick lookups** - even though *finding* this
-route among all the ways to order six locations (up to $6!/2 = 360$
-distinct routes on an undirected graph this size) offers no comparable
-shortcut. That gap, fast to check versus slow to find, is exactly what
-puts the scavenger hunt in NP without putting it in P.
+<div class="conclusion"><span class="k">Conclusion</span>A candidate route verifies in a handful of lookups; no known method finds the best one nearly as fast.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>NP is about how fast a solution can be checked - not how slow it is to find, the most common mix-up here.</div>
 
 ---
 
@@ -968,43 +916,12 @@ team learned this week exactly why that would be dangerous.
 - **Confusing "hard to solve" with "hard to verify."** The scavenger
   hunt is hard to *solve* but easy to *verify* - that gap is the
   entire reason NP is an interesting class at all.
+- **Assuming both campus problems share one complexity class.**
+  Shortest path is in P; the scavenger hunt is NP-complete.
 
 ---
 
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. On a small graph, why does Dijkstra never reconsider a vertex once it's been settled - and why does that assumption require non-negative weights?
-2. Why does Bellman-Ford need exactly $V-1$ rounds (not more, not fewer) to guarantee correct distances, assuming no negative cycle?
-3. Is "find the shortest route from Gate to CS-Building" in P, in NP, both, or neither? What about "find a scavenger-hunt route visiting every building exactly once"?
-
----
-
-# Answers
-
-1. A settled vertex's distance is treated as final because, with only non-negative weights left to explore, no future path through an unsettled vertex could ever be cheaper. A negative edge can violate exactly that assumption, letting a later-discovered path beat an already-"final" distance that Dijkstra will never re-check.
-2. Any shortest path (with no negative cycle) is simple and therefore uses at most $V-1$ edges; round $k$ correctly resolves all shortest paths of $\leq k$ edges, so round $V-1$ resolves every possible shortest path in the graph, regardless of edge order.
-3. Shortest path to CS-Building is in **P** (and therefore also in NP - solvable fast implies verifiable fast). The scavenger-hunt route is in **NP** (easy to verify) but believed **not** to be in P - it is NP-hard/NP-complete-shaped, with no known efficient algorithm.
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 14 Quiz](materials/week14/quiz.html)**. Answer on
-your own, about 10 minutes. Check your own answers at the end.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, discuss as a group any question most of the class missed - the P/NP question in particular tends to need a second pass.
--->
-
----
-
-<!-- NEW: pointer slide, replaces the moved final-exam-blueprint block (now the central content of slides/week15-final-review.md) -->
+<!-- Pointer slide, points to Week 15's full worked practice set -->
 
 # Final Exam Blueprint
 
@@ -1081,6 +998,10 @@ next structures built on top of this week's single-source algorithms.
   most common misreading.
 - Shortest path is in P; the campus scavenger hunt is NP-hard - same
   campus, two very different kinds of problem.
+- **New: Week 14 Check** - a short graded exercise on Dijkstra,
+  Bellman-Ford, and P vs. NP, released now, due before Week 15
+  begins, separate from Assignment 4 (see
+  `materials/assignments/week14-check.html`).
 
 ---
 

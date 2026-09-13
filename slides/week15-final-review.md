@@ -75,7 +75,7 @@ close the loop." Keep the tone warm, not just administrative.
 
 ---
 
-<!-- Act 3 / BUILD: "Check yourself" expanded into the full review (short review variant, SPINE.md) -->
+<!-- Act 3 / BUILD: the review-question format expanded into the full review (short review variant, SPINE.md) -->
 
 # Coverage
 
@@ -204,7 +204,7 @@ adjacency list? Justify with space complexity.
 
 # Answer 5
 
-- Adjacency **matrix**: $O(V^2) = 50^2 = 2{,}500$ cells, regardless
+- Adjacency **matrix**: $V^2 = 50^2 = 2{,}500$ cells, regardless
   of how many walkways actually exist.
 - Adjacency **list**: $O(V + E) = 50 + 140 = 190$ entries total.
 
@@ -390,9 +390,9 @@ enjoyment without exceeding 5 units - and which activities achieve it.
 
 ---
 
-<!-- NEW: Week 11 worked solution, part 1 -->
+<!-- MERGED: Week 11 worked solution (table + reading, was 2 slides) -->
 
-# Worked Solution: the DP Table
+# Worked Solution: Table and Result
 
 <div class="thread">dp[i][w] = best enjoyment using the first i activities, budget w.</div>
 
@@ -404,21 +404,11 @@ enjoyment without exceeding 5 units - and which activities achieve it.
 | + Trivia (1,2) | 0 | 2 | 4 | 6 | 7 | 9 |
 | + Photo Walk (4,6) | 0 | 2 | 4 | 6 | 7 | 9 |
 
----
-
-<!-- NEW: Week 11 worked solution, part 2 -->
-
-# Worked Solution: Reading the Table
-
-`dp[4][5] = 9` - the maximum possible enjoyment. Tracing back: adding
-Photo Walk didn't change `w=5` (still 9), so Photo Walk isn't used;
-adding Trivia also left `w=5` unchanged, so Trivia isn't used either;
-adding Board Game raised `w=5` from 4 to 9, using its own budget 3
-plus Movie's budget 2 - exactly 5.
-
-**Maximum enjoyment = 9, via Movie + Board Game** (2+3 = 5 units,
-4+5 = 9 enjoyment) - the exact same "include vs. exclude" recurrence
-as the Tour Planner, just a new free block and a new activity list.
+`dp[4][5] = 9` - the maximum, via **Movie + Board Game** (2+3=5
+units, 4+5=9 enjoyment). Tracing back: Photo Walk and Trivia both
+leave `w=5` unchanged, so neither is used; Board Game raises it from
+4 to 9 using its own budget 3 plus Movie's budget 2 - the same
+"include vs. exclude" recurrence as the Tour Planner.
 
 ---
 
@@ -441,9 +431,9 @@ subsequence (shared courses, in order).
 
 ---
 
-<!-- NEW: Week 12 worked solution, part 1 -->
+<!-- MERGED: Week 12 worked solution (table + reading, was 2 slides) -->
 
-# Worked Solution: the DP Table
+# Worked Solution: Table and Result
 
 <div class="thread">Rows = Student C's courses, columns = Student D's courses.</div>
 
@@ -455,21 +445,11 @@ subsequence (shared courses, in order).
 | ENG150 | 0 | 1 | 1 | 1 | 1 |
 | STAT210 | 0 | 1 | 1 | 2 | 2 |
 
----
-
-<!-- NEW: Week 12 worked solution, part 2 -->
-
-# Worked Solution: Reading the Table
-
-`dp[4][4] = 2` - the LCS has length 2. Tracing back from the
-bottom-right corner: STAT210 matches STAT210 (contributing the final
-"2"), and one diagonal step up-left, CS101 matches CS101
-(contributing the "1") - MATH201 and ENG150 contribute no match
-either sequence can use consistently.
-
-**LCS = [CS101, STAT210], length 2** - both appear in this relative
-order in *both* students' sequences, exactly what CampusNav's
-study-buddy matcher would report for this pair.
+`dp[4][4] = 2`: **LCS = [CS101, STAT210], length 2.** Tracing back
+from the bottom-right corner: STAT210 matches STAT210 (the final
+"2"), then CS101 matches CS101 (the "1") - MATH201 and ENG150
+contribute no consistent match. Both courses appear in this order in
+*both* sequences - what CampusNav's study-buddy matcher would report.
 
 ---
 
@@ -492,19 +472,13 @@ cells would an adjacency matrix need? (b) Trace BFS starting from A.
 
 ---
 
-<!-- NEW: Week 13 worked solution, part 1 -->
+<!-- MERGED: Week 13 worked solution (representation + BFS trace, was 2 slides) -->
 
-# Worked Solution: Representation
+# Worked Solution: Representation and BFS Trace
 
 **Adjacency list:** A:[B,C], B:[A,D], C:[A,D], D:[B,C,E], E:[D] - a
 total of $V + 2E = 5 + 2(5) = 15$ entries (5 edges, each stored at
 both endpoints). **Adjacency matrix:** $V^2 = 5^2 = 25$ cells.
-
----
-
-<!-- NEW: Week 13 worked solution, part 2 -->
-
-# Worked Solution: BFS Trace
 
 Enqueue A. Dequeue A, enqueue B, C - `Q=[B,C]`. Dequeue B, enqueue D
 (A already visited) - `Q=[C,D]`. Dequeue C - both neighbors (A, D)
@@ -584,125 +558,47 @@ someone hands you does.
 
 ---
 
-<!-- NEW: topic-cluster mistakes + check-yourself, D&C and Greedy -->
+<!-- topic-cluster mistakes, D&C and Greedy - folds in the cut Check-Yourself pair as a worked-instance bullet -->
 
 # Common Final-Exam Mistakes: D&C and Greedy
 
 - **Misapplying the Master theorem** to a recurrence that doesn't divide the problem size - e.g. $T(n) = T(n-1) + O(n)$ has no $b$ to plug in; it must be expanded/summed directly, not run through the three Master-theorem cases.
 - **Assuming greedy always finds the optimal solution.** The {1, 3, 4} coin-denomination counterexample (Week 10) exists precisely to break this assumption - greedy needs a proof (an exchange argument), not just an intuition.
 - **Sorting by the wrong key** in a greedy scheduler - earliest-*finish*-time is what makes the room-booking assistant provably optimal; sorting by start time or duration instead does not carry the same guarantee.
+- **Worked instance:** $T(n) = T(n-1) + O(n)$ has no valid $b$ to substitute, so the Master theorem simply doesn't apply. Expanding directly: $O(n)+O(n-1)+\dots+O(1)$, an arithmetic series summing to $O(n^2)$ - the same shape as unoptimized linear recursion, not a divide-and-conquer split at all.
 
 ---
 
-# Check Yourself
-
-A recurrence is $T(n) = T(n-1) + O(n)$ (note: $n-1$, not $n/2$). Can
-the Master theorem be applied directly? What is $T(n)$'s growth rate?
-
----
-
-# Answer
-
-No. The Master theorem only applies to recurrences of the form
-$T(n) = aT(n/b) + f(n)$, where the subproblem size is *divided* by a
-constant $b > 1$. Here the subproblem shrinks by *subtracting* 1, not
-dividing - there is no valid $b$ to substitute.
-
-Solving directly by expansion: $T(n) = O(n) + O(n-1) + \dots + O(1)$,
-an arithmetic series summing to $O(n^2)$. This is the same recurrence
-shape as simple linear recursion (e.g. an unoptimized recursive scan),
-not a divide-and-conquer split at all.
-
----
-
-<!-- NEW: topic-cluster mistakes + check-yourself, Dynamic Programming -->
+<!-- topic-cluster mistakes, Dynamic Programming - folds in the cut Check-Yourself pair -->
 
 # Common Final-Exam Mistakes: Dynamic Programming
 
 - **Treating memoization and tabulation as different algorithms.** They implement the exact same recurrence - one top-down with a cache, one bottom-up with a table - not two competing techniques.
 - **Skipping the base row/column** when hand-filling a DP table. `dp[0][*]` and `dp[*][0]` anchor every later cell - get them wrong and every downstream cell is wrong too.
 - **Confusing 0/1 knapsack with unbounded (reuse-allowed) knapsack.** Reading from the *same* row $i$ instead of the previous row $i-1$ when excluding item $i$ silently allows item $i$ to be reused.
+- **Worked instance:** in a 0/1 knapsack table, "exclude item $i$" must read row $i-1$, never row $i$. Row $i-1$ is the best value using only items $1,\dots,i-1$, before item $i$ existed; reading from row $i$ would let a cell that already includes item $i$ feed into itself, effectively allowing reuse - exactly the difference between 0/1 knapsack and unbounded knapsack.
 
 ---
 
-# Check Yourself
-
-In a 0/1 knapsack DP table, why must the "exclude item $i$" case
-always read from row $i-1$, never row $i$?
-
----
-
-# Answer
-
-Row $i-1$ represents the best achievable value using only items
-$1, \dots, i-1$ - the state *before* item $i$ was ever considered. If
-the "exclude" case read from row $i$ instead, it could see a cell
-that already includes item $i$ from earlier in that same row's own
-computation, effectively allowing item $i$ to be counted more than
-once. That single row-index choice is the entire difference between
-0/1 knapsack (each item used at most once) and unbounded knapsack
-(items may repeat).
-
----
-
-<!-- NEW: topic-cluster mistakes + check-yourself, Graphs and Shortest Paths -->
+<!-- topic-cluster mistakes, Graphs and Shortest Paths - folds in the cut Check-Yourself pair -->
 
 # Common Final-Exam Mistakes: Graphs and Shortest Paths
 
 - **Defaulting to an adjacency matrix regardless of density.** At real campus scale (~300 nodes, ~600 edges) the matrix costs 60x more space than a list - matrix vs. list is a density decision, never a habit.
 - **Assuming Dijkstra is safe whenever there's "no negative cycle."** A single negative *edge*, with no cycle at all, is already enough to break Dijkstra - only Bellman-Ford is safe once any weight can be negative.
 - **Forgetting an undirected edge needs an entry in *both* endpoints' adjacency lists** - missing one direction silently breaks traversal from the other side.
+- **Worked instance:** a single negative edge, with zero cycles anywhere, already breaks Dijkstra - the $S, A, B, C$ counterexample from Week 14 reported $\delta(S,C)=2$ when the true value is $-1$. Negative cycles are a separate failure mode (they break even Bellman-Ford's own notion of "shortest"); Dijkstra's unsafety needs only one negative edge, cycle or not.
 
 ---
 
-# Check Yourself
-
-A graph has exactly one negative edge, and you're told "there's
-definitely no negative cycle." Is Dijkstra now safe to use?
-
----
-
-# Answer
-
-No. Dijkstra's unsafety comes from having *any* negative edge present
-at all, not specifically from negative cycles - negative cycles are
-what make Bellman-Ford's own answer undefined, a separate failure
-mode. Even one negative edge with zero cycles can let a
-later-discovered path beat an already-"settled" distance that
-Dijkstra will never re-check, exactly as in the $S, A, B, C$
-counterexample from Week 14 ($\delta(S,C)$ reported as 2, true value
-$-1$). Only Bellman-Ford is safe the moment any edge can be negative.
-
----
-
-<!-- NEW: topic-cluster mistakes + check-yourself, P vs NP -->
+<!-- topic-cluster mistakes, P vs NP - folds in the cut Check-Yourself pair -->
 
 # Common Final-Exam Mistakes: P vs. NP
 
 - **"NP means not solvable in polynomial time."** False - NP means a *candidate solution* can be verified in polynomial time. Every problem in P is also in NP.
 - **Assuming one graph problem's efficiency generalizes to all graph problems.** Shortest path is in P; the campus scavenger hunt (Hamiltonian-path-shaped) is NP-hard - same campus, two entirely different problem shapes.
 - **Confusing "NP-hard" with "proven outside P."** P =? NP is still open - nobody has proven an NP-complete problem *cannot* have a polynomial algorithm, only that none has ever been found.
-
----
-
-# Check Yourself
-
-True or False: "If someone proved P = NP, every currently NP-complete
-problem (like the campus scavenger hunt) would have a polynomial-time
-algorithm." Justify.
-
----
-
-# Answer
-
-**True.** By definition, every problem in NP can be transformed
-(reduced) into any NP-complete problem in polynomial time, and every
-NP-complete problem is itself in NP. If P = NP, then every problem in
-NP - including every NP-complete one - would already have a
-polynomial-time algorithm under that equality. This is exactly why
-P =? NP is such a consequential open question: resolving it one way
-would instantly reclassify every NP-complete problem, the campus
-scavenger hunt included.
+- **Worked instance:** if P = NP were ever proven, every NP-complete problem - the campus scavenger hunt included - would instantly gain a polynomial-time algorithm, by the very definition of NP-completeness (every problem in NP reduces to it in polynomial time). Resolving the open question would reclassify all of them at once.
 
 ---
 
@@ -765,4 +661,3 @@ weeks ago, a student was lost looking for Room 703 in Building A. You now know e
 what it takes to build the algorithm that finds it - and prove it's
 right." Wish them well on the exam, and beyond it.
 -->
-</content>

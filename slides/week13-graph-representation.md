@@ -19,7 +19,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 <div class="thread">Assignment 4 released this week - Dynamic Programming &amp; Graphs, due Week 15</div>
 
 <!--
-notes: Welcome the class. Say: "Every feature we've built so far - the room directory, the tour planner, study-buddy matching - treats CampusNav's data as a flat list. Today that stops being enough." Mention Assignment 4 is now posted, due Week 15, and briefly point at materials/assignments/assignment4.md.
+notes: Welcome the class. Say: "Every feature we've built so far - the room directory, the tour planner, study-buddy matching - treats CampusNav's data as a flat list. Today that stops being enough." Mention Assignment 4 is now posted, due Week 15, and briefly point at materials/assignments/assignment4.md. Also flag the new Week 13 Check, due before Week 14 begins.
 -->
 
 ---
@@ -47,25 +47,6 @@ notes: Welcome the class. Say: "Every feature we've built so far - the room dire
 </div>
 
 <!-- notes: Point at the row. Say: "We've spent three weeks on paradigms for arrays and sequences. Today CampusNav's data stops being a line and becomes a network." -->
-
----
-
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: Map a Friend Group
-
-<div class="thread">A quick warm-up. No code needed yet.</div>
-
-Think of five people you know. Some of them are friends with each
-other; some aren't. On scratch paper, draw a dot for each person, and
-a line between every pair that's actually friends.
-
-- Now, without drawing anything else - how would you describe that
-  same picture to a computer, using only numbers or short lists?
-
-<!--
-notes: Give 30 seconds to think, alone. Ask aloud for suggestions: some students will say "a grid of yes/no," some will say "a list per person." Do not name "graph," "adjacency matrix," or "adjacency list" yet - let them describe it in their own words.
--->
 
 ---
 
@@ -205,24 +186,11 @@ career-relevant mistake.
 
 ---
 
-<!-- NEW: session-1 close, previews Worksheet Part A -->
-
-# Coming Up: Worksheet Part A
-
-<div class="thread">Next in this class: less listening, more building.</div>
-
-Later today, you and a partner will build both representations, by
-hand, for CampusNav's actual six-location campus map.
-
-That is **Worksheet Part A**. Keep a pen ready.
-
----
-
 <!-- SLOT 8: Origin -->
 
 # This Problem Is Not New
 
-<div class="thread">You just felt the pain. Now: who else felt it, and what did they do?</div>
+<div class="thread">Who else felt this pain, and what did they do about it?</div>
 
 - In 1736, the city of Königsberg had seven bridges connecting two
   islands and two riverbanks. People wondered: could you walk a route
@@ -232,8 +200,6 @@ That is **Worksheet Part A**. Keep a pen ready.
   everything else. That reduction is graph theory's birth.
 
 ---
-
-<!-- NEW: split from "This Problem Is Not New" - the second historical beat gets its own slide -->
 
 # From Paper to Memory
 
@@ -274,8 +240,6 @@ same question CampusNav's team is about to face at full campus scale.
 
 ---
 
-<!-- NEW: split from "Graph: Definition" - the CampusNav-specific instantiation gets its own slide -->
-
 # What CampusNav's Graph Will Be
 
 <div class="thread">The general definition, narrowed to this week's actual data.</div>
@@ -300,12 +264,13 @@ one-way, unweighted graphs too (e.g., "who follows whom" online).
 
 ---
 
-<!-- Act 3 / BUILD -->
+<!-- Act 3 / BUILD: idea slide, folds in the old warm-up's payload as a teacher-delivered lead-in -->
 
 # Two Design Choices Every Graph Makes
 
-<div class="two-col">
+<div class="thread">Even mapping five friends by hand raises this exact question: how would you describe that picture to a computer, using only numbers or short lists? Every graph answers two design questions first.</div>
 
+<div class="two-col">
 <div>
 
 **Directed vs. undirected**
@@ -314,7 +279,6 @@ one-way, unweighted graphs too (e.g., "who follows whom" online).
 - Campus walkways: undirected - if you can walk Gate → Library, you can walk back.
 
 </div>
-
 <div>
 
 **Weighted vs. unweighted**
@@ -323,7 +287,6 @@ one-way, unweighted graphs too (e.g., "who follows whom" online).
 - "How many minutes does that road take?": weighted - a number on every edge.
 
 </div>
-
 </div>
 
 Every graph you'll ever build makes both choices before you write a
@@ -367,76 +330,118 @@ single line of representation code.
 
 ---
 
-# Representation 1: Adjacency Matrix
+<!-- NEW: dense worked example, graph representations, simple tier -->
+<!-- _class: dense -->
 
-A $|V| \times |V|$ grid; cell $(i, j)$ holds the edge weight between
-vertex $i$ and vertex $j$ (dash = no edge). Symmetric, because the
-graph is undirected.
+<div class="eyebrow">Graph representations · worked example 1 of 3 (simple)</div>
 
-| | G | L | C | D | Y | F |
-|---|---|---|---|---|---|---|
-| **G** | - | 3 | - | 4 | - | - |
-| **L** | 3 | - | 2 | - | 5 | - |
-| **C** | - | 2 | - | - | - | 2 |
-| **D** | 4 | - | - | - | 6 | - |
-| **Y** | - | 5 | - | 6 | - | 3 |
-| **F** | - | - | 2 | - | 3 | - |
+# Three Nodes: A-B-C
+
+<div class="wx-top">
+<div class="lead">The smallest graph that still has a non-edge worth representing.</div>
+<div class="goalbox"><span class="k">Goal</span>Build both representations for the smallest graph that isn't just one edge.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">3 vertices A, B, C. Edges: A-B, B-C (undirected, unweighted). Notice: A and C are not directly connected.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Adjacency matrix</div>
+<div class="wx-body">A 3&times;3 grid. Row A: [-, 1, -]. Row B: [1, -, 1]. Row C: [-, 1, -]. 9 cells total, only 4 marked (2 edges, each stored twice for symmetry).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Adjacency list</div>
+<div class="wx-body">A &rarr; [B]. B &rarr; [A, C]. C &rarr; [B]. 3 headers + 4 neighbor entries (2 edges &times; 2) = 7 entries total.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Same graph: 9 matrix cells vs. 7 list entries - the list is already smaller, even at this toy scale.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A non-edge (A-C) costs the matrix a cell it must still store as "-"; the list simply never mentions it.</div>
 
 ---
 
-# Representation 2: Adjacency List
+<!-- NEW: dense worked example, graph representations, moderate tier -->
+<!-- _class: dense -->
 
-One list per vertex, holding only its actual neighbors - and, since
-this graph is weighted, each neighbor's edge weight.
+<div class="eyebrow">Graph representations · worked example 2 of 3 (moderate)</div>
 
-<div class="steps">
-<div class="step-row"><span class="chip">G</span><span class="step-text">→ L (3), D (4)</span></div>
-<div class="step-row"><span class="chip">L</span><span class="step-text">→ G (3), C (2), Y (5)</span></div>
-<div class="step-row"><span class="chip">C</span><span class="step-text">→ L (2), F (2)</span></div>
-<div class="step-row"><span class="chip">D</span><span class="step-text">→ G (4), Y (6)</span></div>
-<div class="step-row"><span class="chip">Y</span><span class="step-text">→ L (5), D (6), F (3)</span></div>
-<div class="step-row"><span class="chip">F</span><span class="step-text">→ C (2), Y (3)</span></div>
+# The Actual Campus, Six Nodes
+
+<div class="wx-top">
+<div class="lead">Same two representations, now on CampusNav's real six-location graph.</div>
+<div class="goalbox"><span class="k">Goal</span>Build both representations for Gate, Library, CS-Building, Dorm, Gym, Cafeteria.</div>
 </div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The graph</div>
+<div class="wx-body">6 vertices (G, L, C, D, Y, F). 7 weighted edges: G-L 3, G-D 4, L-C 2, L-Y 5, D-Y 6, Y-F 3, C-F 2.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Adjacency list, built</div>
+<div class="wx-body">G&rarr;L(3),D(4) &middot; L&rarr;G(3),C(2),Y(5) &middot; C&rarr;L(2),F(2) &middot; D&rarr;G(4),Y(6) &middot; Y&rarr;L(5),D(6),F(3) &middot; F&rarr;C(2),Y(3).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Adjacency matrix, sized</div>
+<div class="wx-body">6&times;6 = 36 cells total. Only 14 are filled (7 edges &times; 2, for symmetry) - the other 22 are "-".</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Count both</div>
+<div class="wx-body">List: V + 2E = 6 + 2(7) = 20 entries. Matrix: V&sup2; = 36 cells. The list is already smaller here, before the campus even grows.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Same graph, verified: 20 list entries vs. 36 matrix cells - a gap that only widens as the campus grows.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The matrix's size depends only on V; the list's size depends on what's actually connected - that's the whole reason it wins on sparse graphs.</div>
 
 ---
 
-# Side by Side
+<!-- NEW: dense worked example, graph representations, harder tier -->
+<!-- _class: dense -->
 
-<div class="two-col">
+<div class="eyebrow">Graph representations · worked example 3 of 3 (harder)</div>
 
-<div>
+# Adding a Seventh Location
 
-**Adjacency Matrix**
-
-| | G | L | C | D | Y | F |
-|---|---|---|---|---|---|---|
-| **G** | - | 3 | - | 4 | - | - |
-| **L** | 3 | - | 2 | - | 5 | - |
-| **C** | - | 2 | - | - | - | 2 |
-| **D** | 4 | - | - | - | 6 | - |
-| **Y** | - | 5 | - | 6 | - | 3 |
-| **F** | - | - | 2 | - | 3 | - |
-
+<div class="wx-top">
+<div class="lead">CampusNav adds Parking Lot (P), connected only to the Gate, weight 2.</div>
+<div class="goalbox"><span class="k">Goal</span>Show which representation's cost grows faster from one new vertex and one new edge.</div>
 </div>
 
-<div>
-
-**Adjacency List**
-
-<div class="chip-row">
-<span class="chip">G: L(3), D(4)</span>
-<span class="chip">L: G(3), C(2), Y(5)</span>
-<span class="chip">C: L(2), F(2)</span>
-<span class="chip">D: G(4), Y(6)</span>
-<span class="chip">Y: L(5), D(6), F(3)</span>
-<span class="chip">F: C(2), Y(3)</span>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Updated graph</div>
+<div class="wx-body">Now V=7, E=8. G's list becomes G&rarr;L(3),D(4),P(2).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Matrix cost</div>
+<div class="wx-body">V&sup2; = 7&sup2; = 49 cells, up from 36 - a jump of <strong>13 cells</strong> for one new vertex and one new edge.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">List cost</div>
+<div class="wx-body">V + 2E = 7 + 16 = 23 entries, up from 20 - a jump of just <strong>3 entries</strong>: one header for P, plus P's one neighbor entry and G's one new neighbor entry.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why this matters</div>
+<div class="wx-body">The matrix's cost grew over <strong>4&times; faster</strong> than the list's, for the exact same change - not a one-time fluke, a structural property of O(V&sup2;) space.</div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-Same graph. Two different structures holding the same information.
+<div class="conclusion"><span class="k">Conclusion</span>One new sparse vertex costs the matrix 13 cells and the list 3 entries - the growth-rate gap is the whole argument, not just the absolute numbers.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>O(V&sup2;) is the worse growth rate, not just a bigger constant - this is the concrete instance that proves it.</div>
 
 ---
 
@@ -457,21 +462,15 @@ looking small the moment the graph gets big - next slide.
 
 # Why It Matters: the Full DEU Campus
 
-The real Dong-Eui University (DEU) campus isn't 6 locations - it's every building, junction,
-and walkway: roughly **300 nodes**, each realistically connected to
-only about **4 neighboring paths** (a sparse network, like real
-sidewalks - not a place where everywhere connects to everywhere). Note
-this counts *locations* (buildings and path junctions), a coarser unit
-than the ~1,200 individual *rooms* the directory-lookup weeks used -
-one building is one node here, but dozens of rooms there.
+<div class="thread">Same two representations, now at real scale.</div>
 
----
-
-<!-- NEW: split from "Why It Matters: the Full DEU Campus" - the comparison table gets its own slide -->
-
-# The Numbers, Side by Side
-
-<div class="thread">Same two representations, now at both scales.</div>
+The real Dong-Eui University (DEU) campus isn't 6 locations - it's every building,
+junction, and walkway: roughly **300 nodes**, each realistically connected to
+only about **4 neighboring paths** (a sparse network, like real sidewalks - not
+a place where everywhere connects to everywhere). Note this counts *locations*
+(buildings and path junctions), a coarser unit than the ~1,200 individual
+*rooms* the directory-lookup weeks used - one building is one node here, but
+dozens of rooms there.
 
 | | 6-node demo (V=6, E=7) | Full DEU campus (V≈300, E≈600) |
 |---|---|---|
@@ -490,25 +489,6 @@ why CampusNav will use an adjacency list once it goes campus-wide.
 
 ---
 
-<!-- NEW: Try-It hand-off, session 2 -->
-
-# Now: Worksheet Part A
-
-<div class="thread">Time to practice. Build both representations yourself.</div>
-
-Work with your neighbor. Open **[Worksheet Part
-A](materials/week13/worksheet.html)**. Build the adjacency matrix and
-adjacency list for CampusNav's six-location campus map, by hand.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part A. Walk the room while pairs work.
-After 15 minutes, ask one pair to read their adjacency list aloud and check it against the slide.
--->
-
----
-
 <!-- NEW: Key Words Today, session 3 -->
 
 # Key Words Today
@@ -522,43 +502,41 @@ After 15 minutes, ask one pair to read their adjacency list aloud and check it a
 
 ---
 
-<!-- NEW: queue/stack mini-lesson, properly defining the two ADTs BFS/DFS lean on -->
+<!-- Merged: two data-structure slides into one two-col idea slide -->
 
 # Two Data Structures: Queue and Stack
 
 <div class="thread">Not new algorithms - two ways of ordering "what to do next," each with exactly two operations. (CLRS 4th ed, &sect;10.1)</div>
 
-**Queue - FIFO (first in, first out).** Operations: `enqueue` (add to
-the back), `dequeue` (remove from the front).
+<div class="two-col">
+<div>
+
+**Queue - FIFO (first in, first out).** `enqueue` (add to the back),
+`dequeue` (remove from the front).
 
 | Operation | Queue (front &rarr; back) |
 |---|---|
 | enqueue A | [A] |
 | enqueue B | [A, B] |
-| dequeue &rarr; returns A | [B] |
+| dequeue &rarr; A | [B] |
 
-BFS uses a queue: the first vertex found is the first one explored
-further.
+BFS uses a queue: the first vertex found is the first one explored further.
 
----
+</div>
+<div>
 
-# Stack: The Second Data Structure
-
-<div class="thread">Same idea, opposite end.</div>
-
-**Stack - LIFO (last in, first out).** Operations: `push` (add to the
-top), `pop` (remove from the top).
+**Stack - LIFO (last in, first out).** `push` (add to the top), `pop`
+(remove from the top).
 
 | Operation | Stack (bottom &rarr; top) |
 |---|---|
 | push A | [A] |
 | push B | [A, B] |
-| pop &rarr; returns B | [A] |
+| pop &rarr; B | [A] |
 
-<div class="why">
-Stack isn't a new idea: it's the exact same LIFO structure driving
-recursive calls, from Week 4's call stack. DFS via recursion <em>is</em>
-using a stack - just an implicit one.
+DFS uses a stack - the same LIFO structure as Week 4's call stack.
+
+</div>
 </div>
 
 ---
@@ -618,33 +596,118 @@ BFS(G, s):
 
 ---
 
-<!-- NEW: BFS queue-contents trace -->
+<!-- NEW: dense worked example, BFS, simple tier -->
+<!-- _class: dense -->
 
-# BFS: The Queue, Step by Step
+<div class="eyebrow">BFS · worked example 1 of 3 (simple)</div>
 
-<div class="thread">Same graph as the CampusNav trace ahead - this time, what's actually inside the queue.</div>
+# Three Nodes: A-B-C
 
-`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`. Initialize:
-mark `G` visited, enqueue `G` - `Q = [G]`.
+<div class="wx-top">
+<div class="lead">A straight-line graph - the smallest case that still uses the queue for real.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace BFS from A on A-B-C and watch the queue fill and drain.</div>
+</div>
 
-| Step | Dequeue (visit) | Enqueue this step | Queue after |
-|---|---|---|---|
-| 1 | G | L, D | [L, D] |
-| 2 | L | C, Y | [D, C, Y] |
-| 3 | D | - (both neighbors already visited) | [C, Y] |
-| 4 | C | F | [Y, F] |
-| 5 | Y | - (all neighbors already visited) | [F] |
-| 6 | F | - (all neighbors already visited) | [] |
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Start</div>
+<div class="wx-body">A&rarr;[B], B&rarr;[A,C], C&rarr;[B]. Mark A visited, enqueue A. Q = [A].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Dequeue A</div>
+<div class="wx-body">Visit A. Neighbor B unvisited: mark visited, enqueue. Q = [B].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Dequeue B, then C</div>
+<div class="wx-body">Visit B; neighbor C unvisited, enqueue &rarr; Q=[C]. Dequeue C; neighbor B already visited. Q=[].</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Visit order: A, B, C - identical to what DFS will find on this same tiny graph.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The queue's FIFO order is what forces "nearest first" - even this tiny trace already shows it.</div>
 
 ---
 
-# BFS: Reading the Queue Trace
+<!-- NEW: dense worked example, BFS, moderate tier (absorbs "Reading the Queue Trace") -->
+<!-- _class: dense -->
 
-<div class="thread">Same table. What it actually tells you.</div>
+<div class="eyebrow">BFS · worked example 2 of 3 (moderate)</div>
 
-Visit order, read down "Dequeue": **G, L, D, C, Y, F** - exactly what
-FIFO order guarantees: whichever vertex enters the queue first is the
-one explored first.
+# The Campus Graph, Queue by Queue
+
+<div class="wx-top">
+<div class="lead">Same six-location graph as this week's core example. G&rarr;[L,D] L&rarr;[G,C,Y] C&rarr;[L,F] D&rarr;[G,Y] Y&rarr;[L,D,F] F&rarr;[Y,C].</div>
+<div class="goalbox"><span class="k">Goal</span>Trace the queue's contents from Gate, round by round.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Dequeue G, then L</div>
+<div class="wx-body">Init: Q=[G]. Dequeue G, enqueue L,D &rarr; Q=[L,D]. Dequeue L, enqueue C,Y &rarr; Q=[D,C,Y].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Dequeue D, then C</div>
+<div class="wx-body">Dequeue D - both neighbors already visited, nothing new &rarr; Q=[C,Y]. Dequeue C, enqueue F &rarr; Q=[Y,F].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Dequeue Y, then F</div>
+<div class="wx-body">Dequeue Y - all neighbors already visited &rarr; Q=[F]. Dequeue F - all neighbors already visited &rarr; Q=[].</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Reading the order</div>
+<div class="wx-body">Visit order, read down each dequeue: <strong>G, L, D, C, Y, F</strong> - exactly what FIFO order guarantees: whichever vertex enters the queue first is explored first.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>G, L, D, C, Y, F - six dequeues, matching the graph's layer structure exactly (Gate's layer, then its neighbors' layer, then theirs).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The queue never needs to "decide" an order - FIFO alone reconstructs the layer-by-layer structure.</div>
+
+---
+
+<!-- NEW: dense worked example, BFS, harder tier (absorbs the extended-graph follow-up questions) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">BFS · worked example 3 of 3 (harder)</div>
+
+# A Seventh Node: Does Visit Order Mean Distance?
+
+<div class="wx-top">
+<div class="lead">CampusNav adds Parking Lot (P), connected only to the Gate: G&rarr;[L,D,P].</div>
+<div class="goalbox"><span class="k">Goal</span>Show that visit order and hop-count are related, but not the same number.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Round 1</div>
+<div class="wx-body">Enqueue G. Dequeue G, enqueue L,D,P (in list order) &rarr; Q=[L,D,P].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Rounds 2-4</div>
+<div class="wx-body">Dequeue L, enqueue C,Y &rarr; Q=[D,P,C,Y]. Dequeue D - nothing new &rarr; Q=[P,C,Y]. Dequeue P - its only neighbor (G) already visited &rarr; Q=[C,Y].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Rounds 5-7</div>
+<div class="wx-body">Dequeue C, enqueue F &rarr; Q=[Y,F]. Dequeue Y, then F - nothing left to enqueue. Visit order: G, L, D, P, C, Y, F.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The catch</div>
+<div class="wx-body">Parking Lot is visited <strong>4th</strong> overall - but it's only <strong>1 hop</strong> from Gate, exactly like Library and Dorm. It's visited later only because it's third in G's neighbor list, not because it's farther away.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Visit order depends on neighbor-list order; hop-count (layer) depends only on the graph's actual structure - BFS guarantees the layers, not the exact position within a layer.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"Visited 4th" and "4 hops away" are different claims - only BFS's layer grouping, not its raw visit sequence, is the guarantee.</div>
 
 ---
 
@@ -667,67 +730,136 @@ DFS(G, u):
 
 ---
 
-<!-- NEW: full DFS worked trace, discovery/finish times + explicit recursion stack -->
+<!-- NEW: dense worked example, DFS, simple tier -->
+<!-- _class: dense -->
 
-# DFS: Discovery, Step by Step
+<div class="eyebrow">DFS · worked example 1 of 3 (simple)</div>
 
-<div class="thread">Same adjacency list as the BFS queue trace - this time, the recursion stack.</div>
+# Three Nodes: A-B-C
 
-`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]`. DFS
-always recurses into the *first unvisited* neighbor in the list, so
-one call chain plunges as deep as it can before anything returns.
+<div class="wx-top">
+<div class="lead">Same tiny graph as BFS's simple example - now with the opposite strategy.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace DFS from A on A-B-C and compare its order to BFS's.</div>
+</div>
 
-| Step | Call | Stack (top &rarr; bottom) | Discover |
-|---|---|---|---|
-| 1 | DFS(G) | G | d[G] = 1 |
-| 2 | DFS(L) | L, G | d[L] = 2 |
-| 3 | DFS(C) | C, L, G | d[C] = 3 |
-| 4 | DFS(F) | F, C, L, G | d[F] = 4 |
-| 5 | DFS(Y) | Y, F, C, L, G | d[Y] = 5 |
-| 6 | DFS(D) | D, Y, F, C, L, G | d[D] = 6 |
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">DFS(A)</div>
+<div class="wx-body">Mark A visited. Neighbor B unvisited &rarr; recurse into DFS(B).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">DFS(B)</div>
+<div class="wx-body">Mark B visited. Neighbor A visited, neighbor C unvisited &rarr; recurse into DFS(C).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">DFS(C)</div>
+<div class="wx-body">Mark C visited. Neighbor B already visited - nothing left, DFS(C) finishes, then DFS(B), then DFS(A) unwind in reverse.</div>
+</div>
+</div>
 
----
-
-<!-- NEW: DFS trace, part 2 - the unwind (finish times) -->
-
-# DFS: Finishing, Step by Step
-
-<div class="thread">Every neighbor of D is already visited - nothing left to discover, so the stack starts unwinding.</div>
-
-D has no unvisited neighbor (G and Y are both already on the stack, mid-call) - so D finishes immediately, and every enclosing call finishes right behind it, in exactly the reverse order it was opened:
-
-| Vertex | Discover | Finish |
-|---|---|---|
-| G | 1 | 12 |
-| L | 2 | 11 |
-| C | 3 | 10 |
-| F | 4 | 9 |
-| Y | 5 | 8 |
-| D | 6 | 7 |
-
-Discovery order matches the earlier worked example (G, L, C, F, Y, D);
-finish order is its exact mirror here, because this particular
-adjacency-list order never gives DFS a second unvisited branch to try.
+<div class="conclusion"><span class="k">Conclusion</span>Discovery order: A, B, C - identical to BFS's order here, because a straight line offers no branch for the two strategies to disagree on.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>BFS and DFS only visibly differ once a graph actually branches - which is exactly what the next example does.</div>
 
 ---
 
-<!-- NEW: DFS trace, part 3 - connects the explicit stack back to Week 4's call stack -->
+<!-- NEW: dense worked example, DFS, moderate tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">DFS · worked example 2 of 3 (moderate)</div>
+
+# The Campus Graph, One Call Chain
+
+<div class="wx-top">
+<div class="lead">Same adjacency list as BFS's moderate example - DFS always recurses into the first unvisited neighbor listed.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace the full discovery-then-finish cycle from Gate.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Plunge: G, L, C</div>
+<div class="wx-body">DFS(G): d=1, recurse to L (first unvisited neighbor). DFS(L): d=2, recurse to C. DFS(C): d=3, recurse to F.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Plunge: F, Y, D</div>
+<div class="wx-body">DFS(F): d=4, recurse to Y. DFS(Y): d=5, recurse to D. DFS(D): d=6 - neighbors G, Y both already on the stack.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Unwind</div>
+<div class="wx-body">D has nothing left: finishes (f=7). Every enclosing call finishes right behind it, in exact reverse: Y(8), F(9), C(10), L(11), G(12).</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Read the result</div>
+<div class="wx-body">Discovery order: G, L, C, F, Y, D. Finish order is its exact mirror here, because this adjacency-list order never hands DFS a second unvisited branch to try.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>One call chain, six discoveries, six finishes, in exactly reverse order - the recursion stack made both orders automatic.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>At the deepest point, the call stack literally holds all six waiting frames - not a metaphor, the exact structure a debugger would show you.</div>
+
+---
+
+<!-- NEW: dense worked example, DFS, harder tier (absorbs the different-start follow-up question) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">DFS · worked example 3 of 3 (harder)</div>
+
+# Same Graph, Different Start: From the Library
+
+<div class="wx-top">
+<div class="lead">Same adjacency list, same algorithm - only the starting vertex changes.</div>
+<div class="goalbox"><span class="k">Goal</span>Show that DFS's order, unlike BFS's layers, depends heavily on where it starts.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">DFS(L) plunges</div>
+<div class="wx-body">L's neighbors in order: G, C, Y. DFS(L) &rarr; DFS(G) (G's only unvisited neighbor is D) &rarr; DFS(D).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Continue plunging</div>
+<div class="wx-body">DFS(D): neighbor G visited, neighbor Y unvisited &rarr; DFS(Y). DFS(Y): L, D visited, F unvisited &rarr; DFS(F).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Finish</div>
+<div class="wx-body">DFS(F): neighbor Y visited, neighbor C unvisited &rarr; DFS(C). DFS(C): both neighbors (L, F) already visited - finishes, then every enclosing call unwinds.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Compare to Gate's start</div>
+<div class="wx-body">Discovery order: <strong>L, G, D, Y, F, C</strong> - completely different from starting at Gate (G, L, C, F, Y, D), on the exact same graph.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Same six vertices, same edges, two different starting points, two unrelated discovery orders.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>DFS's order depends heavily on where it starts, unlike BFS's guarantee about hop-count layers - that guarantee is specific to BFS, not traversal in general.</div>
+
+---
 
 # DFS's Stack vs. Week 4's Call Stack
 
 <div class="thread">Not a metaphor - the same mechanism, revisited.</div>
 
 <div class="why">
-At step 6 above, the call stack literally holds six waiting frames:
-DFS(G) is paused waiting on DFS(L), which is paused waiting on
-DFS(C), and so on down to DFS(D) - the exact same last-in-first-out
+At the deepest point of the moderate-tier trace above, the call stack literally
+holds six waiting frames: DFS(G) is paused waiting on DFS(L), which is paused
+waiting on DFS(C), and so on down to DFS(D) - the exact same last-in-first-out
 structure as any recursive function traced back in Week 4's recursion
 &amp; recurrence unit. Recursive DFS <em>is</em> a stack-based algorithm; it
 just uses the runtime's implicit call stack instead of a `push`/`pop`
 structure you manage yourself. Implementing DFS iteratively with an
-explicit stack (as introduced earlier this week) produces the exact
-same discovery order - proof that "recursion" and "stack" were never
-two different ideas here, just two ways of writing one.
+explicit stack produces the exact same discovery order - proof that
+"recursion" and "stack" were never two different ideas here, just two
+ways of writing one.
 </div>
 
 ---
@@ -736,7 +868,7 @@ two different ideas here, just two ways of writing one.
 
 # CampusNav: Tracing BFS and DFS from the Gate
 
-<div class="thread">Everything above, together, on the actual campus map.</div>
+<div class="thread">Everything above, side by side, on the actual campus map.</div>
 
 Using the adjacency list (neighbors in the order each edge was added):
 G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]  Y→[L,D,F]  F→[Y,C]
@@ -761,121 +893,9 @@ path first.
 
 ---
 
-<!-- NEW: split from "Common Mistakes" - the DFS/BFS misconception gets room to breathe -->
-
 # Common Mistakes, Continued
 
 - **Assuming DFS also finds the shortest path.** Only BFS's layer-by-layer order guarantees fewest edges to reach each vertex on an unweighted graph; DFS's order says nothing about distance at all - DFS can easily reach a vertex by a long, winding path first.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. For CampusNav's 6-node campus graph, how many total entries does the adjacency list store, and why is that number 2× the edge count?
-2. Starting a BFS and a DFS from the same vertex on the same graph, are they guaranteed to visit vertices in the same order? Why or why not?
-3. Why does an adjacency matrix become a *worse* choice, not a better one, as a graph gets larger while staying sparse?
-
----
-
-# Answers
-
-1. 20 entries (6 vertex list headers + 14 neighbor entries). It's 2× the edge count (7 edges × 2 = 14) because each undirected edge is stored once in *each* endpoint's list.
-2. No. BFS explores in layers via a queue (nearest first); DFS commits to one path via a stack/recursion (deepest first) - different data structures, different order, even though both eventually visit every reachable vertex.
-3. Its space is O(V²), which grows with the *square* of the vertex count regardless of how many edges actually exist. As V grows with the edge count staying roughly proportional to V (sparse), the fraction of the matrix that's real data shrinks toward zero, while the adjacency list's O(V + E) space tracks only what's actually there.
-
----
-
-<!-- NEW: Check Yourself pair 2 (DFS from a different start vertex) -->
-
-# Check Yourself: DFS From a Different Start
-
-Using the same adjacency list (`G→[L,D]  L→[G,C,Y]  C→[L,F]  D→[G,Y]
-Y→[L,D,F]  F→[Y,C]`), trace DFS starting from the **Library** instead
-of the Gate. What is the discovery order?
-
----
-
-# Answer
-
-DFS(L): discover L (neighbors G, C, Y, in that order) → G is
-unvisited, recurse. DFS(G): neighbor L visited, neighbor D unvisited,
-recurse. DFS(D): neighbor G visited, neighbor Y unvisited, recurse.
-DFS(Y): neighbor L visited, neighbor D visited, neighbor F unvisited,
-recurse. DFS(F): neighbor Y visited, neighbor C unvisited, recurse.
-DFS(C): both neighbors (L, F) already visited - finishes, then every
-enclosing call finishes in reverse.
-
-**Discovery order: L, G, D, Y, F, C.** Notice it's a completely
-different order than starting from the Gate (G, L, C, F, Y, D) -
-DFS's order depends heavily on where it starts, unlike BFS's
-guarantee about hop-count layers.
-
----
-
-<!-- NEW: Check Yourself pair 3 (a 7th vertex, testing O(V+E) vs O(V^2) growth intuition) -->
-
-# Check Yourself: Adding a Seventh Location
-
-CampusNav adds **Parking Lot (P)**, connected only to the Gate, weight
-2 (so G's list becomes `G→[L,D,P]`). Now $V=7$, $E=8$. How many
-adjacency-matrix cells and adjacency-list entries does the graph
-need now, and which representation's cost grew faster from this one
-new edge?
-
----
-
-# Answer
-
-- Adjacency matrix: $V^2 = 7^2 = 49$ cells (up from 36 - a jump of
-  **13 cells** for one new vertex and one new edge).
-- Adjacency list: $V + 2E = 7 + 16 = 23$ entries (up from 20 - a jump
-  of just **3 entries**: one new header for P, plus P's one neighbor
-  entry and G's one new neighbor entry).
-
-The matrix's cost grew over **4× faster** than the list's for the
-exact same change - a concrete instance of why O(V²) space is the
-*worse* growth rate, not just a bigger constant.
-
----
-
-<!-- NEW: Check Yourself pair 4 (BFS on the same extended graph, reinforcing layer order) -->
-
-# Check Yourself: BFS on the Extended Graph
-
-Using the seven-location graph from the previous question
-(`G→[L,D,P]`, P connected only to G), trace BFS from the Gate. Where
-does Parking Lot appear in the visit order, and how many hops away is it?
-
----
-
-# Answer
-
-Queue trace: enqueue G. Dequeue G, enqueue L, D, P (G's neighbors, in
-list order) - `Q=[L,D,P]`. Dequeue L, enqueue C, Y - `Q=[D,P,C,Y]`.
-Dequeue D - both neighbors already visited/enqueued - `Q=[P,C,Y]`.
-Dequeue P - its only neighbor (G) already visited - `Q=[C,Y]`. Dequeue
-C, enqueue F - `Q=[Y,F]`. Dequeue Y, then F - nothing left to enqueue.
-
-**Visit order: G, L, D, P, C, Y, F.** Parking Lot is visited fourth
-overall, but it's only **1 hop** from the Gate - a direct neighbor,
-just like Library and Dorm - visited later only because it happens to
-be third in G's neighbor list, not because it's farther away.
-
----
-
-<!-- NEW: Try-It hand-off, session 3 -->
-
-# Now: Worksheet Part B
-
-<div class="thread">Same graph, new question: in what order do you actually visit it?</div>
-
-With the same partner, open **[Worksheet Part
-B](materials/week13/worksheet.html)**. Trace BFS and then DFS from the
-Gate on your own adjacency list, and compare the two orders.
-
-**~15 minutes.** Raise your hand if you get stuck.
 
 ---
 
@@ -890,8 +910,6 @@ routing - all the same two traversal ideas, over and over.
 
 ---
 
-<!-- NEW: split from "Where This Shows Up Everywhere Else" - the interview-relevance note gets its own slide -->
-
 # Why This Comes Up in Interviews
 
 <div class="thread">The same two decisions, asked about a hundred different problems.</div>
@@ -902,22 +920,6 @@ technical-interview question shapes, precisely because both the
 representation choice (matrix vs. list) and the traversal choice (BFS
 vs. DFS) have real, defensible right answers depending on the problem.
 </div>
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 13 Quiz](materials/week13/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
 
 ---
 
@@ -981,6 +983,12 @@ this week's representations and traversals.
 - Adjacency matrix (O(V²) space, O(1) edge lookup) and adjacency list (O(V+E) space, O(deg(u)) edge lookup) store the *same* graph differently - and the real DEU campus's sparsity (≈300 nodes, ≈600 edges) makes the list the clear winner, 60× less storage.
 - BFS (queue, layer-by-layer, shortest paths on unweighted graphs) and DFS (stack/recursion, deep-first, connectivity) both traverse a graph in O(V+E), but visit it in different orders.
 - **Assignment 4 released this week** (Dynamic Programming & Graphs) - see `materials/assignments/assignment4.md`. Due Week 15, before the final exam.
+- **New: Week 13 Check** - a short graded exercise on today's representations, BFS, and DFS, released now, due before Week 14 begins, separate from Assignment 4 (see `materials/assignments/week13-check.html`).
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS, Chapter 20 - &sect;20.1 (representations), &sect;20.2 (BFS), &sect;20.3 (DFS); also &sect;10.1 (queue/stack ADTs) and &sect;6.5 (priority queues).
 - **Prepare:** think about how you'd find the *shortest* walking route on the campus graph if some walkways were much longer than others. Bring your intuition to Week 14.
 
