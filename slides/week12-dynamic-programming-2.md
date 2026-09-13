@@ -48,24 +48,6 @@ notes: Ask: "Has anyone used `git diff`, or wondered how it decides what changed
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: What Do These Two Words Share?
-
-<div class="thread">A quick warm-up. No formal method needed yet.</div>
-
-Two words: **COMPUTER** and **COMMUTER**.
-
-- Without counting letter-by-letter position, what is the *longest run of letters* you can find, **in the same left-to-right order in both words**, even if you have to skip a letter here and there to line them up?
-- Is the answer the same as just "the letters both words have"? Try writing it out.
-
-<!--
-notes: Give students 30-45 seconds. Let a few call out answers. Most will find "COM_UTER" (skip the P/second-M) - 7 of 8 letters, in order, not touching.
-Do not say "subsequence" yet. Let them describe it as "skipping a letter and still lining up."
--->
-
----
-
 <!-- SLOT 3: Recap + open wound -->
 
 # Last Week, This Week
@@ -174,7 +156,7 @@ the paradigm applied to *two* sequences at once instead of one.
 
 ---
 
-<!-- NEW: Key Words Today, session 1 (moved after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
+<!-- Key Words Today, session 1 (kept after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
 
 # Key Words Today
 
@@ -184,20 +166,6 @@ the paradigm applied to *two* sequences at once instead of one.
 - **Common subsequence:** a sequence that is a subsequence of two (or more) different sequences at once.
 
 <!-- notes: Read each term aloud once. Say: "Watch that third one closely - today's whole topic hinges on the difference between rows two and three." -->
-
----
-
-<!-- NEW: session-1 close, previews Worksheet -->
-
-# Coming Up: A Table, By Hand
-
-<div class="thread">Next in this class: less listening, more filling in boxes.</div>
-
-Later today, you and a partner will fill an entire LCS table by hand
-for a short pair of strings, then perform the traceback together to
-pull out the actual matching sequence.
-
-Keep a pen ready.
 
 ---
 
@@ -232,12 +200,14 @@ wearing two entirely different names.
 
 ---
 
-# Back to the Warm-Up: Now Let's Be Precise
+# A Motivating Example: COMPUTER and COMMUTER
 
-<div class="thread">"COM_UTER" felt right. Let's say exactly why.</div>
+<div class="thread">Two words. One idea, precisely, coming up next.</div>
 
-**COMPUTER** = C, O, M, P, U, T, E, R
-**COMMUTER** = C, O, M, M, U, T, E, R
+Two words: **COMPUTER** and **COMMUTER**. Without counting
+letter-by-letter position, the longest run of letters that lines up,
+in the same left-to-right order in both words, is not obviously "the
+letters both words have" - some skipping is required to line it up.
 
 Delete the **P** from COMPUTER and one **M** from COMMUTER, and both
 become **C-O-M-U-T-E-R** - 7 letters, same relative order, in both
@@ -252,7 +222,7 @@ That's today's whole subject, precisely.
 
 # Subsequence & Common Subsequence: Definition
 
-<div class="thread">Fifty years of tools, and a warm-up you just solved by hand, point at two words. Here they are, precisely.</div>
+<div class="thread">Fifty years of tools, and the COMPUTER/COMMUTER example, point at two words. Here they are, precisely.</div>
 
 > A **subsequence** of a sequence $S$ is any sequence obtainable by
 > deleting zero or more elements from $S$ **without changing the
@@ -271,12 +241,14 @@ That's today's whole subject, precisely.
 **Crucial contrast:** a **substring** is a subsequence whose kept
 elements are also *contiguous* (no gaps). "ACE" is a subsequence of
 "ABCDE" but **not** a substring of it. LCS never requires contiguity.
+Same distinction, on real letters: "BD" is a subsequence of "ABCBD"
+(delete A and C) but not a substring of it (C sits between B and D).
 
 <div class="graphviz-note">CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed - Ch 14, Section 14.4 (Longest common subsequence).</div>
 
 ---
 
-<!-- NEW: Key Words Today, session 2 -->
+<!-- Key Words Today, session 2 -->
 
 # Key Words Today
 
@@ -291,32 +263,23 @@ elements are also *contiguous* (no gaps). "ACE" is a subsequence of
 
 <!-- Act 3 / BUILD -->
 
-# The Problem, Precisely
+# The Problem, Precisely - and Why Not Brute-Force
 
 <div class="thread">Time to build the actual algorithm.</div>
 
 **Input:** two sequences $X = \langle x_1, \dots, x_m \rangle$ and
-$Y = \langle y_1, \dots, y_n \rangle$.
-
-**Output:** the length of their longest common subsequence - **and**
-the actual subsequence itself, reconstructed.
-
----
-
-# Why Not Just Brute-Force It?
-
-<div class="thread">The obvious approach - and why it can't scale.</div>
+$Y = \langle y_1, \dots, y_n \rangle$. **Output:** the length of their
+longest common subsequence - **and** the actual subsequence itself,
+reconstructed.
 
 A brute-force idea: generate every subsequence of $X$, check each
 against $Y$. $X$ has $2^m$ subsequences - one for every possible
-subset of its positions kept or dropped.
-
-- For CampusNav's course lists ($m \approx 12$), that's already over
-  4,000 checks.
-- Every single additional class either student adds **doubles** that
-  count - the same exponential shape as Week 4's runaway recursion
-  trees and Week 11's naive Fibonacci call tree.
-- We need the answer without ever generating a single subsequence by hand.
+subset of its positions kept or dropped. For CampusNav's course lists
+($m \approx 12$), that's already over 4,000 checks, and every
+additional class either student adds **doubles** that count - the
+same exponential shape as Week 4's runaway recursion trees and Week
+11's naive Fibonacci call tree. We need the answer without ever
+generating a single subsequence by hand.
 
 ---
 
@@ -369,8 +332,11 @@ L(i-1,j-1) + 1 & \text{if } i,j > 0 \text{ and } x_i = y_j \\
 \end{cases}
 $$
 
-**Base case, why 0:** an empty prefix (of either sequence) shares
-no elements with anything - there's nothing to match.
+**Base case, why 0:** an empty prefix (of either sequence) shares no
+elements with anything - there's nothing to match. **A symmetry
+worth noting:** swapping which sequence is labeled $X$ and which is
+$Y$ transposes the table's shape, but changes neither the recurrence
+nor the final LCS length.
 
 ---
 
@@ -390,38 +356,6 @@ Every cell $L(i,j)$ depends only on cells *above* it ($L(i{-}1,j)$),
 
 ---
 
-<!-- NEW: Check Yourself pair, applies the just-derived recurrence by hand -->
-
-# Check Yourself
-
-<div class="thread">Apply the recurrence yourself, on a tiny fresh pair, before seeing the full procedure.</div>
-
-$X = \texttt{AC}$, $Y = \texttt{CA}$. Fill the $3 \times 3$ table of
-$L(i,j)$ by hand (indices 0 through 2 for each), using only the
-recurrence from the last two slides. What is the length of their LCS?
-
----
-
-# Answer
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel"></div><div class="cell empty">ε</div><div class="cell">C</div><div class="cell">A</div></div>
-<div class="row"><div class="rowlabel">ε</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">A</div><div class="cell">0</div><div class="cell">0</div><div class="cell">1</div></div>
-<div class="row"><div class="rowlabel">C</div><div class="cell">0</div><div class="cell">1</div><div class="cell">1</div></div>
-</div>
-
-$L(1,1)$: $X[1]{=}A$, $Y[1]{=}C$ - mismatch, $\max(0,0){=}0$.
-$L(1,2)$: $X[1]{=}A$, $Y[2]{=}A$ - match, $L(0,1)+1{=}1$.
-$L(2,1)$: $X[2]{=}C$, $Y[1]{=}C$ - match, $L(1,0)+1{=}1$.
-$L(2,2)$: $X[2]{=}C$, $Y[2]{=}A$ - mismatch, $\max(1,1){=}1$.
-
-**LCS length = 1.** Two different one-letter answers both work here
-("A" or "C") - an early preview of the tie behavior traceback has to
-handle later this session.
-
----
-
 # Building the Table: The Procedure
 
 <div class="steps">
@@ -433,7 +367,7 @@ handle later this session.
 
 ---
 
-<!-- NEW: memoization vs. tabulation code comparison, reinforces the Common Mistakes point that these are one recurrence -->
+<!-- Idea + pseudocode: memoization vs. tabulation for LCS -->
 
 # Memoization vs. Tabulation for LCS
 
@@ -484,162 +418,140 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 
 ---
 
-# Worked Example: Setting Up the Table
+<!-- Dense worked example, LCS, simple tier -->
+<!-- _class: dense -->
 
-<div class="thread">X = "ALGDP", Y = "ALGRDP" - the first few course codes of a real CampusNav pair, see the worked example ahead.</div>
+<div class="eyebrow">LCS · worked example 1 of 3 (simple)</div>
 
-$X = \texttt{ALGDP}$ (5 letters), $Y = \texttt{ALGRDP}$ (6 letters).
-The table needs $6 \times 7$ cells - row 0 and column 0 for the empty
-prefix $\varepsilon$ (zero characters taken), then one row per letter
-of $X$ and one column per letter of $Y$.
+# The Smallest Case: X = AC, Y = CA
 
-Fill it using only the recurrence from a few slides ago: match on the
-diagonal, mismatch takes the larger neighbor.
+<div class="wx-top">
+<div class="lead">Two letters each. Enough to need the full recurrence - and enough to already show a tie.</div>
+<div class="goalbox"><span class="k">Goal</span>Fill the 3&times;3 table of L(i,j) using only the two-case recurrence.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">X=AC, Y=CA. Base row/column are 0. Fill L(1,1), L(1,2), L(2,1), L(2,2) in order.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Fill the cells</div>
+<div class="wx-body">L(1,1): A vs C, mismatch, max(0,0)=0. L(1,2): A vs A, match, L(0,1)+1=1. L(2,1): C vs C, match, L(1,0)+1=1. L(2,2): C vs A, mismatch, max(1,1)=1.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">LCS length = 1. Two different one-letter answers both work ("A" or "C") - a tie.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>LCS(AC, CA) = 1 - already a tie between two different valid answers, previewing today's harder tier.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even a 2-letter pair needs the full recurrence, not intuition - and already shows LCS answers aren't always unique.</div>
 
 ---
 
-# Worked Example: Filling the Table
+<!-- Dense worked example, LCS, moderate tier (full DP table, too large for a card - shown full-width) -->
+<!-- _class: dense -->
 
-<div class="thread">Same X and Y. Every cell filled with only the rule from earlier.</div>
+<div class="eyebrow">LCS · worked example 2 of 3 (moderate)</div>
+
+# Full Trace: X = ALGDP, Y = ALGRDP
+
+<div class="wx-top">
+<div class="lead">The first five and six course codes of Minji's and Junho's real sequences.</div>
+<div class="goalbox"><span class="k">Goal</span>Fill all 42 cells using only the recurrence, row by row.</div>
+</div>
 
 <div class="tracetable">
-<div class="row"><div class="rowlabel"></div><div class="cell empty">ε</div><div class="cell">A</div><div class="cell">L</div><div class="cell">G</div><div class="cell">R</div><div class="cell">D</div><div class="cell">P</div></div>
-<div class="row"><div class="rowlabel">ε</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div></div>
+<div class="row"><div class="rowlabel"></div><div class="cell empty">&#949;</div><div class="cell">A</div><div class="cell">L</div><div class="cell">G</div><div class="cell">R</div><div class="cell">D</div><div class="cell">P</div></div>
+<div class="row"><div class="rowlabel">&#949;</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div></div>
 <div class="row"><div class="rowlabel">A</div><div class="cell">0</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div></div>
 <div class="row"><div class="rowlabel">L</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">2</div><div class="cell">2</div><div class="cell">2</div><div class="cell">2</div></div>
 <div class="row"><div class="rowlabel">G</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">3</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">D</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">4</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">P</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">4</div><div class="cell">5</div></div>
-</div>
-
-Bottom-right corner: **L(5,6) = 5**.
-
----
-
-<!-- NEW: "Inside One Cell" deep dive, matches Week 11's style -->
-
-# Inside One Cell: L(4,1)
-
-<div class="thread">One mismatch cell, picked apart - which neighbor does max() actually pick?</div>
-
-Row D (i=4), column A (j=1): $X[4]{=}D$, $Y[1]{=}A$ - a mismatch, so
-$L(4,1) = \max\big(L(3,1),\ L(4,0)\big)$.
-
-| Option | Value |
-|---|---|
-| **Up:** $L(3,1)$ (row G, column A) | 1 |
-| **Left:** $L(4,0)$ (row D, column ε) | 0 |
-
-$\max(1, 0) = 1$ - the up-neighbor wins, because the best match found
-using only "G" against "A" (already 1, from the earlier A-L match)
-beats starting over with nothing. This is the exact table cell one
-row and one column in from the corner.
-
----
-
-<!-- NEW: Check Yourself pair, symmetry of LCS -->
-
-# Check Yourself
-
-<div class="thread">A property of LCS itself, not just this one table.</div>
-
-If we had swapped the roles of $X$ and $Y$ - built the table with $Y$
-as the rows and $X$ as the columns instead - would the final LCS
-*length* change?
-
----
-
-# Answer
-
-No. LCS length is symmetric: $L_{XY}(m,n) = L_{YX}(n,m)$.
-
-"$S$ is a common subsequence of $X$ and $Y$" does not care which
-sequence is labeled $X$ and which is labeled $Y$ - only the *table's
-shape* transposes (an $(m{+}1)\times(n{+}1)$ grid becomes an
-$(n{+}1)\times(m{+}1)$ grid), not the recurrence, not the base case,
-and not the final answer. The same is true of the reconstructed LCS
-itself, read in the opposite diagonal direction.
-
----
-
-# Traceback: The Procedure
-
-<div class="thread">The table gives a length. This gives the actual sequence.</div>
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Start at the bottom-right cell, (i,j) = (m,n).</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">If X[i] = Y[j] (a diagonal-match move): record that character, move to (i-1, j-1).</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Otherwise (a max-direction move): move to whichever of (i-1,j) or (i,j-1) has the larger value - that's the neighbor the max() came from.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Stop when i = 0 or j = 0. Reverse the recorded characters - you built the LCS backward.</div></div>
-</div>
-
----
-
-# When the Two Neighbors Tie
-
-<div class="thread">Step 3 assumed one neighbor is strictly larger. What if they're equal?</div>
-
-<div class="why">Ties (both neighbors equal) mean more than one longest common subsequence exists - either direction gives a correct, maximum-length answer.</div>
-
-A tie is not a bug or an edge case to avoid - it is the table
-correctly reporting that CampusNav's two students share more than one
-equally-good sequence of courses. Any consistent tie-breaking rule
-(e.g. "prefer up") produces one valid answer; a different rule would
-produce a different, equally valid one.
-
----
-
-# Traceback, Traced
-
-<div class="thread">Same table. Gold = a max-direction detour. Blue = a diagonal match, added to the LCS.</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel"></div><div class="cell empty">ε</div><div class="cell">A</div><div class="cell">L</div><div class="cell">G</div><div class="cell">R</div><div class="cell">D</div><div class="cell">P</div></div>
-<div class="row"><div class="rowlabel">ε</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div></div>
-<div class="row"><div class="rowlabel">A</div><div class="cell">0</div><div class="cell hl">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div></div>
-<div class="row"><div class="rowlabel">L</div><div class="cell">0</div><div class="cell">1</div><div class="cell hl">2</div><div class="cell">2</div><div class="cell">2</div><div class="cell">2</div><div class="cell">2</div></div>
-<div class="row"><div class="rowlabel">G</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell hl">3</div><div class="cell hl2">3</div><div class="cell">3</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">D</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell hl">4</div><div class="cell">4</div></div>
+<div class="row"><div class="rowlabel">D</div><div class="cell">0</div><div class="cell hl2">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">4</div><div class="cell">4</div></div>
 <div class="row"><div class="rowlabel">P</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">4</div><div class="cell hl">5</div></div>
 </div>
 
----
-
-# Traceback, Traced: The Result
-
-<div class="thread">Same path. Now read off the actual letters.</div>
-
-Path: (5,6)→(4,5)→**(3,4) detour, R doesn't match**→(3,3)→(2,2)→(1,1).
-Reversed: **A, L, G, D, P**.
-
-Five diagonal matches (A, L, G, D, P) and exactly one detour (past
-the mismatched R) - matching $L(5,6) = 5$ exactly: one recorded
-character per unit of LCS length.
+<div class="conclusion"><span class="k">Conclusion</span>L(5,6) = 5 - filled left to right, row by row, using only the two-case recurrence, 42 cells total.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Every cell only ever needs three neighbors already on the table - never a fresh recursive call.</div>
 
 ---
 
-<!-- NEW: Check Yourself pair, a genuine tie in this exact table -->
+<!-- Dense worked example, LCS, moderate tier, continued: how two of its cells were filled -->
+<!-- _class: dense -->
 
-# Check Yourself
+<div class="eyebrow">LCS · worked example 2 of 3 (moderate), continued</div>
 
-<div class="thread">The traceback above happened not to hit a tie. Somewhere else in the same table, one exists.</div>
+# Full Trace, Continued: Reading Two Key Cells
 
-Look at cell $L(4,4)$ (row D, column R): $X[4]{=}D$ and $Y[4]{=}R$
-don't match. Check its two neighbors, $L(3,4)$ (row G, column R) and
-$L(4,3)$ (row D, column G). What do you find, and what would it mean
-if traceback passed through this cell?
+<div class="wx-top">
+<div class="lead">Same table as the previous slide. Here's exactly how two of its cells were filled.</div>
+<div class="goalbox"><span class="k">Goal</span>Show the recurrence's two cases at work on real cells from the table.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Matches extend the diagonal</div>
+<div class="wx-body">L(2,2): X[2]=L, Y[2]=L, match &rarr; L(1,1)+1 = 1+1 = 2.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Mismatches take the larger neighbor</div>
+<div class="wx-body">L(4,1) (gold): X[4]=D, Y[1]=A, mismatch &rarr; max(L(3,1)=1, L(4,0)=0) = 1 - the up-neighbor wins.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Final answer</div>
+<div class="wx-body">Bottom-right (blue): L(5,6) = 5 - the full LCS of ALGDP and ALGRDP has length 5.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Every cell in the table follows the same two-case recurrence, whether it's a clean diagonal match or a mismatch reaching sideways.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div>
 
 ---
 
-# Answer
+<!-- Dense worked example, LCS, harder tier (traceback + tie handling) -->
+<!-- _class: dense -->
 
-$L(3,4) = 3$ and $L(4,3) = 3$ - both equal. A genuine tie.
+<div class="eyebrow">LCS · worked example 3 of 3 (harder)</div>
 
-If traceback ever reached $L(4,4)$, it could move to *either*
-neighbor - two different length-3 common subsequences pass through
-this point in the table, both maximal so far. This is exactly what
-the "ties mean more than one answer" rule from two slides ago looks
-like on real data, not just an abstract warning.
+# Traceback: Reconstructing the Actual Sequence
+
+<div class="wx-top">
+<div class="lead">The table gives a length. Traceback gives the actual matched letters - and shows what a tie really means.</div>
+<div class="goalbox"><span class="k">Goal</span>Walk L(5,6) backward to (0,0), and find a genuine tie elsewhere in the same table.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The procedure</div>
+<div class="wx-body">Start at (m,n). If X[i]=Y[j], record it, move diagonally to (i-1,j-1). Otherwise move to whichever of (i-1,j)/(i,j-1) is larger. Stop at i=0 or j=0; reverse what was recorded.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Traced on ALGDP/ALGRDP</div>
+<div class="wx-body">(5,6)P&rarr;(4,5)D&rarr;(3,4) mismatch: L(2,4)=2 vs L(3,3)=3, detour left&rarr;(3,3)G&rarr;(2,2)L&rarr;(1,1)A. Reversed: A,L,G,D,P - 5 characters, matching L(5,6)=5 exactly.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">A genuine tie elsewhere</div>
+<div class="wx-body">L(4,4) (row D, col R): neighbors L(3,4)=3 and L(4,3)=3, equal. If traceback passed through here, either direction gives a different, equally valid length-3 common subsequence.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">What a tie means</div>
+<div class="wx-body">Not a bug: it's the table correctly reporting more than one longest common subsequence exists. Any consistent tie-breaking rule (e.g. "prefer up") produces one valid answer; a different rule produces a different, equally valid one.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Traceback reconstructs A-L-G-D-P, not just the number 5 - and the table's one genuine tie (L(4,4)) shows ties are a real, expected feature of LCS, not an edge case to avoid.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A DP table doesn't just prove a length is optimal - traceback is what turns that proof into the actual answer.</div>
 
 ---
 
@@ -648,19 +560,9 @@ like on real data, not just an abstract warning.
 <div class="thread">Last piece: how much does this cost? (Big-O can take more than one variable - $O(mn)$ tracks two input sizes at once, not just one $n$.)</div>
 
 - **Time: O(mn).** Each of the (m+1)(n+1) cells is filled in O(1) from already-computed neighbors - total work is proportional to the number of cells.
-- **Space: O(mn).** The full table must be kept if you need the traceback (the actual subsequence).
+- **Space: O(mn).** The full table must be kept if you need the traceback (the actual subsequence). **Refinement:** if only the *length* is needed, only the previous row must be kept - $O(\min(m,n))$ space. CampusNav's traceback needs the real string, so it keeps the full table.
 
-<div class="bignotation">O(mn) time · O(mn) space (with traceback)</div>
-
----
-
-# Complexity: A Refinement, and the Payoff
-
-<div class="thread">One optimization, then the number that actually matters.</div>
-
-**Refinement:** if you only need the *length*, not the subsequence,
-you only ever need the previous row - $O(\min(m,n))$ space is enough.
-CampusNav's traceback needs the real string, so it keeps the full table.
+<span class="bignotation">O(mn) time · O(mn) space (with traceback)</span>
 
 Compare to brute force's $O(2^m \cdot n)$ - checking every subsequence
 of $X$ against $Y$. DP turns exponential into polynomial, same as
@@ -680,10 +582,10 @@ $$
 X = \texttt{ALGDPGRPHSRT} \qquad Y = \texttt{ALGRDPGRAPH}
 $$
 
-The short pair you just traced by hand, `ALGDP` / `ALGRDP`, is
-literally the first five and six codes of these two real sequences -
-you've already solved a prefix of CampusNav's real problem. Building
-the full 12×11 table and traceback for these exact sequences is
+The short pair just traced by hand, `ALGDP` / `ALGRDP`, is literally
+the first five and six codes of these two real sequences - you've
+already solved a prefix of CampusNav's real problem. Building the
+full 12×11 table and traceback for these exact sequences is
 **Assignment 4, Task 1** (released Week 13, due Week 15). Once solved, CampusNav can
 finally tell Minji and Junho exactly which courses they share, and
 in what order - not "no match."
@@ -692,75 +594,26 @@ in what order - not "no match."
 
 <!-- SLOT N-1: Common mistakes -->
 
-# Common Mistake: Subsequence vs. Substring
+# Common Mistakes
 
-<div class="thread">The most tempting confusion this whole week.</div>
-
-LCS does **not** require the shared elements to be contiguous. It's
-tempting because the word "sequence" sounds like it should mean an
-unbroken run - but "ACE" is a valid common subsequence of "ABCDE" and
-"XAYCZE" even though neither contains "ACE" as a contiguous block.
-
-If you catch yourself checking for a shared *block* of characters,
-you've quietly solved the wrong (easier, less useful) problem.
-
----
-
-# Common Mistake: Memoization vs. Tabulation
-
-<div class="thread">A confusion this course has now flagged twice - Week 11 and today.</div>
-
-Treating memoization and tabulation as different algorithms. They're
-the same recurrence - the top-down (memoized) version caches results
-the first time they're needed; the table you just filled by hand is
-the bottom-up (tabulated) version of the exact same $L(i,j)$ equation.
-
-The two code blocks from earlier this session (memo vs. tabulation)
-are proof: same cases, same base case, same final answer - only the
-direction of computation differs.
+- **Subsequence vs. substring.** LCS does **not** require the shared
+  elements to be contiguous. It's tempting because the word "sequence"
+  sounds like it should mean an unbroken run - but "ACE" is a valid
+  common subsequence of "ABCDE" and "XAYCZE" even though neither
+  contains "ACE" as a contiguous block. If you catch yourself checking
+  for a shared *block* of characters, you've quietly solved the wrong
+  (easier, less useful) problem.
+- **Memoization vs. tabulation.** A confusion this course has now
+  flagged twice - Week 11 and today. They're the same recurrence - the
+  top-down (memoized) version caches results the first time they're
+  needed; the table filled by hand above is the bottom-up (tabulated)
+  version of the exact same $L(i,j)$ equation. The two code blocks a
+  few slides back are proof: same cases, same base case, same final
+  answer - only the direction of computation differs.
 
 ---
 
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. Is "BD" a substring of "ABCBD"? Is it a subsequence? Are your two answers different, and why?
-2. For X = "AGCAT" and Y = "GAC", what is L(1,1) - comparing just the first character of each - and which recurrence case applies?
-3. If |X| = m and |Y| = n, how many cells does the DP table have, and what does that tell you about the algorithm's time complexity?
-
----
-
-# Answers
-
-1. "BD" is **not** a substring (B and D are not adjacent in "ABCBD" - C sits between them) but **is** a subsequence (delete A and C, keep B and D in order). Different answers because substring demands contiguity; subsequence does not.
-2. X[1] = "A", Y[1] = "G" - no match, so the *mismatch* case applies: $L(1,1) = \max(L(0,1), L(1,0)) = \max(0,0) = 0$.
-3. $(m+1)(n+1)$ cells. Since each cell costs O(1) to fill, total time is proportional to the cell count - that's exactly where O(mn) time comes from.
-
----
-
-<!-- NEW: worksheet hand-off -->
-
-# Now: Worksheet - Fill the Table, Trace It Back
-
-<div class="thread">Time to practice. Build one yourself, start to finish.</div>
-
-Work with your neighbor. Open the **[Week 12
-Worksheet](materials/week12/worksheet.html)**. Part A: fill an LCS
-table by hand for a fresh pair of short strings. Part B: perform the
-traceback together and reconstruct the actual longest common
-subsequence.
-
-**~25-30 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project the worksheet. Walk the room while pairs work.
-After time is up, ask 2 pairs to share their reconstructed LCS strings and confirm both A and B parts.
--->
-
----
-
-<!-- NEW: Key Words Today, session 3 -->
+<!-- Key Words Today, session 3 -->
 
 # Key Words Today
 
@@ -773,28 +626,20 @@ After time is up, ask 2 pairs to share their reconstructed LCS strings and confi
 
 ---
 
-<!-- NEW: Check Yourself pair, LCS vs. edit distance -->
+# LCS vs. Edit Distance: How Related?
 
-# Check Yourself
-
-<div class="thread">The Key Words slide just named a close cousin. How close, exactly?</div>
+<div class="thread">The Key Words slide just named a close cousin. Here's exactly how close.</div>
 
 Edit distance counts insertions, deletions, and substitutions needed
-to turn one string into another. Is "a smaller edit distance" the
-same claim as "a longer LCS"? Are the two even related?
-
----
-
-# Answer
-
-Related, but not identical. A longer LCS generally means a smaller
-edit distance - more shared structure means fewer changes needed. But
-edit distance's recurrence also allows a **substitution** move (swap
-one character for another) that LCS's recurrence has no equivalent
-for - LCS only ever matches exactly or drops a character. So the two
-problems are solved by closely related, but not identical, recurrences.
-CLRS covers edit distance (sequence alignment) as the natural next
-topic after LCS, for exactly this reason.
+to turn one string into another. A longer LCS generally means a
+smaller edit distance - more shared structure means fewer changes
+needed - but the two are related, not identical: edit distance's
+recurrence also allows a **substitution** move (swap one character for
+another) that LCS's recurrence has no equivalent for - LCS only ever
+matches exactly or drops a character. So the two problems are solved
+by closely related, but not identical, recurrences. CLRS covers edit
+distance (sequence alignment) as the natural next topic after LCS,
+for exactly this reason.
 
 ---
 
@@ -837,7 +682,7 @@ transferable skill.
 
 ---
 
-<!-- NEW: matrix-chain multiplication preview/outlook pair, clearly not required this week -->
+<!-- Preview/outlook, clearly not required this week -->
 
 # Preview: One More Dimension of Choice
 
@@ -847,50 +692,18 @@ CLRS's next dynamic-programming problem, **matrix-chain
 multiplication** (§14.2), asks: given a chain of matrices to multiply
 together, in what order should you group the multiplications
 (parenthesize them) to do the fewest total scalar multiplications?
-The matrices themselves never change - only the grouping does, and
-different groupings can cost wildly different amounts.
-
-It is the same DP idea as today, one more dimension of choice: define
-$m[i,j]$ = the minimum cost to multiply the chain from matrix $i$
-through matrix $j$, and split it at every possible point $k$:
+Define $m[i,j]$ = the minimum cost to multiply the chain from matrix
+$i$ through matrix $j$, and split it at every possible point $k$:
 
 $$
 m[i,j] = \min_{i \le k < j} \Big( m[i,k] + m[k+1,j] + \text{cost of combining} \Big)
 $$
 
----
-
-# Preview: Why This One Is Harder
-
-<div class="thread">Same table shape. One extra loop, every cell.</div>
-
-LCS's recurrence only ever looks at three fixed neighbors -
-$(i{-}1,j{-}1)$, $(i{-}1,j)$, $(i,j{-}1)$ - never anywhere else in the
-table. Matrix-chain's recurrence must try **every** split point $k$
-between $i$ and $j$ before taking the minimum, an extra inner loop at
-every single cell.
-
-- This is not required this week - it is here so the shape looks
-  familiar the moment it appears later in CLRS.
-- If you want to go deeper now: **CLRS §14.2**, matrix-chain
-  multiplication, worked in full.
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 12 Quiz](materials/week12/quiz.html)**. Answer on
-your own, about 10 minutes. Check your own answers at the end. Ask
-if anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
+LCS's recurrence only ever looks at three fixed neighbors - never
+anywhere else in the table. Matrix-chain's recurrence must try
+**every** split point $k$ between $i$ and $j$ before taking the
+minimum, an extra inner loop at every single cell - here so the shape
+looks familiar the moment it appears later in CLRS §14.2.
 
 ---
 
@@ -922,7 +735,7 @@ the first time.
 
 ---
 
-<!-- NEW: Where This Week Lives in CLRS, positioned immediately before Summary -->
+<!-- Where This Week Lives in CLRS, positioned immediately before Summary -->
 
 # Where This Week Lives in CLRS
 
@@ -951,9 +764,19 @@ optimal binary search trees - a third DP problem shaped like LCS's
 - The recurrence: matching characters extend the diagonal by 1;
   mismatched characters take the better of dropping either character.
 - **Traceback** reconstructs the actual LCS string, not just its
-  length - walk backward from the table's corner.
+  length - walk backward from the table's corner, and a genuine tie
+  means more than one correct answer exists.
 - **Complexity:** O(mn) time and space (O(min(m,n)) space if only
   the length is needed).
+- **New: Week 12 Check** - a short graded exercise on today's LCS
+  technique, released now, due before Week 13 begins, **separate from
+  Assignment 3** (Greedy & Divide-and-Conquer, released Week 10, due
+  this week) - see `materials/assignments/week12-check.html`.
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS, Chapter 14 (Dynamic Programming), §14.4
   Longest Common Subsequence.
 - **Prepare:** think about how you'd represent CampusNav's buildings

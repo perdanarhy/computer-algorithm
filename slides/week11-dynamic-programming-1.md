@@ -17,7 +17,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 </div>
 
 <!--
-notes: Welcome the class. Ask: "Last week you proved greedy could be wrong. Who remembers the campus-points {1,3,4} example where the greedy answer wasn't the best one?" Let a few students recall it. That is today's hook.
+notes: Welcome the class. Remind them: "Last week you proved greedy could be wrong - the campus-points {1,3,4} example where the greedy answer wasn't the best one." That is today's hook.
 -->
 
 ---
@@ -45,30 +45,6 @@ notes: Welcome the class. Ask: "Last week you proved greedy could be wrong. Who 
 </div>
 
 <!-- notes: Point at the row. Say: "Eleven weeks of CampusNav so far. Today its Tour Planner feature finally gets solved properly." -->
-
----
-
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: How Many Ways to Climb?
-
-<div class="thread">A quick warm-up. No code needed yet.</div>
-
-A short staircase has **4 steps**. You can climb **1 or 2 steps** at a
-time. By hand, list every distinct order of hops that gets you from
-the bottom to the top.
-
-- How many total ways did you find for 4 steps?
-- Now try 5 steps. Did you have to start over from scratch - or could
-  you reuse counting you already did for the smaller staircases?
-
-<!--
-notes: Give students 60 seconds. Expected answer for 4 steps: 5 ways
-(1+1+1+1, 1+1+2, 1+2+1, 2+1+1, 2+2). For 5 steps: 8 ways. Push on the
-second bullet - someone will notice "5 steps = (do 1 step, then solve
-the 4-step problem) or (do 2 steps, then solve the 3-step problem)."
-Do not name "dynamic programming" yet.
--->
 
 ---
 
@@ -209,7 +185,7 @@ check. A real campus has a lot more than 20 nearby things to do.
 
 ---
 
-<!-- NEW: Key Words Today, session 1 (moved after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
+<!-- Key Words Today, session 1 (kept after Act 1 / MOTIVATE per SPINE.md's no-definition-before-slot-8 rule) -->
 
 # Key Words Today
 
@@ -224,20 +200,6 @@ check. A real campus has a lot more than 20 nearby things to do.
   never solving the same sub-question twice (formalized today).
 
 <!-- notes: Read each term aloud once. Say these four words are today's whole vocabulary, formalized one at a time. -->
-
----
-
-<!-- NEW: session-1 close, previews Worksheet Part A -->
-
-# Coming Up: Worksheet Part A
-
-<div class="thread">Next in this class: less listening, more doing.</div>
-
-Later today, you and a partner will fill a small DP table by hand for
-a Tour Planner instance of your own - different numbers than the
-slides, same idea.
-
-That is **Worksheet Part A**. Keep a pen ready.
 
 ---
 
@@ -317,7 +279,7 @@ we re-asked the same small question.
 
 ---
 
-<!-- NEW: Key Words Today, session 2 -->
+<!-- Key Words Today, session 2 -->
 
 # Key Words Today
 
@@ -337,7 +299,7 @@ we re-asked the same small question.
 
 <!-- Act 3 / BUILD: Condition 1 -->
 
-# Condition 1: Optimal Substructure - Shared With Greedy, Except…
+# Condition 1: Optimal Substructure - Shared With Greedy, Except...
 
 <div class="thread">The same property that made greedy work last week. Almost.</div>
 
@@ -363,17 +325,9 @@ we re-asked the same small question.
   per step. DP asks "what's the best plan for *every* remaining
   time budget?" and keeps all of those answers around, in case a
   later choice needs one it hasn't picked yet.
-
----
-
-# Telling Greedy and DP Problems Apart
-
-<div class="thread">Same optimal substructure. Different test for which technique applies.</div>
-
-**Test:** room-booking (Week 10) has the greedy-choice property, so
-greedy alone sufficed. Tour Planner does not (the greedy Tour Planner
-attempt earlier this session already showed it) - it needs the full
-machinery.
+- **Test:** room-booking (Week 10) has the greedy-choice property, so
+  greedy alone sufficed. Tour Planner does not (the greedy attempt on
+  the pain slide already showed it) - it needs the full machinery.
 
 ---
 
@@ -406,7 +360,7 @@ at all.
 
 ---
 
-<!-- NEW: rod-cutting comparison, CLRS's classic version of this same idea -->
+<!-- Rod-cutting comparison, CLRS's classic version of this same idea -->
 
 # CLRS's Classic Version: Rod Cutting
 
@@ -432,9 +386,9 @@ revenue.
 CLRS's rod-cutting recurrence says: the best revenue for a rod of
 length $n$ either leaves the rod uncut, or makes one cut and adds the
 best revenue for whatever length remains. That is the *same* choice
-structure as `best(i,t)` above - "include this option or don't, then
-solve optimally for what's left" - applied to a length budget instead
-of a time budget.
+structure as `best(i,t)` (introduced shortly) - "include this option
+or don't, then solve optimally for what's left" - applied to a length
+budget instead of a time budget.
 
 <div class="why">
 This is why the paradigm, not the problem, is what transfers: once you
@@ -477,7 +431,7 @@ it's exponential ($O(2^n)$ calls) against a fix that's linear ($O(n)$).
 
 ---
 
-<!-- Act 3 / BUILD: misconception correction, memo vs tabulation -->
+<!-- Idea + pseudocode: the two DP implementations, technique 1 (Fibonacci-shaped) -->
 
 # Two Implementations, One Recurrence
 
@@ -517,194 +471,148 @@ FIB_TAB(n):
 
 ---
 
-# Same Recurrence, Only the Direction Differs
+# Two Implementations, Continued: Only Direction Differs
 
-<div class="thread">Both implementations above solve the identical recurrence.</div>
+<div class="thread">Same recurrence as the code on the previous slide.</div>
 
-Same recurrence (`table[i] = table[i-1] + table[i-2]`), same $O(n)$
-distinct subproblems solved exactly once, same $O(n)$ time. Only the
-**direction** differs: memoization recurses top-down and fills the
-cache lazily, as needed; tabulation iterates bottom-up and fills every
-entry, in order, up front.
-
----
-
-<!-- NEW: Check Yourself pair, FIB_TAB by hand -->
-
-# Check Yourself: Fill It By Hand
-
-Using `table[i] = table[i-1] + table[i-2]`, `table[0] = 0`,
-`table[1] = 1`: fill `table[2]` through `table[6]` by hand, one cell
-at a time. What is `table[6]`?
+Same recurrence, same $O(n)$ distinct subproblems solved exactly once,
+same $O(n)$ time. Only the **direction** differs: memoization recurses
+top-down and fills the cache lazily; tabulation iterates bottom-up and
+fills every entry, in order, up front.
 
 ---
 
-# Answer
+<!-- Dense worked example, Fibonacci-shaped DP, simple tier (absorbs cut Check-Yourself) -->
+<!-- _class: dense -->
 
-`table[2]=1, table[3]=2, table[4]=3, table[5]=5, table[6]=8`. Each
-cell only ever reads the two cells directly before it - never
-recomputed, never re-derived from scratch.
+<div class="eyebrow">Fibonacci-shaped DP · worked example 1 of 3 (simple)</div>
+
+# Fill the Table by Hand: table[0..6]
+
+<div class="wx-top">
+<div class="lead">Two seed values, then the recurrence, one cell at a time.</div>
+<div class="goalbox"><span class="k">Goal</span>Using table[i] = table[i-1] + table[i-2], fill table[0] through table[6].</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Seeds</div>
+<div class="wx-body">table[0] = 0, table[1] = 1 - the two base cases, given directly, no recursion needed.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">table[2..4]</div>
+<div class="wx-body">table[2]=0+1=1. table[3]=1+1=2. table[4]=1+2=3.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">table[5..6]</div>
+<div class="wx-body">table[5]=2+3=5. table[6]=3+5=8.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>table[6] = 8 - each cell only ever reads the two cells directly before it.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Nothing here is ever recomputed or re-derived from scratch - that's the entire payoff, visible even on 7 cells.</div>
 
 ---
 
-<!-- Act 3 / BUILD: Fibonacci table trace -->
+<!-- Dense worked example, Fibonacci-shaped DP, moderate tier -->
+<!-- _class: dense -->
 
-# Trace: Filling the Fibonacci Table
+<div class="eyebrow">Fibonacci-shaped DP · worked example 2 of 3 (moderate)</div>
 
-<div class="thread">Tabulation, one cell at a time.</div>
+# Tabulation, Memoization, and the Cache Fill
 
-`table[i] = table[i-1] + table[i-2]`, built left to right:
+<div class="wx-top">
+<div class="lead">Same recurrence, two directions - watch memoization's repeats turn into cache hits.</div>
+<div class="goalbox"><span class="k">Goal</span>Compare tabulation's table trace to memoization's call tree, on fib(5) through fib(7).</div>
+</div>
 
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Tabulation trace</div>
+<div class="wx-body">
 <div class="tracetable">
-<div class="row"><div class="rowlabel">i</div>
-<div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell hl2">5</div><div class="cell hl2">6</div><div class="cell hl">7</div><div class="cell">8</div><div class="cell">9</div><div class="cell">10</div>
+<div class="row"><div class="rowlabel">i</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell hl2">5</div><div class="cell hl2">6</div><div class="cell hl">7</div></div>
+<div class="row"><div class="rowlabel">table[i]</div><div class="cell">0</div><div class="cell">1</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell hl2">5</div><div class="cell hl2">8</div><div class="cell hl">13</div></div>
 </div>
-<div class="row"><div class="rowlabel">table[i]</div>
-<div class="cell">0</div><div class="cell">1</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell hl2">5</div><div class="cell hl2">8</div><div class="cell hl">13</div><div class="cell">21</div><div class="cell">34</div><div class="cell">55</div>
+table[7] reads two solved neighbors, writes 5+8=13.
 </div>
 </div>
-
-`table[7]` (gold cells) reads two already-solved neighbors - never
-recomputes them - and writes `table[7] = 5 + 8 = 13` (blue cell). Every
-cell is touched exactly once, in either implementation.
-
----
-
-<!-- NEW: memoization cache-fill trace, pairs with the tabulation trace above -->
-
-# Trace: FIB_MEMO's Call Tree
-
-<div class="thread">Same fib(5). Top-down this time - watch repeats turn into cache hits.</div>
-
-```text
-FIB_MEMO(5)
-├─ FIB_MEMO(4)
-│   ├─ FIB_MEMO(3)
-│   │   ├─ FIB_MEMO(2)
-│   │   │   ├─ FIB_MEMO(1)  [base]
-│   │   │   └─ FIB_MEMO(0)  [base]
-│   │   └─ FIB_MEMO(1)  [base]
-│   └─ FIB_MEMO(2)  [cache HIT]
-└─ FIB_MEMO(3)  [cache HIT]
-```
-
-Compare to Week 4's naive `fib(5)` tree (15 calls, `fib(3)` expanded
-twice, `fib(2)` expanded three times): this tree has only **9** calls,
-and `fib(3)` and `fib(2)`'s *second* visits are one-line cache hits,
-not new subtrees.
-
----
-
-# Trace: FIB_MEMO's Cache-Fill Order
-
-<div class="thread">Same tree. Now the cache, filled in the order recursion actually returns.</div>
-
-| Fill # | Cache entry | Computed as | Value |
-|---|---|---|---|
-| 1 | `cache[2]` | `FIB_MEMO(1) + FIB_MEMO(0)` = 1 + 0 | 1 |
-| 2 | `cache[3]` | `cache[2] + FIB_MEMO(1)` = 1 + 1 | 2 |
-| 3 | `cache[4]` | `cache[3] + cache[2]` = 2 + 1 | 3 |
-| 4 | `cache[5]` | `cache[4] + cache[3]` = 3 + 2 | 5 |
-
-The cache fills in the same ascending order tabulation used
-(`2, 3, 4, 5`) - but memoization *reaches* that order by recursing all
-the way down to the base cases first, then filling on the way back up,
-not by looping forward from the start.
-
----
-
-<!-- Act 3 / BUILD: worked example 3, climbing stairs fixed -->
-
-# Worked Example: The "20-Step Shortcut," Finally Fixed
-
-<div class="thread">Week 9 sped this up with a numeric trick. Week 4's handout/worksheet showed this same recurrence (Fibonacci) explode. Now, properly.</div>
-
-- Recall CampusNav's shortcut counter: how many distinct ways to climb
-  $n$ steps, taking 1 or 2 steps at a time?
-- **Recurrence:** `ways(n) = ways(n-1) + ways(n-2)`, `ways(0) = 1`,
-  `ways(1) = 1` - Fibonacci's recurrence, wearing a different costume.
-- **Optimal substructure:** a way to climb $n$ steps is either [any
-  way to climb $n-1$] plus one final 1-step, or [any way to climb
-  $n-2$] plus one final 2-step.
-- **Overlapping subproblems:** `ways(18)` is needed by both
-  `ways(19)` and `ways(20)` - and by every larger step count above it.
-
----
-
-# Tabulating It: 20 Additions, Not Millions
-
-<div class="thread">Same recurrence Week 4's handout/worksheet traced exploding, as Fibonacci. This time, filled bottom-up.</div>
-
-Tabulate it: $O(n)$ time. For the real 20-step shortcut,
-**ways(20) = 10,946** distinct routes - 20 additions, not the
-millions of calls that same naive tree implied at that depth.
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">n</div>
-<div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell">5</div><div class="cell">6</div><div class="cell">7</div><div class="cell">8</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Memo call tree</div>
+<div class="wx-body">FIB_MEMO(5) makes 9 calls total, not 15: FIB_MEMO(4) and FIB_MEMO(3)'s second visits are cache HITs, not new subtrees.</div>
 </div>
-<div class="row"><div class="rowlabel">ways(n)</div>
-<div class="cell">1</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">5</div><div class="cell">8</div><div class="cell">13</div><div class="cell">21</div><div class="cell">34</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Cache-fill order</div>
+<div class="wx-body">cache[2]=1+0=1, cache[3]=1+1=2, cache[4]=2+1=3, cache[5]=3+2=5 - filled in the same ascending order as tabulation.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Only direction differs</div>
+<div class="wx-body">Tabulation reaches 2,3,4,5 by looping forward. Memoization reaches the same order by recursing all the way down to the base cases first, then filling on the way back up.</div>
 </div>
 </div>
 
----
-
-<!-- NEW: Check Yourself pair, greedy-choice property recognition -->
-
-# Check Yourself: Could Greedy Have Solved This?
-
-Does CampusNav's 20-step shortcut counter
-(`ways(n) = ways(n-1) + ways(n-2)`) have the **greedy-choice
-property**? Why or why not?
+<div class="conclusion"><span class="k">Conclusion</span>Both implementations solve the identical recurrence, same cells, same values - only the fill order's direction differs.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"Which one is faster" is the wrong question - they do the same O(n) work. "Which order do I need results in" is the right one.</div>
 
 ---
 
-# Answer
+<!-- Dense worked example, Fibonacci-shaped DP, harder tier (real feature + greedy-check, absorbs cut Check-Yourself) -->
+<!-- _class: dense -->
 
-No. There is no meaningful "locally best" hop to commit to at each
-step - a 1-step hop isn't better or worse than a 2-step hop in
-isolation, since the final count depends on *both* branches being
-counted, not on picking one and discarding the other. With no
-greedy-choice property, only optimal substructure plus overlapping
-subproblems remain available - exactly DP's combination, not
-greedy's.
+<div class="eyebrow">Fibonacci-shaped DP · worked example 3 of 3 (harder)</div>
 
----
+# The Real Feature: The 20-Step Shortcut Counter
 
-<!-- NEW: formalized trace of the greedy Tour Planner's failure, referenced but never traced on the pain slide -->
-
-# Tracing Greedy's Failure, Step by Step
-
-<div class="thread">The pain slide narrated this in prose. Here it is, traced.</div>
-
-Same four activities: Coffee (20 min, 15 enjoyment), Gallery (30 min,
-25 enjoyment), Friend (10 min, 8 enjoyment), Music (40 min, 40
-enjoyment). Greedy rule: always take the best enjoyment-per-minute
-option that still fits.
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Ratios: Coffee 15/20=0.75, Gallery 25/30=0.83, Friend 8/10=0.80, Music 40/40=1.00. Music has the best ratio - take it. 40 of 60 minutes used, 20 remain.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Among what's left, Gallery (30 min) no longer fits in 20 remaining minutes. Between Coffee (0.75) and Friend (0.80), Friend has the better ratio - take it. 50 of 60 minutes used, 10 remain.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Coffee needs 20 minutes; only 10 remain. Nothing else fits. Stop.</div></div>
+<div class="wx-top">
+<div class="lead">Week 9 sped this up numerically. Week 4's handout showed its naive recursion explode. Now, properly.</div>
+<div class="goalbox"><span class="k">Goal</span>Count distinct ways to climb 20 steps, 1 or 2 at a time - correctly and fast.</div>
 </div>
 
-**Greedy's result: Music + Friend = 40 + 8 = 48 enjoyment, 10 minutes
-unused** - exactly the number the pain slide claimed, now proven by
-tracing the rule itself, not just asserted.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Recurrence</div>
+<div class="wx-body">ways(n) = ways(n-1) + ways(n-2), ways(0)=1, ways(1)=1 - Fibonacci's recurrence, wearing a different costume. Optimal substructure: a way to climb n steps is [any way to climb n-1] + a final 1-step, or [any way to climb n-2] + a final 2-step.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Overlap</div>
+<div class="wx-body">ways(18) is needed by both ways(19) and ways(20), and by every larger step count above it - overlapping subproblems, exactly.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Tabulate</div>
+<div class="wx-body">n=0..8: 1,1,2,3,5,8,13,21,34. Continuing the same loop to n=20 gives <strong>ways(20) = 10,946</strong> - 20 additions, not the millions the naive tree implied at that depth.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Could greedy solve this?</div>
+<div class="wx-body">No greedy-choice property exists here: a 1-step hop isn't "better" than a 2-step hop in isolation, since the final count needs BOTH branches counted, not one picked and the other discarded - exactly DP's combination, not greedy's.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>ways(20) = 10,946 distinct routes, computed with 20 additions - not the millions the naive recursive tree implied at that depth.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>No locally-best hop exists here - both branches must be counted, not compared and discarded, which is exactly why this needs DP, not greedy. It also shares Fibonacci's exact recurrence shape, just a different story.</div>
 
 ---
 
-<!-- Act 3 / BUILD: worked example 2, Tour Planner setup -->
+<!-- Second technique: 0/1 knapsack (Tour Planner). Idea + recurrence merged. -->
 
-# Worked Example: The Tour Planner, Solved Properly
+# Tour Planner: Conditions and Recurrence
 
 <div class="thread">Back to the greedy Tour Planner's failure. Let's test the two conditions and fix it for real.</div>
 
-Free block: **60 minutes**. Activities: Coffee (20 min, enjoyment 15),
+Free block: 60 minutes. Activities: Coffee (20 min, enjoyment 15),
 Gallery (30 min, enjoyment 25), Friend (10 min, enjoyment 8), Music
-(40 min, enjoyment 40). Do each at most once; maximize total
-enjoyment without exceeding 60 minutes.
+(40 min, enjoyment 40). Do each at most once; maximize total enjoyment
+without exceeding 60 minutes.
 
 - **Optimal substructure?** Yes - the best plan either includes Music
   or it doesn't; either way, the rest must be the best possible plan
@@ -719,7 +627,7 @@ enjoyment without exceeding 60 minutes.
 
 <div class="thread">Both conditions hold - here's the recurrence that follows from them.</div>
 
-**Recurrence** (`best(i, t)` = best value using the first $i$
+**Recurrence** (`best(i,t)` = best value using the first $i$
 activities within $t$ minutes):
 
 $$
@@ -731,88 +639,148 @@ spend time you don't have.)
 
 ---
 
-<!-- Act 3 / BUILD: Tour Planner table trace -->
+<!-- Dense worked example, knapsack-shaped DP, simple tier -->
+<!-- _class: dense -->
 
-# Trace: Filling the Tour Planner Table
+<div class="eyebrow">Tour Planner (0/1 knapsack) · worked example 1 of 3 (simple)</div>
 
-<div class="thread">This table proves the best answer - it isn't just a lucky guess.</div>
+# Two Options, 10 Minutes: Snack or Nap
+
+<div class="wx-top">
+<div class="lead">The smallest case that still shows a real include-or-not decision.</div>
+<div class="goalbox"><span class="k">Goal</span>Budget 10 minutes. Snack (5 min, value 6) or Nap (8 min, value 10).</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">Two options, one 10-minute budget - only one substantial item fits, plus scraps of time.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Best with just Snack</div>
+<div class="wx-body">best(1,10) = 6 (fits, 5 of 10 minutes used).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Best with Snack or Nap</div>
+<div class="wx-body">best(2,10) = max(6, 10 + best(1, 10&minus;8=2)) = max(6, 10+0) = 10. Nap alone wins outright.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>best(2,10) = 10: skipping Snack entirely and taking only Nap beats every combination that includes Snack.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even with 2 minutes left unused, Nap alone still wins - "don't waste time" isn't the same goal as "maximize value."</div>
+
+---
+
+<!-- Dense worked example, knapsack-shaped DP, moderate tier (full DP table, too large for a card - shown full-width) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Tour Planner (0/1 knapsack) · worked example 2 of 3 (moderate)</div>
+
+# Full Trace: All Four Activities, 60 Minutes
+
+<div class="wx-top">
+<div class="lead">Coffee (20min/15), Gallery (30min/25), Friend (10min/8), Music (40min/40).</div>
+<div class="goalbox"><span class="k">Goal</span>Fill the DP table row by row, one activity added per row.</div>
+</div>
 
 <div class="tracetable">
-<div class="row"><div class="rowlabel">min →</div>
-<div class="cell">0</div><div class="cell">10</div><div class="cell">20</div><div class="cell">30</div><div class="cell">40</div><div class="cell">50</div><div class="cell">60</div>
-</div>
-<div class="row"><div class="rowlabel">0 items</div>
-<div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div>
-</div>
-<div class="row"><div class="rowlabel">+Coffee</div>
-<div class="cell">0</div><div class="cell">0</div><div class="cell">15</div><div class="cell">15</div><div class="cell">15</div><div class="cell">15</div><div class="cell">15</div>
-</div>
-<div class="row"><div class="rowlabel">+Gallery</div>
-<div class="cell">0</div><div class="cell">0</div><div class="cell">15</div><div class="cell">25</div><div class="cell">25</div><div class="cell">40</div><div class="cell">40</div>
-</div>
-<div class="row"><div class="rowlabel">+Friend</div>
-<div class="cell">0</div><div class="cell">8</div><div class="cell hl2">15</div><div class="cell">25</div><div class="cell">33</div><div class="cell">40</div><div class="cell">48</div>
-</div>
-<div class="row"><div class="rowlabel">+Music</div>
-<div class="cell">0</div><div class="cell">8</div><div class="cell">15</div><div class="cell">25</div><div class="cell">40</div><div class="cell">48</div><div class="cell hl">55</div>
-</div>
+<div class="row"><div class="rowlabel">min &rarr;</div><div class="cell">0</div><div class="cell">10</div><div class="cell">20</div><div class="cell">30</div><div class="cell">40</div><div class="cell">50</div><div class="cell">60</div></div>
+<div class="row"><div class="rowlabel">0 items</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div></div>
+<div class="row"><div class="rowlabel">+Coffee</div><div class="cell">0</div><div class="cell">0</div><div class="cell">15</div><div class="cell">15</div><div class="cell">15</div><div class="cell">15</div><div class="cell">15</div></div>
+<div class="row"><div class="rowlabel">+Gallery</div><div class="cell">0</div><div class="cell">0</div><div class="cell">15</div><div class="cell">25</div><div class="cell">25</div><div class="cell">40</div><div class="cell">40</div></div>
+<div class="row"><div class="rowlabel">+Friend</div><div class="cell">0</div><div class="cell">8</div><div class="cell">15</div><div class="cell">25</div><div class="cell hl2">33</div><div class="cell">40</div><div class="cell">48</div></div>
+<div class="row"><div class="rowlabel">+Music</div><div class="cell">0</div><div class="cell">8</div><div class="cell">15</div><div class="cell">25</div><div class="cell">40</div><div class="cell">48</div><div class="cell hl">55</div></div>
 </div>
 
-Every row adds one more activity to what's allowed; every column is a
-possible time budget. Filled left to right, row by row, exactly as
-the recurrence requires.
+<div class="conclusion"><span class="k">Conclusion</span>best(4,60) = 55 beats greedy's 48 - the optimal plan is Coffee + Music, using every one of the 60 minutes.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Every cell only reads already-filled neighbors - by the time the last cell is reached, its answer is already proven, not guessed.</div>
 
 ---
 
-# What the Final Cell Proves
+<!-- Dense worked example, knapsack-shaped DP, moderate tier, continued: how the table was actually filled -->
+<!-- _class: dense -->
 
-<div class="thread">One cell, read carefully, is the whole answer.</div>
+<div class="eyebrow">Tour Planner (0/1 knapsack) · worked example 2 of 3 (moderate), continued</div>
 
-The final cell (blue) reads `best(3, 20) = 15` (gold) and adds Music's
-40 → **55**, beating the 48 that "best-per-minute first" found
-earlier. The optimal plan: **Coffee + Music**, exactly 60 minutes, 0
-minutes wasted.
+# Full Trace, Continued: Reading Two Key Cells
+
+<div class="wx-top">
+<div class="lead">Same table as the previous slide. Here's exactly how two of its cells were filled.</div>
+<div class="goalbox"><span class="k">Goal</span>Show the recurrence's two cases at work on real cells from the table.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Filling row by row</div>
+<div class="wx-body">Each row adds one more activity to what's allowed; each column is a time budget. The base row (0 items) is all zero.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Where a real choice happens</div>
+<div class="wx-body">Row +Friend, column 40: max(best(2,40)=25, 8+best(2,30)=8+25=33) = 33 - including Friend strictly wins here.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Final cell</div>
+<div class="wx-body">best(4,60) = max(48, 40+best(3,20)=40+15=55) = 55. Optimal plan: Coffee + Music, exactly 60 minutes, 0 wasted.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Every row-column combination in the table follows the same two-case recurrence, whether the choice is close (row +Friend) or lopsided (the final cell).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div>
 
 ---
 
-<!-- NEW: Check Yourself pair, hand-verify a Tour Planner cell -->
+<!-- Dense worked example, knapsack-shaped DP, harder tier (inside one cell + greedy contrast) -->
+<!-- _class: dense -->
 
-# Check Yourself: Verify a Cell by Hand
+<div class="eyebrow">Tour Planner (0/1 knapsack) · worked example 3 of 3 (harder)</div>
 
-Using the recurrence `best(i,t) = max(best(i-1,t), value_i +
-best(i-1, t-duration_i))`, compute `best(2, 30)` - the best value
-using only Coffee and Gallery within 30 minutes - by hand. Then check
-it against the table (row "+Gallery", column 30).
+# Inside the Cell Where Greedy Went Wrong
+
+<div class="wx-top">
+<div class="lead">Ratio-based greedy committed to Music immediately. Here's the table cell that proves it right anyway - for the wrong reason.</div>
+<div class="goalbox"><span class="k">Goal</span>Show exactly which comparison DP makes that greedy's ratio rule never does.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Where greedy went wrong</div>
+<div class="wx-body">Ratios: Coffee 15/20=0.75, Gallery 25/30&asymp;0.83, Friend 8/10=0.80, Music 40/40=1.00. Best ratio (Music) taken first, 40 of 60 min used; then Friend fits (10 more); Coffee (20 min) no longer fits in the remaining 10. Result: 48 enjoyment, 10 min unused.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">The cell that disagrees: best(4,40)</div>
+<div class="wx-body">Exclude Music: best(3,40) = 33 (row +Friend, column 40). Include Music: duration 40 uses the whole budget - 40 + best(3,0) = 40 + 0 = 40.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">max(33, 40) = 40</div>
+<div class="wx-body">Including Music wins this sub-decision too - matching DP's eventual full-budget answer of 55 (Coffee+Music), not greedy's 48.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why greedy misses this</div>
+<div class="wx-body">Ratio-based greedy commits to Music immediately, without ever checking whether pairing something else with Coffee's leftover budget could beat it. DP keeps every remaining-budget scenario alive - all 7 columns, every row - until the comparison in step 3 actually gets made.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>best(4,40) = 40 - DP proves including Music is right here, but only by comparing against every alternative, not by trusting a ratio.</div>
 
 ---
 
-# Answer
+# Inside the Cell, Continued: The Real Payoff
 
-`best(2,30) = max(best(1,30), 25 + best(1, 0))` = `max(15, 25+0)` =
-**25** - taking Gallery alone beats keeping Coffee, since Gallery's 30
-minutes uses the whole budget and its enjoyment (25) already exceeds
-Coffee's (15). Matches the table's "+Gallery" row, column 30 exactly.
+<div class="thread">One cell's comparison, and what it says about the whole technique.</div>
 
----
-
-<!-- NEW: interior-cell trace, where max() genuinely has to choose -->
-
-# Inside One Cell: best(Music, 40)
-
-<div class="thread">The final cell adds Music. Here's the earlier cell where that decision actually gets made.</div>
-
-`best(4, 40)`: best value using all four activities, 40 minutes
-available. `max()` compares two real options:
-
-| Option | Value |
-|---|---|
-| **Exclude Music:** `best(3, 40)` (the "+Friend" row, column 40) | 33 |
-| **Include Music:** duration 40 uses the whole budget - `40 + best(3, 40-40)` = `40 + best(3, 0)` = `40 + 0` | 40 |
-
-$\max(33, 40) = 40$ - **including Music wins**, because Music's own
-value (40) alone already beats the best 40-minute plan without it
-(33). This is the exact cell that later combines with Coffee's
-leftover 20 minutes to produce the final 55.
+<div class="takeaway">
+<span class="k">Key takeaway</span>Greedy asks "what looks best right now?" once. DP asks it for every possible remaining budget, then lets the table itself decide.
+</div>
 
 ---
 
@@ -837,6 +805,18 @@ leftover 20 minutes to produce the final 55.
 
 ---
 
+# CampusNav's Real Scale, Compared
+
+<div class="thread">The 4-activity, 20-step examples above were hand-traceable. The real feature is bigger.</div>
+
+At CampusNav's real scale (30 nearby activities, a 120-minute budget),
+the Tour Planner's table needs roughly $30 \times 12 = 360$ cells -
+versus $2^{30}$ (over a billion) possible activity subsets to
+brute-force. Polynomial cells instead of exponential combinations is
+DP's entire payoff, at a scale no hand trace could ever reach.
+
+---
+
 <!-- SLOT N-1: Common mistakes -->
 
 # Common Mistakes
@@ -856,62 +836,7 @@ leftover 20 minutes to produce the final 55.
 
 ---
 
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. A friend claims "climbing stairs and Fibonacci are basically the
-   same problem." Are they right? Why?
-2. CampusNav's real activity list has 30 nearby activities and a free
-   block up to 120 minutes. Roughly how many DP table cells get
-   filled - and is that more or less than trying every possible
-   subset of 30 activities by hand?
-3. Give one reason a recursive solution to a problem might **not**
-   benefit from memoization.
-
----
-
-# Answers
-
-1. Yes - both follow the exact same recurrence shape (each answer is
-   the sum of the previous two), just different starting values and a
-   different story. That's precisely why "two implementations of one
-   recurrence" and "two problems sharing one recurrence" are both real,
-   common patterns.
-2. Roughly $30 \times 12 = 360$ table cells (in 10-minute units) -
-   utterly manageable, versus $2^{30}$ (over a billion) possible
-   activity subsets to brute-force. Polynomial cells instead of
-   exponential combinations is DP's entire payoff.
-3. If its subproblems never repeat (e.g. merge sort's halves), caching
-   never gets a hit - memoization adds overhead with zero benefit. The
-   problem lacks overlapping subproblems.
-
----
-
-<!-- NEW: Worksheet Parts A & B hand-off -->
-
-# Now: Worksheet Parts A & B
-
-<div class="thread">Time to practice. Fill a table, then spot the pattern.</div>
-
-Work with your neighbor. Open **[Worksheet Part A & B](materials/week11/worksheet.html)**.
-Part A: fill a small Tour Planner-style DP table by hand. Part B, in
-pairs: for three new mini-problems, decide **(a)** does it have
-optimal substructure, **(b)** does it have overlapping subproblems,
-and **(c)** write its recurrence - including one problem that turns
-out *not* to need DP at all.
-
-**~20 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project the worksheet. Walk the room while pairs
-work. After ~20 minutes, ask 2 pairs to share their Part B answer for
-the "trap" problem (merge sort) and discuss why it doesn't need DP.
--->
-
----
-
-<!-- NEW: Key Words Today, session 3 -->
+<!-- Key Words Today, session 3 -->
 
 # Key Words Today
 
@@ -950,24 +875,6 @@ intermediate stops - all dynamic programming, under different names.
 
 ---
 
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 11 Quiz](materials/week11/quiz.html)**. Answer on
-your own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal
-the answer key and discuss as a group any question most of the class
-missed.
--->
-
----
-
 <!-- SLOT N+1: Limits (Act 4 / CLOSE), becomes Week 12 slot 4 -->
 
 # What Today's Dynamic Programming Cannot Do
@@ -995,7 +902,7 @@ genuinely 2-D DP recurrence.
 
 ---
 
-<!-- NEW: CLRS reference slide, Act 4 slot N+3 minus one -->
+<!-- CLRS reference slide, Act 4 slot N+3 minus one -->
 
 # Where This Week Lives in CLRS
 
@@ -1027,6 +934,14 @@ different problem (longest common subsequence).
 - The Tour Planner (0/1 knapsack) and the 20-step shortcut counter
   (climbing stairs) are both solved, provably optimally, with the
   exact same DP machinery Fibonacci taught us.
+- **New: Week 11 Check** - a short graded exercise on today's two DP
+  techniques, released now, due before Week 12 begins (see
+  `materials/assignments/week11-check.html`).
+
+---
+
+# Summary, Continued
+
 - **Reminder:** Assignment 2 (Sorting) results are being returned and
   discussed this week.
 - **Reading:** CLRS, Chapter 14 (Dynamic Programming), Sections 14.1

@@ -18,7 +18,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 
 <!--
 notes: Welcome the class. Ask: "Has a quick decision you made in the moment - the option that looked best right then - ever turned out worse once you saw the whole picture?"
-Let a few students answer with a show of hands. That tension (locally best vs. globally best) is the whole week.
+Let a few students answer with a show of hands. That tension (locally best vs. globally best) is the whole week. Also flag that Assignment 3 is released today, due Week 12.
 -->
 
 ---
@@ -49,28 +49,6 @@ Let a few students answer with a show of hands. That tension (locally best vs. g
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: Picking Events to Attend
-
-<div class="thread">A quick warm-up. No code needed yet.</div>
-
-It's a free Saturday. Six campus events look fun, but most overlap -
-you can only attend one at a time.
-
-- **Method A:** always pick whichever remaining event lasts the *shortest* amount of time.
-- **Method B:** always pick whichever remaining event *ends soonest*.
-
-- Which method lets you attend more events overall? Why might they give different answers?
-
-<!--
-notes: Give students 30 seconds to think, alone, before asking.
-Do not name "greedy," "interval scheduling," or "earliest finish time" yet - let them describe their own reasoning first.
-Most students guess A (shortest first); B is actually the safe rule, revealed properly later this week.
--->
-
----
-
 <!-- SLOT 3: Recap + open wound -->
 
 # Last Week, This Week
@@ -82,20 +60,19 @@ Most students guess A (shortest first); B is actually the safe rule, revealed pr
 
 ---
 
-<!-- NEW: assignment announcement -->
+<!-- SLOT: Assignment 3 announcement -->
 
 # Assignment 3: Released This Week
 
 - **Released:** today (Week 10). **Due:** Week 12, 23:59, via the course Learning Management System (LMS). Individual work.
 - **Tasks (preview):** (1) design a greedy room-booking rule and prove it safe with an exchange argument, (2) analyze last week's free-time-block divide-and-conquer recurrence with the Master theorem, (3) explain, in your own words, why the campus-points coin-change example breaks "greedy always works."
-- Full spec and rubric: **`materials/assignments/assignment3.md`**.
-- Task 1 asks you to run your algorithm on a specific 8-request instance - that instance is **Worksheet Part B**, today's in-class exercise. Keep your worksheet.
+- Full spec, the required 8-request instance, and rubric: **`materials/assignments/assignment3.md`**.
 
 <!-- notes: Mention this once, clearly, then move on - don't let logistics eat into the pain slide's momentum. -->
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
+<!-- Key Words Today, session 1 -->
 
 # Key Words Today
 
@@ -197,21 +174,6 @@ a room or quietly waste bookings it could have granted.
 
 ---
 
-<!-- NEW: session-1 close, previews Worksheet Part A & B -->
-
-# Coming Up: Worksheet Part A & B
-
-<div class="thread">Next in this class: less listening, more doing.</div>
-
-Later today, you and a partner will run CampusNav's actual
-room-booking assistant by hand on a full Friday's worth of requests -
-and go hunting for a case where a *different*, plausible-looking
-greedy rule quietly fails.
-
-That's **Worksheet Part A and B**. Keep a pen ready.
-
----
-
 <!-- SLOT 8: Origin -->
 
 # This Idea Is Not New
@@ -242,12 +204,6 @@ That's **Worksheet Part A and B**. Keep a pen ready.
 - Other problems - like change-making with arbitrary denominations -
   do **not** have that structure, and no amount of clever rule design
   makes greedy safe for them. Telling the two apart is this week's job.
-
----
-
-# The Pattern Behind All of Them
-
-<div class="thread">Telephone exchanges, Huffman, matroid theory - one thread runs through all of it.</div>
 
 <div class="why">
 The pattern kept reappearing: some problems have a hidden structure
@@ -292,7 +248,7 @@ That distinction is exactly where next week's confusion starts.
 
 ---
 
-<!-- NEW: Key Words Today, session 2 -->
+<!-- Key Words Today, session 2 -->
 
 # Key Words Today
 
@@ -322,24 +278,22 @@ That distinction is exactly where next week's confusion starts.
 
 ---
 
-# Worked Example: The Room-Booking Requests
+<!-- Idea + pseudocode merged into one slide -->
 
-CampusNav's seminar room in Building A can host only one club at a time.
-Goal: grant the room to the **maximum number** of non-overlapping requests.
+# Room-Booking: Idea and Pseudocode
 
-| Request | Club | Start | End |
-|---|---|---|---|
-| A | Coding Club | 09:00 | 10:30 |
-| B | Debate Society | 09:30 | 10:00 |
-| C | Robotics Team | 10:00 | 11:00 |
-| D | Photography Club | 10:15 | 12:15 |
-| E | Chess Club | 11:00 | 12:00 |
+<div class="thread">First of two greedy rules this week. <code>{}</code> is the empty set; <code>add r to granted</code> inserts <code>r</code> into it - set notation, previewed back in Week 2's reference card.</div>
 
----
+<div class="two-col">
+<div>
 
-# The Greedy Rule: Earliest Finish Time
+CampusNav's seminar room can host only one club at a time. Goal:
+grant the room to the **maximum number** of non-overlapping requests.
+The rule: among whatever requests are still possible, always grant
+the one that **frees up the room soonest**.
 
-<div class="thread"><code>{}</code> is the empty set; <code>add r to granted</code> inserts <code>r</code> into it - set notation, previewed back in Week 2's reference card.</div>
+</div>
+<div>
 
 ```text
 BOOK_ROOM(requests):
@@ -353,105 +307,150 @@ BOOK_ROOM(requests):
     return granted
 ```
 
-- The rule: among whatever requests are still possible, always grant
-  the one that **frees up the room soonest**.
-- Why finish time, not start time or duration? Finishing soonest
-  leaves the most room open for everything still to come.
-
----
-
-# Trace: Running the Rule by Hand, Part 1
-
-<div class="thread">Same five requests. Let's run it.</div>
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Sort by end time: B (10:00), A (10:30), C (11:00), E (12:00), D (12:15).</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Consider B (09:30-10:00): room is free. Grant it. lastEnd = 10:00.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Consider A (09:00-10:30): starts before 10:00 - conflicts. Skip.</div></div>
 </div>
-
-So far: **granted = {B}**, lastEnd = 10:00. Two requests still to consider.
-
----
-
-# Trace: Running the Rule by Hand, Part 2
-
-<div class="thread">Picking up where Part 1 left off: granted = {B}, lastEnd = 10:00.</div>
-
-<div class="steps">
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Consider C (10:00-11:00): starts at 10:00, free. Grant it. lastEnd = 11:00.</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">Consider E (11:00-12:00): starts at 11:00, free. Grant it. lastEnd = 12:00.</div></div>
-<div class="step-row"><div class="step-num">6</div><div class="step-text">Consider D (10:15-12:15): starts before 12:00 - conflicts. Skip.</div></div>
-</div>
-
-**Result: {B, C, E} - 3 of 5 requests granted.** One sorted pass, no untangling.
-
----
-
-# Why Trust This? Introducing the Exchange Argument
-
-<div class="thread">It worked on one example. Week 2's `MAX` bug already taught us that isn't proof.</div>
-
-- We need to show the greedy rule doesn't just look reasonable - it
-  provably grants the **maximum possible** number of bookings, on
-  every valid input, not just the five requests we happened to trace.
-- The tool: an **exchange argument**. Take *any* optimal solution, and
-  show you can always swap in the greedy algorithm's choice without
-  making that solution any worse.
-- If that swap always works, the greedy choice is "safe" - and
-  repeating the argument on what's left proves the whole algorithm
-  optimal.
-
----
-
-# Exchange Argument: Setup
-
-<div class="thread">Assume, for contradiction, that greedy and optimal disagree on the first pick (the contradiction move from Week 7).</div>
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Let G be the greedy algorithm's solution, and let O be <em>any</em> optimal solution (one granting the maximum possible number of bookings).</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Sort all requests by end time. Let g be the first request greedy grants - by construction, g has the earliest end time of any request in the whole input.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">If O also grants g first, greedy and optimal already agree - nothing to prove yet; move to the next pick.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Otherwise, let o be the first request O grants, and by assumption o &ne; g.</div></div>
 </div>
 
 ---
 
-# Exchange Argument: The Swap
+# Room-Booking: Why Earliest Finish, Not Shortest Duration
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Because g has the earliest end time of any request in the input, end(g) &le; end(o).</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Build O' by removing o from O and inserting g instead. Every other request in O starts after o ends (O is a valid, non-overlapping schedule) - and since end(g) &le; end(o), every one of those requests also starts after g ends. So O' is still valid and non-overlapping.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">O' has exactly the same number of bookings as O - so O' is optimal too, and now agrees with greedy on the first pick.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Repeat the same argument on the remaining requests (those starting after g ends) - by induction, greedy's every later pick can also be exchanged into an optimal solution without loss.</div></div>
-</div>
+<div class="thread">A tempting alternative rule - and why it fails.</div>
 
-**Conclusion:** greedy's solution G can always be transformed, step by
-step, into an optimal solution without ever losing a booking - so G
-*is* optimal. <span class="bignotation">Q.E.D.</span>
+Why finish time, not start time or duration? Finishing soonest leaves
+the most room open for everything still to come. A "shortest duration
+first" rule looks just as tempting, but is not safe in general: on
+requests P (4h), Q (2h), R (4h) where Q sits between P and R,
+shortest-first grants only Q (1 booking, blocking both others), while
+earliest-finish grants {P, R} (2 bookings).
 
 ---
 
-<!-- NEW: greedy cost analysis, closes the missing Big-O thread for Week 10 -->
+<!-- Dense worked example, room-booking, simple tier -->
+<!-- _class: dense -->
 
-# BOOK_ROOM's Cost: The Two Pieces
+<div class="eyebrow">Room-booking · worked example 1 of 3 (simple)</div>
 
-<div class="thread">Correctness just proven. Now, exactly like every other week: how fast is it?</div>
+# Three Requests: X, Y, Z
 
-`BOOK_ROOM` (the pseudocode from two slides ago) does exactly two
-things, in order:
+<div class="wx-top">
+<div class="lead">The smallest case that still shows a skip and a grant right after it.</div>
+<div class="goalbox"><span class="k">Goal</span>Run BOOK_ROOM on X (09:00-10:00), Y (09:30-10:30), Z (10:00-11:00).</div>
+</div>
 
-- **Sort `requests` by end time:** a comparison-based sort over $n$
-  requests - $O(n \log n)$ (Week 6's merge sort or quicksort).
-- **One linear pass over the sorted list:** for each request, one
-  comparison (`r.start >= lastEnd`) and, at most, one insert into
-  `granted` - $O(1)$ work per request, $O(n)$ total.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Sort &amp; grant X</div>
+<div class="wx-body">Sorted by end time: X (10:00), Y (10:30), Z (11:00). Room free, grant X. lastEnd = 10:00.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Skip Y</div>
+<div class="wx-body">Y starts 09:30, before lastEnd 10:00 - conflicts with X. Skip.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Grant Z, done</div>
+<div class="wx-body">Z starts 10:00, exactly at lastEnd - free. Grant. Result: {X, Z}, 2 of 3 granted.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>{X, Z} granted, Y skipped - 2 of 3 requests, one sorted pass, zero backtracking.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even with only 3 requests, the rule's core behavior already shows: only the request that would delay everything later gets skipped.</div>
+
+---
+
+<!-- Dense worked example, room-booking, moderate tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Room-booking · worked example 2 of 3 (moderate)</div>
+
+# Five Requests: A Through E
+
+<div class="wx-top">
+<div class="lead">Coding Club (A), Debate Society (B), Robotics Team (C), Photography Club (D), Chess Club (E).</div>
+<div class="goalbox"><span class="k">Goal</span>A 09:00-10:30, B 09:30-10:00, C 10:00-11:00, D 10:15-12:15, E 11:00-12:00.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Sort by end time</div>
+<div class="wx-body">B (10:00), A (10:30), C (11:00), E (12:00), D (12:15).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Grant B, skip A</div>
+<div class="wx-body">B: room free, grant. lastEnd = 10:00. A: starts 09:00 &lt; 10:00 - conflicts, skip.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Grant C, grant E</div>
+<div class="wx-body">C: starts 10:00 &ge; 10:00, grant. lastEnd = 11:00. E: starts 11:00 &ge; 11:00, grant. lastEnd = 12:00.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Skip D, result</div>
+<div class="wx-body">D: starts 10:15 &lt; 12:00 - conflicts, skip. Result: {B, C, E}, 3 of 5 granted.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>3 of 5 requests granted: {B, C, E} - one sorted pass, no untangling needed.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Compare to the pain slide's merge-and-untangle mess: one sorted pass replaces an entire afternoon of hand-splitting and re-merging.</div>
+
+---
+
+<!-- Dense worked example, room-booking, harder tier (exchange-argument proof, flagship slide) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Room-booking · proving the rule safe</div>
+
+# The Exchange Argument, All Four Steps
+
+<div class="wx-top">
+<div class="lead">It worked on two traces. Here's why it works on every input - not just the ones we ran.</div>
+<div class="goalbox"><span class="k">Goal</span>Prove: greedy's solution G always matches some optimal solution's size.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">Let G = greedy's solution, O = any optimal solution. Let g = greedy's first pick - by construction, the earliest end time of any request in the whole input. If O also picks g first, nothing to prove yet.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Otherwise</div>
+<div class="wx-body">Let o be O's first pick, o &ne; g. Since g has the earliest end time of any request, end(g) &le; end(o).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The swap</div>
+<div class="wx-body">Build O' = O with o replaced by g. Every other request in O starts after o ends; since end(g) &le; end(o), each also starts after g ends - O' is still valid, same size as O.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Induction, Q.E.D.</div>
+<div class="wx-body">Repeat on requests starting after g ends. By induction, every greedy pick can be exchanged into an optimal solution without loss - so G is optimal.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Greedy's solution can always be transformed into an optimal one without losing a booking - so greedy's solution IS optimal.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>An exchange argument doesn't test one input - it proves the swap always works, for every input, which is what "provably optimal" actually means.</div>
 
 ---
 
 # BOOK_ROOM's Cost: O(n log n)
 
-<div class="thread">Same two pieces, added together.</div>
+<div class="thread">Correctness just proven. Now, exactly like every other week: how fast is it?</div>
+
+`BOOK_ROOM` does exactly two things, in order:
+
+- **Sort `requests` by end time:** a comparison-based sort over $n$
+  requests - $O(n \log n)$ (Week 6's merge sort or quicksort).
+- **One linear pass over the sorted list:** one comparison
+  (`r.start >= lastEnd`) and, at most, one insert into `granted` per
+  request - $O(1)$ work per request, $O(n)$ total.
 
 $$
 T(n) = \underbrace{O(n \log n)}_{\text{sort}} + \underbrace{O(n)}_{\text{one pass}} = O(n \log n)
@@ -463,161 +462,157 @@ the sort's cost as the whole algorithm's cost.
 
 ---
 
-<!-- NEW: Check Yourself pair resolving the opening warm-up (Method A vs Method B) -->
+<!-- Idea + pseudocode for the second greedy technique -->
 
-# Check Yourself: Back to the Warm-Up
-
-<div class="thread">Remember Method A (shortest duration) vs. Method B (earliest finish)? Now you have the tools to settle it.</div>
-
-Three requests: **P** = 09:00-13:00 (4 hours), **Q** = 12:00-14:00 (2
-hours), **R** = 13:00-17:00 (4 hours).
-
-1. Run Method A (always grant whichever remaining request has the *shortest duration*). How many requests get granted?
-2. Run Method B (always grant whichever remaining request *ends soonest* - this week's proven rule). How many requests get granted?
-3. Does Method A have the greedy-choice property here? What does that tell you about "shortest first" as a general rule?
-
----
-
-# Answers
-
-1. **Method A:** Q is shortest (2 hours), so it's granted first. Both P (09:00-13:00) and R (13:00-17:00) now conflict with Q (12:00-14:00) - P overlaps 12:00-13:00, R overlaps 13:00-14:00. Nothing else can be granted. **1 request total.**
-2. **Method B:** sorted by end time, P (ends 13:00) comes first. Grant P, lastEnd = 13:00. Q (12:00-14:00) starts before 13:00 - conflicts, skip. R (13:00-17:00) starts exactly at 13:00 - free, grant it. **2 requests total: {P, R}.**
-3. No - Method A does not have the greedy-choice property. Its locally-best pick (Q, the shortest) actively blocks both other requests, while Method B's pick never does. "Shortest first" looks reasonable but is not safe in general; only earliest-finish-time is proven optimal (the exchange argument two slides back).
-
----
-
-# A Second Greedy Idea: Huffman Coding
+# Huffman Coding: A Second Greedy Idea
 
 <div class="thread">Not every greedy algorithm is about scheduling. A classic from data compression.</div>
 
-- Problem: given how often each symbol appears, build a binary code
-  representing the whole message in as few bits as possible.
-- Huffman's greedy rule: repeatedly take the **two least-frequent**
-  remaining symbols/nodes, merge them into one combined node, and
-  repeat until one node is left.
-- Like room-booking, Huffman coding is provably optimal - it has both
-  the greedy-choice property and optimal substructure. (Full
-  construction and proof: CLRS §15.3, not required this week.)
+<div class="two-col">
+<div>
 
----
+Problem: given how often each symbol appears, build a binary code
+representing the whole message in as few bits as possible. Huffman's
+rule never reconsiders a merge once it's made - exactly like
+room-booking never reconsiders a granted booking. Like room-booking,
+Huffman coding is provably optimal: it has both the greedy-choice
+property and optimal substructure (full construction and proof:
+CLRS §15.3, not required this week).
 
-# Huffman's Rule, Set Up on Real Numbers
-
-<div class="thread">Same rule, one page back. Now the actual frequencies we'll build a tree from.</div>
-
-Example frequencies: A=5, B=9, C=12, D=13, E=16, F=45 (100 symbols
-total). Merge the two smallest first (A+B=14), then the two smallest
-of what remains, and so on, building a tree bottom-up - never
-reconsidering a merge once it's made, exactly like this week's other
-greedy rule never reconsiders a granted booking.
-
----
-
-<!-- NEW: Huffman worked example, part 1 - building the tree -->
-
-# Huffman Coding: Building the Tree
-
-<div class="thread">Same six frequencies. Every merge, one at a time.</div>
-
-`A=5, B=9, C=12, D=13, E=16, F=45` (100 total).
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Smallest two: A(5), B(9) &rarr; merge into AB(14)</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Smallest two remaining: C(12), D(13) &rarr; merge into CD(25)</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Smallest two remaining: AB(14), E(16) &rarr; merge into ABE(30)</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Smallest two remaining: CD(25), ABE(30) &rarr; merge into CDABE(55)</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">Only two nodes left: F(45), CDABE(55) &rarr; merge into the root (100)</div></div>
 </div>
-
-Five symbols merge down to one root in exactly $n - 1 = 5$ merges -
-always true for $n$ symbols.
-
----
-
-<!-- NEW: Huffman worked example, part 2 - the resulting tree -->
-
-# Huffman Coding: The Resulting Tree
-
-<div class="thread">Same five merges, drawn as one tree. Branch left = 0, right = 1.</div>
+<div>
 
 ```text
-(100)
-├─0 F(45)
-└─1 (55)
-    ├─0 (25)
-    │   ├─0 C(12)
-    │   └─1 D(13)
-    └─1 (30)
-        ├─0 (14)
-        │   ├─0 A(5)
-        │   └─1 B(9)
-        └─1 E(16)
+HUFFMAN(freqs):
+    make one leaf node per symbol,
+      weight = its frequency
+    while more than one node
+      remains:
+        take the two lowest-weight
+          nodes
+        merge into a new parent
+          node, weight = sum
+    return the last remaining node
+      (the tree root)
 ```
 
-A symbol's code is the sequence of 0/1 edge labels on the path from
-the root down to it - the **more frequent** a symbol (F=45), the
-**shorter** its path, by construction.
+</div>
+</div>
 
 ---
 
-<!-- NEW: Huffman worked example, part 3 - codes and decoding -->
+<!-- Dense worked example, Huffman, simple tier -->
+<!-- _class: dense -->
 
-# Huffman Coding: The Codes
+<div class="eyebrow">Huffman coding · worked example 1 of 3 (simple)</div>
 
-<div class="thread">Reading the tree's paths, symbol by symbol.</div>
+# Three Symbols: A=2, B=3, C=5
 
-| Symbol | Frequency | Code | Bits |
-|---|---|---|---|
-| F | 45 | `0` | 1 |
-| C | 12 | `100` | 3 |
-| D | 13 | `101` | 3 |
-| E | 16 | `111` | 3 |
-| A | 5 | `1100` | 4 |
-| B | 9 | `1101` | 4 |
+<div class="wx-top">
+<div class="lead">The smallest case that still shows a merge, a tie, and real compression.</div>
+<div class="goalbox"><span class="k">Goal</span>Build the tree for three symbols and compare against a fixed-length code.</div>
+</div>
 
-No code is a prefix of another - so decoding never needs a lookahead:
-the next few bits always match exactly one symbol's code, never two.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Merge</div>
+<div class="wx-body">Two smallest: A(2)+B(3) &rarr; AB(5). Two nodes left, AB(5) and C(5) - a tie. Merge them into the root(10).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Codes</div>
+<div class="wx-body">Root: left=AB(0), right=C(1). AB: left=A(00), right=B(01). Codes: A=00, B=01, C=1.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Weighted bits</div>
+<div class="wx-body">2(2)+3(2)+5(1) = 4+6+5 = 15 bits, versus a fixed 2 bits/symbol &times; 10 total = 20 bits.</div>
+</div>
+</div>
 
----
-
-# Huffman Coding: Decoding
-
-<div class="thread">Same codes, used to decode a message with no lookahead.</div>
-
-Decode `01100100111` left to right, one matched code at a time:
-
-`0`&rarr;**F**, `1100`&rarr;**A**, `100`&rarr;**C**, `111`&rarr;**E** -
-message: **FACE**.
-
-Weighted total:
-$45(1){+}12(3){+}13(3){+}16(3){+}5(4){+}9(4) = 224$ bits for 100
-symbols, versus $300$ bits at a fixed 3 bits/symbol - real compression,
-not just a shorter-looking code.
-
----
-
-<!-- NEW: Check Yourself pair, decoding a second message with the same Huffman codes -->
-
-# Check Yourself: Decode a Different Message
-
-<div class="thread">Same code table as FACE. A different bitstring this time.</div>
-
-Using the same codes (F=`0`, C=`100`, D=`101`, E=`111`, A=`1100`,
-B=`1101`):
-
-1. Decode `10111111000` left to right, one matched code at a time.
-2. Why does this decoding process never need to "look ahead" at more bits than the code it's currently matching?
+<div class="conclusion"><span class="k">Conclusion</span>3 symbols already compress from 20 to 15 bits - Huffman's advantage doesn't require large alphabets.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A tie in frequency (AB=5, C=5) is resolved arbitrarily - either merge order still yields an optimal code, just a different one.</div>
 
 ---
 
-# Answers
+<!-- Dense worked example, Huffman, moderate tier -->
+<!-- _class: dense -->
 
-1. `101`&rarr;**D**, `111`&rarr;**E**, `1100`&rarr;**A**, `0`&rarr;**F** -
-   message: **DEAF**. Same left-to-right, match-and-consume process as FACE.
-2. Because no code is a prefix of another (the prefix-free property):
-   once the bits read so far match one symbol's full code, they cannot
-   also be the start of any other symbol's code, so the match is
-   always unambiguous the moment it's found.
+<div class="eyebrow">Huffman coding · worked example 2 of 3 (moderate)</div>
+
+# Six Symbols: Building the Tree and Decoding
+
+<div class="wx-top">
+<div class="lead">A=5, B=9, C=12, D=13, E=16, F=45 (100 total) - five merges down to one root.</div>
+<div class="goalbox"><span class="k">Goal</span>Build the full tree, read off codes, and decode a message.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Merges 1-2</div>
+<div class="wx-body">Smallest two: A(5)+B(9) &rarr; AB(14). Next smallest: C(12)+D(13) &rarr; CD(25).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Merges 3-5</div>
+<div class="wx-body">AB(14)+E(16) &rarr; ABE(30). CD(25)+ABE(30) &rarr; CDABE(55). F(45)+CDABE(55) &rarr; root(100).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Codes</div>
+<div class="wx-body">F=0(1bit), C=100(3bit), D=101(3bit), E=111(3bit), A=1100(4bit), B=1101(4bit).</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Decode FACE</div>
+<div class="wx-body">0&rarr;F, 1100&rarr;A, 100&rarr;C, 111&rarr;E &rarr; "FACE". Weighted total: 224 bits, versus 300 at a fixed 3 bits/symbol.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>5 symbols merge to 1 root in n&minus;1 = 5 merges (always true for n symbols); FACE decodes unambiguously, left to right, no lookahead.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The more frequent a symbol, the shorter its path from the root - by construction, not by tuning.</div>
+
+---
+
+<!-- Dense worked example, Huffman, harder tier (prefix-free proof, absorbs cut Check-Yourself) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Huffman coding · worked example 3 of 3 (harder)</div>
+
+# A Second Message, Same Code Table
+
+<div class="wx-top">
+<div class="lead">Same codes as FACE. A different bitstring - and why decoding it never needs to look ahead.</div>
+<div class="goalbox"><span class="k">Goal</span>Decode 10111111000 using F=0, C=100, D=101, E=111, A=1100, B=1101.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">New bitstring: 10111111000. Decode left to right, matching one full code at a time.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Trace</div>
+<div class="wx-body">101&rarr;D, 111&rarr;E, 1100&rarr;A, 0&rarr;F &rarr; message: "DEAF".</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Why no lookahead</div>
+<div class="wx-body">No code is a prefix of another (prefix-free). The instant read bits match one symbol's code, they cannot also be a partial prefix of a different, longer code.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why it's guaranteed</div>
+<div class="wx-body">Every symbol sits at a distinct tree leaf; a root-to-leaf path can never be a strict prefix of another such path. Prefix-free falls out of the tree structure itself, not a rule checked afterward.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>DEAF decodes unambiguously with the same table that decoded FACE - one code table, many messages, zero ambiguity.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Prefix-free isn't an extra rule bolted onto Huffman coding - it falls out of building the code from a tree's leaves for free.</div>
 
 ---
 
@@ -636,47 +631,78 @@ B=`1101`):
 
 ---
 
-# Greedy vs. Optimal, on Target = 6
+<!-- Dense worked example, campus-points counterexample, simple tier -->
+<!-- _class: dense -->
 
-| Step | Greedy pick (largest that fits) | Remaining |
-|---|---|---|
-| 1 | 4 | 2 |
-| 2 | 1 (3 doesn't fit) | 1 |
-| 3 | 1 | 0 |
+<div class="eyebrow">Campus points · counterexample 1 of 2</div>
 
-**Greedy result: 4 + 1 + 1 = 3 tokens.**
-**Optimal result: 3 + 3 = 6, only 2 tokens.**
+# Denominations {1, 3, 4}, Target = 6
 
-<div class="pain">
-Greedy doesn't crash, doesn't error, and doesn't look wrong - it just
-quietly hands out one more token than necessary, every single time a
-student's balance needs exactly 6 points. Nothing about running the
-algorithm tells you it failed.
+<div class="wx-top">
+<div class="lead">The obvious greedy rule: grab the largest token that still fits.</div>
+<div class="goalbox"><span class="k">Goal</span>Compare greedy's token count to the true optimal, on target 6.</div>
 </div>
 
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Greedy trace</div>
+<div class="wx-body">Take 4 (remaining 2). 3 doesn't fit, take 1 (remaining 1). Take 1 (remaining 0). Total: 4+1+1 = 3 tokens.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Optimal</div>
+<div class="wx-body">3 + 3 = 6, using only 2 tokens.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The gap</div>
+<div class="wx-body">Greedy uses 1 more token than necessary - silently, with no error or crash.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Greedy: 3 tokens (4+1+1). Optimal: 2 tokens (3+3). One counterexample is enough to disprove "greedy always finds the optimal."</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Nothing about running the algorithm signals failure - it just quietly hands out one extra token, every time the balance is exactly 6.</div>
+
 ---
 
-<!-- NEW: Check Yourself pair, a second denomination set to reinforce the counterexample -->
+<!-- Dense worked example, campus-points counterexample, harder tier -->
+<!-- _class: dense -->
 
-# Check Yourself: A Different Denomination Set
+<div class="eyebrow">Campus points · counterexample 2 of 2 (harder)</div>
 
-<div class="thread">One counterexample down. Does a different denomination set survive, or fail the same way?</div>
+# A Second Denomination Set: {1, 4, 5}, Target = 8
 
-Suppose the campus store instead used denominations **{1, 4, 5}**,
-target = **8 points**, still using the "grab the largest token that
-still fits" rule.
+<div class="wx-top">
+<div class="lead">One counterexample could be a fluke. Here's an independent second one.</div>
+<div class="goalbox"><span class="k">Goal</span>Show a different denomination set fails the same way, and that passing a test proves nothing.</div>
+</div>
 
-1. Run greedy on target 8 with {1, 4, 5}. How many tokens does it use?
-2. What is the optimal (fewest-token) answer for target 8?
-3. Does {1, 4, 5} also break the greedy-choice property, or does it happen to be safe here?
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Greedy trace</div>
+<div class="wx-body">Take 5 (remaining 3). Largest that fits is 1: take 1, 1, 1. Total: 5+1+1+1 = 4 tokens.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Optimal</div>
+<div class="wx-body">4 + 4 = 8, using only 2 tokens - a different, independent counterexample.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Same shape of failure</div>
+<div class="wx-body">Both counterexamples: greedy's "largest that fits" blocks a smaller-count pairing that would have worked.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Passing &ne; proof</div>
+<div class="wx-body">The original {1,3,4} set, run at target 8 instead of 6: take 4, take 4 &rarr; 2 tokens, which happens to BE optimal. A failing example disproves "always" - but a passing example never proves it holds in general.</div>
+</div>
+</div>
 
----
-
-# Answers
-
-1. Greedy: take 5 (largest ≤ 8), remaining 3. Largest token ≤ 3 is 1 (4 and 5 don't fit). Take 1, remaining 2. Take 1, remaining 1. Take 1, remaining 0. **Greedy result: 5+1+1+1 = 4 tokens.**
-2. **Optimal: 4 + 4 = 8, only 2 tokens.**
-3. It also fails - a second, independent counterexample. Greedy grabbing the largest fitting token (5) blocks the two-token answer (4+4), exactly the same *shape* of failure as {1, 3, 4} on target 6, just with different numbers. One counterexample already disproves "always works" - a second one shows the failure isn't a fluke of one specific denomination set.
+<div class="conclusion"><span class="k">Conclusion</span>{1,4,5} at target 8 fails the same way as {1,3,4} at target 6 - two independent counterexamples, not a fluke of one number.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Testing more targets is not a proof: {1,3,4} at target 8 happens to succeed, but that success says nothing about target 6's failure.</div>
 
 ---
 
@@ -686,24 +712,15 @@ still fits" rule.
 
 - The room-booking greedy rule is provably optimal at **one specific
   goal: maximizing the number of bookings granted.**
-- But "earliest finish time" systematically favors **short** requests.
-  A single 3-hour workshop request competes against three separate
-  1-hour requests that fit around it - and the three short ones almost
+- But "earliest finish time" systematically favors **short** requests:
+  a single 3-hour workshop request competes against three separate
+  1-hour requests that fit around it, and the three short ones almost
   always win, because they free up the room sooner.
-
----
-
-# Fairness Sidebar: Who Actually Loses Out
-
-<div class="thread">The general tension, made concrete on CampusNav's own clubs.</div>
-
 - Clubs that need long or complex bookings (a multi-hour rehearsal, a
-  full-day competition prep) get **systematically deprioritized**,
-  even though nothing in the algorithm ever "intended" unfairness.
-- Over a whole semester, this means the same handful of clubs - the
-  ones whose activities simply take longer - see their requests
-  rejected far more often than short-event clubs, purely as a side
-  effect of a rule that was never asked to consider fairness at all.
+  full-day competition prep) get **systematically deprioritized** -
+  over a whole semester, the same handful of clubs see their requests
+  rejected far more often, purely as a side effect of a rule that was
+  never asked to consider fairness at all.
 
 ---
 
@@ -759,58 +776,7 @@ to weigh that trade-off - the algorithm alone won't do it for them.
 
 ---
 
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. In your own words, what does the exchange argument actually prove, and why is "it worked on this one example" not the same thing?
-2. For denominations {1, 3, 4}, greedy gives 3 tokens for a target of 6. Try target = 8 by hand with the same greedy rule - does it also fail, and if so, by how much?
-3. Name one downstream cost of the room-booking scheduler's fairness trade-off, and one way you might *notice* it happening in a real deployed system.
-
----
-
-# Answers
-
-1. It proves that no optimal solution can ever be strictly better than
-   what greedy produces, because any optimal solution can always be
-   transformed, one swap at a time, into greedy's solution without
-   losing any bookings - a guarantee that holds for *every* valid
-   input, not just the one you traced by hand.
-2. Greedy on 8: take 4 (remaining 4), take 4 again (remaining 0) → 2
-   tokens. That's also optimal here - greedy happens to succeed on
-   this target. This is exactly why a *proof* is required, not a
-   handful of examples: greedy can look fine on several targets and
-   still be wrong in general (as target = 6 already showed).
-3. Accept any reasonable answer, e.g.: long/complex booking requests
-   get rejected far more often than short ones, noticeable as a
-   pattern of repeated rejections for the same club over a semester;
-   a real deployment might catch it with a fairness audit comparing
-   acceptance rate by request duration.
-
----
-
-<!-- NEW: Try-It hand-off -->
-
-# Now: Worksheet Part A & B
-
-<div class="thread">Time to practice - this time, you're the algorithm.</div>
-
-Work with your partner. Open **[Worksheet Part A &
-B](materials/week10/worksheet.html)**. Part A: hunt for an input where
-a *different*, plausible-looking greedy rule quietly fails. Part B:
-run CampusNav's real room-booking scheduler by hand on a full
-8-request Friday - keep this one, Assignment 3 uses it.
-
-**~20 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project the worksheet. Walk the room while pairs work.
-After ~20 minutes, ask a pair to share their Part A counterexample and another to share their Part B granted-bookings list.
--->
-
----
-
-<!-- NEW: Key Words Today, session 3 -->
+<!-- Key Words Today, session 3 -->
 
 # Key Words Today
 
@@ -844,23 +810,6 @@ tech companies precisely because so many candidates skip the proof.
 
 ---
 
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 10 Quiz](materials/week10/quiz.html)**. Answer on
-your own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
-
----
-
 <!-- SLOT N+1: Limits (Act 4 / CLOSE), becomes Week 11 slot 4 -->
 
 # What Greedy Cannot Do
@@ -890,7 +839,7 @@ new Tour Planner feature.
 
 ---
 
-<!-- NEW: CLRS reference slide, placed immediately before Summary -->
+<!-- CLRS reference slide, placed immediately before Summary -->
 
 # Where This Week Lives in CLRS
 
@@ -925,6 +874,10 @@ checking case by case.
 - A greedy algorithm can be provably optimal at its stated goal
   (throughput) and still raise a fairness question (which requests get
   systematically deprioritized) that the algorithm itself won't answer.
+- **New: Week 10 Check** - a short graded exercise on today's two
+  greedy techniques, released now, due before Week 11 begins,
+  **separate from Assignment 3** (also released this week, due Week
+  12) - see `materials/assignments/week10-check.html`.
 
 ---
 
