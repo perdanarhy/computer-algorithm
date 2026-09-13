@@ -430,17 +430,19 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 <div class="goalbox"><span class="k">Goal</span>Fill the 3&times;3 table of L(i,j) using only the two-case recurrence.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">X=AC, Y=CA. Base row/column are 0. Fill L(1,1), L(1,2), L(2,1), L(2,2) in order.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Fill the cells</div>
 <div class="wx-body">L(1,1): A vs C, mismatch, max(0,0)=0. L(1,2): A vs A, match, L(0,1)+1=1. L(2,1): C vs C, match, L(1,0)+1=1. L(2,2): C vs A, mismatch, max(1,1)=1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Result</div>
@@ -448,8 +450,8 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>LCS(AC, CA) = 1 - already a tie between two different valid answers, previewing today's harder tier.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even a 2-letter pair needs the full recurrence, not intuition - and already shows LCS answers aren't always unique.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>LCS(AC, CA) = 1 - already a tie between two different valid answers, previewing today's harder tier.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even a 2-letter pair needs the full recurrence, not intuition - and already shows LCS answers aren't always unique.</div></div>
 
 ---
 
@@ -475,8 +477,8 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 <div class="row"><div class="rowlabel">P</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">4</div><div class="cell hl">5</div></div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>L(5,6) = 5 - filled left to right, row by row, using only the two-case recurrence, 42 cells total.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every cell only ever needs three neighbors already on the table - never a fresh recursive call.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>L(5,6) = 5 - filled left to right, row by row, using only the two-case recurrence, 42 cells total.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every cell only ever needs three neighbors already on the table - never a fresh recursive call.</div></div>
 
 ---
 
@@ -492,17 +494,19 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 <div class="goalbox"><span class="k">Goal</span>Show the recurrence's two cases at work on real cells from the table.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Matches extend the diagonal</div>
 <div class="wx-body">L(2,2): X[2]=L, Y[2]=L, match &rarr; L(1,1)+1 = 1+1 = 2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Mismatches take the larger neighbor</div>
 <div class="wx-body">L(4,1) (gold): X[4]=D, Y[1]=A, mismatch &rarr; max(L(3,1)=1, L(4,0)=0) = 1 - the up-neighbor wins.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Final answer</div>
@@ -510,8 +514,8 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Every cell in the table follows the same two-case recurrence, whether it's a clean diagonal match or a mismatch reaching sideways.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Every cell in the table follows the same two-case recurrence, whether it's a clean diagonal match or a mismatch reaching sideways.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div></div>
 
 ---
 
@@ -527,17 +531,19 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 <div class="goalbox"><span class="k">Goal</span>Walk L(5,6) backward to (0,0), and find a genuine tie elsewhere in the same table.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The procedure</div>
 <div class="wx-body">Start at (m,n). If X[i]=Y[j], record it, move diagonally to (i-1,j-1). Otherwise move to whichever of (i-1,j)/(i,j-1) is larger. Stop at i=0 or j=0; reverse what was recorded.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Traced on ALGDP/ALGRDP</div>
 <div class="wx-body">(5,6)P&rarr;(4,5)D&rarr;(3,4) mismatch: L(2,4)=2 vs L(3,3)=3, detour left&rarr;(3,3)G&rarr;(2,2)L&rarr;(1,1)A. Reversed: A,L,G,D,P - 5 characters, matching L(5,6)=5 exactly.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">A genuine tie elsewhere</div>
@@ -550,8 +556,8 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Traceback reconstructs A-L-G-D-P, not just the number 5 - and the table's one genuine tie (L(4,4)) shows ties are a real, expected feature of LCS, not an edge case to avoid.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A DP table doesn't just prove a length is optimal - traceback is what turns that proof into the actual answer.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Traceback reconstructs A-L-G-D-P, not just the number 5 - and the table's one genuine tie (L(4,4)) shows ties are a real, expected feature of LCS, not an edge case to avoid.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A DP table doesn't just prove a length is optimal - traceback is what turns that proof into the actual answer.</div></div>
 
 ---
 

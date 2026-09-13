@@ -494,17 +494,19 @@ fills every entry, in order, up front.
 <div class="goalbox"><span class="k">Goal</span>Using table[i] = table[i-1] + table[i-2], fill table[0] through table[6].</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Seeds</div>
 <div class="wx-body">table[0] = 0, table[1] = 1 - the two base cases, given directly, no recursion needed.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">table[2..4]</div>
 <div class="wx-body">table[2]=0+1=1. table[3]=1+1=2. table[4]=1+2=3.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">table[5..6]</div>
@@ -512,8 +514,8 @@ fills every entry, in order, up front.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>table[6] = 8 - each cell only ever reads the two cells directly before it.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Nothing here is ever recomputed or re-derived from scratch - that's the entire payoff, visible even on 7 cells.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>table[6] = 8 - each cell only ever reads the two cells directly before it.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Nothing here is ever recomputed or re-derived from scratch - that's the entire payoff, visible even on 7 cells.</div></div>
 
 ---
 
@@ -558,8 +560,8 @@ table[7] reads two solved neighbors, writes 5+8=13.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Both implementations solve the identical recurrence, same cells, same values - only the fill order's direction differs.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"Which one is faster" is the wrong question - they do the same O(n) work. "Which order do I need results in" is the right one.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Both implementations solve the identical recurrence, same cells, same values - only the fill order's direction differs.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"Which one is faster" is the wrong question - they do the same O(n) work. "Which order do I need results in" is the right one.</div></div>
 
 ---
 
@@ -575,17 +577,19 @@ table[7] reads two solved neighbors, writes 5+8=13.
 <div class="goalbox"><span class="k">Goal</span>Count distinct ways to climb 20 steps, 1 or 2 at a time - correctly and fast.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Recurrence</div>
 <div class="wx-body">ways(n) = ways(n-1) + ways(n-2), ways(0)=1, ways(1)=1 - Fibonacci's recurrence, wearing a different costume. Optimal substructure: a way to climb n steps is [any way to climb n-1] + a final 1-step, or [any way to climb n-2] + a final 2-step.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Overlap</div>
 <div class="wx-body">ways(18) is needed by both ways(19) and ways(20), and by every larger step count above it - overlapping subproblems, exactly.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Tabulate</div>
@@ -598,8 +602,8 @@ table[7] reads two solved neighbors, writes 5+8=13.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>ways(20) = 10,946 distinct routes, computed with 20 additions - not the millions the naive recursive tree implied at that depth.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>No locally-best hop exists here - both branches must be counted, not compared and discarded, which is exactly why this needs DP, not greedy. It also shares Fibonacci's exact recurrence shape, just a different story.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>ways(20) = 10,946 distinct routes, computed with just 20 additions, not millions.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>No locally-best hop exists - both branches must be counted, not discarded, which is why this needs DP.</div></div>
 
 ---
 
@@ -651,17 +655,19 @@ spend time you don't have.)
 <div class="goalbox"><span class="k">Goal</span>Budget 10 minutes. Snack (5 min, value 6) or Nap (8 min, value 10).</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">Two options, one 10-minute budget - only one substantial item fits, plus scraps of time.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Best with just Snack</div>
 <div class="wx-body">best(1,10) = 6 (fits, 5 of 10 minutes used).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Best with Snack or Nap</div>
@@ -669,8 +675,8 @@ spend time you don't have.)
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>best(2,10) = 10: skipping Snack entirely and taking only Nap beats every combination that includes Snack.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even with 2 minutes left unused, Nap alone still wins - "don't waste time" isn't the same goal as "maximize value."</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>best(2,10) = 10: skipping Snack entirely and taking only Nap beats every combination that includes Snack.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even with 2 minutes left unused, Nap alone still wins - "don't waste time" isn't the same goal as "maximize value."</div></div>
 
 ---
 
@@ -695,8 +701,8 @@ spend time you don't have.)
 <div class="row"><div class="rowlabel">+Music</div><div class="cell">0</div><div class="cell">8</div><div class="cell">15</div><div class="cell">25</div><div class="cell">40</div><div class="cell">48</div><div class="cell hl">55</div></div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>best(4,60) = 55 beats greedy's 48 - the optimal plan is Coffee + Music, using every one of the 60 minutes.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every cell only reads already-filled neighbors - by the time the last cell is reached, its answer is already proven, not guessed.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>best(4,60) = 55 beats greedy's 48 - the optimal plan is Coffee + Music, using every one of the 60 minutes.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every cell only reads already-filled neighbors - by the time the last cell is reached, its answer is already proven, not guessed.</div></div>
 
 ---
 
@@ -712,17 +718,19 @@ spend time you don't have.)
 <div class="goalbox"><span class="k">Goal</span>Show the recurrence's two cases at work on real cells from the table.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Filling row by row</div>
 <div class="wx-body">Each row adds one more activity to what's allowed; each column is a time budget. The base row (0 items) is all zero.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Where a real choice happens</div>
 <div class="wx-body">Row +Friend, column 40: max(best(2,40)=25, 8+best(2,30)=8+25=33) = 33 - including Friend strictly wins here.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Final cell</div>
@@ -730,8 +738,8 @@ spend time you don't have.)
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Every row-column combination in the table follows the same two-case recurrence, whether the choice is close (row +Friend) or lopsided (the final cell).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Every row-column combination in the table follows the same two-case recurrence, whether the choice is close (row +Friend) or lopsided (the final cell).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div></div>
 
 ---
 
@@ -747,17 +755,19 @@ spend time you don't have.)
 <div class="goalbox"><span class="k">Goal</span>Show exactly which comparison DP makes that greedy's ratio rule never does.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Where greedy went wrong</div>
 <div class="wx-body">Ratios: Coffee 15/20=0.75, Gallery 25/30&asymp;0.83, Friend 8/10=0.80, Music 40/40=1.00. Best ratio (Music) taken first, 40 of 60 min used; then Friend fits (10 more); Coffee (20 min) no longer fits in the remaining 10. Result: 48 enjoyment, 10 min unused.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">The cell that disagrees: best(4,40)</div>
 <div class="wx-body">Exclude Music: best(3,40) = 33 (row +Friend, column 40). Include Music: duration 40 uses the whole budget - 40 + best(3,0) = 40 + 0 = 40.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">max(33, 40) = 40</div>
@@ -770,7 +780,7 @@ spend time you don't have.)
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>best(4,40) = 40 - DP proves including Music is right here, but only by comparing against every alternative, not by trusting a ratio.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>best(4,40) = 40 - DP proves including Music is right here, but only by comparing against every alternative, not by trusting a ratio.</div></div>
 
 ---
 
@@ -778,9 +788,9 @@ spend time you don't have.)
 
 <div class="thread">One cell's comparison, and what it says about the whole technique.</div>
 
-<div class="takeaway">
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text">
 <span class="k">Key takeaway</span>Greedy asks "what looks best right now?" once. DP asks it for every possible remaining budget, then lets the table itself decide.
-</div>
+</div></div>
 
 ---
 

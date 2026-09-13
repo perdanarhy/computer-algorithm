@@ -337,17 +337,19 @@ earliest-finish grants {P, R} (2 bookings).
 <div class="goalbox"><span class="k">Goal</span>Run BOOK_ROOM on X (09:00-10:00), Y (09:30-10:30), Z (10:00-11:00).</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Sort &amp; grant X</div>
 <div class="wx-body">Sorted by end time: X (10:00), Y (10:30), Z (11:00). Room free, grant X. lastEnd = 10:00.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Skip Y</div>
 <div class="wx-body">Y starts 09:30, before lastEnd 10:00 - conflicts with X. Skip.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Grant Z, done</div>
@@ -355,8 +357,8 @@ earliest-finish grants {P, R} (2 bookings).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>{X, Z} granted, Y skipped - 2 of 3 requests, one sorted pass, zero backtracking.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even with only 3 requests, the rule's core behavior already shows: only the request that would delay everything later gets skipped.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>{X, Z} granted, Y skipped - 2 of 3 requests, one sorted pass, zero backtracking.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even with only 3 requests, the rule's core behavior already shows: only the request that would delay everything later gets skipped.</div></div>
 
 ---
 
@@ -372,22 +374,25 @@ earliest-finish grants {P, R} (2 bookings).
 <div class="goalbox"><span class="k">Goal</span>A 09:00-10:30, B 09:30-10:00, C 10:00-11:00, D 10:15-12:15, E 11:00-12:00.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Sort by end time</div>
 <div class="wx-body">B (10:00), A (10:30), C (11:00), E (12:00), D (12:15).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Grant B, skip A</div>
 <div class="wx-body">B: room free, grant. lastEnd = 10:00. A: starts 09:00 &lt; 10:00 - conflicts, skip.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Grant C, grant E</div>
 <div class="wx-body">C: starts 10:00 &ge; 10:00, grant. lastEnd = 11:00. E: starts 11:00 &ge; 11:00, grant. lastEnd = 12:00.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Skip D, result</div>
@@ -395,8 +400,8 @@ earliest-finish grants {P, R} (2 bookings).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>3 of 5 requests granted: {B, C, E} - one sorted pass, no untangling needed.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Compare to the pain slide's merge-and-untangle mess: one sorted pass replaces an entire afternoon of hand-splitting and re-merging.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>3 of 5 requests granted: {B, C, E} - one sorted pass, no untangling needed.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Compare to the pain slide's merge-and-untangle mess: one sorted pass replaces an entire afternoon of hand-splitting and re-merging.</div></div>
 
 ---
 
@@ -412,22 +417,25 @@ earliest-finish grants {P, R} (2 bookings).
 <div class="goalbox"><span class="k">Goal</span>Prove: greedy's solution G always matches some optimal solution's size.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">Let G = greedy's solution, O = any optimal solution. Let g = greedy's first pick - by construction, the earliest end time of any request in the whole input. If O also picks g first, nothing to prove yet.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Otherwise</div>
 <div class="wx-body">Let o be O's first pick, o &ne; g. Since g has the earliest end time of any request, end(g) &le; end(o).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">The swap</div>
 <div class="wx-body">Build O' = O with o replaced by g. Every other request in O starts after o ends; since end(g) &le; end(o), each also starts after g ends - O' is still valid, same size as O.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">&#9733;</div>
 <div class="wx-title">Induction, Q.E.D.</div>
@@ -435,8 +443,8 @@ earliest-finish grants {P, R} (2 bookings).
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Greedy's solution can always be transformed into an optimal one without losing a booking - so greedy's solution IS optimal.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>An exchange argument doesn't test one input - it proves the swap always works, for every input, which is what "provably optimal" actually means.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Greedy's solution can always be transformed into an optimal one without losing a booking - so greedy's solution IS optimal.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>An exchange argument doesn't test one input - it proves the swap always works, for every input, which is what "provably optimal" actually means.</div></div>
 
 ---
 
@@ -513,17 +521,19 @@ HUFFMAN(freqs):
 <div class="goalbox"><span class="k">Goal</span>Build the tree for three symbols and compare against a fixed-length code.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Merge</div>
 <div class="wx-body">Two smallest: A(2)+B(3) &rarr; AB(5). Two nodes left, AB(5) and C(5) - a tie. Merge them into the root(10).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Codes</div>
 <div class="wx-body">Root: left=AB(0), right=C(1). AB: left=A(00), right=B(01). Codes: A=00, B=01, C=1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Weighted bits</div>
@@ -531,8 +541,8 @@ HUFFMAN(freqs):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>3 symbols already compress from 20 to 15 bits - Huffman's advantage doesn't require large alphabets.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A tie in frequency (AB=5, C=5) is resolved arbitrarily - either merge order still yields an optimal code, just a different one.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>3 symbols already compress from 20 to 15 bits - Huffman's advantage doesn't require large alphabets.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A tie in frequency (AB=5, C=5) is resolved arbitrarily - either merge order still yields an optimal code, just a different one.</div></div>
 
 ---
 
@@ -548,22 +558,25 @@ HUFFMAN(freqs):
 <div class="goalbox"><span class="k">Goal</span>Build the full tree, read off codes, and decode a message.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Merges 1-2</div>
 <div class="wx-body">Smallest two: A(5)+B(9) &rarr; AB(14). Next smallest: C(12)+D(13) &rarr; CD(25).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Merges 3-5</div>
 <div class="wx-body">AB(14)+E(16) &rarr; ABE(30). CD(25)+ABE(30) &rarr; CDABE(55). F(45)+CDABE(55) &rarr; root(100).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Codes</div>
 <div class="wx-body">F=0(1bit), C=100(3bit), D=101(3bit), E=111(3bit), A=1100(4bit), B=1101(4bit).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Decode FACE</div>
@@ -571,8 +584,8 @@ HUFFMAN(freqs):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>5 symbols merge to 1 root in n&minus;1 = 5 merges (always true for n symbols); FACE decodes unambiguously, left to right, no lookahead.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The more frequent a symbol, the shorter its path from the root - by construction, not by tuning.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>5 symbols merge to 1 root in n&minus;1 = 5 merges (always true for n symbols); FACE decodes unambiguously, left to right, no lookahead.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The more frequent a symbol, the shorter its path from the root - by construction, not by tuning.</div></div>
 
 ---
 
@@ -588,17 +601,19 @@ HUFFMAN(freqs):
 <div class="goalbox"><span class="k">Goal</span>Decode 10111111000 using F=0, C=100, D=101, E=111, A=1100, B=1101.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">New bitstring: 10111111000. Decode left to right, matching one full code at a time.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Trace</div>
 <div class="wx-body">101&rarr;D, 111&rarr;E, 1100&rarr;A, 0&rarr;F &rarr; message: "DEAF".</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Why no lookahead</div>
@@ -611,8 +626,8 @@ HUFFMAN(freqs):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>DEAF decodes unambiguously with the same table that decoded FACE - one code table, many messages, zero ambiguity.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Prefix-free isn't an extra rule bolted onto Huffman coding - it falls out of building the code from a tree's leaves for free.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>DEAF decodes unambiguously with the same table that decoded FACE - one code table, many messages, zero ambiguity.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Prefix-free isn't an extra rule bolted onto Huffman coding - it falls out of building the code from a tree's leaves for free.</div></div>
 
 ---
 
@@ -643,17 +658,19 @@ HUFFMAN(freqs):
 <div class="goalbox"><span class="k">Goal</span>Compare greedy's token count to the true optimal, on target 6.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Greedy trace</div>
 <div class="wx-body">Take 4 (remaining 2). 3 doesn't fit, take 1 (remaining 1). Take 1 (remaining 0). Total: 4+1+1 = 3 tokens.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Optimal</div>
 <div class="wx-body">3 + 3 = 6, using only 2 tokens.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">The gap</div>
@@ -661,8 +678,8 @@ HUFFMAN(freqs):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Greedy: 3 tokens (4+1+1). Optimal: 2 tokens (3+3). One counterexample is enough to disprove "greedy always finds the optimal."</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Nothing about running the algorithm signals failure - it just quietly hands out one extra token, every time the balance is exactly 6.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Greedy: 3 tokens (4+1+1). Optimal: 2 tokens (3+3). One counterexample is enough to disprove "greedy always finds the optimal."</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Nothing about running the algorithm signals failure - it just quietly hands out one extra token, every time the balance is exactly 6.</div></div>
 
 ---
 
@@ -678,17 +695,19 @@ HUFFMAN(freqs):
 <div class="goalbox"><span class="k">Goal</span>Show a different denomination set fails the same way, and that passing a test proves nothing.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Greedy trace</div>
 <div class="wx-body">Take 5 (remaining 3). Largest that fits is 1: take 1, 1, 1. Total: 5+1+1+1 = 4 tokens.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Optimal</div>
 <div class="wx-body">4 + 4 = 8, using only 2 tokens - a different, independent counterexample.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Same shape of failure</div>
@@ -701,8 +720,8 @@ HUFFMAN(freqs):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>{1,4,5} at target 8 fails the same way as {1,3,4} at target 6 - two independent counterexamples, not a fluke of one number.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Testing more targets is not a proof: {1,3,4} at target 8 happens to succeed, but that success says nothing about target 6's failure.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>{1,4,5} at target 8 fails the same way as {1,3,4} at target 6 - two independent counterexamples, not a fluke of one number.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Testing more targets is not a proof: {1,3,4} at target 8 happens to succeed, but that success says nothing about target 6's failure.</div></div>
 
 ---
 
