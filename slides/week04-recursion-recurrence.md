@@ -48,24 +48,23 @@ notes: Open with a show of hands: "Who has ever explained a rule by using the ru
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
+<!-- REWRITTEN: was a discussion warm-up; now teacher-delivered narration that resolves directly -->
 
-# Before We Start: Describe It Using Itself
+# Describe It Using Itself
 
-<div class="thread">A quick warm-up. No code needed yet.</div>
+<div class="thread">A quick warm-up, resolved directly. No code needed yet.</div>
 
 How would you tell a friend to count down out loud from 5 to 1?
 
 - **Method A:** "Start at 5. Say it. Subtract 1. Say that. Keep going until you say 1."
 - **Method B:** "To count down from any number N: say N, then count down from N minus 1. To count down from 1: just say '1' and stop."
 
-- Which of these two instructions describes itself, using itself?
-
-<!--
-notes: Give students 30 seconds to think, alone, before asking.
-Ask aloud: "In Method B, what's the one number where the instruction stops referring to itself?" (1)
-Do not name "recursion" yet - let them notice the self-reference in their own words.
--->
+Only **Method B** describes itself, using itself - "count down from N"
+is defined partly in terms of "count down from N minus 1." Method A
+never refers back to its own instruction. Notice the one number where
+Method B's self-reference stops: **1**, the case answered directly, no
+further self-call. That stopping point is today's whole topic, long
+before we have a name for it.
 
 ---
 
@@ -183,20 +182,6 @@ real parsers and services with stack-overflow errors.
 2. Convert a simple recursive algorithm into an equivalent iterative one, and vice versa.
 3. Write the recurrence relation that describes a recursive algorithm's cost.
 4. Solve a simple recurrence with substitution or a recursion tree, and read the Master Theorem's three cases intuitively.
-
----
-
-<!-- NEW: session-1 close, previews Worksheet -->
-
-# Coming Up: The Worksheet
-
-<div class="thread">Next in this class: less listening, more tracing.</div>
-
-Later today, you and a partner will hand-trace a recursion tree and
-solve a recurrence yourselves - the same two skills the frozen demo
-was missing.
-
-That is the **Worksheet, Parts A and B**. Keep a pen ready.
 
 ---
 
@@ -329,59 +314,51 @@ explicit loop counter for the call stack keeping track of "what's left."
 
 ---
 
-<!-- Act 3 / BUILD: call stack trace, going down -->
+<!-- NEW: dense worked example, factorial(4) call-stack trace. Merges the old "Going Down" + "Going Up" slides, folds the "frames waiting" Check Yourself content. -->
+<!-- _class: dense -->
 
-# Tracing the Call Stack: factorial(4), Going Down
+<div class="eyebrow">Call-stack tracing · worked example</div>
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Call <code>factorial(4)</code> - needs <code>factorial(3)</code> before it can finish.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Call <code>factorial(3)</code> - needs <code>factorial(2)</code> before it can finish.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Call <code>factorial(2)</code> - needs <code>factorial(1)</code> before it can finish.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Call <code>factorial(1)</code> - needs <code>factorial(0)</code> before it can finish.</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">Call <code>factorial(0)</code> - <strong>base case</strong>. Returns <code>1</code> immediately, no further call.</div></div>
+# Tracing the Call Stack: factorial(4)
+
+<div class="wx-top">
+<div class="lead">Five frames stack up before a single multiplication happens - then everything unwinds.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace factorial(4) all the way down to the base case, and all the way back up.</div>
 </div>
 
-Five frames are now stacked up, each one waiting on the next, before a single multiplication happens.
-
----
-
-<!-- Act 3 / BUILD: call stack trace, coming back up -->
-
-# Tracing the Call Stack: factorial(4), Coming Back Up
-
-<div class="steps">
-<div class="step-row"><div class="step-num">6</div><div class="step-text"><code>factorial(0)</code> returns <code>1</code> to the frame waiting on it.</div></div>
-<div class="step-row"><div class="step-num">7</div><div class="step-text"><code>factorial(1)</code> = 1 × 1 = <code>1</code>, returns to <code>factorial(2)</code>.</div></div>
-<div class="step-row"><div class="step-num">8</div><div class="step-text"><code>factorial(2)</code> = 2 × 1 = <code>2</code>, returns to <code>factorial(3)</code>.</div></div>
-<div class="step-row"><div class="step-num">9</div><div class="step-text"><code>factorial(3)</code> = 3 × 2 = <code>6</code>, returns to <code>factorial(4)</code>.</div></div>
-<div class="step-row"><div class="step-num">10</div><div class="step-text"><code>factorial(4)</code> = 4 × 6 = <code>24</code>, final answer.</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Going down</div>
+<div class="wx-body">factorial(4) needs factorial(3), needs factorial(2), needs factorial(1), needs factorial(0) - five frames stacked, waiting.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Base case hits</div>
+<div class="wx-body">factorial(0): the base case. Returns 1 immediately, no further call.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Coming back up</div>
+<div class="wx-body">factorial(1) = 1&times;1 = 1. factorial(2) = 2&times;1 = 2. factorial(3) = 3&times;2 = 6.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Final unwind</div>
+<div class="wx-body">factorial(4) = 4&times;6 = 24, final answer. The base case is what the whole unwind is built from - it bounds how deep the stack could ever grow.</div>
+</div>
 </div>
 
-The base case is what the whole unwind is built from - it is not just "where you happen to stop," it is what bounds how deep the stack could ever grow.
+<div class="conclusion"><span class="k">Conclusion</span>factorial(4) = 24, traced through 5 stacked frames and back.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>At the moment factorial(0) returns, four frames are still waiting - factorial(1) through factorial(4) - each paused on its own multiplication until the call below it finishes.</div>
 
 ---
 
-<!-- NEW: check-yourself pair on the call-stack trace -->
-
-# Check Yourself: Reading the Stack
-
-1. At the exact moment `factorial(0)` returns, how many call-stack frames are still "waiting," and for what?
-2. If `factorial`'s base case were accidentally written as `if n == -1`, what would happen when you called `factorial(4)`?
-
----
-
-# Answers
-
-1. **Four frames are waiting:** `factorial(1)`, `factorial(2)`, `factorial(3)`, and `factorial(4)`, each one paused on its own `return n * factorial(n - 1)` line until the call below it finishes.
-2. It would never hit the base case: `n` counts down `4, 3, 2, 1, 0, -1, -2, ...` forever, since `n == -1` is only reached after `n == 0` is skipped past. The call stack grows without bound - exactly a stack overflow, from a one-character base-case bug.
-
----
-
-<!-- NEW: a second recursion/iteration conversion pair, distinct from factorial -->
+<!-- MERGED: idea+pseudocode and the condensed trace onto one slide -->
 
 # Another Conversion: Summing 1 to $n$
 
-<div class="thread">Same recursive/iterative shape as factorial - a different base operation.</div>
+<div class="thread">Same recursive/iterative shape as factorial - a different base operation, traced in one line.</div>
 
 <div class="two-col">
 <div>
@@ -409,22 +386,13 @@ SUM(n):
 </div>
 </div>
 
-Same recurrence shape as `factorial`: $T(n) = T(n-1) + O(1)$.
-
----
-
-<!-- NEW: continuation - tracing the unwind, condensed instead of frame-by-frame -->
-
-# Tracing SUM(4)
-
-<div class="thread">Same unwind pattern as factorial(4), condensed into one line.</div>
-
 $$
 SUM(4) = 4 + SUM(3) = 4+3+SUM(2) = 4+3+2+SUM(1) = 4+3+2+1+SUM(0) = 4+3+2+1+0 = 10
 $$
 
-Five frames deep, same as `factorial(4)` - the base case `SUM(0) = 0`
-is what the whole chain unwinds from.
+Same recurrence shape as `factorial`: $T(n) = T(n-1) + O(1)$. Five
+frames deep, same as `factorial(4)` - the base case `SUM(0) = 0` is
+what the whole chain unwinds from.
 
 ---
 
@@ -482,105 +450,163 @@ closed-form answer, then use induction to prove the guess is right.
 
 ---
 
-<!-- Act 3 / BUILD: substitution method -->
+<!-- NEW: dense worked example, substitution method, moderate tier -->
+<!-- _class: dense -->
 
-# Solving Recurrences: Substitution Method
+<div class="eyebrow">Substitution method · worked example 1 of 2 (moderate)</div>
 
-<div class="thread">Guess the answer, then prove the guess by induction.</div>
+# Solving $T(n) = T(n-1) + d$ by Substitution
 
-**Guess:** $T(n) = O(n)$ for $T(n) = T(n-1) + d$ (some constant $d$). Formally: $T(n) \le cn$ for a constant $c$ and all $n \ge n_0$.
+<div class="wx-top">
+<div class="lead">Guess the answer, then prove the guess by induction.</div>
+<div class="goalbox"><span class="k">Goal</span>Prove T(n) = O(n) for T(n) = T(n&minus;1) + d, some constant d.</div>
+</div>
 
-- **Base case:** true for small $n$ once $c$ is chosen large enough to cover $T(n_0)$.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Guess</div>
+<div class="wx-body">Formally: T(n) &le; cn for a constant c and all n &ge; n0.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Base case</div>
+<div class="wx-body">True for small n once c is chosen large enough to cover T(n0).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Inductive step</div>
+<div class="wx-body">Assume T(n&minus;1) &le; c(n&minus;1). Then T(n) = T(n&minus;1)+d &le; c(n&minus;1)+d = cn&minus;c+d &le; cn whenever c &ge; d.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Conclusion</div>
+<div class="wx-body">Choosing c=d makes the last step hold. T(n)=O(n) - matching the 4-frame trace hand-counted for factorial(4) above.</div>
+</div>
+</div>
 
----
-
-<!-- NEW: continuation of the substitution method, split out of the same slide -->
-
-# Substitution Method: The Inductive Step
-
-<div class="thread">The base case held. Now the step that carries it for every larger $n$.</div>
-
-- **Inductive step:** assume $T(n-1) \le c(n-1)$. Then
-
-$$
-T(n) = T(n-1) + d \le c(n-1) + d = cn - c + d \le cn \quad \text{whenever } c \ge d
-$$
-
-- Choosing $c = d$ makes the last step hold. **QED** - $T(n) = O(n)$, matching the 4-frame trace we hand-counted for `factorial(4)` above.
-
----
-
-<!-- NEW: check-yourself pair on the substitution method -->
-
-# Check Yourself: Substitution on a New Recurrence
-
-1. For $T(n) = T(n-1) + 3$, $T(0) = 1$, guess $T(n) = O(n)$, i.e. $T(n) \le cn$ for $n \ge n_0$. What constant $c$ makes the inductive step $T(n) = T(n-1) + 3 \le c(n-1) + 3 \le cn$ hold?
-2. Does the substitution method ever tell you *what* to guess, or only whether a guess you already have is correct?
-
----
-
-# Answers
-
-1. Any $c \ge 3$ works, by the same algebra as the worked proof: $c(n-1) + 3 = cn - c + 3 \le cn$ exactly when $c \ge 3$. Choosing $c = 3$ (and checking the base case $T(0) = 1 \le c \cdot n_0$ for a suitable $n_0$) completes the proof.
-2. **Only whether a guess is correct.** The guess itself has to come from somewhere else - intuition, a recursion tree, or experience with similar recurrences (like today's `factorial` shape). This is exactly why the recursion-tree method, next, is useful even when substitution is available: it can *suggest* a guess to check.
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = T(n&minus;1) + d solves to T(n) = O(n).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Substitution proves a guess by induction - base case, then an inductive step that carries it for every larger n.</div>
 
 ---
 
-<!-- Act 3 / BUILD: recursion-tree method -->
+<!-- NEW: dense worked example, substitution method, harder tier. Reuses the deck's exact existing Check-Yourself recurrence. -->
+<!-- _class: dense -->
 
-# Solving Recurrences: Recursion-Tree Method
+<div class="eyebrow">Substitution method · worked example 2 of 2 (harder)</div>
 
-<div class="thread">Instead of guessing, draw every call and sum the work level by level.</div>
+# A New Recurrence: $T(n) = T(n-1) + 3$, $T(0) = 1$
 
-Take the divide-and-conquer shape from two slides ago: $T(n) = 2T(n/2) + O(n)$.
+<div class="wx-top">
+<div class="lead">Same method, a concrete constant this time - and a limit on what substitution can actually do for you.</div>
+<div class="goalbox"><span class="k">Goal</span>Find a constant c that makes the inductive step hold, then see what substitution cannot supply.</div>
+</div>
 
-| Level | Subproblems | Size each | Cost at this level |
-|---|---|---|---|
-| 0 | 1 | $n$ | $n$ |
-| 1 | 2 | $n/2$ | $2 \cdot (n/2) = n$ |
-| 2 | 4 | $n/4$ | $4 \cdot (n/4) = n$ |
-| $\vdots$ | $\vdots$ | $\vdots$ | $n$ |
-| $\log_2 n$ | $n$ | $1$ | $n$ |
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Guess</div>
+<div class="wx-body">T(n) = O(n), i.e. T(n) &le; cn for n &ge; n0.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Inductive step</div>
+<div class="wx-body">T(n) = T(n&minus;1)+3 &le; c(n&minus;1)+3 = cn&minus;c+3 &le; cn exactly when c &ge; 3. Any c &ge; 3 works - choose c=3.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Base case</div>
+<div class="wx-body">T(0)=1 &le; c&middot;n0 for a suitable n0 (e.g. n0=1, c=3: 1 &le; 3, holds).</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">What substitution can't do</div>
+<div class="wx-body">The method only verifies a guess - it never tells you what to guess. That's exactly why the recursion-tree method, next, is useful even when substitution is available: it can suggest a guess to check.</div>
+</div>
+</div>
 
-Every level costs about $n$, and there are $\log_2 n + 1$ levels:
-$T(n) = n(\log_2 n + 1) = O(n \log n)$ - the result we'll reuse, unpreviewed, starting Week 6.
+<div class="conclusion"><span class="k">Conclusion</span>c=3, n0=1 proves T(n) = T(n&minus;1)+3, T(0)=1 solves to T(n) = O(n).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Substitution proves; it doesn't propose. A recursion tree, next, can propose the guess in the first place.</div>
 
 ---
 
-<!-- NEW: a second, distinct recursion-tree example, exercising Master Theorem Case 1 instead of Case 2 -->
+<!-- NEW: dense worked example, recursion-tree method, moderate tier (Master Theorem Case 2 shape) -->
+<!-- _class: dense -->
 
-# A Second Recursion Tree: $T(n) = 3T(n/2) + n$
+<div class="eyebrow">Recursion-tree method · worked example 1 of 2 (moderate)</div>
 
-<div class="thread">A different split factor, and a different case of the pattern - the same method still works.</div>
+# Drawing the Tree: $T(n) = 2T(n/2) + O(n)$
 
-| Level | Subproblems | Size each | Cost at this level |
-|---|---|---|---|
-| 0 | 1 | $n$ | $n$ |
-| 1 | 3 | $n/2$ | $3 \cdot (n/2) = 1.5n$ |
-| 2 | 9 | $n/4$ | $9 \cdot (n/4) = 2.25n$ |
-| $\vdots$ | $\vdots$ | $\vdots$ | growing each level |
-| $\log_2 n$ | $3^{\log_2 n} = n^{\log_2 3}$ | $1$ | $n^{\log_2 3}$ |
+<div class="wx-top">
+<div class="lead">Instead of guessing, draw every call and sum the work level by level.</div>
+<div class="goalbox"><span class="k">Goal</span>Sum this divide-and-conquer recurrence level by level to a closed form.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Level 0</div>
+<div class="wx-body">1 subproblem, size n. Cost: n.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Level 1</div>
+<div class="wx-body">2 subproblems, size n/2 each. Cost: 2&middot;(n/2) = n.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Level 2 and on</div>
+<div class="wx-body">4 subproblems, size n/4: cost 4&middot;(n/4) = n. The pattern holds - every level costs about n.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Total</div>
+<div class="wx-body">log&#8322;n + 1 levels, each costing about n: T(n) = n(log&#8322;n + 1) = O(n log n) - reused, unpreviewed, starting Week 6.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = 2T(n/2) + O(n) solves to T(n) = O(n log n).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Every level here costs the same - that flat pattern is the signature of Master Theorem Case 2, next.</div>
 
 ---
 
-<!-- NEW: continuation - summing the tree above -->
+<!-- NEW: dense worked example, recursion-tree method, harder tier (Master Theorem Case 1 shape) -->
+<!-- _class: dense -->
 
-# Summing the Second Recursion Tree
+<div class="eyebrow">Recursion-tree method · worked example 2 of 2 (harder)</div>
 
-<div class="thread">Same tree as the last slide. Here's what makes it different from merge sort's.</div>
+# A Different Split Factor: $T(n) = 3T(n/2) + n$
 
-Unlike $T(n) = 2T(n/2) + O(n)$, each level here costs *more* than the
-last - the branching factor (3) outpaces the halving of size. The sum
-is dominated by the bottom level, the leaves: there are
-$n^{\log_2 3} \approx n^{1.585}$ of them, each costing $O(1)$, so
+<div class="wx-top">
+<div class="lead">Same method, but the branching factor now outpaces the halving of size.</div>
+<div class="goalbox"><span class="k">Goal</span>Show what happens when each level costs <em>more</em> than the last.</div>
+</div>
 
-$$
-T(n) = \Theta(n^{\log_2 3})
-$$
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Level 0</div>
+<div class="wx-body">1 subproblem, size n. Cost: n.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Levels 1-2</div>
+<div class="wx-body">Level 1: 3 subproblems, size n/2, cost 3&middot;(n/2) = 1.5n. Level 2: 9 subproblems, size n/4, cost 9&middot;(n/4) = 2.25n. Costs are <em>growing</em>, not flat.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Bottom level</div>
+<div class="wx-body">log&#8322;n levels down: 3<sup>log&#8322;n</sup> = n<sup>log&#8322;3</sup> &asymp; n<sup>1.585</sup> leaves, each O(1). The sum is dominated by this bottom level.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">T(n) = &Theta;(n<sup>log&#8322;3</sup>) &asymp; &Theta;(n<sup>1.585</sup>) - Master Theorem <strong>Case 1</strong> (many small subproblems dominate), unlike the last example's Case 2.</div>
+</div>
+</div>
 
-This is exactly **Case 1** of the Master Theorem, next slide - the
-many small subproblems dominate, unlike merge sort's Case 2 where
-every level costs the same.
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = 3T(n/2) + n solves to T(n) = &Theta;(n<sup>log&#8322;3</sup>).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>When per-level cost grows instead of staying flat, the leaves - not the top - dominate the sum.</div>
 
 ---
 
@@ -603,19 +629,38 @@ slower than $n^{\log_2 3}$ - matching the tree above too.
 
 ---
 
-<!-- NEW: check-yourself pair on the Master Theorem cases -->
+<!-- NEW: dense worked example, applying the Master Theorem. Folds the old Check Yourself pair, reusing its exact recurrences. -->
+<!-- _class: dense -->
 
-# Check Yourself: Which Master Theorem Case?
+<div class="eyebrow">Master Theorem · worked example</div>
 
-1. For $T(n) = 4T(n/2) + n^2$: is $f(n) = n^2$ growing slower than, about the same as, or faster than $n^{\log_2 4} = n^2$? Which case applies?
-2. For $T(n) = T(n/2) + 1$ (this is binary search's recurrence, previewed for Week 7): compute $n^{\log_2 1}$, and say which case applies.
+# Two More Recurrences, Classified
 
----
+<div class="wx-top">
+<div class="lead">Same table as above, applied cold to two new recurrences.</div>
+<div class="goalbox"><span class="k">Goal</span>Classify each recurrence's case, then read off its closed form.</div>
+</div>
 
-# Answers
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">T(n) = 4T(n/2) + n&sup2;</div>
+<div class="wx-body">n<sup>log&#8322;4</sup> = n&sup2;. f(n) = n&sup2; grows <strong>about the same</strong> &rarr; Case 2: T(n) = &Theta;(n&sup2; log n).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">T(n) = T(n/2) + 1</div>
+<div class="wx-body">n<sup>log&#8322;1</sup> = n&#8304; = 1. f(n) = 1 grows about the same &rarr; Case 2: T(n) = &Theta;(log n) - binary search's cost, previewed for Week 7.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Same signature as merge sort</div>
+<div class="wx-body">Both land in Case 2, the same case as T(n) = 2T(n/2) + O(n) above - every level costing about the same is the recurring signature of Case 2.</div>
+</div>
+</div>
 
-1. $f(n) = n^2$ grows **about the same** as $n^{\log_2 4} = n^2$ - **Case 2** applies, giving $T(n) = \Theta(n^2 \log n)$.
-2. $n^{\log_2 1} = n^0 = 1$, and $f(n) = 1$ grows about the same as that - **Case 2** applies, giving $T(n) = \Theta(\log n)$, matching binary search's well-known cost.
+<div class="conclusion"><span class="k">Conclusion</span>Both recurrences classify as Case 2, giving &Theta;(n&sup2; log n) and &Theta;(log n) respectively.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Classifying a recurrence is a three-way comparison: does f(n) grow slower than, the same as, or faster than n<sup>log_b a</sup>?</div>
 
 ---
 
@@ -636,25 +681,38 @@ $$
 
 ---
 
-<!-- SLOT N-2: Worked example -->
+<!-- SLOT N-2: Worked example. Dense conversion of the feature that actually froze. -->
+<!-- _class: dense -->
 
-# CampusNav: Counting All Tour Orders - the Trap
+<div class="eyebrow">CampusNav · the feature that froze</div>
 
-<div class="thread">Everything above, applied to the feature that actually froze.</div>
+# Counting All Tour Orders - the Trap
 
-"Show me every possible order" branches at every remaining stop:
+<div class="wx-top">
+<div class="lead">"Show me every possible order" branches at every remaining stop.</div>
+<div class="goalbox"><span class="k">Goal</span>Show why this feature explodes, when `tourTime` above didn't.</div>
+</div>
 
-$$
-\text{allOrders(remaining)} = \sum_{\text{next stop} \in \text{remaining}} \text{allOrders(remaining} - \text{next stop}), \quad \text{allOrders}(\varnothing) = 1
-$$
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The formula</div>
+<div class="wx-body">allOrders(remaining) = sum, over every next stop in remaining, of allOrders(remaining minus next stop). allOrders(&empty;) = 1.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">3 stops</div>
+<div class="wx-body">The recursion tree branches 3 &rarr; 2 &rarr; 1, giving 3! = 6 leaves - the demo's 6 orders.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why it explodes</div>
+<div class="wx-body">Each extra stop <em>multiplies</em>, not adds, to the tree. `allOrders` is slow because it genuinely branches into more distinct choices at every level - there is no repeated work to eliminate, only an unavoidably large number of true orderings.</div>
+</div>
+</div>
 
-For 3 stops the recursion tree branches $3 \to 2 \to 1$, giving $3! = 6$ leaves - the demo's 6 orders. Each extra stop multiplies, not adds, to the tree.
-
-The recursion itself isn't the problem - `tourTime` above was just
-as recursive and stayed cheap. **`allOrders` explodes because it
-branches into every remaining stop at every level, not because it
-recurses.** Week 11's Dynamic Programming shows how to stop
-re-deriving the same partial answers - the exact fix for this exact explosion.
+<div class="conclusion"><span class="k">Conclusion</span>The recursion itself isn't the problem - `tourTime` above was just as recursive and stayed cheap. `allOrders` explodes because it branches into every remaining stop at every level.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Week 11's Dynamic Programming stops re-deriving the same partial answers - but that fix only helps when answers actually repeat, which is exactly what the next example checks.</div>
 
 ---
 
@@ -662,7 +720,7 @@ re-deriving the same partial answers - the exact fix for this exact explosion.
 
 # The `fib(5)` Call Tree
 
-<div class="thread">Naive recursive `fib(n) = fib(n-1) + fib(n-2)`, drawn out - the same disease as `allOrders`.</div>
+<div class="thread">Naive recursive `fib(n) = fib(n-1) + fib(n-2)`, drawn out - a different disease from `allOrders`.</div>
 
 ```text
 fib(5)
@@ -684,85 +742,47 @@ fib(5)
 
 ---
 
+<!-- NEW: dense worked example, the waste counted. Folds the old Check Yourself "Two Different Diseases" pair. -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Naive Fibonacci · a different disease</div>
+
 # The Waste, Counted
 
-<div class="thread">Same tree as the last slide. Now count the repeats.</div>
+<div class="wx-top">
+<div class="lead">Same tree as the last slide. Now count the repeats, and compare to `allOrders`.</div>
+<div class="goalbox"><span class="k">Goal</span>Show that "slow and recursive" is not one disease - and that only one of the two responds to the same cure.</div>
+</div>
 
-`fib(3)` gets computed **twice**, `fib(2)` **three** times, `fib(1)`
-**five** times - 15 total calls to answer one number a loop reaches in 5
-additions. Unlike `allOrders`, nothing here branches into ever-more
-choices - the same two smaller subproblems just get asked for, over
-and over. **Week 11** names this *overlapping subproblems* and fixes it
-by storing each distinct answer once.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Count the repeats</div>
+<div class="wx-body">`fib(3)` computed twice, `fib(2)` three times, `fib(1)` five times - 15 total calls to answer one number a loop reaches in 5 additions.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">A different disease than `allOrders`</div>
+<div class="wx-body">Nothing here branches into ever-more choices - the same two smaller subproblems just get asked for, over and over. Week 11 names this <em>overlapping subproblems</em>.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Would an iterative rewrite fix it?</div>
+<div class="wx-body"><strong>Yes for `fib`</strong> - storing each `fib(k)` once turns 15 calls into 6, an O(n) pass (exactly Week 11's dynamic programming). <strong>No for `allOrders`</strong> - there is no repeated subproblem to cache; every one of the n! orderings is genuinely distinct, so an iterative rewrite still does n! work.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>`allOrders` and naive `fib` are both exponential-ish, but for structurally different reasons - branching vs. redundant recomputation.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Diagnosing which disease you have determines whether memoization (Week 11) can even help.</div>
 
 ---
 
-<!-- NEW: check-yourself pair distinguishing branching-growth from repeated-work growth -->
+<!-- SLOT N-1: Common mistakes, merged into one slide -->
 
-# Check Yourself: Two Different Diseases
-
-1. `allOrders` and naive `fib` are both exponential-ish and both recursive. What's the actual structural difference between why each one is slow?
-2. Would rewriting naive `fib` iteratively (a `for` loop computing `fib(0), fib(1), ..., fib(5)` in order, storing each result) fix its waste? Would the same trick fix `allOrders`?
-
----
-
-# Answers
-
-1. `allOrders` is slow because it genuinely **branches into more and more distinct choices** at every level - there is no repeated work to eliminate, only an unavoidably large number of true orderings. Naive `fib` is slow because it **re-derives identical subproblems** (`fib(3)`, `fib(2)`, ...) many times over - the waste is redundant computation, not the true size of the answer.
-2. **Yes for `fib`** - storing each `fib(k)` once as you compute it turns 15 calls into 6, an $O(n)$ pass (this is exactly Week 11's dynamic programming). **No for `allOrders`** - there is no repeated subproblem to cache; every one of the $n!$ orderings is genuinely distinct, so an iterative rewrite still does $n!$ work.
-
----
-
-<!-- SLOT N-1: Common mistakes -->
-
-# Common Mistakes (1)
+# Common Mistakes
 
 - **"Recursion is always less efficient than iteration."** Tempting because every recursive call has function-call overhead - but the real cost driver is how *many* calls happen and whether they repeat work. `factorial` and `tourTime` are just as cheap, $O(n)$, as their iterative twins; `allOrders` is expensive because of its branching shape, not because it recurses.
-
----
-
-<!-- NEW: continuation of Common Mistakes -->
-
-# Common Mistakes (2)
-
 - **"The base case is just where you stop."** Tempting because it feels like a technicality. It is actually what *bounds the entire recursion tree's depth* (and, once a method branches, its size) - miss it, or shrink the wrong thing, and the tree never stops growing.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. Write the recurrence for a recursive method that does $O(1)$ work per call and always calls itself on an input one smaller. What is its closed-form cost?
-2. CampusNav's `allOrders` for 4 stops makes how many leaf-level calls? Is that growth closer to linear, quadratic, or factorial/exponential as stops increase?
-3. True or false: rewriting a slow recursive algorithm iteratively always makes it asymptotically faster.
-
----
-
-# Answers
-
-1. $T(n) = T(n-1) + O(1)$, $T(0) = O(1)$, which solves (by substitution) to $T(n) = O(n)$.
-2. $4! = 24$ leaf calls. The growth is factorial - far faster than quadratic, and faster even than plain exponential - exactly the misconception slide's point.
-3. **False.** Cost is determined by how much redundant or branching work the algorithm does, not by whether it's written with a loop or a call stack. An iterative rewrite of `allOrders` would still do $n!$ work unless the underlying algorithm itself changes.
-
----
-
-<!-- NEW: worksheet hand-off, session 2 -->
-
-# Now: Worksheet, Parts A and B
-
-<div class="thread">Time to practice. Trace it and solve it yourselves.</div>
-
-Work with your neighbor. Open the **[Week 4
-Worksheet](materials/week04/worksheet.html)**. Part A hand-traces a
-recursion tree; Part B solves a recurrence.
-
-**~20 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project the Worksheet. Walk the room while pairs work.
-After 20 minutes, ask 2 pairs to share their Part B answers.
--->
 
 ---
 
@@ -811,23 +831,6 @@ depth is not a technicality; it's a correctness and safety property.
 Every advanced course after this one - compilers, databases, systems -
 assumes you can look at a self-referential structure and reason
 about it without flinching.
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 4 Quiz](materials/week04/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
 
 ---
 
@@ -888,6 +891,14 @@ reading - they return in **Week 9**.)
 - Tracing `factorial(4)`'s call stack shows exactly what's "waiting" at each depth, and why the base case bounds that depth.
 - A recursive algorithm's cost is a **recurrence relation**; substitution (guess + prove by induction) and the recursion tree (sum level by level) both solve one, and the Master Theorem previews a shortcut for the divide-and-conquer shape (full rigor Week 9).
 - Recursion itself isn't slow - `tourTime` and `factorial` are both $O(n)$; `allOrders` explodes from *branching*, not recursion, and that is exactly what Week 11's DP will fix.
+
+---
+
+<!-- SPLIT for overflow -->
+
+# Summary, Continued
+
+- **New: Week 4 Check** - a short graded exercise on call-stack tracing, recurrences, and the recursion-tree method, released now, due before Week 5 begins (see `materials/assignments/week04-check.html`).
 - **Reading:** CLRS 4th ed, §4.3-4.5 - no exercises due.
 - **Prepare:** think about how you'd put a shuffled stack of 10 index cards in order by hand. Bring your method to Week 5.
 

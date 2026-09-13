@@ -50,11 +50,11 @@ algorithm from a vague instruction that just sounds like one."
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
+<!-- REWRITTEN: was a discussion warm-up; now teacher-delivered narration, also folds in the old end-of-deck Check Yourself Q1 (which property does "keep improving the guess" violate) -->
 
 # Before We Start: Could a Computer Actually Run This?
 
-<div class="thread">A quick warm-up. No jargon yet.</div>
+<div class="thread">Three ways to phrase "find room 703." Only one of them is actually an algorithm.</div>
 
 Three instructions for finding room 703 in Building A:
 
@@ -62,14 +62,22 @@ Three instructions for finding room 703 in Building A:
 - **B:** "Look around until you find it."
 - **C:** "Keep improving your guess about where it is until it feels right."
 
-- Which of these could you hand to a computer - or to two different classmates - and expect the *exact same result*, every time?
+---
 
-<!--
-notes: Give 30 seconds of silent thinking before asking. Take a show of hands per instruction.
-Do not name "definiteness" or "effectiveness" yet - let students describe the problem in
-their own words. Point out that B and C sound reasonable in conversation, which is exactly
-the trap.
--->
+<!-- SPLIT for overflow: the resolution now gets its own slide -->
+
+# Only One of These Is Actually an Algorithm
+
+<div class="thread">Same three instructions. Here's why only one of them qualifies.</div>
+
+Only **A** could be handed to a computer, or to two different
+classmates, and produce the exact same result every time. **B** and
+**C** both sound reasonable in conversation - that's exactly the trap.
+**B** never says what "look around" means as an executable step (an
+**effectiveness** problem); **C** never states a condition for when to
+stop (a **finiteness** problem, on top of the same effectiveness gap).
+Today's five properties are precisely how we tell A apart from B and
+C, instead of just feeling the difference.
 
 ---
 
@@ -185,22 +193,6 @@ graders, tracing it by hand, would reach the identical conclusion?
 2. Distinguish an algorithm from a program that implements it.
 3. Write pseudocode, and read a flowchart, precise enough that a vague instruction is disqualified on sight.
 4. Given a broken "algorithm," identify exactly which property it violates and why.
-
----
-
-<!-- NEW: session-1 close, previews the worksheet -->
-
-# Coming Up: The Worksheet
-
-<div class="thread">Next in this class: less listening, more doing.</div>
-
-Later today, you and a partner will write CampusNav's "find room"
-logic as real pseudocode and trace Euclid's greatest common divisor
-(GCD) algorithm by hand (**Part A**),
-then hunt for the exact broken property in three more deliberately bad
-"algorithms" (**Part B**).
-
-Keep a pen ready.
 
 ---
 
@@ -330,7 +322,7 @@ the same idea:
 
 ---
 
-<!-- NEW: worked example in CLRS's own style, style reference only per SPINE.md (insertion sort content itself isn't taught until Week 5) -->
+<!-- NEW: worked example in CLRS's own style, style reference only per SPINE.md (insertion sort content itself isn't taught until Week 5). Folds in the old Check Yourself pair on the two pseudocode styles. -->
 
 # Worked Example: INSERTION-SORT, CLRS-Style
 
@@ -354,23 +346,21 @@ other - we are not analyzing its cost yet, only reading its shape.
 
 ---
 
-<!-- NEW: check-yourself pair on the two pseudocode styles -->
+<!-- SPLIT for overflow: the notation-vs-algorithm point now gets its own slide -->
 
-# Check Yourself: Two Styles, One Idea
+# Two Styles, One Idea
 
-1. `FIND_ROOM` (our house style) and `INSERTION-SORT` (CLRS style) use different indexing conventions. Does that make them different *algorithms* by definition, or just differently-notated ones?
-2. Why does CLRS bother numbering every line, when our house style doesn't?
+<div class="thread">`FIND_ROOM` and `INSERTION-SORT`, compared.</div>
 
----
-
-# Answers
-
-1. **Different notation, not a different algorithm** - exactly the algorithm/program distinction from a few slides back, one level up: the same idea can be *written down* two ways, as long as each is precise.
-2. Line numbers let a proof (e.g. a loop invariant argument) refer to an exact step - "true before line 5 executes" - without ambiguity. It's a tool for *writing about* the algorithm, not a requirement of the algorithm itself.
+`FIND_ROOM` (our house style) and `INSERTION-SORT` (CLRS style) use
+different indexing conventions - **different notation, not a
+different algorithm**, exactly the algorithm/program distinction one
+level up: the same idea can be written down two ways, as long as each
+is precise.
 
 ---
 
-<!-- Flowchart conventions, split: shapes here, the two rules + cross-check next -->
+<!-- MERGED: flowchart shapes + rules, folds in the old Check Yourself content on unlabeled diamonds and redrawing FIND_ROOM -->
 
 # Flowchart Conventions
 
@@ -384,17 +374,8 @@ other - we are not analyzing its cost yet, only reading its shape.
 </div>
 
 - Exactly **one** Start oval, and every path must reach an **End** oval - draw one and you're checking finiteness visually.
-
----
-
-<!-- NEW: continuation of Flowchart Conventions -->
-
-# Flowchart Conventions, Continued
-
-<div class="thread">The rest of the rules - and why they matter.</div>
-
-- Every Diamond must have exactly two labeled exits (e.g. "yes" / "no") - an unlabeled or missing branch is a definiteness violation, drawn.
-- Pseudocode and flowcharts describe the *same* algorithm two ways; if you can't convert one into the other, one of them is still vague.
+- Every Diamond must have exactly two labeled exits (e.g. "yes" / "no") - an unlabeled or missing branch is a **definiteness** violation, drawn: whoever reads the flowchart would not know what to do in the unlabeled case, so two readers could build two different behaviors from the same diagram.
+- Pseudocode and flowcharts describe the *same* algorithm two ways; `FIND_ROOM` (a few slides ahead) converts cleanly into one Diamond (`directory[i].room == target`), one Rectangle (advance `i`), one Start oval, and two End ovals (found / `NOT_FOUND`).
 
 ---
 
@@ -460,7 +441,9 @@ That works for small numbers, but listing every divisor of two 12-digit numbers 
 
 ---
 
-# Worked Example: Euclid's GCD
+<!-- Idea + pseudocode merged slide, matching the teacher-centric skeleton -->
+
+# Euclid's GCD: Idea and Pseudocode
 
 <div class="thread">A clean, classic case before we return to CampusNav's messier one (CLRS 4th ed, §31.2).</div>
 
@@ -480,84 +463,130 @@ GCD(a, b):
 
 ---
 
-<!-- Is GCD Finite?, split: the trace here, the proof reasoning next -->
+<!-- NEW: dense worked example, GCD, simple tier -->
+<!-- _class: dense -->
 
-# Is GCD Finite? Trace It First
+<div class="eyebrow">Euclid's GCD · worked example 1 of 3 (simple)</div>
 
-<div class="thread">The property everyone assumes, and nobody checks.</div>
+# The Fastest Case: GCD(8, 4)
 
-Trace `GCD(48, 18)`:
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">a=48</div><div class="cell">b=18</div><div class="cell empty"></div></div>
-<div class="row"><div class="rowlabel">Step 1</div><div class="cell">a=18</div><div class="cell">b=12</div><div class="cell hl">r=12</div></div>
-<div class="row"><div class="rowlabel">Step 2</div><div class="cell">a=12</div><div class="cell">b=6</div><div class="cell hl">r=6</div></div>
-<div class="row"><div class="rowlabel">Step 3</div><div class="cell">a=6</div><div class="cell hl2">b=0</div><div class="cell hl">r=0</div></div>
+<div class="wx-top">
+<div class="lead">The smallest case that still runs the loop - and stops after just one pass.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace GCD(8, 4) and see finiteness hold in the fewest possible steps.</div>
 </div>
 
-`b` hit 0, so `while b != 0` is false and the loop ends.
-
----
-
-<!-- NEW: continuation - the actual proof, not just the one trace -->
-
-# Is GCD Finite? Prove It, Don't Assume It
-
-<div class="thread">One successful trace is not a proof - here's the actual argument.</div>
-
-*Why* must the loop above always end? `r = a mod b` is always
-strictly smaller than `b` and can't go below 0, so `b` strictly
-decreases toward 0 - guaranteeing termination **for every valid pair
-`(a, b)`**, not just this one. That argument, not the one successful
-run, is what finiteness requires.
-
----
-
-<!-- NEW: a second, slower trace, from CLRS's own worst-case family for Euclid's algorithm -->
-
-# Another GCD Trace: A Slower Case
-
-<div class="thread">Not every pair shrinks this fast - let's find one that doesn't.</div>
-
-Trace `GCD(89, 55)` - consecutive Fibonacci numbers:
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">a=89</div><div class="cell">b=55</div><div class="cell empty"></div></div>
-<div class="row"><div class="rowlabel">Step 1</div><div class="cell">a=55</div><div class="cell">b=34</div><div class="cell hl">r=34</div></div>
-<div class="row"><div class="rowlabel">Step 2</div><div class="cell">a=34</div><div class="cell">b=21</div><div class="cell hl">r=21</div></div>
-<div class="row"><div class="rowlabel">Step 3</div><div class="cell">a=21</div><div class="cell">b=13</div><div class="cell hl">r=13</div></div>
-<div class="row"><div class="rowlabel">Step 4</div><div class="cell">a=13</div><div class="cell">b=8</div><div class="cell hl">r=8</div></div>
-<div class="row"><div class="rowlabel">Step 5</div><div class="cell">a=8</div><div class="cell hl2">b=5</div><div class="cell hl">r=5</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Start</div>
+<div class="wx-body">a=8, b=4. b != 0, so the loop body runs.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">One step</div>
+<div class="wx-body">r = 8 mod 4 = 0. a = 4, b = 0.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">b = 0 now, so the loop stops immediately. Return a = 4.</div>
+</div>
 </div>
 
-Five steps and still shrinking, versus three for `GCD(48, 18)` -
-already noticeably slower, from similarly-sized inputs.
+<div class="conclusion"><span class="k">Conclusion</span>GCD(8, 4) = 4 in a single iteration.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even the "instant" case is governed by the exact same shrinking-`b` rule that guarantees every case eventually stops.</div>
 
 ---
 
-<!-- NEW: what the slower trace tells us -->
+<!-- NEW: dense worked example, GCD, moderate tier (reuses the deck's existing verified 48,18 trace) -->
+<!-- _class: dense -->
 
-# What That Slower Trace Tells Us
+<div class="eyebrow">Euclid's GCD · worked example 2 of 3 (moderate)</div>
 
-<div class="thread">Same finiteness proof still holds - it just takes longer to cash in.</div>
+# A Full Trace: GCD(48, 18)
 
-Consecutive Fibonacci numbers are the worst case for Euclid's
-algorithm: every step's remainder is as large as it can possibly be,
-so the number of steps grows, but only slowly, with the size of the
-input. The strictly-decreasing-`b` argument from the last slide
-covers this case too - finiteness was never in doubt, only the exact
-step count. Precisely bounding that step count is a Big-O question,
-which is next week's entire subject.
+<div class="wx-top">
+<div class="lead">Three passes this time - watch `b` shrink toward 0 every step.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace GCD(48, 18) completely, one iteration per card.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Step 1</div>
+<div class="wx-body">a=48, b=18: r = 48 mod 18 = 12. a=18, b=12.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Step 2</div>
+<div class="wx-body">a=18, b=12: r = 18 mod 12 = 6. a=12, b=6.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Step 3</div>
+<div class="wx-body">a=12, b=6: r = 12 mod 6 = 0. a=6, b=0. b=0, loop stops.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">Return a = 6. Matches the divisor-listing check from a few slides back.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>GCD(48, 18) = 6 after 3 iterations - no divisor list needed.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Three steps instead of one - shrinking `b` still guarantees termination, it just takes more passes.</div>
 
 ---
 
-<!-- One more trap: a procedure that looks like it satisfies all five properties on a casual read, but is quietly wrong -->
+<!-- NEW: dense worked example, GCD, harder tier (reuses and completes the deck's existing 89,55 Fibonacci trace; folds the finiteness-proof content) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Euclid's GCD · worked example 3 of 3 (harder)</div>
+
+# The Slow Case: GCD(89, 55), and Why It Still Stops
+
+<div class="wx-top">
+<div class="lead">Consecutive Fibonacci numbers are the worst case for this algorithm - let's see why it still terminates.</div>
+<div class="goalbox"><span class="k">Goal</span>Trace the slowest realistic case, then prove termination in general, not just for this pair.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">GCD(89, 55) - consecutive Fibonacci numbers. Compare to GCD(48, 18)'s 3 steps.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">First 3 steps</div>
+<div class="wx-body">r=89 mod 55=34; r=55 mod 34=21; r=34 mod 21=13 - three steps in, still not close to 0.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Six more steps</div>
+<div class="wx-body">r=21 mod 13=8; r=13 mod 8=5; r=8 mod 5=3; r=5 mod 3=2; r=3 mod 2=1; r=2 mod 1=0. Nine steps total, versus three for GCD(48, 18) on similarly-sized inputs.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why it must still stop</div>
+<div class="wx-body">Every step's remainder r = a mod b is strictly less than b and never negative, so b strictly decreases toward 0 no matter how slowly - the argument that proves finiteness for <em>every</em> valid pair, not just the ones we happen to trace.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>GCD(89, 55) = 1 after 9 steps - three times the work of GCD(48, 18), yet governed by the exact same guarantee.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A trace only shows that one input stopped. Finiteness needs the general argument - `b` strictly decreases, bounded below by 0 - that covers every input, fast or slow.</div>
+
+---
+
+<!-- Rewritten: teacher-delivered exposition instead of a "find the bug" discussion prompt -->
 
 # One More Trap: "It Ran, So It Must Be Right"
 
-<div class="thread">GCD's proof was earned. Most code never gets that scrutiny - watch what slips through.</div>
+<div class="thread">GCD's proof was earned. Most code never gets that scrutiny - here's a bug hiding in plausible-looking code.</div>
 
-A student submits this attempt at "find the maximum value in a list":
+A student submits this attempt at "find the maximum value in a list."
+It has never once produced a visibly wrong answer for its author - and
+it still has a bug that fires on **every single run**.
 
 ```text
 MAX(A):
@@ -568,80 +597,91 @@ MAX(A):
     return m
 ```
 
-It's never once produced a visibly wrong answer for the student. Find
-the bug. *(Hint: what index does `i` reach on the last loop pass?)*
+---
 
-<!-- notes: Let students discuss in pairs for 1 minute before revealing. -->
+<!-- NEW: dense worked example, MAX bug reveal. Folds the old "Where MAX Breaks" slide and the "Check Yourself: Tested vs. Proven" pair. -->
+<!-- _class: dense -->
+
+<div class="eyebrow">MAX · finding the hidden bug</div>
+
+# Where `MAX` Actually Breaks
+
+<div class="wx-top">
+<div class="lead">Array indices run 0 to length(A) - 1. Here's exactly where the loop bound goes wrong.</div>
+<div class="goalbox"><span class="k">Goal</span>Show why passing tests never proves an algorithm correct.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The loop bound</div>
+<div class="wx-body">The loop says `i = 1 to length(A)`, letting `i` reach `length(A)` - one past the last real element, out of bounds on every run.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">What happens</div>
+<div class="wx-body">Depending on the language, that read either crashes immediately, or silently returns whatever value sits in adjacent memory.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Why nobody noticed</div>
+<div class="wx-body">That garbage value is often small enough that `A[i] > m` evaluates false - so the final answer still comes out right, by luck, not by correctness.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The real lesson</div>
+<div class="wx-body">The bug fires every run; whether it's <em>visible</em> is luck, not design. Passing tests can show the presence of a bug hides - never its absence.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>The fix: the loop should run `i = 1 to length(A) - 1`. Looking definite and effective is not the same as being correct.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"I tested it and it worked" is never proof of correctness - a silent, harmless-looking garbage read is still a bug.</div>
 
 ---
 
-# Where `MAX` Breaks
+<!-- NEW: dense worked example, two more broken "algorithms". Folds the old Activity + Answers pair. -->
+<!-- _class: dense -->
 
-- Array indices run `0` to `length(A) - 1`.
-- The loop `i = 1 to length(A)` lets `i` reach index `length(A)`, which is **out of bounds** - one past the last real element - on *every* run, not just some.
-- Depending on the language, that read either crashes immediately, or
-  silently returns whatever value happens to sit in adjacent memory -
-  which can easily be small enough that `A[i] > m` is just false, so
-  the final answer still comes out right. The bug fires every time;
-  whether it's *visible* is down to luck, not to which inputs got tested.
-- The fix: loop should run `i = 1 to length(A) - 1`.
+<div class="eyebrow">Spotting broken "algorithms"</div>
 
-This procedure *looks* definite and effective on a quick read - every
-step is precisely stated, nothing seems to rely on a "feeling." The
-bug is in whether the stated loop bound is the *correct* one, not
-whether it's precisely stated. "I tested it and it worked" is never
-proof of that - a silent, harmless-looking garbage read is still a bug.
+# Two More Broken "Algorithms"
 
----
+<div class="wx-top">
+<div class="lead">Neither of these could actually be run, or handed to a colleague, and produce one guaranteed behavior.</div>
+<div class="goalbox"><span class="k">Goal</span>Name exactly which property each one violates, and why.</div>
+</div>
 
-<!-- NEW: check-yourself pair on "tested vs. proven" finiteness, reusing MAX and GCD -->
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">"While true: print the next prime number."</div>
+<div class="wx-body">There is always a next prime - this procedure is designed to never stop and never produce a final output. Violates <strong>finiteness</strong>.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">"Divide the budget fairly among the clubs."</div>
+<div class="wx-body">"Fairly" has no fixed meaning - equal shares? by need? by past attendance? Every reader could execute a different procedure. Violates <strong>definiteness</strong>.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The pattern to notice</div>
+<div class="wx-body">A procedure with no stopping condition breaks finiteness; a procedure with an undefined word ("fairly," "look around") breaks definiteness - the two most common ways a "sounds reasonable" instruction fails.</div>
+</div>
+</div>
 
-# Check Yourself: Tested vs. Proven
-
-1. A classmate claims: "My function is finite because it finished every time I ran it in testing." Is that a valid finiteness proof? Why or why not?
-2. `MAX`'s bug fires on *every* run, yet it never produced a visibly wrong answer for its author. What does that tell you about "no bugs showed up in testing" as evidence of correctness?
-
----
-
-# Answers
-
-1. **No.** Finiteness needs an argument that holds for *every* valid input (like GCD's strictly-decreasing `b`), not a report that some finite set of test runs happened to stop.
-2. It tells you almost nothing on its own - a bug can fire on every run while still producing a value that happens to look correct, purely by luck of what garbage sat in memory. Testing can show the *presence* of a bug, but passing tests never proves its *absence*.
-
----
-
-<!-- NEW: broken-algorithm activity, quick in-class try before the worksheet -->
-
-# Activity: Which Property Breaks?
-
-<div class="thread">Two to try together. Three more are waiting on the worksheet.</div>
-
-- **"While true: print the next prime number."**
-- **"Divide the budget fairly among the clubs."**
-
-For each one: could you actually run this, or hand it to someone else
-and get one guaranteed behavior? If not, which of the five properties
-does it fail?
-
-<!-- notes: Give 30 seconds of pair discussion before revealing the next slide. -->
+<div class="conclusion"><span class="k">Conclusion</span>Two failures, two different properties - one has no way to stop, the other has no fixed meaning.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>When a procedure "sounds reasonable" but isn't an algorithm, it's almost always missing a stopping rule or a fixed meaning for one of its words.</div>
 
 ---
 
-# Activity: Answers
+<!-- SLOT N-2: Worked example, idea + pseudocode -->
 
-- **"While true: print the next prime number."** - violates **finiteness**. There is always a next prime; this procedure is designed to never stop and never produce a final output.
-- **"Divide the budget fairly among the clubs."** - violates **definiteness**. "Fairly" has no fixed meaning here - equal shares? by need? by past attendance? - every reader could execute a different procedure and each would claim to have followed the instruction.
-
-Three more broken "algorithms," one for each remaining property, are
-on **Worksheet Part B**.
-
----
-
-<!-- SLOT N-2: Worked example -->
-
-# CampusNav: "Find Room 703 in Building A," Written as a Real Algorithm
+# `FIND_ROOM`: Idea and Pseudocode
 
 <div class="thread">Same five checks. Now on the actual case study, not a clean textbook example.</div>
+
+<div class="two-col">
+<div>
 
 ```text
 FIND_ROOM(directory, target):
@@ -651,127 +691,101 @@ FIND_ROOM(directory, target):
     return NOT_FOUND
 ```
 
+</div>
+<div>
+
 - **Input:** a well-defined array `directory` of room records, and a well-defined string `target`.
-- **Output:** either a well-defined location, or the sentinel value `NOT_FOUND` - defining the "not found" case is *part of* a well-defined output, not an afterthought.
-- **Definiteness:** `==` on `target` is a precise, single-meaning comparison - no "look around" left anywhere.
+- **Output:** either a well-defined location, or the sentinel value `NOT_FOUND`.
+- **Definiteness:** `==` on `target` is a precise, single-meaning comparison.
+- **Finiteness:** loop bound `length(directory) - 1` is fixed before the loop starts.
+
+</div>
+</div>
 
 ---
 
-# CampusNav: The Last Two Checks
+<!-- NEW: dense worked example, FIND_ROOM against all five properties -->
+<!-- _class: dense -->
 
-<div class="thread">Same `FIND_ROOM`. Effectiveness and finiteness, finished.</div>
+<div class="eyebrow">CampusNav · worked example 1 of 2</div>
 
-- **Effectiveness:** array indexing and string equality are basic, executable operations.
-- **Finiteness:** the loop bound `length(directory) - 1` is a fixed, known number before the loop even starts - finiteness here doesn't even need a proof like GCD's, just a stated bound.
+# `FIND_ROOM`: All Five Properties, Checked
 
-This is what "look around until you find it" had to become before it
-counted as an algorithm at all.
+<div class="wx-top">
+<div class="lead">Everything from the last slide, verified against the full rulebook.</div>
+<div class="goalbox"><span class="k">Goal</span>Show `FIND_ROOM` satisfies every one of the five required properties.</div>
+</div>
 
----
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Finiteness</div>
+<div class="wx-body">Loop bound `length(directory) - 1` is a fixed, known number before the loop even starts - no proof needed like GCD's, just a stated bound.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Definiteness</div>
+<div class="wx-body">`==` on `target` is a precise, single-meaning comparison - no "look around" left anywhere.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Input &amp; Output</div>
+<div class="wx-body">Input: well-defined array `directory` and string `target`. Output: a location, or the explicit sentinel `NOT_FOUND` - defining the "not found" case is part of a well-defined output, not an afterthought.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Effectiveness</div>
+<div class="wx-body">Array indexing and string equality are basic, executable operations any of us could carry out by hand.</div>
+</div>
+</div>
 
-<!-- NEW: compact recap of FIND_ROOM against all five properties, at a glance -->
-
-# `FIND_ROOM`: All Five, At a Glance
-
-<div class="thread">Everything from the last two slides, in one table.</div>
-
-| Property | Where it's satisfied |
-|---|---|
-| Finiteness | Loop bound `length(directory) - 1` is fixed before the loop starts |
-| Definiteness | `==` on `target` is a precise, single-meaning comparison |
-| Input | Well-defined array `directory` and string `target` |
-| Output | A location, or the explicit sentinel `NOT_FOUND` |
-| Effectiveness | Array indexing and string equality are basic operations |
-
----
-
-<!-- NEW: check-yourself pair on well-defined output, reusing FIND_ROOM's sentinel -->
-
-# Check Yourself: The Sentinel Value
-
-1. Why does `FIND_ROOM` returning `NOT_FOUND` count as part of a *well-defined* output, rather than a missing case the spec forgot?
-2. Suppose a rewritten `FIND_ROOM` instead returned `-1` when the room isn't found. Same algorithm, or does that change which property is at stake?
-
----
-
-# Answers
-
-1. Output only counts as well-defined if *every* valid input has a specified result - including the input "the room isn't in the directory." A version that silently did nothing, or crashed, on that input would leave output undefined for some inputs.
-2. **Same algorithm, same property satisfied** - `-1` and `NOT_FOUND` are both a single, well-defined sentinel value for "not found." It would only become a *problem* if `-1` were also a valid room index somewhere else in the system, making the sentinel ambiguous with real data - a definiteness risk, not a difference in algorithm.
+<div class="conclusion"><span class="k">Conclusion</span>All five properties check out - this is what "look around until you find it" had to become before it counted as an algorithm at all.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A precise loop bound plus one precise comparison operator turned a vague sentence into a provable algorithm.</div>
 
 ---
 
-<!-- SLOT N-1: Common mistakes, split into two -->
+<!-- NEW: dense worked example, designing the sentinel value. Folds the old "Check Yourself: The Sentinel Value" pair. -->
+<!-- _class: dense -->
 
-# Common Mistakes (1)
+<div class="eyebrow">CampusNav · worked example 2 of 2</div>
+
+# Designing the "Not Found" Case
+
+<div class="wx-top">
+<div class="lead">A well-defined output has to cover every input - including the one with no "real" answer.</div>
+<div class="goalbox"><span class="k">Goal</span>Show why the sentinel value is part of the spec, not an afterthought.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Why `NOT_FOUND` counts</div>
+<div class="wx-body">Output only counts as well-defined if every valid input has a specified result, including "the room isn't in the directory." A version that silently did nothing, or crashed, would leave output undefined for that input.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Alternative: return -1</div>
+<div class="wx-body">A rewritten `FIND_ROOM` returning `-1` instead of `NOT_FOUND` is the <strong>same algorithm</strong> - both are a single, well-defined sentinel value for "not found."</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The real risk</div>
+<div class="wx-body">It would only become a problem if `-1` were also a valid room index somewhere else in the system - making the sentinel ambiguous with real data, a definiteness risk, not a difference in algorithm.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>`NOT_FOUND` and `-1` are both valid designs for the same algorithm - the only real danger is a sentinel that could collide with real data.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A well-defined output must cover every input, including the ones with no "real" answer.</div>
+
+---
+
+<!-- SLOT N-1: Common mistakes, merged into one slide -->
+
+# Common Mistakes
 
 - **Confusing "an algorithm" with "a program."** An algorithm is the language-independent idea - the steps themselves; a program is one specific implementation of it, in one specific language. `FIND_ROOM` above could be written in Python, Java, or C and still be the *same* algorithm.
-- **Assuming any loop that eventually stops is automatically finite.** It's tempting because, in casual testing, the loop *did* stop. But finiteness requires a proof that covers every valid input - like GCD's "`b` strictly decreases and can't go below 0" argument - not just the one run you happened to try. "Keep improving the guess until it feels right" might stop on your machine today and loop forever on a harder input tomorrow; you have no way to know without a bound.
-
----
-
-<!-- NEW: continuation of Common Mistakes -->
-
-# Common Mistakes (2)
-
+- **Assuming any loop that eventually stops is automatically finite.** It's tempting because, in casual testing, the loop *did* stop. But finiteness requires a proof that covers every valid input - like GCD's "`b` strictly decreases and can't go below 0" argument - not just the one run you happened to try.
 - **"It ran and gave the right answer, so it's correct."** Exactly the `MAX` bug above: one passing run proves nothing about the inputs you didn't try.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. Which property does "keep improving the guess until it feels right" violate, and why - pick more than one if it applies?
-2. In one sentence, why does GCD's finiteness need more than "it stopped when I traced it"?
-3. `FIND_ROOM` and a Python re-implementation of it: same algorithm, or different algorithms? Why?
-4. Give one reason `MAX` might never have produced a visibly wrong answer, even though its bug fires on every run.
-
----
-
-# Answers
-
-1. **Effectiveness**, because "feels right" is not a basic, mechanically executable step - and often **finiteness** too, because there's no stated bound guaranteeing it ever stops.
-2. One successful trace only shows it stopped on *that* input; finiteness requires an argument (like `b` strictly decreasing and bounded below by 0) that holds for *every* valid input, not just the one tried.
-3. **Same algorithm.** The steps, their order, and their logic are identical - only the language-specific syntax differs. The algorithm is the idea; the Python code is one program that implements it.
-4. The out-of-bounds read at index `length(A)` happens every time, but the garbage value it returns might just happen to be small enough that `A[i] > m` evaluates false - so the final answer comes out right by luck, not because the bug didn't fire.
-
----
-
-<!-- NEW: check-yourself pair on flowchart diamond labeling -->
-
-# Check Yourself: Reading the Flowchart
-
-1. In Euclid's flowchart a few slides back, what would go wrong - and which property would it violate - if the `b != 0?` diamond had only one labeled exit instead of two?
-2. Could you redraw `FIND_ROOM` as a flowchart using only the four shapes from Flowchart Conventions? What would the one Diamond in your drawing test?
-
----
-
-# Answers
-
-1. It would violate **definiteness**: whoever reads the flowchart would not know what to do in the unlabeled case, so two readers could build two different behaviors from the same diagram - the drawn equivalent of "look around until you find it."
-2. Yes - one Diamond testing `directory[i].room == target`, one Rectangle for advancing `i`, one Start oval, and two End ovals (found / `NOT_FOUND`). The loop itself is drawn as an arrow back up to the Diamond.
-
----
-
-<!-- NEW: Try-It hand-off, session 2 -->
-
-# Now: The Worksheet
-
-<div class="thread">Time to practice. Check real (and broken) algorithms against the five properties.</div>
-
-Work with your neighbor. Open the **[Week 2
-Worksheet](materials/week02/worksheet.html)**. Part A: write
-CampusNav's `FIND_ROOM` in your own pseudocode and trace Euclid's GCD
-on a new pair of numbers. Part B: find the exact broken property in
-three more deliberately bad "algorithms."
-
-**~25-30 minutes total.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project the worksheet. Walk the room while pairs work.
-After time is up, ask 2 pairs to share which property each broken example violated.
--->
 
 ---
 
@@ -804,23 +818,6 @@ The same five checks also show up outside this course, in the same
 words - search "algorithm properties" or "is this a valid algorithm"
 in any textbook or interview-prep guide.
 </div>
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 2 Quiz](materials/week02/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
 
 ---
 
@@ -881,6 +878,7 @@ exponentiation.
 - Pseudocode and flowchart conventions let us write and *check* these properties precisely, instead of just describing intent.
 - **Algorithm ≠ program:** the language-independent idea vs. one specific implementation of it.
 - Finiteness needs a *proof* (like GCD's shrinking `b`), not just one successful run.
+- **New: Week 2 Check** - a short graded exercise on the five properties, GCD, and `FIND_ROOM`, released now, due before Week 3 begins (see `materials/assignments/week02-check.html`).
 - **Reading:** CLRS 4th ed, Ch 1; §2.1-2.2 (pseudocode style reference); §31.2 (Euclid's GCD) - no exercises due, but read before Week 3.
 - **Prepare:** think of two different, both-correct ways you could search CampusNav's directory, and which one you *guess* is faster. Bring your reasoning to Week 3.
 

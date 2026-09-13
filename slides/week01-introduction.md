@@ -166,39 +166,28 @@ set of steps?
 
 ---
 
+<!-- MERGED: folds the two former discussion-prompt slides into one teacher-narrated slide, per the teacher-centric format -->
+
 # A Quick Taste: "Look Around Until You Find It"
 
 <div class="thread">One example, then straight into the course contract.</div>
 
 Imagine CampusNav's (fictional) team writes this instruction for a new
 developer: *"To find a room, look around until you find it, and ask
-someone if you're stuck."*
+someone if you're stuck."* Two different developers could both read
+that sentence, both believe they implemented it faithfully, and still
+ship two completely different apps - and nobody in the room would have
+a rigorous way to say which one is "wrong." A sentence that *sounds*
+like an instruction, without pinning down one exact behavior, is not
+yet an algorithm.
 
-- Is that a real set of steps, or just a vague wish?
-
-<!--
-notes: A discussion prompt, not a lesson - do not answer it today.
-Just let the class sit with the question for a moment. Week 2 opens
-with exactly this scenario and answers it properly.
--->
-
----
-
-<!-- NEW: continues the quick-taste discussion prompt -->
-
-# A Quick Taste, Continued
-
-<div class="thread">Two more questions before we move on.</div>
-
-- Would two different developers, given only that sentence, build the
-  same thing?
-- If they built two different things, which one is *wrong* - and how
-  would you even argue that?
+That gap - real, and not at all obvious from the sentence alone - is
+exactly what Week 2 fixes.
 
 <!--
-notes: A discussion prompt, not a lesson - do not answer it today.
-Just let the class sit with the question for a moment. Week 2 opens
-with exactly this scenario and answers it properly.
+notes: Narrate this directly, do not open it as a discussion. Say: "Hold
+that feeling of 'wait, which one is actually right?' Week 2 opens with
+exactly this scenario and gives you the tool to answer it."
 -->
 
 ---
@@ -313,7 +302,9 @@ graph algorithms) organized by topic.
 
 ---
 
-# Learning Objectives (1-4)
+<!-- MERGED: all 7 objectives on one slide -->
+
+# Learning Objectives
 
 <div class="thread">The official course objectives, from the syllabus - what you'll be able to do by Week 15.</div>
 
@@ -321,114 +312,87 @@ By the end of this course, you can:
 
 1. Describe problem-solving procedures using pseudocode/flowcharts.
 2. Analyze time and space complexity using asymptotic notation.
-3. Apply divide-and-conquer, greedy, and dynamic programming
-   techniques to new problems.
+3. Apply divide-and-conquer, greedy, and dynamic programming techniques to new problems.
 4. Compare and analyze sorting and searching algorithms.
-
----
-
-<!-- NEW: continuation of Learning Objectives -->
-
-# Learning Objectives (5-7)
-
-<div class="thread">The rest of the official course objectives.</div>
-
 5. Apply graph algorithms to real problems.
 6. Verify correctness and explain P, NP, and NP-completeness.
-7. Select, implement, and justify an appropriate algorithm for a
-   given problem.
+7. Select, implement, and justify an appropriate algorithm for a given problem.
 
 ---
+
+<!-- MERGED: course names + the concrete skills behind them -->
 
 # Prerequisites
 
-<div class="thread">What this course assumes you already have.</div>
+<div class="thread">What this course assumes you already have - and the concrete skills behind each course name.</div>
 
-- **Computer Programming I**
-- **Computer Programming II**
-- **Discrete Mathematics**
+<div class="two-col">
+<div>
 
-We do not start from zero. If any of loops, functions, recursion
-basics, or set/function notation feel shaky, say so early - it
-compounds fast otherwise.
+**Courses**
+- Computer Programming I
+- Computer Programming II
+- Discrete Mathematics
 
----
+</div>
+<div>
 
-<!-- NEW: turns the courses above into concrete, checkable skills -->
+**Concrete skills**
+- Write and trace a `for`/`while` loop by hand, on paper
+- Write and call a function with parameters and a return value
+- Explain, in your own words, what a function calling itself does
+- Read basic set notation ($\in$, $\subseteq$) and function notation ($f: A \to B$)
 
-# Prerequisites: What You Should Already Be Able to Do
-
-<div class="thread">Not just course titles - the actual skills behind them.</div>
-
-- **Loops:** write and trace a `for`/`while` loop by hand, on paper,
-  without running it.
-- **Functions:** write and call a function with parameters and a
-  return value.
-- **Recursion (basic familiarity):** explain, in your own words, what
-  a function calling itself does - even if you've only used one, not
-  written one.
-- **Discrete math notation:** read basic set notation ($\in$,
-  $\subseteq$) and function notation ($f: A \to B$).
-
-If any of these feels shaky, say so in the first two weeks - every one
-of them becomes load-bearing starting Week 2.
+</div>
+</div>
 
 ---
 
-# Textbooks: The Primary Text
+<!-- SPLIT: overflow fix - the closing paragraph now gets its own slide -->
+
+# Prerequisites, Continued
+
+We do not start from zero. If any of these feels shaky, say so in the
+first two weeks - every one of them becomes load-bearing starting
+Week 2.
+
+---
+
+<!-- MERGED: primary + secondary/reference textbooks -->
+
+# Textbooks
 
 <div class="thread">One primary text. Everything else is optional support.</div>
 
 - **Primary:** Cormen, Leiserson, Rivest, Stein, *Introduction to
   Algorithms*, 4th ed., MIT Press, 2022 ("CLRS" - every week's reading
-  points here)
-
-Every citation in this course's slides, starting this week's own CLRS
-roadmap, uses this exact 4th edition's chapter and section numbers -
-not an older edition's.
-
----
-
-<!-- NEW: continuation of Textbooks -->
-
-# Textbooks: Secondary, Reference, and These Slides
-
-<div class="thread">Optional support, if CLRS alone isn't enough for you.</div>
-
+  points here). Every citation in this course's slides uses this exact
+  4th edition's chapter and section numbers - not an older edition's.
 - **Secondary:** Kleinberg & Tardos, *Algorithm Design*, Pearson, 2005;
   Sedgewick & Wayne, *Algorithms*, 4th ed., Addison-Wesley, 2011
 - **Reference:** Skiena, *The Algorithm Design Manual*, 3rd ed.,
   Springer, 2020
-- **Also:** these lecture slides themselves are a listed course
-  reference
+- **Also:** these lecture slides themselves are a listed course reference
 
 ---
+
+<!-- MERGED: what a typical session looks like, updated for the teacher-centric format now used in Weeks 1 and 5 -->
 
 # How This Course Runs
 
-<div class="thread">What to expect from a 3-hour block, every week.</div>
+<div class="thread">What to expect from a 3-hour block, most weeks.</div>
 
-Each session mixes short lectures with:
+Most sessions mix short lecture with:
 
-- **A warm-up** - a short, concrete question to start, before any
-  jargon
 - **A recap** - what last week delivered, and what it left unsolved
+- **Worked examples** - traced by hand, on the board, on CampusNav's
+  own running problem, simple cases first, then harder ones
+- **Practice** - many weeks include a hands-on worksheet or a short
+  self-check; a few weeks (like this one, and Week 5) instead run as a
+  single concentrated lecture
 
-Two more pieces make up the rest of the session - continued next slide.
-
----
-
-<!-- NEW: continuation of How This Course Runs -->
-
-# How This Course Runs, Continued
-
-<div class="thread">The other half of a typical session.</div>
-
-- **Pair activities** - trace an algorithm, spot the bug, fix a broken
-  example, with the answer discussed right after
-- **A self-check quiz** - ungraded, just for you, at the end
-
-You will talk in this class, not just listen.
+You will see each technique traced, applied, and pushed to its
+breaking point in the same session - not just described at you.
 
 ---
 
@@ -449,56 +413,57 @@ You will talk in this class, not just listen.
 
 ---
 
-<!-- NEW: expands the schedule with a "why this week" rationale, Weeks 1-4 -->
+<!-- MERGED: two "why each week matters" slides into one two-col slide, Weeks 1-8 -->
 
-# Weekly Schedule: Weeks 1-4, Why Each Matters
+# Weekly Schedule: Why Each Week Matters (1-8)
 
-<div class="thread">Same table as before, with the reasoning made explicit.</div>
+<div class="thread">Same weekly schedule as before, with the reasoning made explicit.</div>
 
-| Wk | Topic | Why this week |
-|---|---|---|
-| 1 | Introduction | Sets up how the course runs, and what the whole semester is building toward. |
-| 2 | Algorithm Concepts | Establishes what even counts as a real algorithm, so later weeks have something precise to measure. |
-| 3 | Complexity Analysis | Gives a rigorous way to say one correct algorithm is actually better than another. |
-| 4 | Recursion & Recurrence | Many later algorithms call themselves - this is how we bound their cost. |
+<div class="two-col">
+<div>
 
----
+**Weeks 1-4**
+- **1 Introduction** - how the course runs, and what the semester builds toward
+- **2 Algorithm Concepts** - what even counts as a real algorithm
+- **3 Complexity Analysis** - a rigorous way to say one correct algorithm beats another
+- **4 Recursion & Recurrence** - bounding the cost of algorithms that call themselves
 
-<!-- NEW: Weeks 5-8 -->
+</div>
+<div>
 
-# Weekly Schedule: Weeks 5-8, Why Each Matters
+**Weeks 5-8**
+- **5 Basic Sorting** - first real technique toolkit, proven correct on CampusNav's directory
+- **6 Advanced Sorting** - fixes Week 5's sorts collapsing at scale
+- **7 Searching** - a sorted directory unlocks binary search
+- **8 Midterm Exam** - checkpoint on Weeks 1-7
 
-| Wk | Topic | Why this week |
-|---|---|---|
-| 5 | Basic Sorting | First real technique toolkit, traced and proven correct on CampusNav's directory. |
-| 6 | Advanced Sorting | Week 5's sorts collapse at scale - these are built not to. |
-| 7 | Searching | A sorted directory unlocks binary search, cutting lookup from linear to logarithmic. |
-| 8 | Midterm Exam | Checkpoint on Weeks 1-7, before the design paradigms begin. |
-
----
-
-<!-- NEW: Weeks 9-12 -->
-
-# Weekly Schedule: Weeks 9-12, Why Each Matters
-
-| Wk | Topic | Why this week |
-|---|---|---|
-| 9 | Divide & Conquer | The first general strategy for inventing new algorithms, not just analyzing given ones. |
-| 10 | Greedy Algorithms | A faster strategy for problems where local choices are safe - and a look at when they aren't. |
-| 11 | Dynamic Programming I | Fixes the exponential blow-up from Week 4's brute-force counting, by never re-solving the same subproblem twice. |
-| 12 | Dynamic Programming II | Extends dynamic programming to problems that compare two sequences at once. |
+</div>
+</div>
 
 ---
 
-<!-- NEW: Weeks 13-15 -->
+<!-- SPLIT for overflow: "why each week matters" Weeks 9-12 alone -->
 
-# Weekly Schedule: Weeks 13-15, Why Each Matters
+# Weekly Schedule: Why Each Week Matters (9-12)
 
-| Wk | Topic | Why this week |
-|---|---|---|
-| 13 | Graph Representation | Real systems are networks, not lists - this is how we represent them. |
-| 14 | Shortest Path | CampusNav's flagship "Get Directions" feature, and where P vs. NP first becomes concrete. |
-| 15 | Final Exam | Checkpoint on Weeks 9-14. |
+<div class="thread">The second half of the semester, same reasoning.</div>
+
+- **9 Divide & Conquer** - the first general strategy for inventing algorithms, not just analyzing them
+- **10 Greedy Algorithms** - faster local choices, and knowing when they're actually safe
+- **11 Dynamic Programming I** - fixes Week 4's exponential blow-up by never re-solving a subproblem
+- **12 Dynamic Programming II** - extends dynamic programming to two sequences at once
+
+---
+
+<!-- SPLIT for overflow: "why each week matters" Weeks 13-15 alone -->
+
+# Weekly Schedule: Why Each Week Matters (13-15)
+
+<div class="thread">The rest of the semester, same reasoning.</div>
+
+- **13 Graph Representation** - real systems are networks, not lists
+- **14 Shortest Path** - CampusNav's flagship feature, and where P vs. NP gets concrete
+- **15 Final Exam** - checkpoint on Weeks 9-14
 
 ---
 
@@ -520,34 +485,50 @@ the book's own order - not the whole book, but the shape of it.
 
 ---
 
-<!-- NEW: CLRS roadmap, Weeks 2-4 -->
+<!-- MERGED: CLRS roadmap Weeks 2-4 and Weeks 5-8 into one two-col slide -->
 
-# CLRS Roadmap: Part I - Foundations (Weeks 2-4)
+# CLRS Roadmap: Foundations & Sorting Toolkit (Weeks 2-8)
+
+<div class="thread">The book's first two parts, mapped to the first eight weeks.</div>
+
+<div class="two-col">
+<div>
+
+**Part I: Foundations (Wks 2-4)**
 
 | Wk | Topic | CLRS 4th ed |
 |---|---|---|
-| 2 | Algorithm Concepts | Ch 1; §2.1-2.2 (pseudocode style); §31.2 (Euclid's greatest common divisor, GCD) |
+| 2 | Algorithm Concepts | Ch 1; §2.1-2.2; §31.2 (GCD) |
 | 3 | Complexity Analysis | Ch 3 |
 | 4 | Recursion & Recurrence | §4.3-4.5 |
 
----
+</div>
+<div>
 
-<!-- NEW: CLRS roadmap, Weeks 5-8 -->
-
-# CLRS Roadmap: Part I/II - Sorting Toolkit (Weeks 5-8)
+**Part I/II: Sorting Toolkit (Wks 5-8)**
 
 | Wk | Topic | CLRS 4th ed |
 |---|---|---|
 | 5 | Basic Sorting | §2.1-2.2 |
 | 6 | Advanced Sorting | §2.3, Ch 7 |
 | 7 | Searching | §2.1, Ex 2.3-6 |
-| 8 | Midterm Exam | review only - Weeks 1-7 |
+| 8 | Midterm Exam | review only |
+
+</div>
+</div>
 
 ---
 
-<!-- NEW: CLRS roadmap, Weeks 9-12 -->
+<!-- MERGED: CLRS roadmap Weeks 9-12 and Weeks 13-15 into one two-col slide -->
 
-# CLRS Roadmap: Part IV - Advanced Design (Weeks 9-12)
+# CLRS Roadmap: Design & Graphs (Weeks 9-15)
+
+<div class="thread">The book's remaining two parts this course visits.</div>
+
+<div class="two-col">
+<div>
+
+**Part IV: Advanced Design (Wks 9-12)**
 
 | Wk | Topic | CLRS 4th ed |
 |---|---|---|
@@ -556,17 +537,19 @@ the book's own order - not the whole book, but the shape of it.
 | 11 | Dynamic Programming I | §14.1, 14.3 |
 | 12 | Dynamic Programming II | §14.4 |
 
----
+</div>
+<div>
 
-<!-- NEW: CLRS roadmap, Weeks 13-15 -->
-
-# CLRS Roadmap: Part VI - Graph Algorithms (Weeks 13-15)
+**Part VI: Graph Algorithms (Wks 13-15)**
 
 | Wk | Topic | CLRS 4th ed |
 |---|---|---|
 | 13 | Graph Representation | Ch 20, §10.1, §6.5 |
 | 14 | Shortest Path | Ch 22, §34.1-34.2 |
-| 15 | Final Exam | review only - Weeks 9-14 |
+| 15 | Final Exam | review only |
+
+</div>
+</div>
 
 ---
 
@@ -601,89 +584,51 @@ the book's own order - not the whole book, but the shape of it.
 
 ---
 
-<!-- NEW: Grading component breakdown, 1 of 6 -->
+<!-- MERGED: Midterm, Final, Attendance detail into one slide -->
 
-# Grading: Midterm (25%)
+# Grading, In Detail: Midterm, Final, Attendance
 
-<div class="thread">The single largest component, together with the Final.</div>
+<div class="thread">The two 25% exams, and the component tracked every session.</div>
 
-- Held in **Week 8**, covering **Weeks 1-7**: algorithm properties,
+- **Midterm (25%)** - Week 8, covering Weeks 1-7: algorithm properties,
   Big-O, recursion and recurrences, basic sorting, advanced sorting,
-  and searching.
-- Worth **25%** of your final grade - the same weight as the Final.
-- Week 8 is a review-only session (see the Weekly Schedule) - no new
-  technique is introduced that week.
-
----
-
-<!-- NEW: Grading component breakdown, 2 of 6 -->
-
-# Grading: Final (25%)
-
-<div class="thread">The second 25%, covering the second half of the semester.</div>
-
-- Held in **Week 15**, covering **Weeks 9-14**: divide-and-conquer,
+  and searching. Week 8 is review-only - no new technique that week.
+- **Final (25%)** - Week 15, covering Weeks 9-14: divide-and-conquer,
   greedy algorithms, dynamic programming, graph representation, and
-  shortest path.
-- Worth **25%** of your final grade.
-- Like Week 8, Week 15 is a review-only session - no new technique
-  that week either.
-
----
-
-<!-- NEW: Grading component breakdown, 3 of 6 -->
-
-# Grading: Attendance (10%)
-
-<div class="thread">The smallest component, but recorded every single session.</div>
-
-- Worth **10%** of your final grade, tracked every session all
-  semester - not just at the exams.
-- See **Attendance Policy**, a few slides ahead, for exactly how
+  shortest path. Like Week 8, Week 15 is review-only.
+- **Attendance (10%)** - tracked every session, all semester, not just
+  at the exams. See the Attendance Policy ahead for exactly how
   lateness and excused absences are handled.
 
 ---
 
-<!-- NEW: Grading component breakdown, 4 of 6 -->
+<!-- SPLIT for overflow: Assignments + Presentation detail alone -->
 
-# Grading: Assignments (20%)
+# Grading, In Detail: Assignments, Presentation
 
-<div class="thread">Four assignments, worth 20% combined.</div>
+<div class="thread">The rest of the 100%.</div>
 
-- Four assignments, spaced across the semester (see the
-  **Assignments** table ahead), together worth **20%** of your final
-  grade.
-- Graded within one week, with a rubric and model answers - see
-  **Feedback Policy** ahead.
-
----
-
-<!-- NEW: Grading component breakdown, 5 of 6 -->
-
-# Grading: Presentation (20%)
-
-<div class="thread">Worth as much as all four assignments combined.</div>
-
-- Worth **20%** of your final grade - format and topic assignment
-  announced separately in class, but the weight alone tells you it is
-  not a minor add-on.
-- Treat it with the same seriousness as an exam, not as an
-  afterthought late in the semester.
+- **Assignments (20%)** - four assignments, spaced across the semester
+  (see the Assignments table ahead). Graded within one week, with a
+  rubric and model answers - see the Feedback Policy ahead.
+- **Presentation (20%)** - worth as much as all four assignments
+  combined. Format and topic assigned separately in class, but the
+  weight alone says it is not a minor add-on - treat it with exam-level
+  seriousness.
 
 ---
 
-<!-- NEW: Grading component breakdown, 6 of 6 - the distribution guideline, split out of the old Grading slide -->
+<!-- SPLIT for overflow: the distribution guideline now gets its own slide -->
 
 # Grade Distribution Guideline
 
 <div class="why">
-<strong>Grade distribution guideline:</strong> A ≤30%, B ≤40%, C-F ≤30%
-of the class. This may shift after the add/drop period, based on final
-enrollment.
+<strong>Grade distribution guideline:</strong> A &le;30%, B &le;40%,
+C-F &le;30% of the class. This is a guideline for the overall class
+distribution, not a curve applied component-by-component to your
+individual score, and may shift after the add/drop period based on
+final enrollment.
 </div>
-
-This is a guideline for the overall class distribution, not a curve
-applied component-by-component to your individual score.
 
 ---
 
@@ -733,83 +678,66 @@ enough for it to still matter for the next assignment or exam.
 
 ---
 
-<!-- NEW: split of Attendance & Late Work, part 1 -->
+<!-- MERGED: Attendance + Late Work policy into one two-col slide -->
 
-# Attendance Policy
+# Attendance & Late Work Policy
 
 <div class="thread">Concrete rules, stated once, so nobody is surprised later.</div>
 
-- **Attendance** is 10% of your grade and is recorded every session.
-- **Late arrival:** arriving within 15 minutes of the start is
-  on-time; after that, you're marked late. Three lates equal one
-  absence.
-- **Can't attend?** Email the professor *before* the session to be
-  marked excused - unexcused absences aren't eligible for makeup
-  credit.
+<div class="two-col">
+<div>
+
+**Attendance**
+- Worth 10% of your grade, recorded every session.
+- On-time = arriving within 15 minutes of the start; after that,
+  you're marked late. Three lates equal one absence.
+- Can't attend? Email the professor **before** the session to be
+  marked excused - unexcused absences aren't eligible for makeup credit.
+
+</div>
+<div>
+
+**Late work**
+- Loses 10% of that assignment's grade per day late, up to 3 days.
+- No credit after 3 days, unless arranged with the professor in
+  advance.
+- Rewards submitting something on time over holding out for a late,
+  perfect submission.
+
+</div>
+</div>
 
 ---
 
-<!-- NEW: split of Attendance & Late Work, part 2 -->
+<!-- MERGED: Academic Integrity, what counts + consequences -->
 
-# Late Work Policy
+# Academic Integrity
 
-<div class="thread">Same principle, applied to assignments instead of attendance.</div>
+<div class="thread">Stated once, plainly.</div>
 
-- **Late work:** loses 10% of that assignment's grade per day late,
-  up to 3 days. No credit after 3 days, unless arranged with the
-  professor in advance.
-- This rewards submitting something on time over holding out for a
-  perfect, very late submission.
-
----
-
-<!-- NEW: split of Academic Integrity, part 1 -->
-
-# Academic Integrity: What Counts as a Violation
-
-<div class="thread">Same principle as attendance: stated once, plainly.</div>
-
-- **Academic integrity:** submit your own work. Copying another
-  student's work, having someone else complete it for you, or
-  submitting unattributed AI-generated work as your own is a
-  violation.
-
----
-
-<!-- NEW: split of Academic Integrity, part 2 -->
-
-# Academic Integrity: Consequences
-
-<div class="thread">What happens if the line above gets crossed.</div>
-
+- **What counts as a violation:** submit your own work. Copying
+  another student's work, having someone else complete it for you, or
+  submitting unattributed AI-generated work as your own is a violation.
 - **First violation:** zero credit on that assignment or exam, plus a
   formal report. **Repeat violation:** may result in failing the
   course, per university policy.
-- If anything here is unclear, ask - now is the cheapest time to ask.
+
+If anything here is unclear, ask - now is the cheapest time to ask.
 
 ---
 
-<!-- NEW: split of Support for Students with Disabilities, part 1 -->
+<!-- MERGED: Support for Students with Disabilities, both parts -->
 
-# Support: Hearing- and Mobility-Impairment
+# Support for Students with Disabilities
 
 <div class="thread">From the syllabus's accommodations section.</div>
 
 - **Hearing-impaired:** front-row seating, lecture material files
-  provided where possible, urgent notices given in writing
-- **Mobility-impaired:** extended exam time
-
----
-
-<!-- NEW: split of Support for Students with Disabilities, part 2 -->
-
-# Support: Other Conditions & Getting Started
-
-<div class="thread">The rest of the accommodations section, and how to begin.</div>
-
+  provided where possible, urgent notices given in writing.
+- **Mobility-impaired:** extended exam time.
 - **Other documented conditions:** extended exam time, materials
   provided in advance, enlarged exam copies, or other reasonable
-  accommodation based on need
+  accommodation based on need.
 
 Contact the instructor early, and the Disability Student Support
 Center or Academic Affairs Team, so accommodations are ready before
@@ -817,52 +745,34 @@ you need them.
 
 ---
 
-# Contact
+<!-- MERGED: Contact + Getting the Most Out of Office Hours -->
 
-<div class="thread">How to reach the instructor.</div>
+# Contact & Office Hours
 
-- **Email:** perdanarhy@deu.ac.kr
-- **Office hours:** by email appointment
-- Email is the fastest way to reach the instructor outside of class.
+<div class="thread">How to reach the instructor, and how to make it count.</div>
 
----
-
-<!-- NEW: practical, non-policy tips for using office hours/email well -->
-
-# Getting the Most Out of Office Hours
-
-<div class="thread">Practical tips, not new policy.</div>
-
+- **Email:** perdanarhy@deu.ac.kr - the fastest way to reach the
+  instructor outside of class.
+- **Office hours:** by email appointment.
 - Put "Computer Algorithms" (or the week number) in your email
   subject line - it gets triaged faster.
 - Come with a specific question ready: "I don't understand step 3 of
   GCD's finiteness proof" gets a faster, more useful answer than "I
   don't get recursion."
-- If you're stuck on a worksheet or quiz question, note which one
-  before you email - it saves a full round-trip.
 
 ---
 
-<!-- NEW: study-skill tips, part 1 -->
+<!-- MERGED: How to Succeed, both parts -->
 
-# How to Succeed in This Course (1)
+# How to Succeed in This Course
 
 <div class="thread">Tips, not requirements - but every one of them is earned from how this course is built.</div>
 
-- **Do the worksheet every week**, even though it's ungraded - it's
-  the only place you practice before an assignment or exam does.
+- **Practice every week**, even when it's not graded - it's the only
+  place you rehearse before an assignment or exam does.
 - **Don't skip the proof steps** to get to "the answer" - Big-O
   proofs, correctness arguments, and recurrence solutions are graded
   on the argument, not just the final bound.
-
----
-
-<!-- NEW: study-skill tips, part 2 -->
-
-# How to Succeed in This Course (2)
-
-<div class="thread">The rest of the tips.</div>
-
 - **Ask early** - "now is the cheapest time to ask" applies to
   concepts, not just academic integrity.
 - **Find one classmate to compare pseudocode with** - two people

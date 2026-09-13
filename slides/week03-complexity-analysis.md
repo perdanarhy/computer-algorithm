@@ -49,23 +49,24 @@ notes: Welcome the class. Ask: "Last week you all wrote a correct algorithm for 
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
+<!-- REWRITTEN: was a discussion warm-up; now teacher-delivered narration that resolves directly instead of asking the class -->
 
-# Before We Start: Two Functions, One Race
+# Two Functions, One Race
 
-<div class="thread">A quick warm-up. No formulas required yet.</div>
+<div class="thread">A crossover point, resolved directly - no formulas required yet.</div>
 
 Two algorithms exist for the same problem. Algorithm A costs about
 $1000n$ steps. Algorithm B costs about $n^2$ steps.
 
-- At $n = 10$: A costs 10,000 steps. B costs 100 steps.
-- At $n = 2{,}000$: A costs 2,000,000 steps. B costs 4,000,000 steps.
+- At $n = 10$: A costs 10,000 steps. B costs 100 steps - B wins by 100x.
+- At $n = 2{,}000$: A costs 2,000,000 steps. B costs 4,000,000 steps -
+  the ranking **flips**: A is now half the cost of B.
 
-- Which algorithm is "faster"? Does the answer change depending on $n$?
-
-<!--
-notes: Give students 30 seconds before asking. Let them notice A wins at n=10 but loses badly at n=2,000. Ask: "Is there a crossover point? Roughly where?" (n=1000, where 1000n = n^2). Do not name "Big-O" yet - let them feel that the constant (1000) eventually stops mattering.
--->
+Somewhere between $n=10$ and $n=2{,}000$ sits a crossover point (it's
+exactly $n=1{,}000$, where $1000n = n^2$) where the winner changes.
+"Algorithm B is faster" is not yet a well-defined claim until we say
+*for which $n$* - which is exactly what today's tools fix: a way to
+compare growth rates that doesn't depend on picking one favorite $n$.
 
 ---
 
@@ -212,25 +213,12 @@ stops working the moment it succeeds and gains more users or data.
 <div class="thread">Everything from this week, applied on paper.</div>
 
 - **Assignment 1 - Complexity & Pseudocode** is out starting today.
-- Three parts: CLRS-style (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed) pseudocode, Big-O proofs from the formal definition, and a growth-rate ordering exercise.
+- Three parts: CLRS-style (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed) pseudocode, Big-O proofs, and a growth-rate ordering exercise.
 - **Due Week 5, 23:59**, submitted individually via the course Learning Management System (LMS).
 - Full spec, rubric, and submission format: **`materials/assignments/assignment1.md`**
+- Separate from this week's own short **Week 3 Check** (see the Summary slide) - both are active this week, but they cover different work.
 
 <!-- notes: Say: "You have two full weeks. Start the pseudocode part now - the proof techniques you need for Part 2 are today's entire lecture." -->
-
----
-
-<!-- NEW: session-1 close, previews Worksheet Part A -->
-
-# Coming Up: Worksheet Part A
-
-<div class="thread">Next in this class: less listening, more doing.</div>
-
-Later today, you and a partner will order a shuffled deck of
-growth-rate cards from slowest to fastest, and time CampusNav's
-actual linear scan by hand.
-
-That is **Worksheet Part A**. Keep a pen ready.
 
 ---
 
@@ -302,93 +290,131 @@ on growth rate - not a running time.
 
 ---
 
-<!-- Act 3 / BUILD, split into two: steps 1-2 here, 3-4 next -->
+<!-- MERGED: the four reading-the-definition steps onto one slide -->
 
-# Reading the Definition, Piece by Piece (1)
+# Reading the Definition, Piece by Piece
 
 <div class="steps">
 <div class="step-row"><div class="step-num">1</div><div class="step-text">Pick a comparison function $g(n)$ - usually the simplest shape that matches $f$'s growth (e.g. $n^2$).</div></div>
 <div class="step-row"><div class="step-num">2</div><div class="step-text">Find <em>any</em> constant $c > 0$ that, once multiplied by $g(n)$, stays on top of $f(n)$. The exact value of $c$ never matters - only that one exists.</div></div>
-</div>
-
----
-
-<!-- NEW: continuation, steps 3-4 -->
-
-# Reading the Definition, Piece by Piece (2)
-
-<div class="steps">
 <div class="step-row"><div class="step-num">3</div><div class="step-text">Find <em>any</em> threshold $n_0$. You are allowed to ignore small, "weird" values of $n$ - the bound only has to hold from $n_0$ onward.</div></div>
 <div class="step-row"><div class="step-num">4</div><div class="step-text">If such $c$ and $n_0$ exist, $f(n)$ grows no faster than $g(n)$'s shape, for large $n$. That is the <em>entire</em> promise - nothing about small $n$, nothing about exact seconds.</div></div>
 </div>
 
 ---
 
-<!-- Worked proof, split into two: steps 1-2 here, 3-4 next -->
+<!-- NEW: dense worked example, Big-O proof, simple tier. Reuses the deck's own former Check-Yourself numbers, since they already are the "smallest instructive case." -->
+<!-- _class: dense -->
 
-# Worked Proof: $3n^2 + 10n + 7 = O(n^2)$ (1)
+<div class="eyebrow">Big-O proofs · worked example 1 of 3 (simple)</div>
 
-<div class="thread">The exact proof style Assignment 1 expects - not just the answer, the argument.</div>
+# One Failed Attempt, One Valid Proof: $f(n) = 5n+2$
 
-**Claim:** $3n^2 + 10n + 7 = O(n^2)$.
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">For all $n \ge 1$: $n \le n^2$, so $10n \le 10n^2$.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">For all $n \ge 1$: $1 \le n^2$, so $7 \le 7n^2$.</div></div>
+<div class="wx-top">
+<div class="lead">Claim: $f(n) = O(n)$. Not every $(c, n_0)$ attempt works - but only one needs to.</div>
+<div class="goalbox"><span class="k">Goal</span>See a failed constant choice and a valid one, side by side.</div>
 </div>
 
----
-
-<!-- NEW: continuation of the worked proof, steps 3-4 -->
-
-# Worked Proof: $3n^2 + 10n + 7 = O(n^2)$ (2)
-
-<div class="steps">
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Adding: $3n^2 + 10n + 7 \le 3n^2 + 10n^2 + 7n^2 = 20n^2$, for all $n \ge 1$.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Choose $c = 20$, $n_0 = 1$. Then $0 \le 3n^2+10n+7 \le 20n^2$ holds for every $n \ge 1$. <span class="bignotation">Q.E.D.</span></div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Try c=5, n0=1</div>
+<div class="wx-body">At n=1: f(1)=5(1)+2=7. c&middot;g(1)=5(1)=5. 7 &le; 5 is false - this pair fails.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Try c=7, n0=1</div>
+<div class="wx-body">At n=1: 7 &le; 7 holds. For all n&ge;1: 5n+2 &le; 5n+2n = 7n, since n&ge;1 &rArr; 2 &le; 2n.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Conclusion</div>
+<div class="wx-body">c=7, n0=1 proves f(n)=O(n). The failed attempt above didn't disprove the claim - it only ruled out one pair.</div>
+</div>
 </div>
 
----
-
-<!-- NEW: check-yourself pair on choosing valid (c, n0) pairs -->
-
-# Check Yourself: Is This a Valid Proof?
-
-1. For $f(n) = 5n + 2$, is $c = 5$, $n_0 = 1$ a valid proof that $f(n) = O(n)$? Check it against the definition directly.
-2. Is $c = 7$, $n_0 = 1$ *also* a valid proof for the same claim?
+<div class="conclusion"><span class="k">Conclusion</span>5n+2 = O(n), proven with c=7, n0=1.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A failed (c, n0) attempt never refutes a Big-O claim - the definition only requires that <em>some</em> pair exists.</div>
 
 ---
 
-# Answers
+<!-- NEW: dense worked example, Big-O proof, moderate tier. Reuses the deck's exact existing 3n^2+10n+7 proof and numeric check table. -->
+<!-- _class: dense -->
 
-1. **No.** At $n = 1$: $f(1) = 7$, but $c \cdot g(n) = 5 \times 1 = 5$. $7 \le 5$ is false, so this particular $(c, n_0)$ pair fails - it does not mean the claim itself is false.
-2. **Yes.** At $n=1$: $5(1)+2 = 7 \le 7 \times 1 = 7$. For any $n \ge 1$: $5n + 2 \le 5n + 2n = 7n$ (since $n \ge 1 \Rightarrow 2 \le 2n$). So $c=7$, $n_0=1$ works, confirming $f(n) = O(n)$ - just via a different, equally valid, choice of constants.
+<div class="eyebrow">Big-O proofs · worked example 2 of 3 (moderate)</div>
 
----
+# The Full Proof: $3n^2+10n+7 = O(n^2)$
 
-# The Same Proof, Checked Numerically
-
-| $n$ | $3n^2+10n+7$ | $20n^2$ | Holds? |
-|---|---|---|---|
-| 1 | 20 | 20 | Yes ($20 \le 20$) |
-| 2 | 39 | 80 | Yes |
-| 10 | 407 | 2,000 | Yes |
-
-**A tighter choice also works:** for $n \ge 10$, $10n \le n^2$ and
-$7 \le n^2$, so $3n^2+10n+7 \le 5n^2$ - meaning $c=5$, $n_0=10$ is
-also a valid proof.
-
----
-
-<!-- NEW: continuation, the "why" callout split out on its own -->
-
-# There Is No Single Right Proof
-
-<div class="why">
-There is no single "correct" (c, n&#8320;) pair. Big-O only asks that
-<strong>some</strong> pair exists - this is why two students can turn
-in different-looking, equally correct proofs of the same bound.
+<div class="wx-top">
+<div class="lead">The exact proof style Assignment 1 expects - not just the answer, the argument.</div>
+<div class="goalbox"><span class="k">Goal</span>Prove 3n&sup2;+10n+7 = O(n&sup2;), then check it numerically.</div>
 </div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Pick g(n)</div>
+<div class="wx-body">g(n) = n&sup2;. For n&ge;1: n &le; n&sup2;, so 10n &le; 10n&sup2;. Also 1 &le; n&sup2;, so 7 &le; 7n&sup2;.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Combine</div>
+<div class="wx-body">Adding: 3n&sup2;+10n+7 &le; 3n&sup2;+10n&sup2;+7n&sup2; = 20n&sup2;, for all n&ge;1. Choose c=20, n0=1.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Check numerically</div>
+<div class="wx-body">n=1: 20&le;20. n=2: 39&le;80. n=10: 407&le;2,000. Holds every time.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">A tighter pair also works</div>
+<div class="wx-body">For n&ge;10: 10n&le;n&sup2; and 7&le;n&sup2;, so 3n&sup2;+10n+7 &le; 5n&sup2; - c=5, n0=10 is an equally valid, tighter proof.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>3n&sup2;+10n+7 = O(n&sup2;), proven two different valid ways.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>There is no single "correct" (c, n0) pair - Big-O only asks that <em>some</em> pair exists, which is why two students can turn in different-looking, equally correct proofs of the same bound.</div>
+
+---
+
+<!-- NEW: dense worked example, Big-O/Theta proof, harder tier. Reuses the deck's exact existing n(n-1)/2 = Theta(n^2) two-sided proof. -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Big-O proofs · worked example 3 of 3 (harder)</div>
+
+# A Tight Bound, Both Directions: $\frac{n(n-1)}{2} = \Theta(n^2)$
+
+<div class="wx-top">
+<div class="lead">O alone was the last two proofs. A &Theta; claim needs both an upper <em>and</em> a lower bound.</div>
+<div class="goalbox"><span class="k">Goal</span>Prove n(n&minus;1)/2 = &Theta;(n&sup2;) - this is exactly insertion sort's worst-case comparison count, formalized properly in Week 5.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Upper bound (O)</div>
+<div class="wx-body">n(n&minus;1)/2 = (n&sup2;&minus;n)/2 &le; n&sup2;/2 for all n&ge;1 (dropping &minus;n only makes it larger). c=&frac12;, n0=1.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Lower bound (&Omega;)</div>
+<div class="wx-body">For n&ge;2: n&minus;1 &ge; n/2, so n(n&minus;1)/2 &ge; n&middot;(n/2)/2 = n&sup2;/4. c=&frac14;, n0=2.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Conclusion</div>
+<div class="wx-body">Both O and &Omega; hold, so n(n&minus;1)/2 = &Theta;(n&sup2;) - a tight bound, not just an upper one.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why it matters later</div>
+<div class="wx-body">This exact formula returns by name in Week 5 as insertion sort's worst-case comparison count - the proof you just did will not need to be redone.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>n(n&minus;1)/2 = &Theta;(n&sup2;), proven both directions.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>&Theta; is the strongest claim: it says a formula's growth is neither an overestimate nor an underestimate - not just "no worse than."</div>
 
 ---
 
@@ -402,51 +428,10 @@ in different-looking, equally correct proofs of the same bound.
 | $\Omega(g(n))$ | Lower bound - "no better than" | $\exists\, c, n_0 > 0: 0 \le c \cdot g(n) \le f(n)$ for $n \ge n_0$ |
 | $\Theta(g(n))$ | Tight bound - "exactly this shape" | $f(n) = O(g(n))$ **and** $f(n) = \Omega(g(n))$ |
 
----
-
-<!-- NEW: continuation - concrete instance of Theta, previously the tail of the combined slide -->
-
-# $\Theta$ In Practice: Linear Search
-
-<div class="thread">The three-notation table, applied to something you already know.</div>
-
-Linear search on a random target is $\Theta(n)$: it is never faster
-than proportional to $n$ (no shortcut exists) and never slower
-either. Most of this course states bounds with $O$, but $\Theta$ is
-the stronger, more informative claim when it holds.
-
----
-
-<!-- NEW: a second worked proof, a distinct function pair, exercising Theta directly -->
-
-# Worked Proof: A Second Example ($\Theta$), Part 1
-
-<div class="thread">$O$ alone was last time's proof. Now let's prove a tight bound.</div>
-
-**Claim:** $\dfrac{n(n-1)}{2} = \Theta(n^2)$ - this is exactly the
-worst-case number of comparisons insertion sort makes, previewed
-properly in Week 5.
-
-**Upper bound ($O$):** $\dfrac{n(n-1)}{2} = \dfrac{n^2 - n}{2} \le
-\dfrac{n^2}{2}$ for all $n \ge 1$ (dropping the $-n$ term only makes
-it larger). So $c = \tfrac{1}{2}$, $n_0 = 1$ proves
-$\dfrac{n(n-1)}{2} = O(n^2)$.
-
----
-
-<!-- NEW: continuation - the Omega half and the conclusion -->
-
-# Worked Proof: A Second Example ($\Theta$), Part 2
-
-<div class="thread">One direction down. Now the lower bound, and the conclusion.</div>
-
-**Lower bound ($\Omega$):** for $n \ge 2$, $n - 1 \ge \tfrac{n}{2}$, so
-$\dfrac{n(n-1)}{2} \ge \dfrac{n \cdot (n/2)}{2} = \dfrac{n^2}{4}$. So
-$c = \tfrac{1}{4}$, $n_0 = 2$ proves $\dfrac{n(n-1)}{2} = \Omega(n^2)$.
-
-**Conclusion:** both bounds hold, so $\dfrac{n(n-1)}{2} = \Theta(n^2)$
-- a tight bound, not just an upper one, on a formula that will reappear
-by name in Week 5.
+**In practice:** linear search on a random target is $\Theta(n)$ - it
+is never faster than proportional to $n$ (no shortcut exists) and
+never slower either. Most of this course states bounds with $O$, but
+$\Theta$ is the stronger, more informative claim when it holds.
 
 ---
 
@@ -493,7 +478,7 @@ by name in Week 5.
 
 ---
 
-<!-- The hierarchy, split: the badges/ordering here, tractable/intractable classification next -->
+<!-- MERGED: hierarchy badges + tractable/intractable grouping -->
 
 # The Growth-Rate Hierarchy
 
@@ -510,47 +495,52 @@ by name in Week 5.
 <span class="bignotation">O(2&#8319;)</span> &#8826;
 <span class="bignotation">O(n!)</span>
 
----
-
-<!-- NEW: continuation of the hierarchy -->
-
-# Tractable vs. Intractable
-
-<div class="thread">The same line, grouped by what it means for CampusNav.</div>
-
 - **Polynomial** ($O(1)$ through $O(n^3)$ and beyond): *tractable* - cost grows, but manageably.
 - **Exponential and factorial** ($O(2^n)$, $O(n!)$): *intractable* at any real scale - shown next.
 
 ---
 
-<!-- NEW: check-yourself pair on the growth-rate hierarchy -->
+<!-- NEW: dense worked example, placing growth rates on the hierarchy. Folds the old Check-Yourself pair and the sqrt(n)/n^1.5 placement slide, reusing exact existing content. -->
+<!-- _class: dense -->
 
-# Check Yourself: Ordering Growth Rates
+<div class="eyebrow">Growth-rate hierarchy · worked example</div>
 
-1. True or False: an algorithm that is $O(n^{1.5})$ always runs slower, on every input, than one that is $O(n \log n)$.
-2. Where does $O(\sqrt{n})$ sit relative to $O(\log n)$ and $O(n)$ in the hierarchy above?
+# Placing Two Growth Rates Precisely
+
+<div class="wx-top">
+<div class="lead">The hierarchy above is an ordering, not a promise about any one input size.</div>
+<div class="goalbox"><span class="k">Goal</span>Check a tempting claim, then place &radic;n and n<sup>1.5</sup> exactly.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Claim to check</div>
+<div class="wx-body">"An O(n<sup>1.5</sup>) algorithm always runs slower, on every input, than an O(n log n) one." <strong>False</strong> - Big-O is an asymptotic growth-rate claim, not a promise about every individual input or actual constants.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Placing &radic;n</div>
+<div class="wx-body">Sits strictly between O(log n) and O(n): grows faster than any logarithm, slower than linear - the halfway point between O(1) and O(n) on a log scale.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Placing n<sup>1.5</sup></div>
+<div class="wx-body">n<sup>1.5</sup> = n&middot;&radic;n: grows faster than n log n, but slower than n&sup2;.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why the claim is false</div>
+<div class="wx-body">A well-tuned O(n<sup>1.5</sup>) implementation can beat a poorly-tuned O(n log n) one for many realistic sizes of n, even though n<sup>1.5</sup> eventually overtakes it once n is large enough.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>&radic;n and n<sup>1.5</sup> both have one exact place in the hierarchy - but neither placement predicts every individual race.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Big-O ranks growth, not literal speed at any one n - the ranking only becomes reliable once n is "large enough," exactly what n0 captures.</div>
 
 ---
 
-# Answers
-
-1. **False**, for the same reason as always: Big-O is an asymptotic *growth-rate* claim, not a promise about every individual input or actual constants - a well-tuned $O(n^{1.5})$ implementation can beat a poorly-tuned $O(n \log n)$ one for many realistic sizes of $n$, even though $n^{1.5}$ eventually overtakes it.
-2. $O(\sqrt{n})$ sits strictly between $O(\log n)$ and $O(n)$ - it grows faster than any logarithm, but strictly slower than linear.
-
----
-
-# Where Do $\sqrt{n}$ and $n^{1.5}$ Fit?
-
-<div class="thread">Two growth rates from the hierarchy above, placed precisely.</div>
-
-- $\sqrt{n}$ grows slower than $n$ - it's the halfway point between
-  $O(1)$ and $O(n)$ on a log scale.
-- $n^{1.5} = n \cdot \sqrt{n}$ grows faster than $n \log n$ but slower
-  than $n^2$.
-- You'll meet both again: `materials/assignment1.md` asks you to place
-  them in a growth-rate ordering exercise.
-
----
+<!-- MERGED: real-numbers table + the "what uncomputable means" callout -->
 
 # Growth Rates, With Real Numbers
 
@@ -567,6 +557,8 @@ by name in Week 5.
 
 ---
 
+<!-- SPLIT for overflow: "what uncomputable means" now gets its own slide -->
+
 # What "Uncomputable" Actually Means
 
 <div class="thread">One row of that table, taken seriously.</div>
@@ -580,166 +572,71 @@ billion steps/second, that's roughly 4&times;10^13 years, about
 
 ---
 
-# Space Complexity, Briefly
+<!-- MERGED: space complexity definitions + "same machinery" note + folded check-yourself content -->
 
-<div class="thread">Cost isn't only time - it's also memory.</div>
+# Space Complexity
+
+<div class="thread">Cost isn't only time - it's also memory, using the exact same machinery.</div>
 
 - **Space complexity:** the *extra* memory an algorithm uses, as a function of $n$, beyond the input it was given.
 - **In-place:** uses only $O(1)$ extra memory - a fixed number of extra variables, regardless of how large $n$ gets. Example: swapping two entries of an array using one temporary variable.
-- **Not in-place:** allocates a second structure that grows with $n$. Example: copying CampusNav's entire directory into a new array before sorting it - that copy is $O(n)$ extra space.
-
----
-
-<!-- NEW: continuation of Space Complexity -->
-
-# Space Complexity: Same Machinery
-
-<div class="thread">One more point, then a preview.</div>
-
-Space complexity uses **the exact same** $O$/$\Omega$/$\Theta$
-machinery as time - just measuring memory instead of steps.
+- **Not in-place:** allocates a second structure that grows with $n$. Example: CampusNav copying its entire directory into a new array before sorting it - that copy is $O(n)$ extra space, regardless of how efficient the sort itself is.
+- Space complexity uses the exact same $O$/$\Omega$/$\Theta$ machinery as time - just measuring memory instead of steps. "In-place" does **not** mean zero extra memory, only a fixed amount that doesn't grow with $n$.
 
 <div class="why">
-Preview: Weeks 5-6 compare sorting algorithms that are provably
-correct <em>and</em> O(n log n) in time, yet differ sharply in
-space - some sort in-place, some don't.
+Preview: Weeks 5-6 compare sorting algorithms that are provably correct
+<em>and</em> O(n log n) in time, yet differ sharply in space - some
+sort in-place, some don't.
 </div>
 
 ---
 
-<!-- NEW: check-yourself pair on space complexity -->
+<!-- SLOT N-2: Worked example. Merged into one dense slide, reusing the deck's exact existing timing numbers. -->
+<!-- _class: dense -->
 
-# Check Yourself: In-Place or Not?
+<div class="eyebrow">CampusNav · timing two real features</div>
 
-1. CampusNav sorts its room directory by first copying all 1,200 entries into a brand-new array, then sorting the copy. Is that sort in-place? What's its space complexity?
-2. Does "in-place" mean an algorithm uses *zero* extra memory?
+# The Bill Comes Due: Two Features, Same Directory
 
----
+<div class="wx-top">
+<div class="lead">Assume one comparison (array access + string check) costs about 50 nanoseconds on typical hardware.</div>
+<div class="goalbox"><span class="k">Goal</span>Turn Big-O into an actual clock reading for CampusNav's real directory sizes.</div>
+</div>
 
-# Answers
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Linear scan @ 1,200</div>
+<div class="wx-body">CampusNav's actual `FIND_ROOM`, O(n): 1,200 steps &times; 50ns = 0.06 ms.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Linear scan @ 10,000+</div>
+<div class="wx-body">10,000 steps &times; 50ns = 0.5 ms. O(n) alone is not the danger here - even 10,000 rooms is imperceptible.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Duplicate-check @ 1,200</div>
+<div class="wx-body">The naive pairwise design, O(n&sup2;): 1,440,000 comparisons &times; 50ns = <strong>72 ms</strong> - noticeable.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Duplicate-check @ 10,000+</div>
+<div class="wx-body">100,000,000 comparisons &times; 50ns = <strong>5 seconds</strong> - the app freezes. "Just add one more feature" is not free: any feature comparing every pair defaults to O(n&sup2;).</div>
+</div>
+</div>
 
-1. **Not in-place.** The copy itself is an $O(n)$-size structure, so the algorithm's space complexity is at least $O(n)$, regardless of how efficient the sorting step itself is.
-2. **No.** In-place means $O(1)$ *extra* memory - a small, fixed number of temporary variables (like one swap variable) that does not grow with $n$. Zero extra memory is stricter than what "in-place" requires.
-
----
-
-<!-- SLOT N-2: Worked example -->
-
-# CampusNav: Timing the Room Directory, For Real
-
-<div class="thread">Everything above, on the actual 1,200-room directory.</div>
-
-Assume one comparison (array access + string check) costs about
-**50 nanoseconds** on typical hardware.
-
-**Linear scan, $O(n)$ - CampusNav's actual `FIND_ROOM`:**
-
-| Directory size | Worst-case steps | Worst-case time |
-|---|---|---|
-| 1,200 rooms (current) | 1,200 | 0.06 ms |
-| 10,000+ rooms (partner campuses) | 10,000 | 0.5 ms |
-
-$O(n)$ alone is not the danger here - even 10,000 rooms is imperceptible.
-
----
-
-# CampusNav: The Duplicate-Checker's Bill Comes Due
-
-<div class="thread">Same directory. A different feature, a different growth rate.</div>
-
-**Duplicate-checker, $O(n^2)$ - the naive pairwise design from earlier:**
-
-| Directory size | Worst-case comparisons | Worst-case time |
-|---|---|---|
-| 1,200 rooms (current) | 1,440,000 | **72 ms** - noticeable |
-| 10,000+ rooms (partner campuses) | 100,000,000 | **5 seconds** - the app freezes |
+<div class="conclusion"><span class="k">Conclusion</span>Same directory, same hardware assumption - one feature stays instant at any real size, the other freezes the app.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A 10&times; growth in n scales O(n) cost about 10&times;, but scales O(n&sup2;) cost about 100&times; - exactly the jump from 72 ms to 5 seconds above.</div>
 
 ---
 
-# The Real Lesson
+<!-- SLOT N-1: Common mistakes, merged into one slide -->
 
-<div class="thread">Not "avoid growth." Know which growth you're shipping.</div>
-
-- CampusNav's core lookup is comfortably $O(n)$ and will stay fine even
-  as the campus directory merges with partner schools.
-- But "just add one more feature" is not free: a duplicate-checker, a
-  recommendation pass, or any feature that compares *every pair* of
-  entries defaults to $O(n^2)$ - and $O(n^2)$ is exactly what turns a
-  10&times; data-size increase into a 100&times; slowdown.
-- This is why every feature this course adds to CampusNav gets its
-  growth rate stated up front, not discovered after users complain.
-
----
-
-<!-- SLOT N-1: Common mistakes, split into two -->
-
-# Common Mistakes (1)
+# Common Mistakes
 
 - **"Big-O tells you the exact running time."** Tempting because $O(n^2)$ looks like it should predict a stopwatch reading - but it only bounds how cost *grows*, never the actual seconds. Two $O(n^2)$ algorithms can differ by a huge constant factor and both be correctly labeled $O(n^2)$.
-
----
-
-<!-- NEW: continuation of Common Mistakes -->
-
-# Common Mistakes (2)
-
 - **"Keep the fanciest term you just learned."** For $n^2 + n\log n$, it is tempting to report $O(n \log n)$ because that term feels more sophisticated - but for large $n$, $n^2$ grows faster and eventually dwarfs $n \log n$ completely. The bound must always come from the **fastest-growing** term present, never the most recently introduced one.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. True or False: if algorithm A is $O(n^2)$ and algorithm B is $O(n \log n)$, then A is always slower than B, on every input.
-2. Is $n^2 + n \log n$ equal to $O(n \log n)$? Justify your answer.
-3. CampusNav's linear scan is $O(n)$. If the directory grows 10&times; (1,200 &rarr; 12,000 rooms), roughly how does worst-case time change? What if the scan were $O(n^2)$ instead?
-
----
-
-# Answers
-
-1. **False.** Big-O is an asymptotic guarantee for *large enough* $n$ - for small $n$, or with very different constants, an $O(n^2)$ algorithm can easily run faster in practice than an $O(n \log n)$ one.
-2. **No - it is $O(n^2)$.** The bound comes from the fastest-growing term present. $n^2$ eventually dominates $n \log n$ for any large enough $n$, so dropping $n^2$ instead of $n \log n$ is exactly backwards.
-3. $O(n)$: worst-case time also scales roughly 10&times;. $O(n^2)$: worst-case time scales roughly 100&times; - a 10&times; input increase becomes a 100&times; cost increase.
-
----
-
-<!-- NEW: Try-It hand-off, session 2 -->
-
-# Now: Worksheet Part A
-
-<div class="thread">Time to practice. Sort the cards, then prove a bound.</div>
-
-Work with your neighbor. Open **[Worksheet Part
-A](materials/week03/worksheet.html)**. Order a shuffled set of
-growth-rate cards from slowest to fastest, then time CampusNav's
-linear scan by hand on a sample directory.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part A. Walk the room while pairs work.
-After 15 minutes, ask 2 pairs to justify one adjacent pair in their card ordering out loud.
--->
-
----
-
-<!-- NEW: Try-It hand-off, Part B proof practice -->
-
-# Now: Worksheet Part B
-
-<div class="thread">Same pair. This time: finish a Big-O proof yourself.</div>
-
-Open **[Worksheet Part B](materials/week03/worksheet.html)**.
-Complete a fill-in-the-blank Big-O proof, spot the bug in a broken
-proof, and connect today's bound back to a real feature.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part B. After 15 minutes, reveal the correct constants for B1 and discuss B2's bug as a class.
--->
 
 ---
 
@@ -772,23 +669,6 @@ learning, systems - assumes you can read an algorithm and state its
 growth rate on sight, the same way this course assumed you could
 already write a loop.
 </div>
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 3 Quiz](materials/week03/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
 
 ---
 
@@ -852,6 +732,17 @@ practice beyond Assignment 1.
   matter of a faster computer.
 - CampusNav's core lookup stays $O(n)$-safe at 10,000+ rooms, but any
   feature defaulting to $O(n^2)$ (like naive duplicate-checking) will not.
+
+---
+
+<!-- SPLIT for overflow -->
+
+# Summary, Continued
+
+- **New: Week 3 Check** - a short graded exercise on Big-O proofs and
+  growth-rate placement, released now, due before Week 4 begins - kept
+  deliberately separate from Assignment 1, which is also active this
+  week (see `materials/assignments/week03-check.html`).
 - **Reading:** CLRS 4th ed, Ch 3 (Growth of Functions).
 - **Prepare:** think about an algorithm that calls itself - how would
   you write its cost as a formula in $n$? Bring an idea to Week 4.
