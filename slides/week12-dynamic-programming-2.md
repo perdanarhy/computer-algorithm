@@ -478,7 +478,6 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 </div>
 
 <div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>L(5,6) = 5 - filled left to right, row by row, using only the two-case recurrence, 42 cells total.</div></div>
-<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every cell only ever needs three neighbors already on the table - never a fresh recursive call.</div></div>
 
 ---
 
@@ -515,7 +514,7 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 </div>
 
 <div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Every cell in the table follows the same two-case recurrence, whether it's a clean diagonal match or a mismatch reaching sideways.</div></div>
-<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every cell only ever needs three neighbors already on the table - never a fresh recursive call. Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div></div>
 
 ---
 

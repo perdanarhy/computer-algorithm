@@ -817,6 +817,12 @@ $$
 \text{ways}(2k+1) = \text{ways}(k)^2 + 2 \cdot \text{ways}(k) \cdot \text{ways}(k-1)
 $$
 
+---
+
+# A Second D&C Trick, Continued
+
+<div class="thread">What the two identities buy us.</div>
+
 Each identity does $O(1)$ arithmetic on two already-known values, so
 halving $k$ each time gives $T(n) = T(n/2) + O(1) = \Theta(\log n)$.
 

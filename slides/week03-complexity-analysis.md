@@ -460,10 +460,6 @@ $\Theta$ is the stronger, more informative claim when it holds.
 | 1,000 | ~10 |
 | 1,000,000 | ~20 |
 
-- Unless stated otherwise, "$\log n$" in this course always means
-  $\log_2 n$ - the base rarely matters for Big-O anyway, since
-  different bases only differ by a constant factor.
-
 ---
 
 <!-- NEW: math toolbox (2 of 2) -->
@@ -472,6 +468,9 @@ $\Theta$ is the stronger, more informative claim when it holds.
 
 <div class="thread">One more shape, and two symbols you're about to meet.</div>
 
+- Unless stated otherwise, "$\log n$" in this course always means
+  $\log_2 n$ - the base rarely matters for Big-O anyway, since
+  different bases only differ by a constant factor.
 - **Factorial** ($n!$): multiply every positive integer up to $n$.
   $4! = 4 \times 3 \times 2 \times 1 = 24$. It shows up whenever an
   algorithm considers every possible *ordering* of $n$ items.
