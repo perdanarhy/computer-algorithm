@@ -49,42 +49,6 @@ notes: Welcome the class. Remind them Assignment 2 is now posted to the LMS (mat
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: Sorting a Mountain of Exam Papers
-
-<div class="thread">A quick warm-up. No code needed yet.</div>
-
-Two hundred graded exam papers need alphabetizing by last name before
-they're returned. Two TAs (teaching assistants) propose different methods.
-
-- **Method A:** split the pile in half, hand each half to a partner
-  TA, who splits it again, and again, until each pile is tiny and
-  trivially ordered by hand - then zip the small ordered piles back
-  together, two at a time, largest piles last.
-- **Method B:** grab one paper as a landmark. Walk the whole stack
-  once, putting every paper that comes "before" it in one hand and
-  "after" it in the other. Repeat that same trick separately on each
-  smaller pile.
-
-<!--
-notes: Give students 30 seconds to think, alone, before asking.
-Do not name "merge sort" or "quicksort" yet - let them describe "split and combine" vs "pick a landmark and separate" in their own words.
-Plant the seed: ask "what would a *bad* landmark paper look like?" Don't resolve it - this pays off later today.
--->
-
----
-
-# Before We Start: Two Questions to Hold Onto
-
-<div class="thread">Same warm-up, the question that drives today's deck.</div>
-
-- Which method needs more helpers working at once? Which one risks
-  redoing a lot of work if the landmark paper turns out to be a bad
-  pick?
-
----
-
 <!-- SLOT 3: Recap + open wound (Act 0 / LOCATE) -->
 
 # Last Week, This Week
@@ -100,7 +64,7 @@ Plant the seed: ask "what would a *bad* landmark paper look like?" Don't resolve
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
+<!-- Key Words Today, session 1 -->
 
 # Key Words Today
 
@@ -235,24 +199,11 @@ CampusNav grows. It gets categorically worse.
 
 ---
 
-<!-- NEW: session-1 close, previews Worksheet Part A -->
-
-# Coming Up: Worksheet Part A
-
-<div class="thread">Later in this class: less listening, more doing.</div>
-
-Once we've covered merge sort, you and a partner will hand-trace a
-merge step yourselves, on two small sorted lists.
-
-That is **Worksheet Part A**. Keep a pen ready.
-
----
-
 <!-- SLOT 8: Origin -->
 
 # This Problem Is Not New
 
-<div class="thread">You just felt the freeze. Now: who solved it first, and how?</div>
+<div class="thread">Two TAs (teaching assistants) split a pile of exam papers to grade faster. Today's two techniques do exactly that to a sort - here's who solved it first.</div>
 
 - **Merge sort** was invented by **John von Neumann in 1945**,
   described in a report for the EDVAC - one of the very first
@@ -272,7 +223,7 @@ hardware you wish you had.
 
 ---
 
-<!-- NEW: Key Words Today, session 2 -->
+<!-- Key Words Today, session 2 -->
 
 # Key Words Today
 
@@ -293,7 +244,7 @@ hardware you wish you had.
 
 # Divide-and-Conquer Sorting
 
-<div class="thread">The warm-up's two methods, now named precisely. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §2.3)</div>
+<div class="thread">Splitting a pile of exam papers between two TAs to grade faster - the same shape, named precisely. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §2.3)</div>
 
 > A **divide-and-conquer algorithm** solves a problem by (1) dividing
 > it into smaller subproblems of the same shape, (2) solving each
@@ -302,34 +253,36 @@ hardware you wish you had.
 
 - **Merge sort** puts almost all its work in step 3, *combine*:
   dividing is trivial (split at the midpoint), and merging back
-  together does the real work.
+  together does the real work - at the cost of needing helpers (extra
+  memory) to hold the pieces while they merge.
+
+---
+
+# Divide-and-Conquer Sorting, Continued
+
 - **Quicksort** puts almost all its work in step 1, *divide*: the
   partition step does the real work, and once it's done, combining is
-  free - the pieces are already assembled, in order, in place.
+  free. No helpers needed - but a bad "landmark" (pivot) choice can
+  cost it dearly, as the second half of today's deck shows.
 
 ---
 
 <!-- Act 3 / BUILD: Merge sort mechanics -->
 
-# Merge Sort: Divide, Conquer, Combine
+# Merge Sort: Idea and Pseudocode
 
-<div class="thread">Method A from the warm-up, made precise. (CLRS 4th ed, §2.3)</div>
+<div class="thread">Split, recursively sort each half, merge them back. (CLRS 4th ed, §2.3)</div>
 
-<div class="pipeline">
-<div class="stage"><div class="h">Divide</div><div class="s">Split the array at its midpoint into two halves</div></div>
-<div class="arrow">&rsaquo;</div>
-<div class="stage"><div class="h">Conquer</div><div class="s">Recursively merge-sort each half (base case: length ≤ 1)</div></div>
-<div class="arrow">&rsaquo;</div>
-<div class="stage"><div class="h">Combine</div><div class="s">Merge the two now-sorted halves into one sorted array</div></div>
+<div class="two-col">
+<div>
+
+Split the array at its midpoint into two halves. Recursively
+merge-sort each half (base case: a subarray of length &le; 1 is
+trivially sorted). Merge the two now-sorted halves back into one
+sorted array - almost all the real work happens in this last step.
+
 </div>
-
-The recursion bottoms out at single elements - a list of length 1 is,
-trivially, already sorted - then every level of recursion merges
-sorted pieces back together on the way up.
-
----
-
-# Pseudocode: MERGE-SORT
+<div>
 
 ```text
 MERGE-SORT(A, p, r):
@@ -340,9 +293,8 @@ MERGE-SORT(A, p, r):
         MERGE(A, p, q, r)
 ```
 
-- **Base case:** `p >= r` means the subarray has 0 or 1 elements -
-  already sorted, nothing to do.
-- **Initial call:** `MERGE-SORT(A, 1, n)` sorts the whole array.
+</div>
+</div>
 
 <div class="pain">
 <strong>Index convention switch, starting here:</strong> this slide
@@ -353,128 +305,158 @@ the 0-based indexing used so far. Back to 0-based next week.
 
 ---
 
-# Pseudocode: MERGE (the combine step)
+# Merge Sort: The Combine Step, MERGE
+
+<div class="thread">Two already-sorted halves in, one sorted array out.</div>
+
+<div class="two-col">
+<div>
+
+Copy the two halves into fresh arrays `L` and `R`, each capped with a
+**sentinel** $\infty$ value - a placeholder chosen so it never wins a
+comparison, so we never need a separate check for "one side ran out."
+Then repeatedly take whichever of `L[i]`, `R[j]` is smaller.
+
+</div>
+<div>
 
 ```text
 MERGE(A, p, q, r):
     n1 = q - p + 1
     n2 = r - q
-    let L[1..n1+1] and R[1..n2+1] be new arrays
-    for i = 1 to n1:  L[i] = A[p + i - 1]
-    for j = 1 to n2:  R[j] = A[q + j]
-    L[n1 + 1] = infinity
-    R[n2 + 1] = infinity
-    i = 1
-    j = 1
+    let L[1..n1+1], R[1..n2+1] be new arrays
+    for i=1 to n1: L[i] = A[p+i-1]
+    for j=1 to n2: R[j] = A[q+j]
+    L[n1+1] = infinity
+    R[n2+1] = infinity
+    i = 1; j = 1
     for k = p to r:
         if L[i] <= R[j]:
-            A[k] = L[i];  i = i + 1
+            A[k]=L[i]; i=i+1
         else:
-            A[k] = R[j];  j = j + 1
+            A[k]=R[j]; j=j+1
 ```
 
----
-
-# Reading MERGE's Pseudocode
-
-<div class="thread">Two details worth naming before tracing it by hand.</div>
-
-- The **sentinel** $\infty$ values - placeholder values chosen so they
-  never win a comparison - mean we never need a separate check for
-  "one side ran out"; it just always loses every comparison.
-- `L` and `R` are **brand-new arrays**, copied out of `A` - this is
-  exactly where merge sort's extra memory cost comes from.
-
----
-
-# Tracing MERGE, Step by Step
-
-<div class="thread">Two already-sorted halves, mid-merge.</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">L</div><div class="cell">1</div><div class="cell hl">2</div><div class="cell">5</div><div class="cell">8</div></div>
-<div class="row"><div class="rowlabel">R</div><div class="cell">1</div><div class="cell hl2">3</div><div class="cell">9</div></div>
-<div class="row"><div class="rowlabel">Merged so far</div><div class="cell">1</div><div class="cell">2</div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div><div class="cell empty"></div></div>
+</div>
 </div>
 
-Snapshot: `L = [2,5,8]`, `R = [1,3,9]`, three elements already placed.
-Comparing `L[i]=2` (blue) against `R[j]=3` (gold) - 2 is smaller, so
-it's taken next.
+`L` and `R` are brand-new arrays, copied out of `A` - exactly where
+merge sort's extra memory cost comes from.
 
 ---
 
-# The Full Merge, All Six Comparisons
+<!-- Dense worked example, merge, simple tier -->
+<!-- _class: dense -->
 
-<div class="thread">Same two halves. Every step, start to finish.</div>
+<div class="eyebrow">MERGE · worked example 1 of 3 (simple)</div>
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">L[1]=2 vs R[1]=1 &rarr; 1 is smaller, take 1</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">L[1]=2 vs R[2]=3 &rarr; 2 is smaller, take 2</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">L[2]=5 vs R[2]=3 &rarr; 3 is smaller, take 3</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">L[2]=5 vs R[3]=9 &rarr; 5 is smaller, take 5</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">L[3]=8 vs R[3]=9 &rarr; 8 is smaller, take 8</div></div>
-<div class="step-row"><div class="step-num">6</div><div class="step-text">Only R[3]=9 remains &rarr; take 9</div></div>
+# Uneven Halves: L = [3, 6], R = [1, 2]
+
+<div class="wx-top">
+<div class="lead">The smallest case that still shows one side running out before the other.</div>
+<div class="goalbox"><span class="k">Goal</span>Merge two tiny sorted lists and see what happens when one empties first.</div>
 </div>
 
----
-
-# MERGE Result
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">L</div><div class="cell">2</div><div class="cell">5</div><div class="cell">8</div></div>
-<div class="row"><div class="rowlabel">R</div><div class="cell">1</div><div class="cell">3</div><div class="cell">9</div></div>
-<div class="row"><div class="rowlabel">Merged</div><div class="cell hl">1</div><div class="cell hl">2</div><div class="cell hl">3</div><div class="cell hl">5</div><div class="cell hl">8</div><div class="cell hl">9</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Compare 3 vs 1</div>
+<div class="wx-body">L[1]=3, R[1]=1. R is smaller &rarr; take 1. Merged so far: [1].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Compare 3 vs 2</div>
+<div class="wx-body">L[1]=3, R[2]=2. R is smaller &rarr; take 2. Merged so far: [1, 2]. R is now exhausted.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">R's sentinel fires</div>
+<div class="wx-body">R[3] is the &infin; sentinel - it can never win, so every remaining comparison takes from L automatically: 3, then 6.</div>
+</div>
 </div>
 
-Every comparison only ever looks at the **next unused element** of
-`L` and `R` - each of the 6 elements is placed exactly once. That's
-what makes `MERGE` run in $O(n_1 + n_2) = O(n)$ time.
+<div class="conclusion"><span class="k">Conclusion</span>Merged result: [1, 2, 3, 6] - 2 real comparisons, then the sentinel drains the rest with no special-case code.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The &infin; sentinel is what lets one `for` loop handle "a side ran out" without a separate check.</div>
 
 ---
 
-<!-- NEW: full merge-sort trace, part 1 - the split -->
+<!-- Dense worked example, merge, moderate tier -->
+<!-- _class: dense -->
 
-# Merge Sort, Full Trace: The Split
+<div class="eyebrow">MERGE · worked example 2 of 3 (moderate)</div>
 
-<div class="thread">One MERGE call, traced. Now the whole sort, start to finish - splitting first.</div>
+# Full Merge: L = [2, 5, 8], R = [1, 3, 9]
 
-Six elements, `[5, 2, 4, 7, 1, 3]`, split at the midpoint recursively
-until every piece is a single element (trivially sorted):
-
-```text
-[5,2,4,7,1,3]
-├─ [5,2,4]
-│   ├─ [5]         [base]
-│   └─ [2,4]
-│       ├─ [2]     [base]
-│       └─ [4]     [base]
-└─ [7,1,3]
-    ├─ [7]         [base]
-    └─ [1,3]
-        ├─ [1]     [base]
-        └─ [3]     [base]
-```
-
-Splitting does no comparisons at all - the real work is next slide.
-
----
-
-<!-- NEW: full merge-sort trace, part 2 - the merge back up -->
-
-# Merge Sort, Full Trace: The Merge Back Up
-
-<div class="thread">Same split tree, now combined bottom-up, one level at a time.</div>
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Level 3, singletons: 5, 2, 4, 7, 1, 3 - each trivially sorted</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Level 2: MERGE(2,4) &rarr; [2,4]; MERGE(1,3) &rarr; [1,3]; 5 and 7 have no sibling yet</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">Level 1: MERGE([5],[2,4]) &rarr; [2,4,5]; MERGE([7],[1,3]) &rarr; [1,3,7]</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">Level 0: MERGE([2,4,5],[1,3,7]) &rarr; [1,2,3,4,5,7] - fully sorted</div></div>
+<div class="wx-top">
+<div class="lead">Six elements, six comparisons - every one placed exactly once.</div>
+<div class="goalbox"><span class="k">Goal</span>Merge two equal-length sorted lists, tracking every comparison.</div>
 </div>
 
-Every level's total work is one full pass over however many elements
-exist at that level - exactly the $O(n)$-per-level the recurrence on
-the next slide counts.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Steps 1-2</div>
+<div class="wx-body">L[1]=2 vs R[1]=1 &rarr; take 1. L[1]=2 vs R[2]=3 &rarr; take 2. Merged: [1, 2].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Steps 3-4</div>
+<div class="wx-body">L[2]=5 vs R[2]=3 &rarr; take 3. L[2]=5 vs R[3]=9 &rarr; take 5. Merged: [1, 2, 3, 5].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Steps 5-6</div>
+<div class="wx-body">L[3]=8 vs R[3]=9 &rarr; take 8. Only R[3]=9 remains &rarr; take 9. Merged: [1, 2, 3, 5, 8, 9].</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why O(n)</div>
+<div class="wx-body">Every comparison only looks at the next unused element of L and R - each of the 6 elements is placed exactly once.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Result: [1, 2, 3, 5, 8, 9] - 6 comparisons for 6 elements, so MERGE runs in O(n1 + n2) = O(n).</div>
+<div class="takeaway"><span class="k">Key takeaway</span>MERGE never looks backward or re-checks an element - that single-pass property is what makes it linear.</div>
+
+---
+
+<!-- Dense worked example, merge sort, harder tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Merge sort · worked example 3 of 3 (harder)</div>
+
+# The Full Sort, Every Level: [5, 2, 4, 7, 1, 3]
+
+<div class="wx-top">
+<div class="lead">One MERGE call was traced above. Here is the whole recursion, split then merged back up.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort all six elements and count the levels of recursion it takes.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Split (no comparisons)</div>
+<div class="wx-body">Recursively halve until every piece is a single element: 5, 2, 4, 7, 1, 3 - each trivially sorted.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Merge level 2</div>
+<div class="wx-body">MERGE(2,4) &rarr; [2,4]. MERGE(1,3) &rarr; [1,3]. 5 and 7 have no sibling yet.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Merge levels 1 &amp; 0</div>
+<div class="wx-body">MERGE([5],[2,4]) &rarr; [2,4,5]. MERGE([7],[1,3]) &rarr; [1,3,7]. MERGE([2,4,5],[1,3,7]) &rarr; [1,2,3,4,5,7].</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Levels vs. work</div>
+<div class="wx-body">3 levels of merging for n=6 elements (log&#8322;6 &approx; 2.6, rounded up to 3) - each level's merges together touch all 6 elements once, i.e. O(n) per level.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Fully sorted in 3 merge levels: the six inputs 5, 2, 4, 7, 1, 3 become [1, 2, 3, 4, 5, 7].</div>
+<div class="takeaway"><span class="k">Key takeaway</span>&Theta;(log n) levels, each doing &Theta;(n) total work - that product is exactly next slide's recurrence.</div>
 
 ---
 
@@ -501,81 +483,28 @@ so there's no unlucky input that makes it worse.
 
 ---
 
-# Merge Sort: Stability & Space
-
-<div class="two-col">
-<div>
-
-**Stable**
+# Merge Sort: Stability
 
 `MERGE`'s tie-breaking rule is `L[i] <= R[j]`, never strict `<`. On a
-tie, the left half's element always wins - so two equal-keyed
-elements never swap relative order.
+tie, the left half's element always wins. Proof by counterexample of
+what breaks without it: with `L = [2, 5]`, `R = [2, 9]` (the left `2`
+originally earlier in the array), the `<=` rule takes the left `2`
+first, preserving its original order. Change the rule to strict `<`
+and `L[1]=2 < R[1]=2` is false, so the *right* `2` is taken first
+instead - the two equal keys swap places. One character (`<=` vs `<`)
+is the entire difference between a stable merge and an unstable one.
 
-</div>
-<div>
+---
 
-**Space: O(n) auxiliary**
+# Merge Sort: Space
 
 Week 5's sorts rearranged `A` in place, using only $O(1)$ extra
 memory. Merge sort trades that away: `MERGE` allocates new `L`/`R`
 arrays every call, for a guaranteed $O(n \log n)$ in return.
 
-</div>
-</div>
-
 ---
 
-<!-- NEW: check-yourself pair, MERGE's tie-break rule -->
-
-# Check Yourself: MERGE's Tie-Break Rule
-
-<div class="thread">One comparison operator, doing a lot of work.</div>
-
-`MERGE`'s copy loop uses `if L[i] <= R[j]`, never strict `<`. Suppose
-someone "simplified" it to `if L[i] < R[j]`. Using `L = [2, 5]`,
-`R = [2, 9]` (the two `2`s being equal-key elements, the left one
-originally earlier in the array), trace what changes - and say
-whether merge sort is still stable.
-
----
-
-# Answer
-
-With `<=`: comparing `L[1]=2` and `R[1]=2`, the condition
-`L[i] <= R[j]` is true, so the **left** `2` is taken first - matching
-its original earlier position. Merged result: `2, 2, 5, 9`, left `2`
-before right `2`.
-
-With strict `<`: `L[1]=2 < R[1]=2` is **false**, so the `else` branch
-fires and the **right** `2` is taken first instead - the two equal
-keys swap relative order. That one-character change is exactly the
-difference between a stable merge and an unstable one; the `<=` in
-the pseudocode is not a stylistic choice.
-
----
-
-<!-- NEW: Try-It hand-off, session 2 -->
-
-# Now: Worksheet Part A
-
-<div class="thread">Time to practice. Trace a merge yourself.</div>
-
-Work with your neighbor. Open **[Worksheet Part
-A](materials/week06/worksheet.html)**. Hand-trace `MERGE` on two small
-sorted lists, then fill in the recurrence's step count for a few
-values of $n$.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part A. Walk the room while pairs work.
-After 15 minutes, ask 1-2 pairs to share their traces.
--->
-
----
-
-<!-- NEW: Key Words Today, session 3 -->
+<!-- Key Words Today, session 3 -->
 
 # Key Words Today
 
@@ -603,21 +532,55 @@ What if we sort **in place** instead?
 
 ---
 
-# Quicksort: The Partition Idea
+# Quicksort: Idea and Pseudocode
 
-<div class="thread">Method B from the warm-up - the "landmark paper" - made precise. (CLRS 4th ed, Ch 7, §7.1)</div>
+<div class="thread">Pick a landmark, separate everything around it, recurse. (CLRS 4th ed, Ch 7, §7.1)</div>
 
-- Pick one element as the **pivot**.
-- **Partition:** rearrange the array so everything $\le$ pivot ends up
-  to its left, everything $>$ pivot ends up to its right, and the
-  pivot lands in its own final sorted position.
-- Recursively quicksort the left part and the right part - **no
-  merge step needed.** The pieces are already assembled, in order, in
-  place.
+<div class="two-col">
+<div>
+
+Pick one element as the **pivot**. **Partition:** rearrange the array
+so everything $\le$ pivot ends up to its left, everything $>$ pivot
+ends up to its right, and the pivot lands in its own final sorted
+position. Recursively quicksort the left part and the right part - **no
+merge step needed.** The pieces are already assembled, in order, in
+place.
+
+</div>
+<div>
+
+```text
+QUICKSORT(A, low, high):
+    if low < high:
+        p = PARTITION(A, low, high)
+        QUICKSORT(A, low, p - 1)
+        QUICKSORT(A, p + 1, high)
+```
+
+`PARTITION` is either scheme on the
+next two slides - the driver above
+is identical either way.
+
+</div>
+</div>
 
 ---
 
-# Pseudocode: Lomuto Partition
+# Lomuto Partition: Pseudocode
+
+<div class="thread">The pivot is always the last element; `i` tracks the boundary of the "&le; pivot" region.</div>
+
+<div class="two-col">
+<div>
+
+As `j` scans left to right, `i` marks the last position known to hold
+a value $\le$ pivot. Every time `A[j] \le$ pivot, `i` advances and
+swaps `A[j]` into the "$\le$ pivot" region. The pivot itself is swapped
+into place as the very last step, guaranteeing it lands at its final
+sorted index.
+
+</div>
+<div>
 
 ```text
 LOMUTO-PARTITION(A, low, high):
@@ -629,29 +592,29 @@ LOMUTO-PARTITION(A, low, high):
             swap A[i], A[j]
     swap A[i + 1], A[high]
     return i + 1
-
-QUICKSORT(A, low, high):
-    if low < high:
-        p = LOMUTO-PARTITION(A, low, high)
-        QUICKSORT(A, low, p - 1)
-        QUICKSORT(A, p + 1, high)
 ```
 
----
-
-# Reading Lomuto's Loop
-
-<div class="thread">What `i` and `j` are each tracking as the loop runs.</div>
-
-- The pivot is always the **last** element.
-- `i` tracks the boundary of the "$\le$ pivot" region as `j` scans
-  left to right.
+</div>
+</div>
 
 ---
 
-# Pseudocode: Hoare Partition
+# Hoare Partition: Pseudocode
 
 <div class="thread"><code>repeat ... until</code>: runs the body at least once, then repeats until the condition is finally true (checked after the body, not before) - previewed in Week 2's reference card.</div>
+
+<div class="two-col">
+<div>
+
+The pivot is the **first** element this time; `i` and `j` scan inward
+from both ends. It returns a split point `j`, not the pivot's final
+index, so the recursive calls above become `QUICKSORT(A, low, p)` and
+`QUICKSORT(A, p + 1, high)`. Hoare designed this version first, in
+1961; it does about 3x fewer swaps on average than Lomuto's, which
+came later and is the one most textbooks trace by hand.
+
+</div>
+<div>
 
 ```text
 HOARE-PARTITION(A, low, high):
@@ -659,152 +622,136 @@ HOARE-PARTITION(A, low, high):
     i = low - 1
     j = high + 1
     while true:
-        repeat j = j - 1 until A[j] <= pivot
-        repeat i = i + 1 until A[i] >= pivot
+        repeat j=j-1 until A[j]<=pivot
+        repeat i=i+1 until A[i]>=pivot
         if i < j:
             swap A[i], A[j]
         else:
             return j
 ```
 
----
-
-# Reading Hoare's Loop
-
-<div class="thread">A different pivot choice, a different return value, a real history.</div>
-
-- The pivot is the **first** element this time; `i` and `j` scan
-  inward from both ends.
-- Returns a split point `j`, not the pivot's final index - the
-  recursive calls become `QUICKSORT(A, low, p)` and
-  `QUICKSORT(A, p + 1, high)`.
-- Hoare designed this version first, in 1961; it does about 3x fewer
-  swaps on average than Lomuto's - Lomuto's simpler-to-explain version
-  came later and is the one most textbooks trace by hand.
+</div>
+</div>
 
 ---
 
-<!-- NEW: compact Hoare partition trace (full step-by-step lives in the handout) -->
+<!-- Dense worked example, partition, simple tier -->
+<!-- _class: dense -->
 
-# Tracing Hoare Partition
+<div class="eyebrow">Lomuto partition · worked example 1 of 3 (simple)</div>
 
-<div class="thread">A = [5, 3, 8, 4, 2, 7], pivot = first element = 5.</div>
+# Three Elements: [3, 1, 2], Pivot = 2
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Before</div><div class="cell hl">5</div><div class="cell">3</div><div class="cell">8</div><div class="cell">4</div><div class="cell">2</div><div class="cell">7</div></div>
+<div class="wx-top">
+<div class="lead">The smallest case that still needs one swap and one final placement.</div>
+<div class="goalbox"><span class="k">Goal</span>Partition [3, 1, 2] around the last element and watch `i` track the boundary.</div>
 </div>
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">j scans down to 5 (A[5]=2 &le; 5), i scans up to 1 (A[1]=5 &ge; 5); i&lt;j &rarr; swap A[1],A[5] &rarr; [2,3,8,4,5,7]</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">j scans down to 4 (A[4]=4 &le; 5), i scans up to 3 (A[3]=8 &ge; 5); i&lt;j &rarr; swap A[3],A[4] &rarr; [2,3,4,8,5,7]</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">j scans down to 3 (A[3]=4 &le; 5), i scans up to 4 (A[4]=8 &ge; 5); i&ge;j &rarr; return j=3</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">pivot = A[3] = 2. i = 0 (no elements confirmed &le; 2 yet).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">j = 1: A[1]=3</div>
+<div class="wx-body">3 &gt; 2, not &le; pivot &rarr; nothing happens. i stays 0.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">j = 2: A[2]=1</div>
+<div class="wx-body">1 &le; 2 &rarr; i becomes 1, swap A[1], A[2] &rarr; [1, 3, 2].</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Final swap</div>
+<div class="wx-body">Loop ends (j only reaches high&minus;1=2). Swap A[i+1]=A[2] with A[3] &rarr; [1, 2, 3]. Pivot 2 lands at index 2.</div>
+</div>
 </div>
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">After</div><div class="cell hl2">2</div><div class="cell hl2">3</div><div class="cell hl2">4</div><div class="cell">8</div><div class="cell">5</div><div class="cell">7</div></div>
-</div>
-
-Split at `j=3`: `A[1..3]=[2,3,4]` all $\le 5$; `A[4..6]=[8,5,7]` all
-$\ge 5$. Unlike Lomuto, the pivot value `5` does **not** land at its
-own final sorted index - it's just sitting inside the right partition.
-Full step-by-step (every individual `repeat` move) is in the handout.
+<div class="conclusion"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] after 2 comparisons and 2 swaps - pivot 2 is at its final sorted index.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The final swap is not optional cleanup - it is the one step that guarantees the pivot reaches its correct position.</div>
 
 ---
 
-# Tracing Lomuto Partition
+<!-- Dense worked example, partition, moderate tier -->
+<!-- _class: dense -->
 
-<div class="thread">A = [8, 3, 5, 1, 9, 2], pivot = last element = 2.</div>
+<div class="eyebrow">Lomuto partition · worked example 2 of 3 (moderate)</div>
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Before</div><div class="cell">8</div><div class="cell">3</div><div class="cell">5</div><div class="cell">1</div><div class="cell">9</div><div class="cell hl">2</div></div>
+# Full Trace: [8, 3, 5, 1, 9, 2], Pivot = 2
+
+<div class="wx-top">
+<div class="lead">A six-element array, pivot fixed as the last (and smallest) element.</div>
+<div class="goalbox"><span class="k">Goal</span>Partition the array and confirm the pivot lands at its correct index.</div>
 </div>
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">pivot = A[6] = 2, i = 0</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">j=1..3: A[1]=8, A[2]=3, A[3]=5, all &gt; 2 &rarr; nothing happens</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">j=4: A[4]=1 &le; 2 &rarr; i=1, swap A[1],A[4] &rarr; [1,3,5,8,9,2]</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">j=5: A[5]=9 &gt; 2 &rarr; nothing happens</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">Loop ends. Swap A[i+1]=A[2] with A[6] &rarr; [1,2,5,8,9,3]. Return 2.</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">pivot = A[6] = 2. i = 0.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">j = 1..3</div>
+<div class="wx-body">A[1]=8, A[2]=3, A[3]=5 - all &gt; 2 &rarr; nothing happens each time.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">j = 4, 5</div>
+<div class="wx-body">A[4]=1 &le; 2 &rarr; i=1, swap A[1],A[4] &rarr; [1,3,5,8,9,2]. A[5]=9 &gt; 2 &rarr; nothing.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Final swap</div>
+<div class="wx-body">Swap A[i+1]=A[2] with A[6] &rarr; [1, 2, 5, 8, 9, 3]. Pivot 2 at index 2. Left [1] all &le; 2; right [5,8,9,3] all &gt; 2.</div>
+</div>
 </div>
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">After</div><div class="cell hl2">1</div><div class="cell hl">2</div><div class="cell">5</div><div class="cell">8</div><div class="cell">9</div><div class="cell">3</div></div>
-</div>
-
-Pivot `2` sits at its final sorted index. Left of it: `[1]`, all
-$\le 2$. Right of it: `[5,8,9,3]`, all $> 2$.
+<div class="conclusion"><span class="k">Conclusion</span>Result: [1, 2, 5, 8, 9, 3] - 5 comparisons, 2 swaps, pivot correctly placed.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Lomuto's `i` boundary only moves on a real "&le; pivot" hit - most of the array (8, 5, 9) never triggers it at all.</div>
 
 ---
 
-<!-- NEW: check-yourself pair, Lomuto vs Hoare final pivot position -->
+<!-- Dense worked example, partition, harder tier -->
+<!-- _class: dense -->
 
-# Check Yourself: Lomuto vs. Hoare, One Key Difference
+<div class="eyebrow">Hoare partition · worked example 3 of 3 (harder)</div>
 
-<div class="thread">Both traces above, compared directly.</div>
+# Full Trace: [5, 3, 8, 4, 2, 7], Pivot = 5 (First Element)
 
-In the Hoare trace above, the pivot value `5` ended up sitting inside
-the *right* partition, not at its own final sorted index. In the
-Lomuto trace, the pivot value `2` landed exactly at its final sorted
-index. Why does this difference happen - what specifically differs
-between the two partition schemes that causes it?
-
----
-
-# Answer
-
-Lomuto's loop explicitly tracks a boundary `i` for the "$\le$ pivot"
-region and, as its very last step, swaps the pivot itself
-(`A[high]`) into place right after that boundary (`swap A[i+1],
-A[high]`) - the pivot's final position is guaranteed by construction.
-
-Hoare's loop never performs that dedicated final swap. It only
-guarantees that everything at or before the returned index `j` is
-$\le$ pivot and everything after is $\ge$ pivot - the pivot *value*
-itself can end up anywhere inside either side, not necessarily at
-index `j`. This is why Hoare's recursive calls split at
-`[low, p]`/`[p+1, high]` (the pivot may still need sorting within one
-of those halves) instead of Lomuto's `[low, p-1]`/`[p+1, high]` (the
-pivot at `p` is already finished).
-
----
-
-<!-- NEW: normal-case quicksort trace, converging across levels -->
-
-# Quicksort, Normal Case: Three Levels Down
-
-<div class="thread">One partition call converges eventually. Here's what happens across several, on an ordinary input.</div>
-
-`A = [6, 3, 8, 1, 9, 2, 7]`. Lomuto partition, last-element pivot,
-called recursively:
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">6</div><div class="cell">3</div><div class="cell">8</div><div class="cell">1</div><div class="cell">9</div><div class="cell">2</div><div class="cell hl">7</div></div>
-<div class="row"><div class="rowlabel">Lvl 1: pivot 7</div><div class="cell">6</div><div class="cell">3</div><div class="cell">1</div><div class="cell">2</div><div class="cell hl2">7</div><div class="cell">8</div><div class="cell">9</div></div>
-<div class="row"><div class="rowlabel">Lvl 2: pivot 2</div><div class="cell">1</div><div class="cell hl">2</div><div class="cell">6</div><div class="cell">3</div><div class="cell hl2">7</div><div class="cell">8</div><div class="cell">9</div></div>
-<div class="row"><div class="rowlabel">Lvl 3: pivot 3</div><div class="cell">1</div><div class="cell hl2">2</div><div class="cell hl">3</div><div class="cell">6</div><div class="cell hl2">7</div><div class="cell">8</div><div class="cell">9</div></div>
+<div class="wx-top">
+<div class="lead">Same idea, a scheme that scans from both ends - and a pivot that does NOT land at its own index.</div>
+<div class="goalbox"><span class="k">Goal</span>Partition with Hoare's scheme and see exactly how it differs from Lomuto's.</div>
 </div>
 
-Three levels, three partition calls, and the array is already fully
-sorted - a very different shape from the adversarial case coming up
-next.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Round 1</div>
+<div class="wx-body">j scans down to index 5 (A[5]=2 &le; 5); i scans up to index 1 (A[1]=5 &ge; 5). i&lt;j &rarr; swap A[1],A[5] &rarr; [2,3,8,4,5,7].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Round 2</div>
+<div class="wx-body">j scans down to index 4 (A[4]=4 &le; 5); i scans up to index 3 (A[3]=8 &ge; 5). i&lt;j &rarr; swap A[3],A[4] &rarr; [2,3,4,8,5,7].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Round 3</div>
+<div class="wx-body">j scans down to index 3 (A[3]=4 &le; 5); i scans up to index 4 (A[4]=8 &ge; 5). i&ge;j &rarr; return j=3. Result: [2,3,4,8,5,7].</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Contrast with Lomuto</div>
+<div class="wx-body">Pivot value 5 is now sitting inside the *right* partition (A[5]), not at index 3. Hoare only guarantees "&le; pivot on the left of j, &ge; pivot on the right" - never a dedicated final swap. That's why its recursive calls split at [low,p]/[p+1,high], not Lomuto's [low,p-1]/[p+1,high].</div>
+</div>
+</div>
 
----
-
-# Quicksort, Normal Case: Step by Step
-
-<div class="thread">Reading the trace, one partition call at a time.</div>
-
-- **Level 1**, `low=1, high=7`, pivot `A[7]=7`: partitions to
-  `[6,3,1,2,7,8,9]`. Pivot lands at index 5. Left `[6,3,1,2]` (indices
-  1-4) still needs work; right `[8,9]` (indices 6-7) resolves in one
-  trivial call.
-- **Level 2**, `low=1, high=4` on the left piece, pivot `A[4]=2`:
-  partitions to `[1,2,6,3]`. Pivot lands at index 2. Left `[1]` is
-  already a base case (size 1); right `[6,3]` (indices 3-4) still
-  needs one more call.
-- **Level 3**, `low=3, high=4`, pivot `A[4]=3`: partitions to `[3,6]`.
-  Pivot lands at index 3. Both remaining pieces are size $\le 1$ -
-  recursion bottoms out, and the full array `[1,2,3,6,7,8,9]` is sorted.
+<div class="conclusion"><span class="k">Conclusion</span>Split at j=3: A[1..3]=[2,3,4] all &le; 5; A[4..6]=[8,5,7] all &ge; 5 - correct, even though the pivot itself isn't at index 3.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Two partition schemes, two different contracts - always check which one a piece of pseudocode promises before trusting where the pivot ends up.</div>
 
 ---
 
@@ -823,39 +770,53 @@ the pivot. Both matter, but only pivot choice decides worst case.
 
 ---
 
-# Why Pivot Choice Matters: The Adversarial Case
+<!-- Dense flagship: proving quicksort's worst case -->
+<!-- _class: dense -->
 
-<div class="thread">The exact scenario Assignment 2 asks you to measure yourself.</div>
+<div class="eyebrow">Quicksort · proving the worst case</div>
 
-CampusNav's directory often arrives **already alphabetized** - most
-re-sorts happen after just one new room is added near the end. Lomuto
-partition, with a fixed last-element pivot, meets this input at its
-worst:
+# Why an Ordinary Input Triggers O(n&sup2;)
 
-- On an already-sorted array, the last element is always the
-  **largest** value remaining.
-- Partition splits it into $(n-1)$ elements on one side and **0** on
-  the other - every single time.
-- Recursion depth becomes $n$, not $\log n$: $T(n) = T(n-1) + O(n)$.
-
-<div class="why">
-That recurrence resolves to <strong>O(n²)</strong> - the exact growth
-rate this week set out to escape. The input wasn't unusual. The pivot
-strategy was.
+<div class="wx-top">
+<div class="lead">The moderate-tier trace above converged in a few levels. This is the opposite: the input Assignment 2 asks you to measure yourself.</div>
+<div class="goalbox"><span class="k">Goal</span>Show that Lomuto with a fixed last-element pivot hits &Theta;(n&sup2;) on already-sorted data.</div>
 </div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The setup</div>
+<div class="wx-body">CampusNav's directory often arrives already alphabetized - most re-sorts happen after just one new room is added near the end.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Every split is 0/(n&minus;1)</div>
+<div class="wx-body">On sorted input, the last element is always the largest remaining value. Partition puts all n&minus;1 others on one side, 0 on the other - every single call.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Recurrence</div>
+<div class="wx-body">Recursion depth becomes n, not log n: T(n) = T(n&minus;1) + O(n), which resolves to <span class="bignotation">O(n&sup2;)</span> - the same closed form as Week 5's bubble sort worst case.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The fix isn't luck</div>
+<div class="wx-body">The input wasn't unusual - the pivot strategy was. A random or median-of-three pivot removes the adversary's ability to predict the split in advance.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Fixed first/last-element pivots hit O(n&sup2;) on any already- or reverse-sorted input - not a rare edge case, a predictable one.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"Quicksort's worst case is rare" is only true once the pivot strategy stops being predictable.</div>
 
 ---
 
-<!-- NEW: outlook mini-section, randomized quicksort (CLRS §7.3), not required content -->
-
 # Outlook: Randomized Quicksort
 
-<div class="thread">Not required for this course - CLRS §7.3, if you want the strongest fix for the adversarial case above.</div>
+<div class="thread">Not required for this course - CLRS §7.3, the standard fix for the case above.</div>
 
-The "random pivot" row in the strategy table above named the idea;
-CLRS's own version makes it precise as `RANDOMIZED-PARTITION`: before
-partitioning, swap `A[high]` with `A[random index between low and
-high]`, then run ordinary `LOMUTO-PARTITION` as before.
+CLRS's `RANDOMIZED-PARTITION` makes the "random pivot" row precise:
+before partitioning, swap `A[high]` with a uniformly random element,
+then run ordinary `LOMUTO-PARTITION` as before.
 
 ```text
 RANDOMIZED-PARTITION(A, low, high):
@@ -864,27 +825,11 @@ RANDOMIZED-PARTITION(A, low, high):
     return LOMUTO-PARTITION(A, low, high)
 ```
 
-Nothing about the partition logic changes - only *which* element ends
-up in the pivot slot before partitioning begins.
-
----
-
-# Outlook: Why Randomization Actually Fixes the Adversary
-
-<div class="thread">Same already-sorted directory from the adversarial-case slide - now with a random pivot instead of a fixed one.</div>
-
-The earlier adversarial case worked because CampusNav's already-sorted
-directory paired with a **fixed** last-element pivot rule that an
-adversary (or just ordinary already-sorted data) can always predict in
-advance - guaranteeing the worst 0/$(n-1)$ split, every single call.
-
-`RANDOMIZED-PARTITION` breaks that guarantee: on that same
-already-sorted array, the pivot index is chosen fresh, uniformly at
-random, each call. No fixed input can force a bad split *every* time,
-because the algorithm's own randomness - not the data - decides which
-element becomes the pivot. CLRS §7.3 proves this gives an
-**expected** $O(n \log n)$ running time on *any* input, including the
-one that defeats every fixed pivot rule.
+On the same already-sorted array from the proof above, no fixed input
+can force a bad split *every* time, because the algorithm's own
+randomness - not the data - decides the pivot. CLRS §7.3 proves this
+gives **expected** $O(n \log n)$ on *any* input, including the one
+that just defeated every fixed pivot rule.
 
 ---
 
@@ -928,25 +873,46 @@ they started - e.g. sorting `[(3,x), (1,y), (3,z)]` by key can leave
 
 ---
 
+# Merge Sort vs. Quicksort, Continued
+
+Choose merge sort whenever a hard worst-case guarantee or preserved
+duplicate-key order is required; choose quicksort, with a safe pivot
+strategy, whenever raw in-place speed matters more.
+
+---
+
 <!-- SLOT N-2: Worked example -->
+<!-- _class: dense -->
 
-# CampusNav: Sorting the Full Campus Directory
+<div class="eyebrow">CampusNav worked example</div>
 
-<div class="thread">Same directory, same freeze from slot 4 - now solved.</div>
+# Sorting the Full Campus Directory
 
-CampusNav's directory has grown to **1,200+ rooms**, added
-continuously as new buildings and events register. Week 5's sorts
-re-alphabetize it from scratch on every addition - the freeze from
-earlier is that $n^2$ cost showing up in real time: roughly
-**1.44 million** comparisons, worst case.
+<div class="wx-top">
+<div class="lead">Same directory, same freeze from the pain slide - now solved.</div>
+<div class="goalbox"><span class="k">Goal</span>Compare Week 5's O(n&sup2;) cost against today's O(n log n), at real scale.</div>
+</div>
 
-Swapping in merge sort, or quicksort with a random or median-of-three
-pivot, brings that same re-sort down to roughly $n \log n$ comparisons.
-Since $\log_2(1{,}200) \approx 11$, that's about $1{,}200 \times 11 \approx
-13{,}000$ comparisons - **about 100x fewer**. The freeze disappears,
-and it *stays* gone once the two partner campuses join and the
-directory heads toward 10,000 rooms, because the growth rate itself
-changed, not just today's directory size.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The old cost</div>
+<div class="wx-body">1,200 rooms, Week 5's sorts: roughly n&sup2;/2 &approx; 1.44 million comparisons, worst case - the freeze from the pain slide, made concrete.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">The new cost</div>
+<div class="wx-body">Merge sort, or quicksort with a random/median-of-three pivot: roughly n log&#8322;n. Since log&#8322;(1,200) &approx; 11, that's about 1,200 &times; 11 &approx; 13,000 comparisons.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The gap</div>
+<div class="wx-body">1,440,000 vs. 13,000 - about 100x fewer comparisons for the exact same directory.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>The freeze disappears, and it stays gone once the partner campuses join and the directory heads toward 10,000 rooms - because the growth rate itself changed, not just today's size.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A ~100x win at 1,200 rooms is not the ceiling - the gap between O(n&sup2;) and O(n log n) only widens as n grows.</div>
 
 ---
 
@@ -968,72 +934,6 @@ changed, not just today's directory size.
   Merge sort's guaranteed worst case and stability can matter more than
   quicksort's faster typical case - e.g. wherever a hard performance
   guarantee or preserved original order is required.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. Why does merge sort's recurrence resolve to $O(n \log n)$
-   regardless of the input, while quicksort's does not?
-2. If Lomuto partition always picks the last element as pivot, what
-   specific shape of input array forces the worst case, and why?
-3. Give one situation where you'd choose merge sort over quicksort,
-   despite quicksort usually being faster in practice.
-
----
-
-# Answers
-
-1. Merge sort's divide step always splits exactly in half, no matter
-   what the data looks like - its recurrence $T(n) = 2T(n/2) + O(n)$
-   doesn't depend on input order, so every case is $O(n \log n)$.
-   Quicksort's partition size depends entirely on how the pivot
-   compares to the rest of the data, so a bad pivot can make one side
-   empty - its worst case departs sharply from its average case.
-2. An already-sorted (or reverse-sorted) array: the last element is
-   always the extreme (max or min) of what remains, so partition
-   always produces a 0/$(n-1)$ split - $O(n^2)$.
-3. Whenever a guaranteed worst-case bound or stability is required -
-   e.g. a real-time system that can't tolerate an occasional slow
-   sort, or sorting records where equal-keyed entries must keep their
-   original relative order.
-
----
-
-<!-- NEW: Try-It hand-off, session 3 -->
-
-# Now: Worksheet Part B
-
-<div class="thread">Same pair, same worksheet. This time: break quicksort on purpose.</div>
-
-Open **[Worksheet Part B](materials/week06/worksheet.html)**. Trace
-Lomuto partition on an already-sorted array with a fixed last-element
-pivot, and watch the worst case happen by hand.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part B. After 15 minutes, ask a pair to report how many comparisons their trace used and whether it matched the O(n^2) prediction.
--->
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 6 Quiz](materials/week06/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
 
 ---
 
@@ -1068,7 +968,7 @@ up to 1,200 entries.
 
 ---
 
-<!-- NEW: CLRS reference slide, immediately before Summary -->
+<!-- CLRS reference slide, immediately before Summary -->
 
 # Where This Week Lives in CLRS
 
@@ -1082,16 +982,11 @@ up to 1,200 entries.
 | Randomized quicksort | §7.3 |
 | Quicksort analysis | §7.4 |
 
----
-
-# Where This Week Lives in CLRS, Continued
-
 - **If you want to go deeper:** §7.3's `RANDOMIZED-PARTITION` (the
-  outlook slides above) is the standard fix for the adversarial-input
-  problem this week's "Common Mistakes" slot warns about.
-- Also worth a look: CLRS §9.2 (the SELECT algorithm) reuses
-  quicksort's own partition step to find a median in linear time - a
-  different problem, same mechanism.
+  outlook slide above) is the standard fix for the adversarial-input
+  problem this week's "Common Mistakes" slot warns about. Also worth a
+  look: CLRS §9.2 (the SELECT algorithm) reuses quicksort's own
+  partition step to find a median in linear time.
 
 ---
 
@@ -1109,6 +1004,9 @@ up to 1,200 entries.
 - **Assignment 2 (Sorting)** is released - see
   `materials/assignments/assignment2.md`, due **Week 8**, before the
   midterm exam begins.
+- **New: Week 6 Check** - a short graded exercise on merge sort and
+  quicksort, separate from Assignment 2, released now, due before
+  Week 7 begins (see `materials/assignments/week06-check.html`).
 
 ---
 

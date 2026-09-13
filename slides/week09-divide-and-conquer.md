@@ -51,30 +51,6 @@ design paradigms, plus graphs. Today starts paradigm number one." -->
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: Grading a Pile of Exams
-
-<div class="thread">A quick warm-up. No algorithms vocabulary needed yet.</div>
-
-Two TAs (teaching assistants) must count and total the scores on a pile of 200 exam papers.
-
-- **Method A:** One TA counts through all 200 papers, alone, front to back.
-- **Method B:** Split the pile into two stacks of 100. Each TA counts their
-  own stack independently. Then the two TAs add their two subtotals
-  together to get the final total.
-
-- Which method finishes faster? Does the order the papers were split in matter?
-
-<!--
-notes: Give students 30 seconds to think before asking.
-Ask aloud: "In Method B, could each TA just as easily split their own 100
-papers again, into two piles of 50, and hand those to two more people?"
-Do not name "divide and conquer" yet - let them describe the shape informally.
--->
-
----
-
 <!-- SLOT 3: Recap + open wound -->
 
 # Last Week, This Week
@@ -90,7 +66,7 @@ Do not name "divide and conquer" yet - let them describe the shape informally.
 
 ---
 
-<!-- NEW: Key Words Today, session 1 -->
+<!-- Key Words Today, session 1 -->
 
 # Key Words Today
 
@@ -174,40 +150,11 @@ correct, fast approach to a problem you've never seen before.
 
 ---
 
-<!-- NEW: session-1 close -->
-
-# Coming Up
-
-<div class="thread">Next: where this general strategy actually came from.</div>
-
-Later today, you'll trace the crossing-subarray step yourself on a fresh
-array, and classify a few recurrences with the Master theorem. That's
-**Worksheet Parts A and B**. First, the mechanics.
-
----
-
-<!-- NEW: Key Words Today, session 2 -->
-
-# Key Words Today
-
-- **Recurrence:** an equation that defines a function's cost in terms of
-  its own cost on smaller inputs - what Week 4 taught you to trace.
-- **Master theorem:** a direct formula for solving recurrences of the
-  shape $T(n) = aT(n/b) + f(n)$, without tracing the whole recursion tree.
-- **Crossing subarray:** in the maximum-subarray problem, a candidate
-  answer that starts in the left half and ends in the right half.
-- **Watershed function:** shorthand for $n^{\log_b a}$, the quantity the
-  Master theorem compares $f(n)$ against.
-
-<!-- notes: Read each term aloud. Say the recurrence toolkit from Week 4 is about to get its missing piece. -->
-
----
-
 <!-- SLOT 8: Origin -->
 
 # This Strategy Is Not New - Naming It Was the Breakthrough
 
-<div class="thread">You've already used this shape twice. Today it gets a name.</div>
+<div class="thread">Two TAs (teaching assistants) splitting a stack of exam papers already showed you this shape. Today it gets a name and a history.</div>
 
 - **1945:** John von Neumann describes merge sort - split the list in
   half, sort each half, merge the results (Week 6). At the time, it's
@@ -222,8 +169,6 @@ array, and classify a few recurrences with the Master theorem. That's
   reusable strategy - one of a small handful of general **paradigms**.
 
 ---
-
-<!-- NEW: split off the naming-the-pattern insight onto its own slide -->
 
 # Why Naming the Pattern Mattered
 
@@ -243,11 +188,28 @@ problems on purpose, instead of stumbling onto it by luck.
 
 ---
 
+<!-- Key Words Today, session 2 -->
+
+# Key Words Today
+
+- **Recurrence:** an equation that defines a function's cost in terms of
+  its own cost on smaller inputs - what Week 4 taught you to trace.
+- **Master theorem:** a direct formula for solving recurrences of the
+  shape $T(n) = aT(n/b) + f(n)$, without tracing the whole recursion tree.
+- **Crossing subarray:** in the maximum-subarray problem, a candidate
+  answer that starts in the left half and ends in the right half.
+- **Watershed function:** shorthand for $n^{\log_b a}$, the quantity the
+  Master theorem compares $f(n)$ against.
+
+<!-- notes: Read each term aloud. Say the recurrence toolkit from Week 4 is about to get its missing piece. -->
+
+---
+
 <!-- SLOT 9: Core concept -->
 
 # Divide and Conquer: Definition
 
-<div class="thread">Fifty years of reuse, and the warm-up you just ran with a pile of exams. Here it is, precisely.</div>
+<div class="thread">Picture two TAs splitting 200 exam papers, each counting a subtotal, then adding the two together - that shape, precisely.</div>
 
 > A **divide-and-conquer** algorithm solves a problem of size $n$ by:
 > **(1) Divide** the problem into $a$ **independent** subproblems of
@@ -274,7 +236,7 @@ problems on purpose, instead of stumbling onto it by luck.
 <div class="stage"><div class="h">3. Combine</div><div class="s">Merge the pieces' answers into one answer for the whole</div></div>
 </div>
 
-The exam-grading warm-up: **divide** the pile in two, **conquer** by
+Picture grading exams: **divide** the pile in two, **conquer** by
 having each TA count their own stack, **combine** by adding the two
 subtotals. Merge sort (Week 6) is exactly this shape, applied to sorting.
 
@@ -327,17 +289,15 @@ Three cases, one for each possibility. No tracing the whole tree required.
 
 ---
 
-<!-- NEW: split off the Master Theorem's applicability caveat onto its own slide -->
-
 # When the Master Theorem Doesn't Apply
 
-<div class="thread">Three cases, but they don't cover every recurrence.</div>
+<div class="thread">Three cases, but they don't cover every recurrence - and this shortcut is not a universal solver.</div>
 
 <div class="why">
 Not every recurrence fits one of these three cases cleanly - if f(n)
 falls in the gap between cases, or case 3's regularity condition fails,
 the Master theorem simply doesn't apply, and you're back to tracing the
-tree by hand (Week 4).
+tree by hand (Week 4), which always works even when this shortcut doesn't.
 </div>
 
 - **Gap example:** $f(n) = n / \log n$ against watershed $n$ - this is
@@ -347,73 +307,123 @@ tree by hand (Week 4).
   very small and very large values as $n$ grows can satisfy Case 3's
   growth condition while still failing the regularity condition
   $a f(n/b) \le c f(n)$.
----
-
-# The Master Theorem: The Lesson
-
-<div class="thread">What the gap and the regularity-failure examples both point to.</div>
-
-The Master theorem is a shortcut for the *common* case, not a
-universal solver. Tracing the recursion tree (Week 4) always works,
-even when this shortcut doesn't apply.
 
 ---
 
-# Applying It: Merge Sort's Recurrence
+<!-- Dense worked example, master theorem, simple tier -->
+<!-- _class: dense -->
 
-<div class="thread">The anchor example - the same recurrence you traced informally in Week 4.</div>
+<div class="eyebrow">Master theorem · worked example 1 of 3 (simple)</div>
 
-$$
-T(n) = 2T(n/2) + \Theta(n)
-$$
+# Classifying Binary Search's Recurrence
 
-- $a = 2$, $b = 2$ → watershed $= n^{\log_2 2} = n^1 = n$
-- $f(n) = \Theta(n)$ - exactly matches the watershed
-- That's **Case 2**: $f(n) = \Theta(n^{\log_b a})$
+<div class="wx-top">
+<div class="lead">The smallest case: one recursive call, no combine step at all.</div>
+<div class="goalbox"><span class="k">Goal</span>Classify T(n) = T(n/2) + O(1) and confirm it matches Week 7's own bound.</div>
+</div>
 
-$$
-T(n) = \Theta(n^{\log_b a}\log n) = \Theta(n \log n)
-$$
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Read off a, b, f(n)</div>
+<div class="wx-body">a=1 (one recursive call), b=2 (half the size), f(n)=O(1) (one comparison per call).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Watershed</div>
+<div class="wx-body">n^(log&#8322;a) = n^(log&#8322;1) = n^0 = 1.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Match a case</div>
+<div class="wx-body">f(n)=O(1)=&Theta;(n^0) - exactly matches the watershed. That's **Case 2**.</div>
+</div>
+</div>
 
-<span class="bignotation">Θ(n log n)</span> - exactly the bound Week 6
-established by tracing the recursion tree by hand. The Master theorem
-gets you there in three lines instead of a whole tree diagram.
-
----
-
-<!-- NEW: Check Yourself pair, binary search recurrence -->
-
-# Check Yourself: An Old Recurrence, Revisited
-
-<div class="thread">Week 7's binary search, seen through today's new tool.</div>
-
-Week 7's binary search has the recurrence $T(n) = T(n/2) + O(1)$ - one
-recursive call on half the array, plus constant work to compare against
-the midpoint.
-
-- Classify this recurrence with the Master theorem. Which case, and
-  what is $T(n)$?
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = &Theta;(n^0 &middot; log n) = &Theta;(log n) - exactly what Week 7 established by direct reasoning about halving the search space.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even a recurrence with only one recursive call and no combine step still fits the same three-case framework.</div>
 
 ---
 
-# Answer: Binary Search's Recurrence
+<!-- Dense worked example, master theorem, moderate tier -->
+<!-- _class: dense -->
 
-$a = 1$, $b = 2$ → watershed $= n^{\log_2 1} = n^0 = 1$.
+<div class="eyebrow">Master theorem · worked example 2 of 3 (moderate)</div>
 
-$f(n) = O(1) = \Theta(n^0)$ - exactly matches the watershed. That's
-**Case 2**:
+# Classifying Merge Sort's Recurrence
 
-$$
-T(n) = \Theta(n^{\log_b a}\log n) = \Theta(1 \cdot \log n) = \Theta(\log n)
-$$
+<div class="wx-top">
+<div class="lead">The anchor example - the same recurrence you traced informally in Week 4 and Week 6.</div>
+<div class="goalbox"><span class="k">Goal</span>Classify T(n) = 2T(n/2) + &Theta;(n) with the three-line shortcut.</div>
+</div>
 
-The Master theorem confirms, in three lines, the $\Theta(\log n)$ bound
-Week 7 established by direct reasoning about halving the search space
-each step.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Read off a, b, f(n)</div>
+<div class="wx-body">a=2, b=2, f(n)=&Theta;(n) (the linear MERGE step).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Watershed</div>
+<div class="wx-body">n^(log&#8322;a) = n^(log&#8322;2) = n^1 = n.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Match a case</div>
+<div class="wx-body">f(n)=&Theta;(n) exactly matches the watershed n. That's **Case 2** again.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Three lines, not a whole tree</div>
+<div class="wx-body">T(n) = &Theta;(n^1 &middot; log n) = &Theta;(n log n) - exactly the bound Week 6 established by tracing the recursion tree by hand, now in three lines.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>&Theta;(n log n) - confirmed by the Master theorem instead of a full tree diagram.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Whenever f(n) exactly matches the watershed, the recursive calls and the combine step contribute equally - that's Case 2, every time.</div>
 
 ---
 
-<!-- NEW: mechanics, ties back to recursion (Week 4) and merge sort (Week 6) -->
+<!-- Dense worked example, master theorem, harder tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Master theorem · worked example 3 of 3 (harder)</div>
+
+# A Case 1 Recurrence: T(n) = 4T(n/2) + n
+
+<div class="wx-top">
+<div class="lead">Same recurrence shape as the two above - a=2 doubled to a=4 changes everything.</div>
+<div class="goalbox"><span class="k">Goal</span>Classify T(n) = 4T(n/2) + n, and see why the outcome differs from merge sort's.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Read off a, b, f(n)</div>
+<div class="wx-body">a=4, b=2, f(n)=n.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Watershed</div>
+<div class="wx-body">n^(log&#8322;a) = n^(log&#8322;4) = n^2.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Match a case</div>
+<div class="wx-body">f(n)=n=O(n^(2&minus;1)) - polynomially *slower* than the watershed n^2 (&epsilon;=1). That's **Case 1**.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why this differs from merge sort</div>
+<div class="wx-body">Same shrink factor b=2 and same f(n)=n as merge sort's recurrence - but a=4 instead of a=2 raises the watershed above f(n), flipping the case from 2 to 1.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = &Theta;(n^(log&#8322;a)) = &Theta;(n^2) - the recursive calls dominate, not the combine step.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Two recurrences that look almost identical can land in different Master theorem cases - always recompute the watershed, never guess from the shape alone.</div>
+
+---
 
 # You've Already Done Half of This
 
@@ -430,7 +440,7 @@ each step.
 
 ---
 
-<!-- NEW: CampusNav worked example intro, sets up the max-subarray build -->
+<!-- CampusNav worked example intro -->
 
 # CampusNav: The Best Energy Window Feature
 
@@ -444,192 +454,178 @@ the day - the run of slots whose values sum to the largest number - even
 if a draining patch sits in the middle, as long as it's outweighed by
 strong enough stretches on either side.
 
----
-
-<!-- NEW: split off the compacted-array setup onto its own slide -->
-
-# Setting Up the Trace Array
-
-<div class="thread">Same feature, made concrete as one array of numbers.</div>
-
 For today's trace, consecutive same-type slots are already merged into
-one block, to keep the array short: a `+4` means four energizing slots in a
-row (worth 40 minutes); a `−3` means three draining slots in a row. This
-doesn't change the algorithm, only how compact the picture is.
-
-$$
-[\,4,\ -3,\ 5,\ -2,\ -1,\ 6,\ -3,\ 4,\ -8,\ 5\,]
-$$
-
-This is the **maximum subarray problem**: find the contiguous run with
-the largest sum.
+one block: a `+4` means four energizing slots in a row; a `−3` means
+three draining slots in a row. This is the **maximum subarray problem**:
+find the contiguous run with the largest sum.
 
 ---
 
-# Divide and Conquer It
+# Max Subarray: Idea and Pseudocode
 
-<div class="thread">Apply the template. The tricky part is the combine step.</div>
+<div class="thread">Split at the midpoint - the tricky part is the case that straddles it.</div>
 
-Split the array at its midpoint. The best contiguous run is in exactly
-one of three places:
+<div class="two-col">
+<div>
 
-- **Entirely in the left half** - solve recursively on the left half.
-- **Entirely in the right half** - solve recursively on the right half.
-- **Crossing the midpoint** - starts somewhere in the left half, ends
-  somewhere in the right half. Neither recursive call alone can find
-  this one - it needs its own step.
+The best contiguous run is in exactly one of three places: **entirely
+in the left half** (recurse left), **entirely in the right half**
+(recurse right), or **crossing the midpoint** - starting in the left
+half, ending in the right half. Neither recursive call alone can find
+this last case; it needs its own linear-time scan.
 
-The answer is whichever of these three candidates has the largest sum.
-
----
-
-# The Crossing Step, in Linear Time
-
-<div class="thread">The step that makes this whole algorithm work.</div>
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">Scan leftward from the midpoint toward the start, tracking a running sum, and remember the best sum of any run that ends exactly at the midpoint.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">Scan rightward from just after the midpoint toward the end, tracking a running sum, and remember the best sum of any run that starts exactly one past the midpoint.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">The best crossing run = best-left-sum + best-right-sum. Each scan touches every element once - together, this step is Θ(n).</div></div>
 </div>
-
----
-
-<!-- NEW: split off the pseudocode + reference-card note onto its own slide -->
-
-# The Crossing Step, in Pseudocode
-
-<div class="thread">The same three steps, written out.</div>
+<div>
 
 ```text
 FIND-CROSSING(A, low, mid, high):
     best-left = -infinity, sum = 0
-    for i = mid downto low:  sum += A[i]; track best-left, its start index
+    for i = mid downto low:
+        sum += A[i]
+        track best-left, its start index
     best-right = -infinity, sum = 0
-    for j = mid+1 to high:   sum += A[j]; track best-right, its end index
+    for j = mid+1 to high:
+        sum += A[j]
+        track best-right, its end index
     return (start, end, best-left + best-right)
 ```
 
-<div class="thread"><code>downto</code> counts a <code>for</code> loop down instead of up (Week 2's reference card). The <code>return (...)</code> on the last line hands back three values in one tuple - also previewed in Week 2, unpacked the same way a caller would write <code>(a, b, c) = FIND-CROSSING(...)</code>.</div>
-
----
-
-# Trace: Divide the Array
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">index</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell">5</div><div class="cell">6</div><div class="cell">7</div><div class="cell">8</div><div class="cell">9</div></div>
-<div class="row"><div class="rowlabel">value</div><div class="cell hl">4</div><div class="cell hl">-3</div><div class="cell hl">5</div><div class="cell hl">-2</div><div class="cell hl">-1</div><div class="cell hl2">6</div><div class="cell hl2">-3</div><div class="cell hl2">4</div><div class="cell hl2">-8</div><div class="cell hl2">5</div></div>
+</div>
 </div>
 
-$low=0$, $high=9$, $mid = 4$. **Left half** (indices 0-4, blue) and
-**right half** (indices 5-9, gold) each recurse independently. Left's
-best turns out to be `[4,-3,5]` = **6** (indices 0-2). Right's best
-turns out to be `[6,-3,4]` = **7** (indices 5-7). Now check the crossing case.
+<div class="thread"><code>downto</code> counts a <code>for</code> loop down instead of up (Week 2's reference card). The <code>return (...)</code> hands back three values in one tuple, unpacked the same way a caller would write <code>(a, b, c) = FIND-CROSSING(...)</code>.</div>
 
 ---
 
-# Trace: Crossing Sums at the Top Level
+# Why the Crossing Step Must Be Linear
 
-**Best-left** (scan from index 4 back to 0):
+<div class="thread">The one design choice that keeps this algorithm fast.</div>
 
-| add index | 4 | 3 | 2 | 1 | 0 |
-|---|---|---|---|---|---|
-| value | -1 | -2 | 5 | -3 | 4 |
-| running sum | -1 | -3 | 2 | -1 | **3** ← best |
-
-**Best-right** (scan from index 5 forward to 9):
-
-| add index | 5 | 6 | 7 | 8 | 9 |
-|---|---|---|---|---|---|
-| value | 6 | -3 | 4 | -8 | 5 |
-| running sum | 6 | 3 | **7** ← best | -1 | 4 |
-
-Crossing sum $= 3 + 7 = \mathbf{10}$, spanning indices $[0, 7]$.
+Trying every straddling (start, end) pair directly would itself cost
+O(n²) work at the crossing step alone - defeating the whole point of
+splitting the problem in the first place. That is exactly why
+`FIND-CROSSING` instead runs outward from the midpoint exactly once in
+each direction: one linear-time scan left, one linear-time scan right,
+never re-checking a pair.
 
 ---
 
-# Trace: The Winner
+<!-- Dense worked example, max subarray, simple tier -->
+<!-- _class: dense -->
 
-Compare all three candidates at the top level:
+<div class="eyebrow">Max subarray · worked example 1 of 3 (simple)</div>
 
-| Candidate | Range | Sum |
-|---|---|---|
-| Left half, recursive best | $[0,2]$ | 6 |
-| Right half, recursive best | $[5,7]$ | 7 |
-| **Crossing** | $[0,7]$ | **10** |
+# Three Elements: [2, -1, 3]
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">index</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell">5</div><div class="cell">6</div><div class="cell">7</div><div class="cell">8</div><div class="cell">9</div></div>
-<div class="row"><div class="rowlabel">value</div><div class="cell hl">4</div><div class="cell hl">-3</div><div class="cell hl">5</div><div class="cell hl">-2</div><div class="cell hl">-1</div><div class="cell hl">6</div><div class="cell hl">-3</div><div class="cell hl">4</div><div class="cell">-8</div><div class="cell">5</div></div>
+<div class="wx-top">
+<div class="lead">The smallest case that still has a genuine crossing candidate.</div>
+<div class="goalbox"><span class="k">Goal</span>Find the best contiguous run in [2, -1, 3] and see whether crossing wins.</div>
 </div>
 
-The crossing case wins: CampusNav's best energy window runs straight
-through the middle of the day - through a draining dip and out the
-other side - worth **10**, better than the best window hiding in either
-half alone. (Full multi-level trace in the handout.)
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Split and recurse</div>
+<div class="wx-body">low=0, high=2, mid=1. Left half [2,-1]: best is [2]=2. Right half [3]: best is 3 (base case).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Crossing scan</div>
+<div class="wx-body">Left from mid=1: i=1, sum=-1; i=0, sum=2-1=1 &rarr; best-left=1. Right from mid+1=2: j=2, sum=3 &rarr; best-right=3.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Compare all three</div>
+<div class="wx-body">Left-best=2, right-best=3, crossing=1+3=4 (the whole array). Crossing wins.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Best run is the whole array, [2, -1, 3], summing to 4 - exactly 2 + (-1) + 3.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even with just one negative element in the middle, the crossing case can still beat both halves alone.</div>
 
 ---
 
-<!-- NEW: closes the loop on what "recursively" means for the left/right halves -->
+<!-- Dense worked example, max subarray, moderate tier -->
+<!-- _class: dense -->
 
-# What About the Recursive Calls Themselves?
+<div class="eyebrow">Max subarray · worked example 2 of 3 (moderate)</div>
 
-<div class="thread">This slide's trace stopped at the top level. Recursion doesn't.</div>
+# The Full Day: [4,-3,5,-2,-1,6,-3,4,-8,5]
 
-"Left half's best turns out to be `[4,-3,5]` = 6" wasn't computed by
-inspection - it's the answer *that same recursive call* returns after
-splitting `[4,-3,5,-2,-1]` again, checking its own left/right/crossing
-cases, and so on down to single-element base cases (where the best
-subarray is just that one element).
+<div class="wx-top">
+<div class="lead">CampusNav's actual ten-block trace, at the top level of the recursion.</div>
+<div class="goalbox"><span class="k">Goal</span>Find the best energy window across the full array.</div>
+</div>
 
-- Every level of this recursion does the same three things: split,
-  recurse twice, run the linear crossing step.
-- The full multi-level trace in the handout shows this happening at
-  every level - the top-level trace here is one slice of it.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Split</div>
+<div class="wx-body">low=0, high=9, mid=4. Left half (indices 0-4): recursive best is [4,-3,5] = 6. Right half (indices 5-9): recursive best is [6,-3,4] = 7.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Crossing, left scan</div>
+<div class="wx-body">From mid=4 back to 0: sums are -1, -3, 2, -1, **3** (best, at i=0) - best-left=3.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Crossing, right scan</div>
+<div class="wx-body">From mid+1=5 to 9: sums are 6, 3, **7** (best, at j=7), -1, 4 - best-right=7.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Compare all three</div>
+<div class="wx-body">Left-best=6 [0,2]. Right-best=7 [5,7]. Crossing=3+7=10 [0,7]. Crossing wins by a wide margin.</div>
+</div>
+</div>
 
----
-
-# The Recurrence for Max Subarray
-
-<div class="thread">Same shape as merge sort - that's not a coincidence.</div>
-
-Two recursive calls on halves, plus one linear crossing scan:
-
-$$
-T(n) = 2T(n/2) + \Theta(n)
-$$
-
-$a=2$, $b=2$, watershed $=n^{\log_2 2}=n$, and $f(n)=\Theta(n)$ matches
-it exactly → **Case 2**, same as merge sort:
-
-$$
-T(n) = \Theta(n \log n)
-$$
-
-Both algorithms halve the data and do linear work to combine - that
-shape always lands in Case 2.
-
----
-
-# Now: Worksheet Parts A and B
-
-<div class="thread">Time to practice. Trace it yourself, then classify recurrences.</div>
-
-Work with your neighbor. Open **[Worksheet Parts A &
-B](materials/week09/worksheet.html)**. Part A: trace the crossing-subarray
-step on a fresh array. Part B: classify three recurrences with the
-Master theorem.
-
-**~20 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project the worksheet. Walk the room while pairs work.
-After 20 minutes, ask 2 pairs to share their Part B classifications.
--->
+<div class="conclusion"><span class="k">Conclusion</span>CampusNav's best energy window runs [0,7], worth 10 - straight through a draining dip and out the other side.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The winning window wasn't visible in either half alone - only the crossing scan could find it.</div>
 
 ---
 
-<!-- NEW: Key Words Today, session 3 -->
+<!-- Dense worked example, max subarray, harder tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Max subarray · worked example 3 of 3 (harder)</div>
+
+# What "Recursively" Actually Means Here
+
+<div class="wx-top">
+<div class="lead">The moderate trace's "left half's best is 6" wasn't inspection - it's itself a full recursive call.</div>
+<div class="goalbox"><span class="k">Goal</span>Show every level does the same three things, then confirm the resulting recurrence.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">One level down</div>
+<div class="wx-body">[4,-3,5,-2,-1] (the left half above) splits again at its own midpoint, checks its own left/right/crossing cases, and so on down to single-element base cases.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Every level, same three steps</div>
+<div class="wx-body">Split (free), recurse twice, run one linear crossing scan - repeated at every level until the base case (a single element, trivially its own best subarray).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The recurrence</div>
+<div class="wx-body">Two recursive calls on halves, plus one linear crossing scan: T(n) = 2T(n/2) + &Theta;(n).</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Not a coincidence</div>
+<div class="wx-body">a=2, b=2, watershed=n, f(n)=&Theta;(n) matches it exactly &rarr; Case 2, same as merge sort &rarr; &Theta;(n log n). Both algorithms halve the data and do linear work to combine.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = 2T(n/2) + &Theta;(n) = &Theta;(n log n) - a genuinely faster algorithm than checking every start/end pair, discovered by applying the paradigm, not by luck.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Every level of a divide-and-conquer recursion repeats the exact same three steps - that repetition is what a recurrence is counting.</div>
+
+---
+
+<!-- Key Words Today, session 3 -->
 
 # Key Words Today
 
@@ -645,11 +641,9 @@ After 20 minutes, ask 2 pairs to share their Part B classifications.
 
 ---
 
-<!-- NEW: fast exponentiation worked example, CLRS Section 31.6, D&C's second technique this week -->
-
 # A Second D&C Technique: Fast Exponentiation
 
-<div class="thread">Divide-and-conquer isn't only for arrays and matrices. It also speeds up arithmetic.</div>
+<div class="thread">Divide-and-conquer isn't only for arrays and matrices. It also speeds up arithmetic. (CLRS 4th ed, Section 31.6)</div>
 
 Computing $a^n$ the obvious way takes $n-1$ multiplications: $a \times a
 \times a \times \dots$, one at a time. Divide-and-conquer does better,
@@ -665,93 +659,124 @@ $$
 
 Each step does $O(1)$ work (one squaring, and one extra multiply if $n$
 is odd) on a problem half the size: $T(n) = T(n/2) + O(1) =
-\Theta(\log n)$. (CLRS 4th ed, Section 31.6.)
+\Theta(\log n)$.
 
 ---
 
-# Trace: Computing a^13 by Repeated Squaring
+<!-- Dense worked example, fast exponentiation, simple tier -->
+<!-- _class: dense -->
 
-<div class="thread">13 in binary is 1101. Watch the exponent halve each step.</div>
+<div class="eyebrow">Fast exponentiation · worked example 1 of 3 (simple)</div>
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">n=13 (odd): a^13 = a &middot; (a^6)^2. Recurse on a^6.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">n=6 (even): a^6 = (a^3)^2. Recurse on a^3.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">n=3 (odd): a^3 = a &middot; (a^1)^2. Recurse on a^1.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">n=1 (odd): a^1 = a &middot; (a^0)^2. Recurse on a^0.</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">n=0: base case, a^0 = 1.</div></div>
+# Computing a&#8309; by Repeated Squaring
+
+<div class="wx-top">
+<div class="lead">The smallest exponent that still shows both a squaring and an extra multiply.</div>
+<div class="goalbox"><span class="k">Goal</span>Count real multiplications for a^5, and compare to the naive approach.</div>
 </div>
 
-Exponent sequence: $13 \to 6 \to 3 \to 1 \to 0$ - five levels for an
-exponent of 13, matching $\Theta(\log_2 13) \approx 3.7$, rounded up.
-
----
-
-# Unwinding the Recursion: Building a^13 Back Up
-
-<div class="thread">Same five levels, now read bottom-up - each answer built from the one below it.</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">level</div><div class="cell">a^0</div><div class="cell">a^1</div><div class="cell">a^3</div><div class="cell">a^6</div><div class="cell hl">a^13</div></div>
-<div class="row"><div class="rowlabel">built as</div><div class="cell">1</div><div class="cell">a&middot;1^2</div><div class="cell">a&middot;a^2</div><div class="cell">(a^3)^2</div><div class="cell hl">a&middot;(a^6)^2</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Halving sequence</div>
+<div class="wx-body">5 (odd) &rarr; 2 (even) &rarr; 1 (odd) &rarr; 0 (base). Three halvings.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Build back up</div>
+<div class="wx-body">a^0=1 &rarr; a^1=a&middot;1^2=a (free, no real arithmetic) &rarr; a^2=(a^1)^2 (1 real squaring) &rarr; a^5=a&middot;(a^2)^2 (1 real squaring + 1 real extra multiply).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Count</div>
+<div class="wx-body">2 squarings + 1 extra multiply = **3 multiplications**, versus 4 for the naive a&middot;a&middot;a&middot;a&middot;a.</div>
+</div>
 </div>
 
-Each level costs at most one squaring plus one extra multiply by $a$
-(free at the base, where $a^0=1$ and $a^1=a$ need no real arithmetic) -
-never more than $O(1)$ work per level, and $\Theta(\log n)$ levels
-total: 3 real squarings and 2 extra multiplies, 5 in all.
+<div class="conclusion"><span class="k">Conclusion</span>a&#8309;: 3 multiplications by repeated squaring vs. 4 naively - a modest saving, but the same mechanism that pays off far more at larger n.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Even at n=5, halving the exponent already beats counting by ones - the gap only widens from here.</div>
 
 ---
 
-# Counting the Multiplications: log n vs. n
+<!-- Dense worked example, fast exponentiation, moderate tier -->
+<!-- _class: dense -->
 
-<div class="thread">The whole point, made concrete with a single number.</div>
+<div class="eyebrow">Fast exponentiation · worked example 2 of 3 (moderate)</div>
 
-- **Naive approach:** $a^{13}$ needs 12 multiplications ($a \times a$,
-  twelve times over).
-- **Repeated squaring:** the trace above does one squaring at each of
-  the $a^1{\to}a^2$, $a^2{\to}a^3$'s squaring, $a^3{\to}a^6$, and
-  $a^6{\to}a^{13}$ levels (3 real squarings - squaring $a^0=1$ costs
-  nothing), plus one extra multiply by $a$ at each of the two odd
-  levels above the base ($a^{13}$ and $a^3$) - **5 total
-  multiplications**, not 12.
-- The gap only widens as $n$ grows: $a^{1000}$ needs 999 naive
-  multiplications, but only about 10-15 with repeated squaring.
+# Computing a&#185;&#179; by Repeated Squaring
 
-<span class="bignotation">Θ(log n) vs. Θ(n)</span> - the same
-exponential-savings shape as every divide-and-conquer win this week.
-
----
-
-<!-- NEW: Check Yourself pair, fast exponentiation -->
-
-# Check Yourself: One More Power
-
-<div class="thread">Same technique, a fresh exponent.</div>
-
-Using repeated squaring, how many multiplications does it take to
-compute $a^{21}$? Trace the halving sequence of exponents first, then
-count.
-
----
-
-# Answer: a^21 by Repeated Squaring
-
-Exponent sequence: $21 \to 10 \to 5 \to 2 \to 1 \to 0$ - five halvings.
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">n=21 (odd): a^21 = a &middot; (a^10)^2 - 1 square + 1 extra multiply.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">n=10 (even): a^10 = (a^5)^2 - 1 square.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">n=5 (odd): a^5 = a &middot; (a^2)^2 - 1 square + 1 extra multiply.</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">n=2 (even): a^2 = (a^1)^2 - 1 square.</div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-text">n=1 (odd): a^1 = a &middot; (a^0)^2 - free, since a^0=1 and a^1=a need no real arithmetic.</div></div>
+<div class="wx-top">
+<div class="lead">13 in binary is 1101 - watch the exponent halve each step.</div>
+<div class="goalbox"><span class="k">Goal</span>Count real multiplications for a^13, and see the gap widen.</div>
 </div>
 
-**Total: 4 squarings + 2 extra multiplies = 6 multiplications**, versus
-20 for the naive approach - again $\Theta(\log n)$ against $\Theta(n)$.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Halving sequence</div>
+<div class="wx-body">13 &rarr; 6 &rarr; 3 &rarr; 1 &rarr; 0. Four halvings - &Theta;(log&#8322;13) &approx; 3.7, rounded up.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Build back up</div>
+<div class="wx-body">a^0=1 &rarr; a^1=a (free) &rarr; a^3=a&middot;(a^1)^2 (1 square + 1 extra) &rarr; a^6=(a^3)^2 (1 square) &rarr; a^13=a&middot;(a^6)^2 (1 square + 1 extra).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Count</div>
+<div class="wx-body">3 real squarings + 2 extra multiplies = **5 multiplications**, versus 12 for the naive approach.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The gap widens</div>
+<div class="wx-body">a^1000 needs 999 naive multiplications, but only about 10-15 with repeated squaring - <span class="bignotation">&Theta;(log n)</span> vs. <span class="bignotation">&Theta;(n)</span>.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>a&#185;&#179;: 5 multiplications by repeated squaring vs. 12 naively.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The saving isn't fixed - it grows without bound as n grows, which is exactly what &Theta;(log n) vs. &Theta;(n) means.</div>
 
 ---
 
-<!-- NEW: second, brief D&C example, per the CampusNav case study -->
+<!-- Dense worked example, fast exponentiation, harder tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Fast exponentiation · worked example 3 of 3 (harder)</div>
+
+# Computing a&#178;&#185; by Repeated Squaring
+
+<div class="wx-top">
+<div class="lead">A different exponent, the same halving pattern - proof the trick isn't tuned to one lucky number.</div>
+<div class="goalbox"><span class="k">Goal</span>Count real multiplications for a^21, and confirm the pattern generalizes.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Halving sequence</div>
+<div class="wx-body">21 &rarr; 10 &rarr; 5 &rarr; 2 &rarr; 1 &rarr; 0. Five halvings.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Build back up</div>
+<div class="wx-body">a^21=a&middot;(a^10)^2 (square+extra); a^10=(a^5)^2 (square); a^5=a&middot;(a^2)^2 (square+extra); a^2=(a^1)^2 (square); a^1=a&middot;(a^0)^2 (free).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Count</div>
+<div class="wx-body">4 real squarings + 2 extra multiplies = **6 multiplications**, versus 20 for the naive approach.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Two exponents, one bound</div>
+<div class="wx-body">13 and 21 have completely different binary patterns (1101 vs. 10101), yet both hit &Theta;(log n) - the bound holds regardless of which bits happen to be set in n.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>a&#178;&#185;: 6 multiplications by repeated squaring vs. 20 naively.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The halving argument never depended on which specific exponent we picked - that's what makes it a genuine &Theta;(log n) bound, not a lucky count.</div>
+
+---
 
 # A Second D&C Trick: Halving the Shortcut Counter
 
@@ -760,84 +785,51 @@ Exponent sequence: $21 \to 10 \to 5 \to 2 \to 1 \to 0$ - five halvings.
 CampusNav also has a 20-step shortcut you can take 1 or 2 steps at a
 time. "How many distinct ways?" was Week 4's runaway recursion-tree
 example: $\text{ways}(n) = \text{ways}(n-1) + \text{ways}(n-2)$, traced
-by brute force, blowing up exponentially.
-
-That recursion is **not** divide-and-conquer - the two calls both touch
-overlapping smaller subproblems, not independent ones. But there's a
-genuine D&C trick available: instead of dividing the *steps*, halve the
-*step number itself*, the same idea fast exponentiation uses to compute
-$a^n$ by squaring.
-
----
-
-# From Halving Steps to a Logarithmic Bound
-
-<div class="thread">Same trick as fast exponentiation, applied to a counting recurrence.</div>
-
-A pair of doubling identities lets you jump from $\text{ways}(k)$ and
-$\text{ways}(k-1)$ straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$,
-using each smaller value only once:
+by brute force, blowing up exponentially. That recursion is **not**
+divide-and-conquer - its two calls touch overlapping smaller
+subproblems, not independent ones. But there's a genuine D&C trick
+available: halve the *step number itself*, the same idea fast
+exponentiation uses to compute $a^n$ by squaring. A pair of doubling
+identities jumps from $\text{ways}(k), \text{ways}(k-1)$ straight to
+$\text{ways}(2k), \text{ways}(2k+1)$:
 
 $$
-\text{ways}(2k) = \text{ways}(k)^2 + \text{ways}(k-1)^2
-$$
-
-$$
+\text{ways}(2k) = \text{ways}(k)^2 + \text{ways}(k-1)^2 \qquad
 \text{ways}(2k+1) = \text{ways}(k)^2 + 2 \cdot \text{ways}(k) \cdot \text{ways}(k-1)
 $$
 
 Each identity does $O(1)$ arithmetic on two already-known values, so
-computing the pair $(\text{ways}(k), \text{ways}(k-1))$ from
-$(\text{ways}(k/2), \text{ways}(k/2 - 1))$ - halving $k$ each time - gives:
-
-$$
-T(n) = T(n/2) + O(1) = \Theta(\log n)
-$$
+halving $k$ each time gives $T(n) = T(n/2) + O(1) = \Theta(\log n)$.
 
 ---
 
-# Checking the Identities on Small Numbers
+<!-- Dense worked example, verifying the doubling identities -->
+<!-- _class: dense -->
 
-<div class="thread">Plug in $k=2$ and compare against the values traced directly.</div>
+<div class="eyebrow">Shortcut counter · verifying the shortcut</div>
 
-Directly: $\text{ways}(0){=}1$, $\text{ways}(1){=}1$, $\text{ways}(2){=}2$,
-$\text{ways}(3){=}3$, $\text{ways}(4){=}5$, $\text{ways}(5){=}8$.
+# Checking the Doubling Identities
 
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">$k=2$: $\text{ways}(k){=}2$, $\text{ways}(k-1){=}1$.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">$\text{ways}(4) = \text{ways}(2k) = 2^2 + 1^2 = 4 + 1 = 5$ - matches the direct value.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">$\text{ways}(5) = \text{ways}(2k+1) = 2^2 + 2 \cdot 2 \cdot 1 = 4 + 4 = 8$ - matches too.</div></div>
+<div class="wx-top">
+<div class="lead">Directly: ways(0)=1, ways(1)=1, ways(2)=2, ways(3)=3, ways(4)=5, ways(5)=8, ways(6)=13, ways(7)=21.</div>
+<div class="goalbox"><span class="k">Goal</span>Confirm the identities reproduce the directly-computed values, at two different k.</div>
 </div>
 
----
-
-<!-- NEW: Check Yourself pair, verify the doubling identities for k=3 -->
-
-# Check Yourself: Verify k=3
-
-<div class="thread">Same two identities, one step further out.</div>
-
-Directly: $\text{ways}(6){=}13$, $\text{ways}(7){=}21$ (each is the sum
-of the two before it, same as before).
-
-- Using $k=3$ ($\text{ways}(3){=}3$, $\text{ways}(2){=}2$), compute
-  $\text{ways}(6)$ and $\text{ways}(7)$ from the doubling identities.
-  Do they match the direct values above?
-
----
-
-# Answer: k=3 Checks Out
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">$k=3$: $\text{ways}(k){=}3$, $\text{ways}(k-1){=}2$.</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">$\text{ways}(6) = \text{ways}(2k) = 3^2 + 2^2 = 9 + 4 = 13$ - matches the direct value.</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">$\text{ways}(7) = \text{ways}(2k+1) = 3^2 + 2 \cdot 3 \cdot 2 = 9 + 12 = 21$ - matches too.</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">k = 2</div>
+<div class="wx-body">ways(k)=2, ways(k&minus;1)=1. ways(4)=ways(2k)=2&sup2;+1&sup2;=4+1=**5** - matches. ways(5)=ways(2k+1)=2&sup2;+2&middot;2&middot;1=4+4=**8** - matches.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">k = 3</div>
+<div class="wx-body">ways(k)=3, ways(k&minus;1)=2. ways(6)=ways(2k)=3&sup2;+2&sup2;=9+4=**13** - matches. ways(7)=ways(2k+1)=3&sup2;+2&middot;3&middot;2=9+12=**21** - matches.</div>
+</div>
 </div>
 
-Two checks (k=2 and k=3) are not a proof for every $k$, but they're
-strong evidence the identities are doing exactly what they claim -
-jumping straight to $\text{ways}(2k)$ and $\text{ways}(2k+1)$ without
-ever computing every value in between.
+<div class="conclusion"><span class="k">Conclusion</span>Both checks match the direct values - the doubling identities behave exactly as claimed.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Two matches are strong evidence, not a proof for every k - but they show the identities jump straight to ways(2k) and ways(2k+1) without computing every value in between.</div>
 
 ---
 
@@ -846,8 +838,9 @@ ever computing every value in between.
 <div class="thread">A preview, not the real fix.</div>
 
 Halving the step number is elegant, but it only works because this
-particular counting recurrence has a known closed identity to exploit -
-it doesn't generalize to arbitrary overlapping-subproblem recursions.
+particular counting recurrence has a known closed identity to
+exploit - it doesn't generalize to arbitrary overlapping-subproblem
+recursions.
 
 <div class="why">
 Week 11 solves this exact 20-step counter - and the whole family of
@@ -855,34 +848,6 @@ problems shaped like it - properly, with <strong>dynamic
 programming</strong>: the same numbers, a general technique instead of a
 one-off trick, and Week 4's exploding recursion tree finally fixed for good.
 </div>
-
----
-
-<!-- SLOT N-2: Worked example -->
-
-# CampusNav: Two New Features, One Paradigm
-
-<div class="thread">Everything above, together, on the actual features.</div>
-
-- **Best energy window:** divide the day in half, recurse on each
-  half, handle the crossing case in linear time - $T(n)=2T(n/2)+\Theta(n)
-  = \Theta(n\log n)$. A genuinely faster algorithm than checking every
-  start/end pair, discovered by *applying the paradigm*, not by luck.
-
----
-
-<!-- NEW: split the second feature onto its own slide -->
-
-# CampusNav: The Second Feature
-
-<div class="thread">Same paradigm, a different technique inside it.</div>
-
-- **Shortcut-counter speedup:** halving the step index, fast-exponentiation
-  style, gets a brute-force-exponential count down to $\Theta(\log n)$ -
-  though this one is a specialized trick, not the general fix (that's Week 11).
-
-Both features exist today only because CampusNav's team finally had a
-*strategy* for inventing an algorithm, not just a library of fixed ones.
 
 ---
 
@@ -894,72 +859,16 @@ Both features exist today only because CampusNav's team finally had a
   *independent* subproblems plus an explicit *combine* step. The
   shortcut-counter recursion from Week 4 is recursive but not D&C - its
   two calls overlap the same smaller subproblems, which is exactly what
-  dynamic programming (Week 11) is built to handle differently.
-- A quick test: does the recursion re-derive the *same* smaller answer
-  more than once anywhere in its call tree? If yes, it's overlapping
-  subproblems, not independent ones - not D&C, no matter how recursive
-  it looks on the page.
-
----
-
-<!-- NEW: split off the Master-theorem-applicability mistake onto its own slide -->
-
-# Common Mistakes, Continued
-
+  dynamic programming (Week 11) is built to handle differently. A quick
+  test: does the recursion re-derive the *same* smaller answer more than
+  once anywhere in its call tree? If yes, it's overlapping subproblems,
+  not independent ones.
 - **"The Master theorem always applies."** It only classifies
   recurrences shaped like $T(n)=aT(n/b)+f(n)$ where $f(n)$ fits cleanly
   into one of the three cases. If $f(n)$ falls in the gap between cases,
   or Case 3's regularity condition fails, you're back to tracing the
-  tree (Week 4) or need a different tool entirely.
-- This mistake is tempting precisely because the three-case table
-  *looks* exhaustive. It classifies every recurrence of this specific
-  shape whose $f(n)$ fits cleanly - it is not a universal solver for
-  every recurrence you will ever write.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. Classify $T(n) = 4T(n/2) + n$ with the Master theorem. Which case,
-   and what is $T(n)$?
-2. In the maximum-subarray algorithm, why can't the crossing case just
-   be found by trying every possible (start, end) pair that straddles
-   the midpoint?
-3. Why is CampusNav's Week-4 step-counting recursion not
-   divide-and-conquer, even though it calls itself twice?
-
----
-
-# Answers
-
-1. Watershed $= n^{\log_2 4} = n^2$. $f(n) = n = O(n^{2-1})$, so this is
-   **Case 1**: $T(n) = \Theta(n^{\log_b a}) = \Theta(n^2)$.
-2. Trying every straddling pair is $O(n^2)$ work for that step alone,
-   which would make the whole algorithm no faster than brute force.
-   Scanning outward from the midpoint once in each direction finds the
-   best "ends at mid" and "starts at mid+1" runs in one linear pass each.
-3. Its two recursive calls, $\text{ways}(n-1)$ and $\text{ways}(n-2)$,
-   are not independent - they recompute many of the same smaller
-   subproblems repeatedly. D&C requires independent subproblems; this
-   overlap is the signal for dynamic programming instead.
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 9 Quiz](materials/week09/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
+  tree (Week 4) or need a different tool entirely - this table looks
+  exhaustive, but it only covers recurrences of this exact shape.
 
 ---
 
@@ -991,7 +900,7 @@ no combine step, just one correct local choice repeated.
 
 ---
 
-<!-- NEW: CLRS reference slide, placed immediately before Summary -->
+<!-- CLRS reference slide, placed immediately before Summary -->
 
 # Where This Week Lives in CLRS
 
@@ -1045,6 +954,10 @@ week's Master theorem assumes.
   pattern CLRS 4.1-4.2 formalize.
 - **Prepare:** think of one everyday scheduling decision where making
   the locally best choice, once, feels obviously right. Bring it to Week 10.
+- **New: Week 9 Check** - a short graded exercise on the Master
+  theorem, maximum subarray, and fast exponentiation, released now,
+  due before Week 10 begins (see
+  `materials/assignments/week09-check.html`).
 
 ---
 

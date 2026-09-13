@@ -18,7 +18,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 
 <!--
 notes: This is a short review deck, not a lecture. No new material today -
-walk the room, answer questions, then hand off to the exam itself.
+walk through the review directly, answer questions, then hand off to the exam itself.
 -->
 
 ---
@@ -76,15 +76,20 @@ walk the room, answer questions, then hand off to the exam itself.
 
 ---
 
-<!-- Act 3 / BUILD, expanded per SPINE's short-review variant: "Check yourself" becomes the whole session -->
+<!-- Act 3 / BUILD, expanded per SPINE's short-review variant -->
 
-# Check Yourself: Full Review
+# Full Review: What Weeks 1-7 Asked of You
 
 <div class="driving-q">"Can you do, on paper, everything Weeks 1-7 asked you to do?"</div>
 
+What follows is a direct walk-through, week by week: one recap, one
+worked practice problem, and one common mistake to watch for, per
+topic - then four cross-cutting questions that connect two or more
+weeks at once.
+
 ---
 
-<!-- Act 3: Coverage - 6 bullets, one per technical topic (Weeks 2-7; Week 1 was orientation, no testable skill), each a skill reminder rather than a fact reminder -->
+<!-- Act 3: Coverage -->
 
 # Coverage: What You Should Be Able to Do
 
@@ -97,7 +102,7 @@ walk the room, answer questions, then hand off to the exam itself.
 
 ---
 
-<!-- NEW: Week 1 review block - recap, practice, solution (Week 1 has no technique of its own, so this reviews the one conceptual point it planted) -->
+<!-- Week 1 review block -->
 
 # Recap: Week 1 - Correct Is Not the Same as Efficient
 
@@ -115,33 +120,43 @@ walk the room, answer questions, then hand off to the exam itself.
 
 ---
 
-# Midterm Practice: Week 1 - Correct vs. Efficient
+<!-- Dense worked practice: Week 1 -->
+<!-- _class: dense -->
 
-A classmate claims: *"I ran my sorting function on the five test
-cases in the assignment and got the right answer every time, so it's
-correct."*
+<div class="eyebrow">Midterm practice · Week 1</div>
 
-Explain, precisely, what this evidence does and doesn't establish -
-and name the specific technique (from Weeks 5-7) that actually closes
-the gap.
+# "It Passed Five Tests" Is Not a Proof
 
----
+<div class="wx-top">
+<div class="lead">A classmate claims: "I ran my sorting function on the five test cases in the assignment and got the right answer every time, so it's correct."</div>
+<div class="goalbox"><span class="k">Goal</span>State precisely what this evidence does and doesn't establish.</div>
+</div>
 
-# Solution: Week 1 Practice
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">What it establishes</div>
+<div class="wx-body">Only a much weaker claim: the function produced the correct output on these five particular inputs - nothing about the far larger set of inputs never tried.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">What actually closes the gap</div>
+<div class="wx-body">A loop-invariant proof (Weeks 5 and 7): initialization, maintenance, and termination together establish the claim for every valid input, not a sample.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Not a hypothetical</div>
+<div class="wx-body">A bug that only surfaces on, say, an array with duplicate keys, or an unsorted array handed to binary search, would pass all five tests undetected - Week 7's real, years-long history of broken binary search implementations shows this happens in practice, not just in theory.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The exact gap Week 1 opened</div>
+<div class="wx-body">Testing can only ever demonstrate a *failure* - finding one counterexample. It can never exhaustively check "every possible input" the way a loop-invariant proof does.</div>
+</div>
+</div>
 
-This evidence supports only a much weaker claim: *the function
-produced the correct output on these five particular inputs.* It says
-nothing about the (likely) far larger set of inputs the function was
-never run on - a bug that only surfaces on, say, an array with
-duplicate keys, or an unsorted array handed to binary search, would
-pass all five tests undetected.
-
-**What actually closes the gap:** a **loop-invariant proof** (Weeks 5
-and 7) - initialization, maintenance, and termination together
-establish the claim for **every** valid input, not a sample of them.
-That is the exact technical answer to "looks right" versus "is right,"
-and it's the one idea Week 1 planted before the machinery to prove it
-existed.
+<div class="conclusion"><span class="k">Conclusion</span>"Looks right on a sample" and "proven correct" are different claims - only the second is what the midterm's proof questions ask for.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>This is the one idea Week 1 planted before the machinery to prove it existed.</div>
 
 ---
 
@@ -158,26 +173,7 @@ Week 1 opened and Weeks 5 and 7's proofs closed.
 
 ---
 
-# Check Yourself: Week 1
-
-Why is "I tried it on a few inputs and it worked" not sufficient
-evidence for a midterm question that asks you to *prove* something is
-correct?
-
----
-
-# Answer
-
-Because a proof must cover **every** valid input, and a handful of
-tried inputs is a sample, not an exhaustive check. A loop-invariant
-proof (or any other correctness proof) exists precisely because a bug
-can lurk on an input nobody happened to try - as the real, years-long
-history of subtly broken binary search implementations (Week 7) shows
-in practice, not just in theory.
-
----
-
-<!-- NEW: Week 2 recap card -->
+<!-- Week 2 review block -->
 
 # Recap: Week 2 - Algorithm Concepts
 
@@ -193,29 +189,45 @@ in practice, not just in theory.
 
 ---
 
-<!-- Q1: Algorithm properties (Week 2) -->
+<!-- Dense worked practice: Week 2 -->
+<!-- _class: dense -->
 
-# Question 1 - Algorithm Concepts
+<div class="eyebrow">Midterm practice · Week 2</div>
 
-Consider this instruction for CampusNav: *"Keep refining the campus map
-until it looks accurate enough."*
+# Definiteness: Two Failure Cases
 
-Which of the five required properties of an algorithm does this
-violate, and why?
+<div class="wx-top">
+<div class="lead">The same missing property, in two different instructions.</div>
+<div class="goalbox"><span class="k">Goal</span>Spot which required property each instruction violates, and why.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Case A</div>
+<div class="wx-body">"Keep refining the campus map until it looks accurate enough." Violates **definiteness** (and arguably finiteness): "accurate enough" has no precise stopping test - two runs could stop at different points, or never stop.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Case B</div>
+<div class="wx-body">"Sort the list, but only if it feels necessary." Also violates **definiteness**: "feels necessary" has no precise, checkable test - two runs (or two people) could disagree on whether to sort at all.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The common thread</div>
+<div class="wx-body">Both instructions use a vague qualifier ("enough," "necessary") in place of an unambiguous, checkable condition - exactly what definiteness rules out.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">What this is not about</div>
+<div class="wx-body">Neither case is a *speed* problem - a correct algorithm can be slow and still be a valid algorithm. Definiteness is checked before efficiency ever comes up.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>A real algorithm needs an unambiguous step-by-step definition and a guaranteed end - "looks/feels right" is never a substitute for either.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>When a midterm question asks "which property is violated," look first for a vague qualifier standing in for a precise test.</div>
 
 ---
-
-# Answer 1
-
-It violates **definiteness** (and, arguably, **finiteness**).
-"Accurate enough" has no precise stopping test - two people (or the
-same person twice) could run this "procedure" and stop at different
-points, or never stop at all. A real algorithm needs an unambiguous
-step-by-step definition *and* a guaranteed end.
-
----
-
-<!-- NEW: Week 2 common mistake + check yourself -->
 
 # Common Midterm Mistake: Algorithm Concepts
 
@@ -229,23 +241,7 @@ algorithm - efficiency is a *separate*, later question (all of Week
 
 ---
 
-# Check Yourself: Week 2
-
-Which required property is violated by *"sort the list, but only if
-it feels necessary"*?
-
----
-
-# Answer
-
-**Definiteness.** "Feels necessary" has no precise, checkable test -
-two runs (or two people) could disagree on whether to sort at all,
-which means the step isn't unambiguous enough to qualify as an
-algorithm step.
-
----
-
-<!-- NEW: Week 3 recap card -->
+<!-- Week 3 review block -->
 
 # Recap: Week 3 - Complexity Analysis
 
@@ -262,33 +258,45 @@ algorithm step.
 
 ---
 
-<!-- Q2: Big-O proof (Week 3) -->
+<!-- Dense worked practice: Week 3 -->
+<!-- _class: dense -->
 
-# Question 2 - Complexity Analysis
+<div class="eyebrow">Midterm practice · Week 3</div>
 
-Prove, from the **formal definition** of Big-O, that
+# A Big-O Proof, and Its Crossover Point
 
-$$3n^2 + 20n + 100 = O(n^2)$$
+<div class="wx-top">
+<div class="lead">Proving a bound, then finding exactly where one term overtakes another.</div>
+<div class="goalbox"><span class="k">Goal</span>Prove 3n&sup2; + 20n + 100 = O(n&sup2;), then find where n&sup2; overtakes 100n.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The proof</div>
+<div class="wx-body">For n &ge; 1: n &le; n&sup2; and 1 &le; n&sup2;, so 3n&sup2;+20n+100 &le; 3n&sup2;+20n&sup2;+100n&sup2; = 123n&sup2;. Constants c=123, n0=1 satisfy the definition.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">The crossover</div>
+<div class="wx-body">For 100n vs. n&sup2;: solving n&sup2; &gt; 100n gives n &gt; 100. Below n=100, 100n is actually the larger value.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Why the crossover matters</div>
+<div class="wx-body">It's exactly why a Big-O claim is stated as "for all n &ge; n0," not "always, no matter how small n is" - n0=101 would also be a valid witness for "n&sup2; dominates 100n."</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The witnesses aren't unique</div>
+<div class="wx-body">c and n0 are witnesses to the bound, not "the" constants - any larger valid c, or any n0 past the crossover, also works.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>c=123, n0=1 proves the bound; n=100 is the concrete point past which n&sup2; wins outright.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A Big-O proof and a crossover calculation are two different tools - the first proves a bound holds eventually and forever, the second finds exactly when.</div>
 
 ---
-
-# Answer 2
-
-Need constants $c > 0$, $n_0$ such that $f(n) \le c \cdot g(n)$ for
-all $n \ge n_0$.
-
-For $n \ge 1$: $n \le n^2$ and $1 \le n^2$, so
-
-$$3n^2 + 20n + 100 \le 3n^2 + 20n^2 + 100n^2 = 123n^2$$
-
-So $c = 123$, $n_0 = 1$ satisfies the definition - hence
-$f(n) = O(n^2)$. $\blacksquare$
-
-<div class="why">Common mistake to flag here: Big-O gives a growth-rate <strong>bound</strong>, not the exact running time - <code>c</code> and <code>n₀</code> are witnesses, not "the" constants.</div>
-
----
-
-<!-- NEW: Week 3 common mistake + check yourself -->
 
 # Common Midterm Mistake: Complexity Analysis
 
@@ -305,23 +313,7 @@ bigger for small $n$.
 
 ---
 
-# Check Yourself: Week 3
-
-For large enough $n$, is $100n$ or $n^2$ the dominant term - and at
-roughly what $n$ does $n^2$ overtake $100n$?
-
----
-
-# Answer
-
-$n^2$ dominates for all sufficiently large $n$: solving $n^2 > 100n$
-gives $n > 100$. Below $n = 100$, $100n$ is actually the larger value
-- that crossover is exactly why a Big-O claim is stated as "for all
-$n \ge n_0$," not "always, no matter how small $n$ is."
-
----
-
-<!-- NEW: Week 4 recap card -->
+<!-- Week 4 review block -->
 
 # Recap: Week 4 - Recursion & Recurrence
 
@@ -339,35 +331,45 @@ $n \ge n_0$," not "always, no matter how small $n$ is."
 
 ---
 
-<!-- Q3: Recurrence (Week 4) -->
+<!-- Dense worked practice: Week 4 -->
+<!-- _class: dense -->
 
-# Question 3 - Recursion & Recurrence
+<div class="eyebrow">Midterm practice · Week 4</div>
 
-CampusNav's merge-sort-based directory sort satisfies
+# Solving a Recurrence, Then Comparing One
 
-$$T(n) = 2T(n/2) + n$$
+<div class="wx-top">
+<div class="lead">Merge sort's own recurrence, then a second one to contrast against it.</div>
+<div class="goalbox"><span class="k">Goal</span>Solve T(n) = 2T(n/2) + n, then compare it to T(n) = T(n&minus;1) + O(1).</div>
+</div>
 
-Solve it with the recursion-tree method and state the resulting bound.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Solve the merge-sort recurrence</div>
+<div class="wx-body">Each of log&#8322;n levels splits into 2 subproblems of half the size, but combine work still totals n per level (level 0: n, level 1: 2&middot;(n/2)=n, ...). Sum: n log&#8322;n &rarr; &Theta;(n log n).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Solve the tour-time recurrence</div>
+<div class="wx-body">T(n) = T(n&minus;1) + O(1), from Week 4's tour-time example: unrolls to n constant-cost steps, one per stop &rarr; O(n).</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Compare structurally</div>
+<div class="wx-body">O(n) is much cheaper than O(n log n) - but not because "subtracting 1 is always faster than halving." It's because depth n with O(1) work/call, vs. depth log n with O(n) work/level - depth alone never tells you total cost.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The reusable lesson</div>
+<div class="wx-body">Always identify BOTH the recursion tree's depth and the work done per level before claiming a bound - one without the other is an incomplete argument.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>T(n)=2T(n/2)+n &rarr; &Theta;(n log n). T(n)=T(n&minus;1)+O(1) &rarr; O(n) - a smaller bound, for structural reasons, not because recursion "got faster."</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Depth and per-level cost are both required inputs to a recurrence's solution - never just one.</div>
 
 ---
-
-# Answer 3
-
-Each level of the recursion tree splits work into 2 subproblems of
-half the size, but the **combine work at each level still totals
-$n$**: level 0 does $n$, level 1 does $2 \cdot (n/2) = n$, level 2
-does $4 \cdot (n/4) = n$, and so on. The tree has depth $\log_2 n$
-(halving until size 1), so:
-
-$$
-T(n) = \underbrace{n + n + \cdots + n}_{\log_2 n \text{ levels}} = n \log_2 n
-$$
-
-<div class="bignotation">T(n) = Θ(n log n)</div>
-
----
-
-<!-- NEW: Week 4 common mistake + check yourself -->
 
 # Common Midterm Mistake: Recursion & Recurrence
 
@@ -385,27 +387,7 @@ cost bound changes.
 
 ---
 
-# Check Yourself: Week 4
-
-CampusNav's tour-time recursion (Week 4) has $T(n) = T(n-1) + O(1)$ for
-$n$ stops. What is $T(n)$ in Big-O terms, and how does that compare to
-merge sort's $T(n) = 2T(n/2) + O(n)$?
-
----
-
-# Answer
-
-$T(n) = T(n-1) + O(1)$ unrolls to $n$ constant-cost steps, one per
-stop: $T(n) = O(n)$ - linear, much cheaper than merge sort's
-$O(n \log n)$. The reason is structural: this recurrence shrinks the
-problem by only 1 each call (depth $n$) with $O(1)$ work per call,
-while merge sort shrinks by half each call (depth $\log n$) but does
-$O(n)$ work per level - depth alone never tells you the total cost,
-you need depth *and* per-level cost together.
-
----
-
-<!-- NEW: Week 5 recap card -->
+<!-- Week 5 review block -->
 
 # Recap: Week 5 - Basic Sorting
 
@@ -423,38 +405,52 @@ you need depth *and* per-level cost together.
 
 ---
 
-<!-- Q4: Sorting trace/stability (Weeks 5-6) -->
+<!-- Dense worked practice: Week 5 -->
+<!-- _class: dense -->
 
-# Question 4 - Basic Sorting (Trace & Stability)
+<div class="eyebrow">Midterm practice · Week 5</div>
 
-Two CampusNav directory entries tie on sort key **2** - call them
-$2_a$ (entered first) and $2_b$ (entered second). Trace **insertion
-sort**, ascending, on:
+# A Stability Trace, and a Real-World Pick
 
-$$[\,4,\ 2_a,\ 3,\ 2_b\,]$$
-
-Show the array after each pass. Does $2_a$ stay before $2_b$? Is
-insertion sort stable in general?
-
----
-
-# Answer 4
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">start</div><div class="cell">4</div><div class="cell hl">2a</div><div class="cell">3</div><div class="cell">2b</div></div>
-<div class="row"><div class="rowlabel">insert 2a</div><div class="cell hl">2a</div><div class="cell">4</div><div class="cell">3</div><div class="cell">2b</div></div>
-<div class="row"><div class="rowlabel">insert 3</div><div class="cell">2a</div><div class="cell hl">3</div><div class="cell">4</div><div class="cell">2b</div></div>
-<div class="row"><div class="rowlabel">insert 2b</div><div class="cell">2a</div><div class="cell hl2">2b</div><div class="cell">3</div><div class="cell">4</div></div>
+<div class="wx-top">
+<div class="lead">Two directory entries tie on sort key 2 - call them 2a (entered first) and 2b (entered second).</div>
+<div class="goalbox"><span class="k">Goal</span>Trace insertion sort on [4, 2a, 3, 2b] and pick the fastest sort for a near-sorted update.</div>
 </div>
 
-$2_a$ stays before $2_b$. Insertion sort only shifts an element when
-the compared value is **strictly greater** than the key being
-inserted - equal keys never swap past each other. So insertion sort
-is stable **in general**, not just in this example.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The trace</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">start</div><div class="cell">4</div><div class="cell hl">2a</div><div class="cell">3</div><div class="cell">2b</div></div>
+<div class="row"><div class="rowlabel">ins 2a</div><div class="cell hl">2a</div><div class="cell">4</div><div class="cell">3</div><div class="cell">2b</div></div>
+<div class="row"><div class="rowlabel">ins 3</div><div class="cell">2a</div><div class="cell hl">3</div><div class="cell">4</div><div class="cell">2b</div></div>
+<div class="row"><div class="rowlabel">ins 2b</div><div class="cell">2a</div><div class="cell hl2">2b</div><div class="cell">3</div><div class="cell">4</div></div>
+</div>
+</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Stability holds</div>
+<div class="wx-body">2a stays before 2b: insertion sort only shifts elements *strictly greater* than the key, so equal keys never cross - stable in general, not just here.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The real-world pick</div>
+<div class="wx-body">A 500-entry, already-alphabetized directory gets one new room added near the end. Insertion sort (or bubble sort, with its early-exit flag) finishes fastest - both are adaptive.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why selection sort loses here</div>
+<div class="wx-body">Selection sort gives no such benefit: its inner loop always scans the entire remaining unsorted region regardless of how close to sorted the array already is.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>[4, 2a, 3, 2b] &rarr; [2a, 2b, 3, 4], order preserved; and adaptive sorts (insertion, bubble) win on nearly-sorted real data.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The same "strictly greater" comparison that gives insertion sort its stability is also what lets it detect and exploit a nearly-sorted array.</div>
 
 ---
-
-<!-- NEW: Week 5 common mistake + check yourself -->
 
 # Common Midterm Mistake: Basic Sorting
 
@@ -469,26 +465,7 @@ whole picture.
 
 ---
 
-# Check Yourself: Week 5
-
-A CampusNav directory update adds one new room near the end of an
-otherwise-alphabetized 500-entry list. Which of the three basic sorts
-finishes fastest re-sorting it, and why?
-
----
-
-# Answer
-
-**Insertion sort** (or bubble sort, with its early-exit flag) - both
-are adaptive, so a list that's already sorted except for one
-out-of-place entry costs close to $O(n)$, not $O(n^2)$. Selection sort
-gives no such benefit: its inner loop always scans the entire
-remaining unsorted region regardless of how close to sorted the array
-already is.
-
----
-
-<!-- NEW: Week 6 recap card -->
+<!-- Week 6 review block -->
 
 # Recap: Week 6 - Advanced Sorting
 
@@ -506,34 +483,45 @@ already is.
 
 ---
 
-<!-- Q5: Advanced sorting / quicksort worst case (Week 6) -->
+<!-- Dense worked practice: Week 6 -->
+<!-- _class: dense -->
 
-# Question 5 - Advanced Sorting
+<div class="eyebrow">Midterm practice · Week 6</div>
 
-CampusNav's directory is already sorted, and someone re-runs
-quicksort on it (e.g., after a filter is cleared), always choosing
-the **last element** as pivot.
+# Quicksort's Worst Case, and When to Avoid It
 
-What's the running time on this input, why, and what's one fix?
+<div class="wx-top">
+<div class="lead">CampusNav's directory is already sorted, and someone re-runs quicksort on it, always choosing the last element as pivot.</div>
+<div class="goalbox"><span class="k">Goal</span>State the running time, why, a fix - and when to reach for merge sort instead.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The running time</div>
+<div class="wx-body">O(n&sup2;). On already-sorted data, the last element is always the largest remaining - every partition splits into one subproblem of size n&minus;1 and one of size 0: n levels of O(n) work, not log n levels.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">The fix</div>
+<div class="wx-body">Choose the pivot randomly (or median-of-three), so an adversarial or already-sorted input can't force the worst split.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">When to prefer merge sort instead</div>
+<div class="wx-body">A real-time system needing a **guaranteed** worst-case bound, where stability doesn't matter: merge sort's O(n log n) holds in the best, average, and worst case, because its divide step always splits exactly in half.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The misconception this kills</div>
+<div class="wx-body">"Quicksort's O(n&sup2;) worst case is rare enough to ignore" - it isn't rare by construction, since already- or reverse-sorted data is an entirely ordinary shape for real input.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Fixed last-element pivot on sorted data: O(n&sup2;). Fix the pivot strategy, or choose merge sort when the guarantee itself is the requirement.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"Faster on average" and "safe to rely on" are different claims - only a worst-case bound answers the second one.</div>
 
 ---
-
-# Answer 5
-
-**O(n²).** On already-sorted data, the last element is always the
-*largest* remaining element - every partition splits into one
-subproblem of size $n-1$ and one of size $0$. That's $n$ levels of
-$O(n)$ partition work, not $\log n$ levels - $O(n^2)$ total.
-
-**Fix:** choose the pivot randomly (or median-of-three) so an
-adversarial or already-sorted input can't force the worst split. This
-is exactly why *"quicksort's worst case is rare/ignorable regardless
-of pivot strategy"* is a misconception - it's only rare with a *good*
-pivot strategy.
-
----
-
-<!-- NEW: Week 6 common mistake + check yourself -->
 
 # Common Midterm Mistake: Advanced Sorting
 
@@ -547,26 +535,7 @@ hoping the input stays "random."
 
 ---
 
-# Check Yourself: Week 6
-
-You need a sort with a **guaranteed** worst-case bound for a real-time
-system, and stability doesn't matter. Merge sort or quicksort - which,
-and why?
-
----
-
-# Answer
-
-**Merge sort.** Its $O(n \log n)$ bound holds in the best, average,
-*and* worst case, because the divide step always splits exactly in
-half regardless of input. Quicksort's worst case can degrade to
-$O(n^2)$ no matter how good its average case looks - disqualifying for
-a hard real-time guarantee, even though quicksort is often faster in
-practice.
-
----
-
-<!-- NEW: Week 7 recap card -->
+<!-- Week 7 review block -->
 
 # Recap: Week 7 - Searching
 
@@ -584,34 +553,45 @@ practice.
 
 ---
 
-<!-- Q6: Searching / loop invariant (Week 7) -->
+<!-- Dense worked practice: Week 7 -->
+<!-- _class: dense -->
 
-# Question 6 - Searching
+<div class="eyebrow">Midterm practice · Week 7</div>
 
-State binary search's loop invariant, and use it to explain why
-binary search requires the input to already be sorted.
+# The Invariant, and Why It Always Terminates
+
+<div class="wx-top">
+<div class="lead">State the invariant, use it to explain sortedness, then show termination on a narrow range.</div>
+<div class="goalbox"><span class="k">Goal</span>State binary search's invariant and confirm the loop always reaches an exit.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The invariant</div>
+<div class="wx-body">If the target is present in the array, it lies within the current search window [lo, hi]. Before the loop, the window is the whole array - trivially true.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Why sortedness is required</div>
+<div class="wx-body">Each step discards the half that provably cannot contain the target, based on one comparison against the midpoint - only valid if everything in that half is known to be on the wrong side of the target.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Narrow-range termination</div>
+<div class="wx-body">An 8-element search narrows to lo=3, hi=3 without returning yet. One more round runs: mid=3, A[3] is checked directly. Either it matches (return 3), or lo becomes 4 or hi becomes 2 - either way lo&gt;hi next, and the loop exits.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">What this proves</div>
+<div class="wx-body">The loop always reaches a single-element range before it can run out of room to shrink into - exactly the shrinking argument the termination proof relies on.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>The invariant plus the shrinking-range argument together guarantee both correctness and termination, on every sorted input.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"Provably cannot contain the target" is exactly where sortedness is required - on unsorted data the invariant simply breaks.</div>
 
 ---
-
-# Answer 6
-
-**Invariant:** *if the target is present in the array, it lies within
-the current search window* `[lo, hi]`.
-
-- **Before the loop:** the window is the whole array - trivially true.
-- **Maintained:** each step discards the half that provably cannot
-  contain the target, based on one comparison against the midpoint.
-- **At termination:** the window narrows to 0 or 1 elements, giving
-  the answer.
-
-"Provably cannot contain the target" is exactly where **sortedness**
-is required - discarding a half on one comparison is only valid if
-everything in that half is known to be on the wrong side of the
-target. On unsorted data it might not be, and the invariant breaks.
-
----
-
-<!-- NEW: Week 7 common mistake + check yourself -->
 
 # Common Midterm Mistake: Searching
 
@@ -628,143 +608,167 @@ when $A$ is actually sorted.
 
 ---
 
-# Check Yourself: Week 7
+<!-- Cross-cutting synthesis 1 -->
+<!-- _class: dense -->
 
-A binary search call on an 8-element sorted array narrows down to
-`lo=3, hi=3` without having returned yet. What happens next, and what
-does it tell you about why the loop always terminates?
+<div class="eyebrow">Synthesis · recursion &amp; recurrences</div>
 
----
+# Same Shape, Different Bound
 
-# Answer
+<div class="wx-top">
+<div class="lead">A recursive algorithm halves the input each call but does only constant work per call - no combine step.</div>
+<div class="goalbox"><span class="k">Goal</span>Solve T(n) = 2T(n/2) + O(1), and compare it honestly to merge sort's recurrence.</div>
+</div>
 
-One more iteration runs: `mid = 3`, so `A[3]` is checked directly
-against `target`. Either it matches (return 3), or it doesn't, in
-which case `lo` becomes 4 (`hi` stays 3) or `hi` becomes 2 (`lo` stays
-3) - either way, `lo > hi` on the next check, and the loop exits with
-`NOT-FOUND`. This shows the loop always reaches a single-element range
-before it can run out of room to shrink into - exactly the shrinking
-argument the termination proof relies on.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Build the tree</div>
+<div class="wx-body">Level k has 2^k nodes, each of size n/2^k, each doing O(1) work - so level k costs O(2^k). Depth is log&#8322;n.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Sum the series</div>
+<div class="wx-body">&sum; (k=0 to log&#8322;n) O(2^k) = O(2^(log&#8322;n + 1)) = O(n) - a geometric series dominated by its last (bottom) level alone.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Compare to merge sort, correctly</div>
+<div class="wx-body">Merge sort's T(n)=2T(n/2)+O(n) gives &Theta;(n log n) - strictly larger than this recurrence's O(n), even though both share a=2, b=2. The difference is entirely in f(n): O(1) here vs. O(n) for merge sort.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The lesson</div>
+<div class="wx-body">This one is dominated by the bottom level's sheer node count; merge sort's is spread evenly across every level. Same recurrence *shape* (2, halve) does not mean same bound - always redo the sum.</div>
+</div>
+</div>
 
----
-
-<!-- NEW: cross-cutting synthesis, Big-O & recursion together -->
-
-# Check Yourself: Big-O and Recursion, Together
-
-<div class="thread">Same recursion-tree method, applied to a new recurrence.</div>
-
-A recursive algorithm has recurrence $T(n) = 2T(n/2) + O(1)$ - it
-halves the input each call, but does only constant work per call (no
-combine step). What is $T(n)$ in Big-O terms? Is this faster or slower
-than merge sort's $T(n) = 2T(n/2) + O(n)$?
-
----
-
-# Answer
-
-Recursion tree: level $k$ has $2^k$ nodes, each of size $n/2^k$, each
-doing $O(1)$ work - so level $k$ costs $O(2^k)$, unlike merge sort
-where every level costs a fixed $O(n)$. Depth is $\log_2 n$. Summing a
-geometric series dominated by its last term:
-
-$$
-\sum_{k=0}^{\log_2 n} O(2^k) = O(2^{\log_2 n + 1}) = O(n)
-$$
-
-So $T(n) = O(n)$ - the **same** asymptotic bound as merge sort's
-combine-heavy recurrence, but for a completely different reason: this
-one is dominated by the bottom level's sheer node count, while merge
-sort's is spread evenly across every level. Two recurrences that look
-similar can hit the same bound through very different mechanisms -
-always redo the sum, don't pattern-match the shape.
+<div class="conclusion"><span class="k">Conclusion</span>T(n) = 2T(n/2) + O(1) resolves to O(n) - smaller than merge sort's &Theta;(n log n), because the per-call work differs, not the branching factor.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Two recurrences that look similar can land on different bounds through very different mechanisms - never pattern-match by shape alone.</div>
 
 ---
 
-<!-- NEW: cross-cutting synthesis, sorting weeks 5-6 -->
+<!-- Cross-cutting synthesis 2 -->
+<!-- _class: dense -->
 
-# Check Yourself: Sorting, Weeks 5-6 Together
+<div class="eyebrow">Synthesis · sorting, Weeks 5-6</div>
 
-CampusNav's directory (1,200 entries) needs re-sorting after a bulk
-import that leaves it almost entirely **reverse**-alphabetized. Which
-sort from Weeks 5-6 would you recommend, and which would you
-specifically avoid?
+# Choosing a Sort for Reverse-Sorted Bulk Data
 
----
+<div class="wx-top">
+<div class="lead">CampusNav's 1,200-entry directory needs re-sorting after a bulk import that leaves it almost entirely reverse-alphabetized.</div>
+<div class="goalbox"><span class="k">Goal</span>Recommend a sort - and name the one to specifically avoid.</div>
+</div>
 
-# Answer
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Avoid: insertion sort</div>
+<div class="wx-body">Its adaptiveness only helps on *nearly-sorted* input; a nearly reverse-sorted array is close to its actual worst case, where every new key shifts almost the entire sorted prefix.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Also avoid: fixed-pivot quicksort</div>
+<div class="wx-body">Reverse-sorted input is exactly the adversarial shape that forces first- or last-element-pivot quicksort's O(n&sup2;) worst case - mirroring the already-sorted example from Week 6.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Best choice</div>
+<div class="wx-body">Merge sort, or quicksort with a random or median-of-three pivot - both guarantee (or expect) O(n log n) regardless of whether the input arrives sorted, reverse-sorted, or anything in between.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">The general pattern</div>
+<div class="wx-body">Whenever an input's *shape* (not just its size) can be adversarial, prefer whichever algorithm's guarantee doesn't depend on that shape.</div>
+</div>
+</div>
 
-**Avoid insertion sort here** - its adaptiveness only helps on
-*nearly-sorted* input; a nearly reverse-sorted array is close to its
-actual worst case, where every new key shifts almost the entire sorted
-prefix. **Also avoid quicksort with a fixed first- or last-element
-pivot** - reverse-sorted input is exactly the adversarial shape that
-forces its $O(n^2)$ worst case (mirroring the already-sorted example
-from Week 6).
-
-**Best choice:** merge sort, or quicksort with a random or
-median-of-three pivot - both guarantee (or expect) $O(n \log n)$
-regardless of whether the input arrives sorted, reverse-sorted, or
-anything in between.
-
----
-
-<!-- NEW: cross-cutting synthesis, why sorting must precede searching -->
-
-# Check Yourself: Why Sorting Must Fully Precede Searching
-
-CampusNav could try to binary-search its directory *without* fully
-sorting it first, by spot-checking "does this half still look
-ordered" at each step and falling back to a linear scan if not. What's
-wrong with this plan - as a matter of correctness, not just speed?
-
----
-
-# Answer
-
-Binary search's maintenance proof relies on **every** index $\le$ mid
-being $\le A[\text{mid}]$, across the *entire* current range - not a
-spot-check of one or two boundary values. A "looks ordered" heuristic
-can pass on a range that isn't actually fully sorted (e.g. a single
-out-of-order pair buried in the middle, with both ends still looking
-fine), silently breaking the exact assumption the proof depends on.
-There's no cheaper substitute for genuine, full sortedness as a
-precondition - which is exactly why Weeks 5-6 had to fully solve
-sorting before Week 7 could touch searching at all.
+<div class="conclusion"><span class="k">Conclusion</span>Avoid insertion sort and fixed-pivot quicksort here; merge sort or randomized/median-of-three quicksort are both safe.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>"Adaptive" and "guaranteed" are different properties - reverse-sorted data is exactly where the difference shows up.</div>
 
 ---
 
-<!-- NEW: cross-cutting synthesis, loop invariants across the course -->
+<!-- Cross-cutting synthesis 3 -->
+<!-- _class: dense -->
 
-# Check Yourself: One Proof Shape, Two Algorithms
+<div class="eyebrow">Synthesis · sorting &amp; searching together</div>
 
-Insertion sort's loop invariant (Week 5) and binary search's loop
-invariant (Week 7) are both proven with the same three-part structure.
-State one genuine similarity and one genuine difference between the
-two proofs.
+# Why Sorting Must Fully Precede Searching
+
+<div class="wx-top">
+<div class="lead">CampusNav could try to binary-search its directory without fully sorting it first, by spot-checking "does this half still look ordered" at each step, falling back to linear scan if not.</div>
+<div class="goalbox"><span class="k">Goal</span>Show what's wrong with this plan, as a matter of correctness, not just speed.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">What the proof actually requires</div>
+<div class="wx-body">Binary search's maintenance proof relies on *every* index &le; mid being &le; A[mid], across the entire current range - not a spot-check of one or two boundary values.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Where the heuristic fails</div>
+<div class="wx-body">A "looks ordered" heuristic can pass on a range that isn't actually fully sorted - e.g. a single out-of-order pair buried in the middle, with both ends still looking fine.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The consequence</div>
+<div class="wx-body">That silently breaks the exact assumption the proof depends on - the search can return the wrong answer with no warning, exactly like running it on genuinely unsorted data.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why Weeks 5-6 had to come first</div>
+<div class="wx-body">There is no cheaper substitute for genuine, full sortedness as a precondition - which is exactly why sorting had to be fully solved before Week 7 could touch searching at all.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>A spot-check heuristic cannot replace genuine full sortedness - the maintenance proof needs the whole range, not just its ends.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A precondition that's "probably true" is not the same as one that's proven true - the proof doesn't run on probabilities.</div>
 
 ---
 
-# Answer
+<!-- Cross-cutting synthesis 4 -->
+<!-- _class: dense -->
 
-**Similarity:** both use initialization (true before the loop starts,
-usually trivially), maintenance (each iteration preserves the
-invariant, argued case by case), and termination (what the invariant
-implies once the loop's exit condition is reached) - the identical
-three-part shape.
+<div class="eyebrow">Synthesis · proof structure</div>
 
-**Difference:** insertion sort's invariant describes what's **true of
-a growing region** (`A[0..i-1]` is sorted), so termination tells you
-the *whole array* ended up in the claimed state - a positive
-confirmation. Binary search's invariant describes what's **still
-possible** ("if `target` is present, it's in `A[lo..hi]`") - a claim
-that gets *narrower* over time, and termination is used to *rule out*
-a possibility (the target isn't there) rather than confirm a positive
-state. Same proof tool, opposite direction of use.
+# One Proof Shape, Two Algorithms
+
+<div class="wx-top">
+<div class="lead">Insertion sort's loop invariant (Week 5) and binary search's loop invariant (Week 7) both use the same three-part structure.</div>
+<div class="goalbox"><span class="k">Goal</span>State one genuine similarity and one genuine difference between the two proofs.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">The similarity</div>
+<div class="wx-body">Both use initialization (true before the loop starts, usually trivially), maintenance (each iteration preserves the invariant, argued case by case), and termination (what the invariant implies once the exit condition is reached).</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">The difference</div>
+<div class="wx-body">Insertion sort's invariant describes what's *true of a growing region* (A[0..i-1] is sorted) - termination confirms the whole array ended up in the claimed state, a positive confirmation.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">The opposite direction</div>
+<div class="wx-body">Binary search's invariant describes what's *still possible* ("if target is present, it's in A[lo..hi]") - a claim that gets narrower over time, and termination *rules out* a possibility rather than confirming a positive state.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Same tool, opposite use</div>
+<div class="wx-body">Recognizing which direction a given invariant runs is often the fastest way to see what its termination step is actually proving.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Same three-part shape, one proof builds a positive claim, the other narrows toward ruling a possibility out.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Learn the shape once, then ask "is this invariant building something, or eliminating something?" for any new proof you meet.</div>
 
 ---
 
-<!-- SLOT N+1: replaces "Limits" per SPINE's short-review variant - forward-looking, not a technical limitation -->
+<!-- SLOT N+1: replaces "Limits" per SPINE's short-review variant -->
 
 # What to Focus On Next
 
@@ -805,8 +809,12 @@ first of four general strategies for *inventing* new algorithms.
   building blocks - sorting and searching - all examined through
   CampusNav's directory/lookup features.
 - Today was a checkpoint, not new material: use the Coverage list, the
-  per-week recap cards and practice problems, and the check-yourself
-  questions above to find your own gaps before the exam.
+  per-week recap cards, worked practice problems, and common-mistake
+  warnings above to find your own gaps before the exam.
+---
+
+# Summary, Continued
+
 - **Reading:** review CLRS (Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>) 4th ed, Chapters 1-4 (algorithm properties,
   analyzing algorithms, growth of functions, recursion/recurrences),
   §2.1-2.2 (basic sorting), §2.3 and Ch 7 (advanced sorting), and
@@ -814,7 +822,8 @@ first of four general strategies for *inventing* new algorithms.
   new reading assigned.
 - **Prepare:** Assignment 2 (Sorting) is due before the exam per the
   syllabus; bring only what the instructor's exam announcement
-  permits.
+  permits. No separate Week 8 Check is issued - the worked practice
+  above, plus the midterm itself, cover this week.
 
 ---
 
