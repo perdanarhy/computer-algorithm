@@ -18,7 +18,8 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 
 <!--
 notes: Welcome the class. Remind them Assignment 1 (Complexity & Pseudocode, released Week 3) is
-due this week - collect it at the start or confirm the submission deadline before diving in.
+due this week - collect it at the start or confirm the submission deadline before diving in. Also
+flag the new Week 5 Check assignment, due before Week 6 begins.
 -->
 
 ---
@@ -51,31 +52,6 @@ is due this week. -->
 
 ---
 
-<!-- NEW: warm-up, placed right after the roadmap (slot 2) per course design -->
-
-# Before We Start: Sort a Hand of Cards
-
-<div class="thread">A quick warm-up. No pseudocode yet.</div>
-
-You're dealt five playing cards, face up, in a random order: **7 3 9 1
-5**. You want them left-to-right in ascending order before your next
-turn.
-
-- **Method A:** repeatedly find the smallest card remaining and place
-  it in the next open slot.
-- **Method B:** pick up cards one at a time and slide each new card
-  into its correct spot among the cards you're already holding sorted.
-
-- Try both by hand. Which one feels more like how *you* actually sort
-  a hand of cards?
-
-<!--
-notes: Give students 30 seconds to physically (or mentally) try both. Most people intuitively use
-Method B - do not name "selection sort" or "insertion sort" yet, let them describe it in their own words.
--->
-
----
-
 <!-- SLOT 3: Recap + open wound -->
 
 # Last Week, This Week
@@ -103,8 +79,8 @@ Method B - do not name "selection sort" or "insertion sort" yet, let them descri
 - **Loop invariant:** a statement true before, during, and after every
   pass of a loop - today's tool for *proving* a sort is correct.
 
-<!-- notes: Read each term aloud once. Say stability will look like a technicality until the
-counterexample lands - ask them to hold that thought. -->
+<!-- notes: Read each term aloud once. Tell them stability will look like a technicality until the
+counterexample lands, a few slides from now. -->
 
 ---
 
@@ -125,8 +101,8 @@ person has to do it all over again from scratch.
 
 </div>
 
-<!-- notes: Do not say "sort" or "algorithm" yet. Let them feel the manual, repeated, error-prone
-re-ordering first - someone will say "just sort it," which is your cue for the next slide. -->
+<!-- notes: Do not say "sort" or "algorithm" yet. Describe the manual, repeated, error-prone
+re-ordering first - that's the setup for the next slide. -->
 
 ---
 
@@ -148,9 +124,6 @@ re-ordering first - someone will say "just sort it," which is your cue for the n
 
 Even the simplest sorting method a computer runs beats a human doing
 it by hand - but "simplest" still has a hidden cost, coming up next.
-
-<!-- notes: Pause after the second bar. Say: "So why not just always use the simplest one? That's
-exactly the question this week answers - and the next slide shows where it starts to hurt." -->
 
 ---
 
@@ -229,25 +202,11 @@ university-sized directory.
 
 ---
 
-<!-- NEW: session-1 close, previews Worksheet Part A -->
-
-# Coming Up: Worksheet Part A
-
-<div class="thread">Next in this class: less listening, more tracing.</div>
-
-Later today, you and a partner will hand-trace one of today's sorts,
-pass by pass, on a small array - exactly like the warm-up, but written
-down precisely.
-
-That is **Worksheet Part A**. Keep a pen ready.
-
----
-
 <!-- SLOT 8: Origin -->
 
 # This Problem Is Not New
 
-<div class="thread">You just felt the pain. Now: who else felt it, and what did they do?</div>
+<div class="thread">Sorting is old. Here's how old, and why that matters.</div>
 
 - Sorting is one of the oldest problems in computing - punched-card
   tabulating machines were doing mechanical sorting passes in the
@@ -257,8 +216,8 @@ That is **Worksheet Part A**. Keep a pen ready.
   because "just sort it" hides a surprisingly deep set of
   correctness and efficiency questions.
 - **Insertion sort is not a computer's invention at all** - it's
-  literally how most people sort a hand of playing cards, which is
-  exactly what you did in the warm-up without a name for it yet.
+  literally how most people sort a hand of playing cards. Hold that
+  image; it returns as today's third algorithm.
 
 ---
 
@@ -280,7 +239,7 @@ practice proving an algorithm correct before tackling faster ones
 
 # Sorting, Stated Precisely
 
-<div class="thread">Fifty years of study, and a card game you just played, point at one precise problem. Here it is. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §2.1)</div>
+<div class="thread">Fifty years of study point at one precise problem. Here it is. (CLRS - Cormen/Leiserson/Rivest/Stein's <em>Introduction to Algorithms</em>, 4th ed, §2.1)</div>
 
 > Given an array $A[0..n-1]$, rearrange its elements into a new order
 > $A'[0..n-1]$ such that $A'[0] \le A'[1] \le \cdots \le A'[n-1]$, using
@@ -311,16 +270,19 @@ satisfies stability is exactly today's twist.
 - **Correctness proof:** an argument that covers *every* valid input,
   not a demonstration on one example - today, a loop invariant.
 
-<!-- notes: Read each term aloud. Say "adaptive" is the word that will separate insertion sort from
+<!-- notes: Read each term aloud. "Adaptive" is the word that will separate insertion sort from
 the other two on CampusNav's real workload - new rooms trickling in, not a full re-shuffle. -->
 
 ---
 
-<!-- Act 3 / BUILD: Bubble sort -->
+<!-- Act 3 / BUILD: Bubble sort. Idea + pseudocode merged into one slide. -->
 
-# Bubble Sort: The Idea
+# Bubble Sort: Idea and Pseudocode
 
 <div class="thread">First of three. Repeatedly swap neighbors out of order. (CLRS 4th ed, Problem 2-2)</div>
+
+<div class="two-col">
+<div>
 
 Walk left to right through the array. Compare each pair of neighbors;
 if they're out of order, swap them. The largest unsorted element
@@ -328,11 +290,8 @@ if they're out of order, swap them. The largest unsorted element
 Repeat, one fewer element each time, until a pass makes no swaps at
 all.
 
----
-
-# Bubble Sort: Pseudocode
-
-<div class="thread">The idea above, written out precisely.</div>
+</div>
+<div>
 
 ```text
 BUBBLE-SORT(A):
@@ -347,22 +306,184 @@ BUBBLE-SORT(A):
             break
 ```
 
----
-
-# Bubble Sort: Trace on [5, 2, 4, 1, 3]
-
-<div class="thread">hl = the value that just bubbled into place this pass · hl2 = already settled</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">5</div><div class="cell">2</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">After pass 1</div><div class="cell">2</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div><div class="cell hl">5</div></div>
-<div class="row"><div class="rowlabel">After pass 2</div><div class="cell">2</div><div class="cell">1</div><div class="cell">3</div><div class="cell hl">4</div><div class="cell hl2">5</div></div>
-<div class="row"><div class="rowlabel">After pass 3</div><div class="cell">1</div><div class="cell">2</div><div class="cell hl">3</div><div class="cell hl2">4</div><div class="cell hl2">5</div></div>
-<div class="row"><div class="rowlabel">After pass 4</div><div class="cell hl2">1</div><div class="cell hl2">2</div><div class="cell hl2">3</div><div class="cell hl2">4</div><div class="cell hl2">5</div></div>
+</div>
 </div>
 
-Pass 4 makes **zero swaps** - `swapped` stays false, the loop breaks
-early, and we know the array is sorted without checking further.
+---
+
+<!-- NEW: dense worked example, bubble sort, simple tier -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Bubble sort · worked example 1 of 3 (simple)</div>
+
+# Three Elements: [3, 1, 2]
+
+<div class="wx-top">
+<div class="lead">The smallest case that still shows both a swap and an early exit.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort [3, 1, 2] and watch the early-exit flag actually fire.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Pass 1 (2 cmp)</div>
+<div class="wx-body">Compare (3,1): swap &rarr; [1,3,2]. Compare (3,2): swap &rarr; [1,2,3]. Two swaps, array already sorted.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Pass 2 (1 cmp)</div>
+<div class="wx-body">Compare (1,2): already in order, no swap. <code>swapped</code> stays false.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">Loop breaks early. Sorted in 2 passes, 3 comparisons total, done before reaching the worst-case n&minus;1 = 2 passes' full cost.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] in 2 passes, 3 comparisons.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Every pass either fixes something or proves nothing's left to fix - that second case is the early exit.</div>
+
+---
+
+<!-- NEW: dense worked example, bubble sort, moderate tier (full trace + cost) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Bubble sort · worked example 2 of 3 (moderate)</div>
+
+# Full Trace with Cost: [5, 2, 4, 1, 3]
+
+<div class="wx-top">
+<div class="lead">A moderate, unsorted array. No pass exits early until the last one.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort in full, and count every comparison pass by pass.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Pass 1 (4 cmp)</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">before</div><div class="cell">5</div><div class="cell">2</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div></div>
+<div class="row"><div class="rowlabel">after</div><div class="cell">2</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div><div class="cell hl">5</div></div>
+</div>
+3 swaps, 5 bubbles to the end.
+</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Pass 2 (3 cmp)</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell">2</div><div class="cell">1</div><div class="cell">3</div><div class="cell hl">4</div><div class="cell empty">5</div></div>
+</div>
+2 swaps, 4 settles next.
+</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Pass 3 (2 cmp)</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell">1</div><div class="cell">2</div><div class="cell hl">3</div><div class="cell empty">4</div><div class="cell empty">5</div></div>
+</div>
+1 swap, 3 settles next.
+</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Pass 4 (1 cmp)</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell">1</div><div class="cell">2</div><div class="cell empty">3</div><div class="cell empty">4</div><div class="cell empty">5</div></div>
+</div>
+0 swaps - sorted, but the flag check happens next pass.
+</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Sorted after 4 passes, 4+3+2+1 = 10 comparisons total - matches the worst case exactly.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Each pass settles one more maximum into place; the comparison count shrinks by one every pass.</div>
+
+---
+
+<!-- NEW: dense worked example, bubble sort, harder tier (adaptive/early-exit, absorbs old Check-Yourself) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Bubble sort · worked example 3 of 3 (harder)</div>
+
+# Nearly-Sorted Input: [1, 2, 3, 5, 4]
+
+<div class="wx-top">
+<div class="lead">Only the last two entries are out of order. Does the early-exit flag notice?</div>
+<div class="goalbox"><span class="k">Goal</span>Show the early-exit flag turns a nearly-sorted input into far less than the worst-case work.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">[1, 2, 3, 5, 4] - a reverse-sorted input would need n&minus;1 = 4 passes. This one shouldn't.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Pass 1</div>
+<div class="wx-body">(1,2) (2,3) (3,5): no swaps. (5,4): swap &rarr; [1,2,3,4,5]. <code>swapped = true</code>.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Pass 2</div>
+<div class="wx-body">Every neighbor pair already in order. Zero swaps. <code>swapped</code> stays false &rarr; loop exits.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">What this proves</div>
+<div class="wx-body">2 passes total, not the 4 a reverse-sorted input would cost. Nearly-sorted input runs close to <span class="bignotation">O(n)</span>, not O(n&sup2;).</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Bubble sort is adaptive: its actual cost shrinks toward O(n) as the input gets closer to sorted.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>The early-exit flag is what turns "provably O(n&sup2;)" into "close to O(n) in practice" for realistic, mostly-sorted inputs.</div>
+
+---
+
+<!-- NEW: dense worked example, bubble sort, the O(n^2) proof (flagship slide) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Bubble sort · proving the bound</div>
+
+# Proving the O(n&sup2;) Bound
+
+<div class="wx-top">
+<div class="lead">Every earlier trace counted comparisons on one input. Here's the general argument, in four steps.</div>
+<div class="goalbox"><span class="k">Goal</span>Show worst-case comparisons = n(n&minus;1)/2, hence O(n&sup2;).</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Count one input</div>
+<div class="wx-body">n = 5, no early exit: pass 1 makes 4 comparisons, pass 2 makes 3, pass 3 makes 2, pass 4 makes 1. Total = 4+3+2+1 = 10.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Generalize</div>
+<div class="wx-body">For any n, pass k compares (n&minus;k) pairs. Total comparisons = (n&minus;1) + (n&minus;2) + &hellip; + 1.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Closed form</div>
+<div class="wx-body">That sum is n(n&minus;1)/2 (Week 3's arithmetic-series rule). Check: n=5 &rarr; 5&times;4/2 = 10. Matches step 1.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Shortcut</div>
+<div class="wx-body">Drop the &minus;n term and the constant &frac12; (Week 3's rules) &rarr; <span class="bignotation">O(n&sup2;)</span> directly from the leading n&sup2;/2 term.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Worst-case comparisons = n(n&minus;1)/2 &rarr; O(n&sup2;) - this derivation backs every O(n&sup2;) claim in Weeks 5-6.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>To prove a bound: count on one concrete input, then generalize the pattern into a closed form.</div>
 
 ---
 
@@ -385,102 +506,14 @@ sorted (or nearly-sorted) array instead of blindly grinding through it.
 
 ---
 
-<!-- NEW: code-to-cost bridge, part 1 -->
-
-# Bubble Sort: Counting the Comparisons
-
-<div class="thread">The same trace as before - this time, counting what it actually costs.</div>
-
-Same array, `[5, 2, 4, 1, 3]`, no early exit (worst case: `swapped`
-never trips false early). Each pass's inner loop runs one fewer
-comparison than before, because one more element - the previous
-pass's largest - is now settled and never needs checking again.
-
-| Pass | Inner loop | Comparisons this pass |
-|---|---|---|
-| 1 | `j = 0` to `3` | 4 |
-| 2 | `j = 0` to `2` | 3 |
-| 3 | `j = 0` to `1` | 2 |
-| 4 | `j = 0` to `0` | 1 |
-
-**Total: $4 + 3 + 2 + 1 = 10$ comparisons** to sort these 5 elements.
-
----
-
-<!-- NEW: code-to-cost bridge, part 2 -->
-
-# From Counting to O(n²): The Sum
-
-<div class="thread">Same pattern, any array of size n - not just this one.</div>
-
-For an array of size $n$, pass 1 makes $n-1$ comparisons, pass 2 makes
-$n-2$, and so on down to pass $n-1$, which makes exactly 1:
-
-$$
-(n-1) + (n-2) + \cdots + 1 = \sum_{k=1}^{n-1} k = \frac{n(n-1)}{2}
-$$
-
-Check against the trace above: $n = 5 \Rightarrow \frac{5 \cdot
-4}{2} = 10$ - matches.
-
----
-
-# From Counting to O(n²): The Bound
-
-<div class="thread">Same sum, one algebra step from a Big-O bound.</div>
-
-$$
-\frac{n(n-1)}{2} = \frac{n^2 - n}{2}
-$$
-
-Dropping the slower-growing term and the constant factor (Week 3's
-Big-O rules) leaves the dominant term:
-
-<div class="why">
-<span class="bignotation">O(n²)</span> - and this derivation, not just
-the label, is what backs <strong>every</strong> "O(n²)" claim for
-bubble, selection, and insertion sort across Weeks 5 and 6.
-</div>
-
----
-
-<!-- NEW: check-yourself pair, bubble sort adaptive behavior -->
-
-# Check Yourself: Bubble Sort's Early Exit
-
-<div class="thread">Reusing the trace above - now with the early-exit flag actually doing something.</div>
-
-The array `[1, 2, 3, 5, 4]` has only its last two elements out of
-order. Using bubble sort *with* the `swapped` flag, how many passes
-does it take before the loop exits? What does that tell you about
-bubble sort's best-case behavior on nearly-sorted input?
-
----
-
-# Answer
-
-Pass 1: compare (1,2) no swap, (2,3) no swap, (3,5) no swap, (5,4)
-swap &rarr; `[1,2,3,4,5]`, `swapped = true`. Pass 2: every neighbor
-pair is already in order, zero swaps, `swapped` stays false, loop
-exits.
-
-**Two passes total** - not the full $n - 1 = 4$ passes a reverse-sorted
-input would need. This is exactly bubble sort's adaptive property: a
-nearly-sorted array costs close to $O(n)$, not $O(n^2)$, because the
-early-exit flag lets the algorithm stop the moment one clean pass
-confirms the array is sorted.
-
----
-
 <!-- Act 3 / BUILD: Selection sort -->
 
-# Selection Sort: The Idea
+# Selection Sort: Idea and Pseudocode
 
 <div class="thread">Second of three. Repeatedly grab the smallest remaining. (CLRS 4th ed, Exercise 2.2-2)</div>
 
 Scan the unsorted remainder for its minimum, swap it into the next
-open position at the front, repeat on the shrinking remainder - this
-is Method A from the warm-up.
+open position at the front, repeat on the shrinking remainder.
 
 ```text
 SELECTION-SORT(A):
@@ -498,37 +531,178 @@ how sorted it already is - there is no early exit here.
 
 ---
 
-# Selection Sort: Trace on [5, 2, 4, 1, 3]
+<!-- NEW: dense worked example, selection sort, simple tier -->
+<!-- _class: dense -->
 
-<div class="thread">hl = the minimum just swapped into place · hl2 = settled prefix</div>
+<div class="eyebrow">Selection sort · worked example 1 of 3 (simple)</div>
 
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">5</div><div class="cell">2</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">After pass 1</div><div class="cell hl">1</div><div class="cell">2</div><div class="cell">4</div><div class="cell">5</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">After pass 2</div><div class="cell hl2">1</div><div class="cell hl">2</div><div class="cell">4</div><div class="cell">5</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">After pass 3</div><div class="cell hl2">1</div><div class="cell hl2">2</div><div class="cell hl">3</div><div class="cell">5</div><div class="cell">4</div></div>
-<div class="row"><div class="rowlabel">After pass 4</div><div class="cell hl2">1</div><div class="cell hl2">2</div><div class="cell hl2">3</div><div class="cell hl">4</div><div class="cell hl2">5</div></div>
+# Three Elements: [3, 1, 2]
+
+<div class="wx-top">
+<div class="lead">The smallest case that still needs two full scans.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort [3, 1, 2] and notice the scan never shortens.</div>
 </div>
 
-Pass 1: minimum of the whole array (1) swaps with index 0. Pass 2: the
-minimum (2) is *already* at index 1 - it "swaps with itself."
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Pass 1</div>
+<div class="wx-body">Scan indices 1-2 for the minimum of the whole array: 1, at index 1. Swap index 0 and 1 &rarr; [1, 3, 2].</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Pass 2</div>
+<div class="wx-body">Scan index 2 for the minimum of the remainder: 2, at index 2. Swap index 1 and 2 &rarr; [1, 2, 3].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">Sorted in 2 passes, 1+2 = 3 comparisons - the scan runs full-length every single pass, no shortcuts.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] in 2 passes, 3 comparisons, zero early exits.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Selection sort's scan is always full-length - there is no flag to check and no way to stop early.</div>
 
 ---
 
-# Selection Sort: A Stability Counterexample
+<!-- NEW: dense worked example, selection sort, moderate tier -->
+<!-- _class: dense -->
 
-<div class="thread">This is the misconception this week is built around. Watch closely.</div>
+<div class="eyebrow">Selection sort · worked example 2 of 3 (moderate)</div>
 
-Tag two equal-key elements so we can track them: `A = [4a, 4b, 1c]`
-(subscripts are labels, not part of the value).
+# Full Trace: [5, 2, 4, 1, 3]
 
-1. Scan for the minimum: it's `1c` at index 2.
-2. **Swap** index 0 and index 2: `A = [1c, 4b, 4a]`.
+<div class="wx-top">
+<div class="lead">Same array as bubble sort's moderate example - same result, different mechanics.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort in full, one minimum swapped into place per pass.</div>
+</div>
 
-`4a` started **before** `4b` in the original array. After one swap,
-`4b` comes before `4a`. Their relative order flipped - naive
-selection sort is **not stable**, and it took only three elements to
-show it.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Pass 1</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl">1</div><div class="cell">2</div><div class="cell">4</div><div class="cell">5</div><div class="cell">3</div></div>
+</div>
+Min of whole array (1) swaps into index 0.
+</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Pass 2</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">1</div><div class="cell hl">2</div><div class="cell">4</div><div class="cell">5</div><div class="cell">3</div></div>
+</div>
+Min of remainder (2) is already at index 1 - "swaps with itself."
+</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Pass 3</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">1</div><div class="cell hl2">2</div><div class="cell hl">3</div><div class="cell">5</div><div class="cell">4</div></div>
+</div>
+Min of remainder (3) swaps into index 2.
+</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Pass 4</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">1</div><div class="cell hl2">2</div><div class="cell hl2">3</div><div class="cell hl">4</div><div class="cell hl2">5</div></div>
+</div>
+Min of remainder (4) swaps into index 3.
+</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Sorted after 4 passes - every pass scanned the full remainder, whether it needed to or not.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Pass 2's minimum was already in place - it still scanned everything and "swapped with itself."</div>
+
+---
+
+<!-- NEW: dense worked example, selection sort, harder tier (stability counterexample) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Selection sort · worked example 3 of 3 (harder)</div>
+
+# Stability Breaks: [4a, 4b, 1c]
+
+<div class="wx-top">
+<div class="lead">Tag two equal-key elements so we can track them (subscripts are labels, not values).</div>
+<div class="goalbox"><span class="k">Goal</span>Find one input where selection sort scrambles equal-key order.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Scan</div>
+<div class="wx-body">A = [4a, 4b, 1c]. Minimum of the whole array is 1c, at index 2.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Swap</div>
+<div class="wx-body">Swap index 0 and index 2 &rarr; A = [1c, 4b, 4a].</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Compare orders</div>
+<div class="wx-body">4a was before 4b originally. After one swap, 4b comes before 4a - their relative order flipped.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Not a fluke</div>
+<div class="wx-body">A different array, e.g. [3a, 1b, 3c], happens to stay stable after its own swap - but "sometimes stable" is not the same claim as "stable."</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>One 3-element counterexample proves naive selection sort is NOT stable.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>One counterexample disqualifies a general claim - even if other inputs happen to behave.</div>
+
+---
+
+<!-- NEW: dense worked example, selection sort cost on every input (merges old check-yourself content) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Selection sort · proving the bound</div>
+
+# Cost on Every Input, Not Just the Worst
+
+<div class="wx-top">
+<div class="lead">Bubble sort's bound was a worst case. Selection sort's is not - it's every case.</div>
+<div class="goalbox"><span class="k">Goal</span>Show selection sort makes exactly n(n&minus;1)/2 comparisons, on every input.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Inner loop for i</div>
+<div class="wx-body">For a fixed outer index i, the inner loop always runs (n&minus;1&minus;i) comparisons - the array's contents never change that count.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Sum over i</div>
+<div class="wx-body">i = 0 gives n&minus;1, i = 1 gives n&minus;2, &hellip;, i = n&minus;2 gives 1. Same sum as bubble sort &rarr; n(n&minus;1)/2.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Try it sorted</div>
+<div class="wx-body">Run it on the already-sorted [1,2,3,4,5]: still 4+3+2+1 = 10 comparisons, even though every "swap" is a no-op.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Contrast with bubble</div>
+<div class="wx-body">Identical formula to bubble sort's <em>worst</em> case - but bubble and insertion sort only pay it in the worst case. Selection sort always pays it.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Selection sort's best case is still &Theta;(n&sup2;) - the sorted-input shortcut other sorts get simply doesn't exist here.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A comparison count that doesn't depend on the data isn't a worst case - it's the only case.</div>
 
 ---
 
@@ -550,42 +724,11 @@ never adapts to a nearly-sorted array the way bubble or insertion sort do.
 
 ---
 
-<!-- NEW: check-yourself pair, selection sort comparison count -->
-
-# Check Yourself: Counting Selection Sort's Comparisons
-
-<div class="thread">Same counting exercise as bubble sort above - now applied to selection sort.</div>
-
-Selection sort's inner loop, for a fixed outer index `i`, always runs
-from `j = i+1` to `n-1`, no matter what the array looks like. For an
-array of size $n$, exactly how many comparisons does selection sort
-make in total - and how does that number compare to bubble sort's
-worst-case count of $\frac{n(n-1)}{2}$, derived a few slides ago?
-
----
-
-# Answer
-
-For each outer index $i = 0, 1, \ldots, n-2$, the inner loop makes
-exactly $(n - 1 - i)$ comparisons: $i=0$ gives $n-1$, $i=1$ gives
-$n-2$, and so on down to $i = n-2$, which gives 1. Total:
-
-$$(n-1) + (n-2) + \cdots + 1 = \frac{n(n-1)}{2}$$
-
-**Identical formula** to bubble sort's worst case. The difference
-isn't the comparison count - both are $\Theta(n^2)$ by the same sum.
-The difference is that selection sort makes this many comparisons on
-**every** input, including an already-sorted one, while bubble sort
-only reaches this total in the worst case and can exit early (previous
-slide) on nearly-sorted input.
-
----
-
 <!-- Act 3 / BUILD: Insertion sort -->
 
-# Insertion Sort: The Idea
+# Insertion Sort: Idea and Pseudocode
 
-<div class="thread">Third of three. This is Method B from the warm-up - sorting a hand of cards. (CLRS 4th ed, §2.1)</div>
+<div class="thread">Third of three. This is how most people actually sort a hand of cards. (CLRS 4th ed, §2.1)</div>
 
 Grow a sorted prefix one element at a time: take the next element
 (`key`) and slide it left past every sorted element greater than it,
@@ -605,54 +748,120 @@ INSERTION-SORT(A):
 
 ---
 
-# From Trace to Proof
+<!-- NEW: dense worked example, insertion sort, simple tier -->
+<!-- _class: dense -->
 
-<div class="thread">One sentence, about to become a formal claim.</div>
+<div class="eyebrow">Insertion sort · worked example 1 of 3 (simple)</div>
 
-Every iteration ends with `A[0..i]` sorted - that sentence is about to
-become a formal proof.
+# Three Elements: [2, 3, 1]
 
----
-
-# Insertion Sort: Trace on [5, 2, 4, 1, 3]
-
-<div class="thread">hl = the key just inserted this pass · hl2 = the rest of the sorted prefix</div>
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start (i=0)</div><div class="cell hl2">5</div><div class="cell">2</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">i=1, key=2</div><div class="cell hl">2</div><div class="cell hl2">5</div><div class="cell">4</div><div class="cell">1</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">i=2, key=4</div><div class="cell hl2">2</div><div class="cell hl">4</div><div class="cell hl2">5</div><div class="cell">1</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">i=3, key=1</div><div class="cell hl">1</div><div class="cell hl2">2</div><div class="cell hl2">4</div><div class="cell hl2">5</div><div class="cell">3</div></div>
-<div class="row"><div class="rowlabel">i=4, key=3</div><div class="cell hl2">1</div><div class="cell hl2">2</div><div class="cell hl">3</div><div class="cell hl2">4</div><div class="cell hl2">5</div></div>
+<div class="wx-top">
+<div class="lead">The smallest case that shows both "no shift needed" and "shift past everything."</div>
+<div class="goalbox"><span class="k">Goal</span>Sort [2, 3, 1] and see cost track distance-to-travel.</div>
 </div>
 
-Notice the sorted region (everything left of, and including, the key)
-only ever *grows* - that observation is the loop invariant.
-
----
-
-<!-- NEW: within-pass element-level trace -->
-
-# Insertion Sort: Inside One Pass (i=3, key=1)
-
-<div class="thread">Same pass-level trace, i=3 row - now every comparison and shift, one at a time.</div>
-
-Entering `i=3`: array is `[2, 4, 5, 1, 3]`. `key = A[3] = 1`, `j`
-starts at `i - 1 = 2`.
-
-<div class="steps">
-<div class="step-row"><div class="step-num">1</div><div class="step-text">j=2: A[2]=5 &gt; key(1) &rarr; shift A[3]=5, j=1 &rarr; [2,4,5,5,3]</div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-text">j=1: A[1]=4 &gt; key(1) &rarr; shift A[2]=4, j=0 &rarr; [2,4,4,5,3]</div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-text">j=0: A[0]=2 &gt; key(1) &rarr; shift A[1]=2, j=-1 &rarr; [2,2,4,5,3]</div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-text">j=-1: loop stops (j &lt; 0) &rarr; place key: A[0]=1 &rarr; [1,2,4,5,3]</div></div>
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">i=1, key=3</div>
+<div class="wx-body">A[0]=2 is not &gt; 3, so the while loop never runs. key drops back in place: [2, 3, 1]. Zero shifts.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">i=2, key=1</div>
+<div class="wx-body">A[1]=3 &gt; 1: shift. A[0]=2 &gt; 1: shift. j = -1: stop. Place key at index 0 &rarr; [1, 2, 3]. Two shifts.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Result</div>
+<div class="wx-body">Sorted in 2 passes, 2 shifts total - all the cost came from the one key that had to travel the whole way.</div>
+</div>
 </div>
 
-Three comparisons, three shifts, one placement - four individual
-operations the pass-level trace above compressed into a single row.
+<div class="conclusion"><span class="k">Conclusion</span>[2, 3, 1] &rarr; [1, 2, 3] in 2 passes, 2 shifts.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Cost equals how far each key must travel to reach its correct spot - not how many elements exist.</div>
 
 ---
 
-<!-- Act 3 / BUILD: loop invariant proof -->
+<!-- NEW: dense worked example, insertion sort, moderate tier (pass trace + microscope on one pass) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Insertion sort · worked example 2 of 3 (moderate)</div>
+
+# Full Trace, Zoomed Into One Pass: [5, 2, 4, 1, 3]
+
+<div class="wx-top">
+<div class="lead">Pass by pass, then one pass under the microscope, shift by shift.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort in full, and see exactly what one pass costs, comparison by comparison.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">i=1, key=2</div>
+<div class="wx-body">A[0]=5 &gt; 2: shift. j=-1: stop. Place at 0 &rarr; [2,5,4,1,3]. One shift.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">i=2, key=4</div>
+<div class="wx-body">A[1]=5 &gt; 4: shift. A[0]=2 not &gt; 4: stop. Place at 1 &rarr; [2,4,5,1,3]. One shift.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">i=3, key=1</div>
+<div class="wx-body">A[2]=5, A[1]=4, A[0]=2 all &gt; 1: three shifts. Place at 0 &rarr; [1,2,4,5,3].</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Zoom: inside i=3</div>
+<div class="wx-body">j=2: 5&gt;1 shift, j=1: 4&gt;1 shift, j=0: 2&gt;1 shift, j=-1 stop, place 1 at index 0. Three comparisons, three shifts, one placement.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>One more pass, i=4 (key=3, two shifts), finishes the sort: [1,2,3,4,5].</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Every iteration ends with A[0..i] sorted - that sentence is about to become a formal proof.</div>
+
+---
+
+<!-- NEW: dense worked example, insertion sort, harder tier (best vs worst) -->
+<!-- _class: dense -->
+
+<div class="eyebrow">Insertion sort · worked example 3 of 3 (harder)</div>
+
+# Best Case vs. Worst Case
+
+<div class="wx-top">
+<div class="lead">Same algorithm, two inputs at opposite extremes.</div>
+<div class="goalbox"><span class="k">Goal</span>Show why insertion sort's best case is O(n) when selection sort's isn't.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Worst: [5,4,3,2,1]</div>
+<div class="wx-body">Every key must jump past every earlier element. Shifts: 1+2+3+4 = 10, matching n(n&minus;1)/2.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Count</div>
+<div class="wx-body">Same closed form as bubble and selection sort's worst case &rarr; <span class="bignotation">O(n²)</span>.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Best: [1,2,3,4,5]</div>
+<div class="wx-body">The <code>while</code> condition fails immediately, every time. Zero shifts, n&minus;1 = 4 comparisons total &rarr; O(n).</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why selection can't do this</div>
+<div class="wx-body">Selection sort's inner scan never shortens, so it can't reach O(n) even on a fully-sorted array.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Insertion sort adapts to how sorted the input already is; selection sort never does.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A best case isn't automatic - it depends on whether the algorithm's structure can detect and exploit an easy input.</div>
+
+---
 
 # Proving Insertion Sort Correct: The Invariant
 
@@ -664,7 +873,7 @@ operations the pass-level trace above compressed into a single row.
 > sorted order.
 
 A correctness proof using a loop invariant has three parts, mirroring
-mathematical induction:
+mathematical induction from Week 4.
 
 ---
 
@@ -680,81 +889,43 @@ mathematical induction:
 
 ---
 
-# Initialization
+<!-- NEW: dense worked example, insertion sort correctness proof (flagship slide) -->
+<!-- _class: dense -->
 
-<div class="thread">Base case.</div>
+<div class="eyebrow">Insertion sort · proving correctness</div>
 
-Before the first iteration, `i = 1`, so the claim is about the
-subarray `A[0..0]` - a single element.
+# The Proof, All Three Parts
 
-A one-element array is trivially sorted: there is no pair to be out of
-order. The invariant holds before the loop ever runs.
+<div class="wx-top">
+<div class="lead">Every trace above matched the invariant. Here's why it holds on every input, not just the ones we traced.</div>
+<div class="goalbox"><span class="k">Goal</span>Prove: after the loop, A[0..n&minus;1] holds the original elements, sorted - for every input.</div>
+</div>
 
----
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Initialization</div>
+<div class="wx-body">Before the first iteration, i=1: the claim is about A[0..0], a single element. Trivially sorted - no pair to be out of order.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Maintenance</div>
+<div class="wx-body">Assuming A[0..i-1] is sorted: shifting moves only elements strictly greater than key; key drops into the gap. A[0..i] is sorted - invariant now one wider.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Termination</div>
+<div class="wx-body">The loop stops when i=n. The invariant at i=n says A[0..n&minus;1] is sorted - that subarray is the entire array.</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why all three parts</div>
+<div class="wx-body">Initialization + maintenance alone only show the invariant holds at the start of every iteration. Termination is what connects that to a claim about the finished array.</div>
+</div>
+</div>
 
-# Maintenance
-
-<div class="thread">Inductive step.</div>
-
-Assume `A[0..i-1]` is sorted (the invariant, going into iteration
-`i`). The loop body:
-
-1. Saves `A[i]` as `key`.
-2. Shifts every element of `A[0..i-1]` that is greater than `key` one
-   slot to the right - this only ever moves *larger* elements, never
-   reorders the sorted elements among themselves.
-3. Places `key` into the resulting gap - the first position (from the
-   right) whose element is not greater than `key`.
-
-The result, `A[0..i]`, contains exactly the same elements as
-`A[0..i-1]` plus `key`, now in sorted order. When `i` increments for
-the next iteration, the invariant holds again - now one element wider.
-
----
-
-# Termination
-
-<div class="thread">Closing the proof.</div>
-
-The outer loop's counter `i` increases by 1 each iteration and stops
-when `i = n` (past the last valid index, `n - 1`).
-
-At that point, the invariant - stated for `i = n` - says: `A[0..n-1]`
-consists of the original elements, in sorted order. That subarray
-**is** the entire array.
-
-$$
-\text{Invariant holds at } i = n \implies A \text{ is fully sorted}
-$$
-
-Initialization + maintenance + termination together prove insertion
-sort correct on **every** valid input - not just the one we traced.
-
----
-
-<!-- NEW: check-yourself pair, necessity of all three proof parts -->
-
-# Check Yourself: Why All Three Parts?
-
-<div class="thread">One more question before moving from proof to cost.</div>
-
-Suppose someone showed only **initialization** and **maintenance** for
-insertion sort's loop invariant, and skipped **termination** entirely.
-Would that be a complete correctness proof? Why or why not?
-
----
-
-# Answer
-
-**No.** Initialization and maintenance together only show that the
-invariant holds at the start of every iteration the loop happens to
-run - they never say anything about what's true when the loop
-*stops*, or even that it stops at all. Termination is the step that
-connects "the invariant keeps holding" to "here is what the invariant
-tells us about the finished array." Without it, you've proven a true
-statement about every intermediate step and never connected it back to
-the actual claim - "the whole array ends up sorted" - that the proof
-was supposed to establish.
+<div class="conclusion"><span class="k">Conclusion</span>Correct on every valid input - not just the traces we drew.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>A strict comparison (<code>&gt;</code>, not <code>&gt;=</code>) is what keeps the maintenance step - and stability - intact.</div>
 
 ---
 
@@ -792,56 +963,163 @@ three is still $O(n^2)$ worst case.
 
 ---
 
-<!-- SLOT N-2: Worked example -->
+<!-- SLOT N-2: Worked example, CampusNav Ex 1 (insertion sort) -->
+<!-- _class: dense -->
 
-# CampusNav: Sorting the Room Directory
+<div class="eyebrow">CampusNav · worked example 1 of 3</div>
 
-<div class="thread">Everything above, applied to the actual pain from slot 4.</div>
+# Sorting the Room Directory, by Insertion
 
-A 5-entry sample, scraped in signage order: `[Music, Arts, Science,
-Gym, Library]`. Insertion sort, alphabetically:
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">Music</div><div class="cell">Arts</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">i=1: Arts</div><div class="cell hl">Arts</div><div class="cell hl2">Music</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">i=2: Science</div><div class="cell hl2">Arts</div><div class="cell hl2">Music</div><div class="cell hl">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">i=3: Gym</div><div class="cell hl2">Arts</div><div class="cell hl">Gym</div><div class="cell hl2">Music</div><div class="cell hl2">Science</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">i=4: Library</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl">Library</div><div class="cell hl2">Music</div><div class="cell hl2">Science</div></div>
+<div class="wx-top">
+<div class="lead">Everything above, applied to the actual pain from the start of this deck.</div>
+<div class="goalbox"><span class="k">Goal</span>A 5-entry sample, scraped in signage order, sorted alphabetically.</div>
 </div>
 
-Five entries, four passes, done - and, unlike the staff member from
-slot 4, we can now *prove* the result is sorted, on any input.
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">i=1: Arts</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl">Arts</div><div class="cell hl2">Music</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+</div>
+Shifts past Music.
+</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">i=2: Science</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">Arts</div><div class="cell hl2">Music</div><div class="cell hl">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+</div>
+Already greater than Music - zero shifts.
+</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">i=3: Gym</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">Arts</div><div class="cell hl">Gym</div><div class="cell hl2">Music</div><div class="cell hl2">Science</div><div class="cell">Library</div></div>
+</div>
+Shifts past Science and Music.
+</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">i=4: Library</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl">Library</div><div class="cell hl2">Music</div><div class="cell hl2">Science</div></div>
+</div>
+Shifts past Science and Music.
+</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Four passes, done - and, unlike a staff member reordering by hand, we can now prove the result is sorted, on any input.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>Five entries, four passes - the same proof that covered every array covers this one too.</div>
 
 ---
 
-<!-- NEW: second worked trace, same CampusNav data, contrasting sort -->
+<!-- NEW: worked example, CampusNav Ex 2 (selection sort, contrast) -->
+<!-- _class: dense -->
 
-# CampusNav: The Same Directory, via Selection Sort
+<div class="eyebrow">CampusNav · worked example 2 of 3</div>
 
-<div class="thread">Same five entries as the insertion-sort trace above - now selection sort's turn.</div>
+# The Same Directory, by Selection
 
-Same start: `[Music, Arts, Science, Gym, Library]`. Selection sort
-repeatedly finds the alphabetically-first remaining entry and swaps it
-into place:
-
-<div class="tracetable">
-<div class="row"><div class="rowlabel">Start</div><div class="cell">Music</div><div class="cell">Arts</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">Pass 1</div><div class="cell hl">Arts</div><div class="cell">Music</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">Pass 2</div><div class="cell hl2">Arts</div><div class="cell hl">Gym</div><div class="cell">Science</div><div class="cell">Music</div><div class="cell">Library</div></div>
-<div class="row"><div class="rowlabel">Pass 3</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl">Library</div><div class="cell">Music</div><div class="cell">Science</div></div>
-<div class="row"><div class="rowlabel">Pass 4</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl2">Library</div><div class="cell hl">Music</div><div class="cell hl2">Science</div></div>
+<div class="wx-top">
+<div class="lead">Same 5 entries, same final order - a very different amount of work along the way.</div>
+<div class="goalbox"><span class="k">Goal</span>Sort the same directory with selection sort, and watch the scans.</div>
 </div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Pass 1</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl">Arts</div><div class="cell">Music</div><div class="cell">Science</div><div class="cell">Gym</div><div class="cell">Library</div></div>
+</div>
+Min of all 5 (Arts) swaps to index 0.
+</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Pass 2</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">Arts</div><div class="cell hl">Gym</div><div class="cell">Science</div><div class="cell">Music</div><div class="cell">Library</div></div>
+</div>
+Min of remainder (Gym) swaps to index 1.
+</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Pass 3</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl">Library</div><div class="cell">Music</div><div class="cell">Science</div></div>
+</div>
+Min of remainder (Library) swaps to index 2.
+</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">4</div>
+<div class="wx-title">Pass 4</div>
+<div class="wx-body">
+<div class="tracetable">
+<div class="row"><div class="rowlabel">after</div><div class="cell hl2">Arts</div><div class="cell hl2">Gym</div><div class="cell hl2">Library</div><div class="cell hl">Music</div><div class="cell hl2">Science</div></div>
+</div>
+Music was already correct - still scanned to confirm it.
+</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Same final order as the insertion-sort trace above.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>This is the "no early exit" row from the cost table, made concrete: selection sort pays full price even when nothing needs to move.</div>
 
 ---
 
-# CampusNav: What the Selection Sort Trace Shows
+<!-- NEW: worked example, CampusNav Ex 3 (harder, stability payoff on real multi-key data) -->
+<!-- _class: dense -->
 
-<div class="thread">The same trace, one observation drawn out.</div>
+<div class="eyebrow">CampusNav · worked example 3 of 3 (harder)</div>
 
-Same final order as insertion sort - but notice pass 4's minimum
-(`Music`) was already sitting in its correct spot, and selection sort
-still had to scan the whole remainder to confirm that. That's the "no
-early exit" row from the cost table above, made concrete.
+# Re-Sorting by Floor: Stable vs. Unstable
+
+<div class="wx-top">
+<div class="lead">The directory is already alphabetical. Now the team wants it grouped by floor instead.</div>
+<div class="goalbox"><span class="k">Goal</span>Re-sort [Arts(F2), Music(F2), Gym(F1)] by floor, two ways.</div>
+</div>
+
+<div class="wx-steps">
+<div class="wx-step">
+<div class="wx-num">1</div>
+<div class="wx-title">Setup</div>
+<div class="wx-body">Already A-to-Z: Arts (Floor 2), Music (Floor 2), Gym (Floor 1). Re-sort by floor, ascending.</div>
+</div>
+<div class="wx-step c2">
+<div class="wx-num">2</div>
+<div class="wx-title">Stable (insertion)</div>
+<div class="wx-body">Groups Floor 1 first, Floor 2 after, in original order &rarr; [Gym, Arts, Music]. Arts still before Music.</div>
+</div>
+<div class="wx-step c3">
+<div class="wx-num">3</div>
+<div class="wx-title">Unstable (naive selection)</div>
+<div class="wx-body">Min-scan finds Gym (Floor 1) at index 2, swaps it to the front &rarr; [Gym, Music, Arts]. Arts and Music flipped!</div>
+</div>
+<div class="wx-step c4">
+<div class="wx-num">&#9733;</div>
+<div class="wx-title">Why</div>
+<div class="wx-body">The swap that brought Gym to the front happened to relocate Arts past Music - the exact [4a,4b,1c] mechanism, now with real room names.</div>
+</div>
+</div>
+
+<div class="conclusion"><span class="k">Conclusion</span>Same input, same sort key, two different orders - only the stable sort preserves the alphabetical work already done.</div>
+<div class="takeaway"><span class="k">Key takeaway</span>This is exactly why `ORDER BY floor, name` needs a stable sort underneath it.</div>
 
 ---
 
@@ -855,93 +1133,14 @@ early exit" row from the cost table above, made concrete.
   swaps no matter what, the others don't; only bubble and insertion
   sort are stable.
 - **"Stability is just a technicality."** It breaks multi-key sorting:
-  sort CampusNav's directory by *floor* using an unstable sort after
-  it's already sorted alphabetically, and rooms on the same floor can
-  come back out of alphabetical order - the earlier sort's work gets
-  silently undone.
+  the floor-then-name example above shows a real, working directory
+  coming back with rooms out of alphabetical order on the same floor -
+  the earlier sort's work gets silently undone.
 - **"A loop invariant is just restating the loop."** It must hold at a
   *specific point every iteration* and be strong enough that,
   combined with termination, it proves the exact claim you need - "the
   array looks more sorted each time" is not precise enough to prove
   anything.
-
----
-
-<!-- SLOT N: Check yourself -->
-
-# Check Yourself
-
-1. Why is selection sort's best case still $O(n^2)$, when bubble
-   sort's and insertion sort's best case is $O(n)$?
-2. Tag the array `A = [3a, 1b, 3c]` and run naive selection sort by
-   hand. Does the relative order of `3a` and `3c` survive?
-3. In the loop invariant proof, which single part of the proof would
-   fail if the shifting step in insertion sort accidentally moved
-   elements *equal to* `key` as well as elements greater than it?
-
----
-
-# Answers
-
-1. Selection sort's inner loop always scans the *entire* unsorted
-   remainder to find the minimum, regardless of whether the array is
-   already sorted - there's no comparison whose result lets it skip
-   work or exit early, unlike bubble sort's `swapped` flag or
-   insertion sort's `while` condition failing immediately.
-2. Minimum of `[3a, 1b, 3c]` is `1b` at index 1; swap index 0 and 1:
-   `[1b, 3a, 3c]`. Relative order of `3a` and `3c` is preserved here -
-   but as the earlier `[4a, 4b, 1c]` example showed, it is *not*
-   guaranteed in general, which is exactly why selection sort is
-   classified as unstable (one counterexample is enough to disqualify
-   stability, even if some inputs happen to stay stable).
-
----
-
-# Answer 3
-
-3. **Maintenance.** Shifting elements equal to `key` would move an
-   equal-key element that was already correctly placed, potentially
-   past another equal-key element - the resulting `A[0..i]` would
-   still contain the same *values* in sorted order (maintenance's
-   literal claim), but stability would be lost, showing why the strict
-   `>` comparison in the pseudocode is not an arbitrary choice.
-
----
-
-<!-- NEW: Try-It hand-off, session 2 -->
-
-# Now: Worksheet Part A
-
-<div class="thread">Time to practice. Trace it yourself, precisely.</div>
-
-Work with your neighbor. Open **[Worksheet Part
-A](materials/week05/worksheet.html)**. Fully hand-trace insertion
-sort, pass by pass, on a small array.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part A. Walk the room while pairs work.
-After 15 minutes, ask 2 pairs to compare how many shifts each pass took.
--->
-
----
-
-<!-- NEW: Try-It hand-off, Part B stability lab -->
-
-# Now: Worksheet Part B
-
-<div class="thread">Same pair. This time: catch selection sort breaking a promise.</div>
-
-Open **[Worksheet Part B](materials/week05/worksheet.html)**. Run
-selection sort by hand on an array with duplicate keys, and track
-whether equal-key elements keep their original relative order.
-
-**~15 minutes.** Raise your hand if you get stuck.
-
-<!--
-notes: Hand out or project Worksheet Part B. After 15 minutes, ask a pair to report whether the duplicate keys stayed in order and why.
--->
 
 ---
 
@@ -960,7 +1159,7 @@ notes: Hand out or project Worksheet Part B. After 15 minutes, ask a pair to rep
   input becomes impractically slow as input size grows - today's
   sorts, once the directory is campus-sized.
 
-<!-- notes: Read each term aloud. Say: "Collapse at scale" is deliberately the same idea from
+<!-- notes: Read each term aloud. "Collapse at scale" is deliberately the same idea from
 Week 3's Big-O discussion - it's about to become this week's Limits slide, word for word. -->
 
 ---
@@ -1001,23 +1200,6 @@ Java's <code>Collections.sort</code>) is guaranteed stable for exactly
 this reason - it's a documented correctness contract, not an
 implementation detail.
 </div>
-
----
-
-<!-- NEW: quiz hand-off -->
-
-# Now: Quick Self-Check Quiz
-
-<div class="thread">Ungraded. Just for you, to see what stuck.</div>
-
-Open the **[Week 5 Quiz](materials/week05/quiz.html)**. Answer on your
-own, about 10 minutes. Check your own answers at the end. Ask if
-anything surprises you.
-
-<!--
-notes: Distribute or project the quiz. After about 10 minutes, reveal the
-answer key and discuss as a group any question most of the class missed.
--->
 
 ---
 
@@ -1065,10 +1247,15 @@ soon recognize everywhere in this course.
 - **If you want to go deeper:** CLRS §2.3 previews divide-and-conquer
   and merge sort - one section ahead of where we are today, and
   exactly what Week 6 covers.
-- The loop-invariant proof style used on insertion sort today
-  (initialization / maintenance / termination) is the same shape CLRS
-  uses for correctness arguments throughout the book - Week 7 reuses
-  it, almost unchanged, for binary search.
+
+---
+
+# Where This Week Lives in CLRS, Continued
+
+The loop-invariant proof style used on insertion sort today
+(initialization / maintenance / termination) is the same shape CLRS
+uses for correctness arguments throughout the book - Week 7 reuses
+it, almost unchanged, for binary search.
 
 ---
 
@@ -1085,6 +1272,14 @@ soon recognize everywhere in this course.
 - Stability isn't cosmetic - it's what makes multi-key sorting (and
   every `ORDER BY`) work correctly.
 - **Reminder:** Assignment 1 due this week - submit before Week 6.
+- **New: Week 5 Check** - a short graded exercise on today's three
+  sorts, released now, due before Week 6 begins (see
+  `materials/assignments/week05-check.html`).
+
+---
+
+# Summary, Continued
+
 - **Reading:** CLRS 4th ed, §2.1 (Insertion Sort) and §2.2 (Analyzing
   Algorithms); bubble sort is Problem 2-2, selection sort is Exercise
   2.2-2 - see the CLRS map above.

@@ -61,7 +61,7 @@ the pain slide (4) is too abstract, so fix it instead of breaking the rule.
 | 10..N-3 | Mechanics | Stepwise, as many slides as the topic needs. Includes proofs (loop invariants, Master theorem, exchange arguments) where the syllabus calls for correctness |
 | N-2 | Worked example | The current CampusNav feature, continued from prior weeks; see `_shared/case-study.md` |
 | N-1 | Common mistakes | The misconception(s) this topic is known for (see the bank below), and why each is tempting |
-| N | Check yourself | 2–3 questions; put the answers on the slide immediately after, not the same slide |
+| N | Check yourself | 2–3 questions; put the answers on the slide immediately after, not the same slide (default variant; see the teacher-centric card-format variant below for the exception) |
 
 ### Act 4: CLOSE
 
@@ -115,6 +115,35 @@ Weeks 8 and 15 use the **short review variant**: Act 0 (slots 1-3) + Act 3
 slot "Check yourself" (expanded into full review questions) + Act 4 (slots
 N+1..N+4, "Limits" replaced by "What to focus on next"). No Pain or Ground
 acts: there is no new concept to motivate.
+
+**Teacher-centric card-format variant** (currently Week 5 only; the
+default variant above remains the standard for all other weeks until each
+is explicitly converted). Same acts, same slot order, same hard rules
+(motivation before definition, Limits→next Pain chain, CampusNav case
+study), with three deltas:
+
+- **(a) No student-facing interaction slides.** No warm-up prompts, no
+  worksheet/quiz hand-offs, and slot N's "Check yourself" Q+A pairs are
+  dissolved: their content is taught directly inside worked examples
+  (the question's payload becomes a card or takeaway bar, delivered by
+  the instructor instead of asked). "Common mistakes" (slot N-1), Key
+  Words, and all of Act 4 stay as in the default variant.
+- **(b) Act 3 mechanics use the dense worked-example card layout**
+  (`section.dense` + `.eyebrow`/`.wx-top`/`.goalbox`/`.wx-steps`/
+  `.conclusion`/`.takeaway` in `themes/algorithms.css`): each technique
+  gets one idea+pseudocode slide, then a graduated simple→moderate→
+  harder run of one-slide worked examples, then its cost table -
+  replacing the default variant's one-idea-per-slide trace/count/bound
+  sequences. Slot N-2's worked example also becomes a graduated
+  dense-slide run.
+- **(c) Hard cap: 50 slides.** Each such week additionally ships a
+  short graded "Week N Check" in `materials/assignments/weekNN-check.md`
+  (separate from the four major assignments), referenced from slot N+3
+  (Summary).
+
+`slides/week05-basic-sorting.md` is this variant's reference
+implementation - copy its dense-slide skeletons (not the default
+`_template/week-XX.md`) when converting another week to this variant.
 
 ## Misconception bank (source these for every "Common mistakes" slot)
 

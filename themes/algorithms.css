@@ -17,6 +17,12 @@
   --cream: #FFF6E8;
   --pale: #DCEAF0;
   --ink: #1A1A1A;
+  /* dense worked-example card palette: green/purple sit alongside gold
+     as the two extra step-card colors, same pastel treatment as --pale */
+  --green: #3E7C59;
+  --green-pale: #E9F3EC;
+  --purple: #6B5B9E;
+  --purple-pale: #EEEAF6;
   /* sampled directly from docProps/thumbnail.jpeg in the template pptx */
   --band: linear-gradient(90deg, #ACBADB 0%, #C8D1E7 52%, #0E58C4 96%);
   --font-head: Cambria, Georgia, 'Noto Serif KR', serif;
@@ -573,6 +579,121 @@ section.end h1 {
   display: flex; align-items: center; justify-content: center;
 }
 .step-text { font-size: 18px; color: var(--ink); padding-top: 3px; }
+
+/* ---- dense worked-example layout (teacher-centric card format) ----
+   One slide = one complete worked example: eyebrow + H1 + goal box, a
+   row of 3-4 pastel step cards, a green conclusion bar, a purple
+   key-takeaway bar. Same no-nested-block-markdown rule as .roadmap/
+   .appgrid: card content is single-line inline HTML (use &rarr;, &le;,
+   n(n-1)/2, O(n^2) as text/entities, or .bignotation) - NOT $...$ math,
+   which markdown-it does not process inside these divs. */
+
+/* dense slide chrome: tighter padding + smaller type so a full worked
+   example fits above the 82px footer band */
+section.dense { padding: 38px 56px 94px 56px; font-size: 19px; }
+section.dense h1 { font-size: 30px; margin: 0 0 8px 0; padding-bottom: 8px; }
+section.dense p, section.dense li { font-size: 16px; }
+
+/* eyebrow: small uppercase category label, sits on the line above the H1 */
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 2px 0;
+}
+
+/* header strip: lead-in text left, formal goal box right */
+.wx-top { display: flex; gap: 18px; align-items: stretch; margin: 0 0 12px 0; }
+.wx-top .lead { flex: 1; font-size: 16px; color: var(--ink); line-height: 1.4; }
+
+.goalbox {
+  flex: 0 0 400px;
+  background: var(--pale);
+  border: 1px solid #C7DAE6;
+  border-left: 5px solid var(--brand);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: var(--deep);
+  line-height: 1.4;
+}
+.goalbox .k, .conclusion .k, .takeaway .k {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.goalbox .k { color: var(--brand); }
+
+/* numbered step-card row: default blue, .c2 green, .c3 gold, .c4 purple
+   (purple doubles as the "shortcut / insight" card) */
+.wx-steps { display: flex; gap: 12px; align-items: stretch; margin: 10px 0; }
+.wx-step {
+  flex: 1;
+  background: var(--pale);
+  border: 1px solid #C7DAE6;
+  border-top: 4px solid var(--brand);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.wx-step .wx-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 6px;
+}
+.wx-step .wx-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.wx-step .wx-body { font-size: 13px; line-height: 1.45; color: var(--ink); }
+.wx-step .wx-body code { font-size: 12px; }
+
+.wx-step.c2 { background: var(--green-pale); border-top-color: var(--green); border-color: #BFD9C8; }
+.wx-step.c2 .wx-num { background: var(--green); }
+.wx-step.c3 { background: var(--cream); border-top-color: var(--gold); border-color: #EAD4B4; }
+.wx-step.c3 .wx-num { background: var(--gold); }
+.wx-step.c4 { background: var(--purple-pale); border-top-color: var(--purple); border-color: #D4CCE8; }
+.wx-step.c4 .wx-num { background: var(--purple); }
+
+/* compact tracetable when embedded inside a step card */
+.wx-step .tracetable { margin: 6px auto 0 auto; }
+.wx-step .tracetable .cell { min-width: 26px; height: 24px; font-size: 12px; border-radius: 3px; }
+.wx-step .tracetable .row .rowlabel { flex: 0 0 58px; font-size: 10px; padding-right: 4px; }
+
+/* conclusion bar (green) and key-takeaway bar (purple): same construction
+   as .pain/.why/.limits, slightly tighter padding for dense slides */
+.conclusion {
+  background: var(--green-pale);
+  border-left: 5px solid var(--green);
+  border-radius: 6px;
+  padding: 10px 18px;
+  color: #24503A;
+  margin-top: 10px;
+}
+.conclusion .k { color: var(--green); }
+.takeaway {
+  background: var(--purple-pale);
+  border-left: 5px solid var(--purple);
+  border-radius: 6px;
+  padding: 10px 18px;
+  color: #3B3060;
+  margin-top: 8px;
+}
+.takeaway .k { color: var(--purple); }
 
 /* simple node/edge legend for inline SVG graph diagrams */
 .graphviz-note { font-size: 14px; color: #7A8699; font-style: italic; margin-top: 6px; }
