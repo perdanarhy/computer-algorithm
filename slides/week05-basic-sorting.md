@@ -323,17 +323,19 @@ BUBBLE-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Sort [3, 1, 2] and watch the early-exit flag actually fire.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Pass 1 (2 cmp)</div>
 <div class="wx-body">Compare (3,1): swap &rarr; [1,3,2]. Compare (3,2): swap &rarr; [1,2,3]. Two swaps, array already sorted.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Pass 2 (1 cmp)</div>
 <div class="wx-body">Compare (1,2): already in order, no swap. <code>swapped</code> stays false.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Result</div>
@@ -341,8 +343,8 @@ BUBBLE-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] in 2 passes, 3 comparisons.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every pass either fixes something or proves nothing's left to fix - that second case is the early exit.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] in 2 passes, 3 comparisons.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every pass either fixes something or proves nothing's left to fix - that second case is the early exit.</div></div>
 
 ---
 
@@ -358,7 +360,7 @@ BUBBLE-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Sort in full, and count every comparison pass by pass.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Pass 1 (4 cmp)</div>
@@ -370,6 +372,7 @@ BUBBLE-SORT(A):
 3 swaps, 5 bubbles to the end.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Pass 2 (3 cmp)</div>
@@ -380,6 +383,7 @@ BUBBLE-SORT(A):
 2 swaps, 4 settles next.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Pass 3 (2 cmp)</div>
@@ -390,6 +394,7 @@ BUBBLE-SORT(A):
 1 swap, 3 settles next.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Pass 4 (1 cmp)</div>
@@ -402,8 +407,8 @@ BUBBLE-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Sorted after 4 passes, 4+3+2+1 = 10 comparisons total - matches the worst case exactly.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Each pass settles one more maximum into place; the comparison count shrinks by one every pass.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Sorted after 4 passes, 4+3+2+1 = 10 comparisons total - matches the worst case exactly.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Each pass settles one more maximum into place; the comparison count shrinks by one every pass.</div></div>
 
 ---
 
@@ -419,17 +424,19 @@ BUBBLE-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Show the early-exit flag turns a nearly-sorted input into far less than the worst-case work.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">[1, 2, 3, 5, 4] - a reverse-sorted input would need n&minus;1 = 4 passes. This one shouldn't.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Pass 1</div>
 <div class="wx-body">(1,2) (2,3) (3,5): no swaps. (5,4): swap &rarr; [1,2,3,4,5]. <code>swapped = true</code>.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Pass 2</div>
@@ -442,8 +449,8 @@ BUBBLE-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Bubble sort is adaptive: its actual cost shrinks toward O(n) as the input gets closer to sorted.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>The early-exit flag is what turns "provably O(n&sup2;)" into "close to O(n) in practice" for realistic, mostly-sorted inputs.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Bubble sort is adaptive: its actual cost shrinks toward O(n) as the input gets closer to sorted.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>The early-exit flag is what turns "provably O(n&sup2;)" into "close to O(n) in practice" for realistic, mostly-sorted inputs.</div></div>
 
 ---
 
@@ -459,17 +466,19 @@ BUBBLE-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Show worst-case comparisons = n(n&minus;1)/2, hence O(n&sup2;).</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Count one input</div>
 <div class="wx-body">n = 5, no early exit: pass 1 makes 4 comparisons, pass 2 makes 3, pass 3 makes 2, pass 4 makes 1. Total = 4+3+2+1 = 10.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Generalize</div>
 <div class="wx-body">For any n, pass k compares (n&minus;k) pairs. Total comparisons = (n&minus;1) + (n&minus;2) + &hellip; + 1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Closed form</div>
@@ -482,8 +491,8 @@ BUBBLE-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Worst-case comparisons = n(n&minus;1)/2 &rarr; O(n&sup2;) - this derivation backs every O(n&sup2;) claim in Weeks 5-6.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>To prove a bound: count on one concrete input, then generalize the pattern into a closed form.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Worst-case comparisons = n(n&minus;1)/2 &rarr; O(n&sup2;) - this derivation backs every O(n&sup2;) claim in Weeks 5-6.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>To prove a bound: count on one concrete input, then generalize the pattern into a closed form.</div></div>
 
 ---
 
@@ -543,17 +552,19 @@ how sorted it already is - there is no early exit here.
 <div class="goalbox"><span class="k">Goal</span>Sort [3, 1, 2] and notice the scan never shortens.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Pass 1</div>
 <div class="wx-body">Scan indices 1-2 for the minimum of the whole array: 1, at index 1. Swap index 0 and 1 &rarr; [1, 3, 2].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Pass 2</div>
 <div class="wx-body">Scan index 2 for the minimum of the remainder: 2, at index 2. Swap index 1 and 2 &rarr; [1, 2, 3].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Result</div>
@@ -561,8 +572,8 @@ how sorted it already is - there is no early exit here.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] in 2 passes, 3 comparisons, zero early exits.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Selection sort's scan is always full-length - there is no flag to check and no way to stop early.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>[3, 1, 2] &rarr; [1, 2, 3] in 2 passes, 3 comparisons, zero early exits.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Selection sort's scan is always full-length - there is no flag to check and no way to stop early.</div></div>
 
 ---
 
@@ -578,7 +589,7 @@ how sorted it already is - there is no early exit here.
 <div class="goalbox"><span class="k">Goal</span>Sort in full, one minimum swapped into place per pass.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Pass 1</div>
@@ -589,6 +600,7 @@ how sorted it already is - there is no early exit here.
 Min of whole array (1) swaps into index 0.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Pass 2</div>
@@ -599,6 +611,7 @@ Min of whole array (1) swaps into index 0.
 Min of remainder (2) is already at index 1 - "swaps with itself."
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Pass 3</div>
@@ -609,6 +622,7 @@ Min of remainder (2) is already at index 1 - "swaps with itself."
 Min of remainder (3) swaps into index 2.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Pass 4</div>
@@ -621,8 +635,8 @@ Min of remainder (4) swaps into index 3.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Sorted after 4 passes - every pass scanned the full remainder, whether it needed to or not.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Pass 2's minimum was already in place - it still scanned everything and "swapped with itself."</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Sorted after 4 passes - every pass scanned the full remainder, whether it needed to or not.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Pass 2's minimum was already in place - it still scanned everything and "swapped with itself."</div></div>
 
 ---
 
@@ -638,17 +652,19 @@ Min of remainder (4) swaps into index 3.
 <div class="goalbox"><span class="k">Goal</span>Find one input where selection sort scrambles equal-key order.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Scan</div>
 <div class="wx-body">A = [4a, 4b, 1c]. Minimum of the whole array is 1c, at index 2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Swap</div>
 <div class="wx-body">Swap index 0 and index 2 &rarr; A = [1c, 4b, 4a].</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Compare orders</div>
@@ -661,8 +677,8 @@ Min of remainder (4) swaps into index 3.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>One 3-element counterexample proves naive selection sort is NOT stable.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>One counterexample disqualifies a general claim - even if other inputs happen to behave.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>One 3-element counterexample proves naive selection sort is NOT stable.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>One counterexample disqualifies a general claim - even if other inputs happen to behave.</div></div>
 
 ---
 
@@ -678,17 +694,19 @@ Min of remainder (4) swaps into index 3.
 <div class="goalbox"><span class="k">Goal</span>Show selection sort makes exactly n(n&minus;1)/2 comparisons, on every input.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Inner loop for i</div>
 <div class="wx-body">For a fixed outer index i, the inner loop always runs (n&minus;1&minus;i) comparisons - the array's contents never change that count.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Sum over i</div>
 <div class="wx-body">i = 0 gives n&minus;1, i = 1 gives n&minus;2, &hellip;, i = n&minus;2 gives 1. Same sum as bubble sort &rarr; n(n&minus;1)/2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Try it sorted</div>
@@ -701,8 +719,8 @@ Min of remainder (4) swaps into index 3.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Selection sort's best case is still &Theta;(n&sup2;) - the sorted-input shortcut other sorts get simply doesn't exist here.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A comparison count that doesn't depend on the data isn't a worst case - it's the only case.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Selection sort's best case is still &Theta;(n&sup2;) - the sorted-input shortcut other sorts get simply doesn't exist here.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A comparison count that doesn't depend on the data isn't a worst case - it's the only case.</div></div>
 
 ---
 
@@ -760,17 +778,19 @@ INSERTION-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Sort [2, 3, 1] and see cost track distance-to-travel.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">i=1, key=3</div>
 <div class="wx-body">A[0]=2 is not &gt; 3, so the while loop never runs. key drops back in place: [2, 3, 1]. Zero shifts.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">i=2, key=1</div>
 <div class="wx-body">A[1]=3 &gt; 1: shift. A[0]=2 &gt; 1: shift. j = -1: stop. Place key at index 0 &rarr; [1, 2, 3]. Two shifts.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Result</div>
@@ -778,8 +798,8 @@ INSERTION-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>[2, 3, 1] &rarr; [1, 2, 3] in 2 passes, 2 shifts.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Cost equals how far each key must travel to reach its correct spot - not how many elements exist.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>[2, 3, 1] &rarr; [1, 2, 3] in 2 passes, 2 shifts.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Cost equals how far each key must travel to reach its correct spot - not how many elements exist.</div></div>
 
 ---
 
@@ -795,17 +815,19 @@ INSERTION-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Sort in full, and see exactly what one pass costs, comparison by comparison.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">i=1, key=2</div>
 <div class="wx-body">A[0]=5 &gt; 2: shift. j=-1: stop. Place at 0 &rarr; [2,5,4,1,3]. One shift.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">i=2, key=4</div>
 <div class="wx-body">A[1]=5 &gt; 4: shift. A[0]=2 not &gt; 4: stop. Place at 1 &rarr; [2,4,5,1,3]. One shift.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">i=3, key=1</div>
@@ -818,8 +840,8 @@ INSERTION-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>One more pass, i=4 (key=3, two shifts), finishes the sort: [1,2,3,4,5].</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every iteration ends with A[0..i] sorted - that sentence is about to become a formal proof.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>One more pass, i=4 (key=3, two shifts), finishes the sort: [1,2,3,4,5].</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every iteration ends with A[0..i] sorted - that sentence is about to become a formal proof.</div></div>
 
 ---
 
@@ -835,12 +857,13 @@ INSERTION-SORT(A):
 <div class="goalbox"><span class="k">Goal</span>Show why insertion sort's best case is O(n) when selection sort's isn't.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Worst: [5,4,3,2,1]</div>
 <div class="wx-body">Every key must jump past every earlier element. Shifts: 1+2+3+4 = 10, matching n(n&minus;1)/2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Count</div>
@@ -858,8 +881,8 @@ INSERTION-SORT(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Insertion sort adapts to how sorted the input already is; selection sort never does.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A best case isn't automatic - it depends on whether the algorithm's structure can detect and exploit an easy input.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Insertion sort adapts to how sorted the input already is; selection sort never does.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A best case isn't automatic - it depends on whether the algorithm's structure can detect and exploit an easy input.</div></div>
 
 ---
 
@@ -901,17 +924,19 @@ mathematical induction from Week 4.
 <div class="goalbox"><span class="k">Goal</span>Prove: after the loop, A[0..n&minus;1] holds the original elements, sorted - for every input.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Initialization</div>
 <div class="wx-body">Before the first iteration, i=1: the claim is about A[0..0], a single element. Trivially sorted - no pair to be out of order.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Maintenance</div>
 <div class="wx-body">Assuming A[0..i-1] is sorted: shifting moves only elements strictly greater than key; key drops into the gap. A[0..i] is sorted - invariant now one wider.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Termination</div>
@@ -924,8 +949,8 @@ mathematical induction from Week 4.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Correct on every valid input - not just the traces we drew.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A strict comparison (<code>&gt;</code>, not <code>&gt;=</code>) is what keeps the maintenance step - and stability - intact.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Correct on every valid input - not just the traces we drew.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A strict comparison (<code>&gt;</code>, not <code>&gt;=</code>) is what keeps the maintenance step - and stability - intact.</div></div>
 
 ---
 
@@ -975,7 +1000,7 @@ three is still $O(n^2)$ worst case.
 <div class="goalbox"><span class="k">Goal</span>A 5-entry sample, scraped in signage order, sorted alphabetically.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">i=1: Arts</div>
@@ -986,6 +1011,7 @@ three is still $O(n^2)$ worst case.
 Shifts past Music.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">i=2: Science</div>
@@ -996,6 +1022,7 @@ Shifts past Music.
 Already greater than Music - zero shifts.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">i=3: Gym</div>
@@ -1006,6 +1033,7 @@ Already greater than Music - zero shifts.
 Shifts past Science and Music.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">i=4: Library</div>
@@ -1018,8 +1046,8 @@ Shifts past Science and Music.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Four passes, done - and, unlike a staff member reordering by hand, we can now prove the result is sorted, on any input.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Five entries, four passes - the same proof that covered every array covers this one too.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Four passes, done - and, unlike a staff member reordering by hand, we can now prove the result is sorted, on any input.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Five entries, four passes - the same proof that covered every array covers this one too.</div></div>
 
 ---
 
@@ -1035,7 +1063,7 @@ Shifts past Science and Music.
 <div class="goalbox"><span class="k">Goal</span>Sort the same directory with selection sort, and watch the scans.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Pass 1</div>
@@ -1046,6 +1074,7 @@ Shifts past Science and Music.
 Min of all 5 (Arts) swaps to index 0.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Pass 2</div>
@@ -1056,6 +1085,7 @@ Min of all 5 (Arts) swaps to index 0.
 Min of remainder (Gym) swaps to index 1.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Pass 3</div>
@@ -1066,6 +1096,7 @@ Min of remainder (Gym) swaps to index 1.
 Min of remainder (Library) swaps to index 2.
 </div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Pass 4</div>
@@ -1078,8 +1109,8 @@ Music was already correct - still scanned to confirm it.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same final order as the insertion-sort trace above.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>This is the "no early exit" row from the cost table, made concrete: selection sort pays full price even when nothing needs to move.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same final order as the insertion-sort trace above.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>This is the "no early exit" row from the cost table, made concrete: selection sort pays full price even when nothing needs to move.</div></div>
 
 ---
 
@@ -1118,8 +1149,8 @@ Music was already correct - still scanned to confirm it.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same input, same sort key, two different orders - only the stable sort preserves the alphabetical work already done.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>This is exactly why `ORDER BY floor, name` needs a stable sort underneath it.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same input, same sort key, two different orders - only the stable sort preserves the alphabetical work already done.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>This is exactly why `ORDER BY floor, name` needs a stable sort underneath it.</div></div>
 
 ---
 

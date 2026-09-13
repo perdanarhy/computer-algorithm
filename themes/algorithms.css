@@ -633,6 +633,20 @@ section.dense p, section.dense li { font-size: 16px; }
 /* numbered step-card row: default blue, .c2 green, .c3 gold, .c4 purple
    (purple doubles as the "shortcut / insight" card) */
 .wx-steps { display: flex; gap: 12px; align-items: stretch; margin: 10px 0; }
+/* .chained: use between cards that are a genuine derivation/trace, each
+   step feeding the next (add a .wx-arrow div between those cards' markup).
+   Tighter gap makes room for the arrows without narrowing cards further. */
+.wx-steps.chained { gap: 6px; }
+.wx-arrow {
+  flex: 0 0 18px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand);
+  font-size: 16px;
+  font-weight: 700;
+}
 .wx-step {
   flex: 1;
   background: var(--pale);
@@ -640,6 +654,7 @@ section.dense p, section.dense li { font-size: 16px; }
   border-top: 4px solid var(--brand);
   border-radius: 8px;
   padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(36,40,82,.10);
 }
 .wx-step .wx-num {
   width: 28px; height: 28px;
@@ -675,25 +690,44 @@ section.dense p, section.dense li { font-size: 16px; }
 .wx-step .tracetable .row .rowlabel { flex: 0 0 58px; font-size: 10px; padding-right: 4px; }
 
 /* conclusion bar (green) and key-takeaway bar (purple): same construction
-   as .pain/.why/.limits, slightly tighter padding for dense slides */
+   as .pain/.why/.limits, slightly tighter padding for dense slides. Each
+   pairs a colored icon circle (.bar-icon) with its text (.bar-text) -
+   mirrors the source deck's icon-left/text-right callout convention. */
+.conclusion, .takeaway {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  border-radius: 6px;
+  padding: 10px 18px;
+  box-shadow: 0 2px 6px rgba(36,40,82,.08);
+}
+.conclusion .bar-icon, .takeaway .bar-icon {
+  flex: 0 0 26px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  margin-top: 1px;
+}
+.conclusion .bar-text, .takeaway .bar-text { flex: 1; }
+
 .conclusion {
   background: var(--green-pale);
   border-left: 5px solid var(--green);
-  border-radius: 6px;
-  padding: 10px 18px;
   color: #24503A;
   margin-top: 10px;
 }
 .conclusion .k { color: var(--green); }
+.conclusion .bar-icon { background: var(--green); }
 .takeaway {
   background: var(--purple-pale);
   border-left: 5px solid var(--purple);
-  border-radius: 6px;
-  padding: 10px 18px;
   color: #3B3060;
   margin-top: 8px;
 }
 .takeaway .k { color: var(--purple); }
+.takeaway .bar-icon { background: var(--purple); }
 
 /* simple node/edge legend for inline SVG graph diagrams */
 .graphviz-note { font-size: 14px; color: #7A8699; font-style: italic; margin-top: 6px; }
