@@ -315,17 +315,19 @@ on growth rate - not a running time.
 <div class="goalbox"><span class="k">Goal</span>See a failed constant choice and a valid one, side by side.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Try c=5, n0=1</div>
 <div class="wx-body">At n=1: f(1)=5(1)+2=7. c&middot;g(1)=5(1)=5. 7 &le; 5 is false - this pair fails.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Try c=7, n0=1</div>
 <div class="wx-body">At n=1: 7 &le; 7 holds. For all n&ge;1: 5n+2 &le; 5n+2n = 7n, since n&ge;1 &rArr; 2 &le; 2n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Conclusion</div>
@@ -333,8 +335,8 @@ on growth rate - not a running time.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>5n+2 = O(n), proven with c=7, n0=1.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A failed (c, n0) attempt never refutes a Big-O claim - the definition only requires that <em>some</em> pair exists.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>5n+2 = O(n), proven with c=7, n0=1.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A failed (c, n0) attempt never refutes a Big-O claim - the definition only requires that <em>some</em> pair exists.</div></div>
 
 ---
 
@@ -350,22 +352,25 @@ on growth rate - not a running time.
 <div class="goalbox"><span class="k">Goal</span>Prove 3n&sup2;+10n+7 = O(n&sup2;), then check it numerically.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Pick g(n)</div>
 <div class="wx-body">g(n) = n&sup2;. For n&ge;1: n &le; n&sup2;, so 10n &le; 10n&sup2;. Also 1 &le; n&sup2;, so 7 &le; 7n&sup2;.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Combine</div>
 <div class="wx-body">Adding: 3n&sup2;+10n+7 &le; 3n&sup2;+10n&sup2;+7n&sup2; = 20n&sup2;, for all n&ge;1. Choose c=20, n0=1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Check numerically</div>
 <div class="wx-body">n=1: 20&le;20. n=2: 39&le;80. n=10: 407&le;2,000. Holds every time.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">A tighter pair also works</div>
@@ -373,8 +378,8 @@ on growth rate - not a running time.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>3n&sup2;+10n+7 = O(n&sup2;), proven two different valid ways.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>There is no single "correct" (c, n0) pair - Big-O only asks that <em>some</em> pair exists, which is why two students can turn in different-looking, equally correct proofs of the same bound.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>3n&sup2;+10n+7 = O(n&sup2;), proven two different valid ways.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>There is no single "correct" (c, n0) pair - Big-O only asks that <em>some</em> pair exists, which is why two students can turn in different-looking, equally correct proofs of the same bound.</div></div>
 
 ---
 
@@ -390,17 +395,19 @@ on growth rate - not a running time.
 <div class="goalbox"><span class="k">Goal</span>Prove n(n&minus;1)/2 = &Theta;(n&sup2;) - this is exactly insertion sort's worst-case comparison count, formalized properly in Week 5.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Upper bound (O)</div>
 <div class="wx-body">n(n&minus;1)/2 = (n&sup2;&minus;n)/2 &le; n&sup2;/2 for all n&ge;1 (dropping &minus;n only makes it larger). c=&frac12;, n0=1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Lower bound (&Omega;)</div>
 <div class="wx-body">For n&ge;2: n&minus;1 &ge; n/2, so n(n&minus;1)/2 &ge; n&middot;(n/2)/2 = n&sup2;/4. c=&frac14;, n0=2.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Conclusion</div>
@@ -413,8 +420,8 @@ on growth rate - not a running time.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>n(n&minus;1)/2 = &Theta;(n&sup2;), proven both directions.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>&Theta; is the strongest claim: it says a formula's growth is neither an overestimate nor an underestimate - not just "no worse than."</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>n(n&minus;1)/2 = &Theta;(n&sup2;), proven both directions.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>&Theta; is the strongest claim: it says a formula's growth is neither an overestimate nor an underestimate - not just "no worse than."</div></div>
 
 ---
 
@@ -512,17 +519,19 @@ $\Theta$ is the stronger, more informative claim when it holds.
 <div class="goalbox"><span class="k">Goal</span>Check a tempting claim, then place &radic;n and n<sup>1.5</sup> exactly.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Claim to check</div>
 <div class="wx-body">"An O(n<sup>1.5</sup>) algorithm always runs slower, on every input, than an O(n log n) one." <strong>False</strong> - Big-O is an asymptotic growth-rate claim, not a promise about every individual input or actual constants.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Placing &radic;n</div>
 <div class="wx-body">Sits strictly between O(log n) and O(n): grows faster than any logarithm, slower than linear - the halfway point between O(1) and O(n) on a log scale.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Placing n<sup>1.5</sup></div>
@@ -535,8 +544,8 @@ $\Theta$ is the stronger, more informative claim when it holds.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>&radic;n and n<sup>1.5</sup> both have one exact place in the hierarchy - but neither placement predicts every individual race.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Big-O ranks growth, not literal speed at any one n - the ranking only becomes reliable once n is "large enough," exactly what n0 captures.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>&radic;n and n<sup>1.5</sup> both have one exact place in the hierarchy - but neither placement predicts every individual race.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Big-O ranks growth, not literal speed at any one n - the ranking only becomes reliable once n is "large enough," exactly what n0 captures.</div></div>
 
 ---
 
@@ -603,17 +612,19 @@ sort in-place, some don't.
 <div class="goalbox"><span class="k">Goal</span>Turn Big-O into an actual clock reading for CampusNav's real directory sizes.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Linear scan @ 1,200</div>
 <div class="wx-body">CampusNav's actual `FIND_ROOM`, O(n): 1,200 steps &times; 50ns = 0.06 ms.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Linear scan @ 10,000+</div>
 <div class="wx-body">10,000 steps &times; 50ns = 0.5 ms. O(n) alone is not the danger here - even 10,000 rooms is imperceptible.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Duplicate-check @ 1,200</div>
@@ -626,8 +637,8 @@ sort in-place, some don't.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Same directory, same hardware assumption - one feature stays instant at any real size, the other freezes the app.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A 10&times; growth in n scales O(n) cost about 10&times;, but scales O(n&sup2;) cost about 100&times; - exactly the jump from 72 ms to 5 seconds above.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Same directory, same hardware assumption - one feature stays instant at any real size, the other freezes the app.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A 10&times; growth in n scales O(n) cost about 10&times;, but scales O(n&sup2;) cost about 100&times; - exactly the jump from 72 ms to 5 seconds above.</div></div>
 
 ---
 

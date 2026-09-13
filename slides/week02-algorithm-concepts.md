@@ -475,17 +475,19 @@ GCD(a, b):
 <div class="goalbox"><span class="k">Goal</span>Trace GCD(8, 4) and see finiteness hold in the fewest possible steps.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Start</div>
 <div class="wx-body">a=8, b=4. b != 0, so the loop body runs.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">One step</div>
 <div class="wx-body">r = 8 mod 4 = 0. a = 4, b = 0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Result</div>
@@ -493,8 +495,8 @@ GCD(a, b):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>GCD(8, 4) = 4 in a single iteration.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Even the "instant" case is governed by the exact same shrinking-`b` rule that guarantees every case eventually stops.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>GCD(8, 4) = 4 in a single iteration.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Even the "instant" case is governed by the exact same shrinking-`b` rule that guarantees every case eventually stops.</div></div>
 
 ---
 
@@ -510,22 +512,25 @@ GCD(a, b):
 <div class="goalbox"><span class="k">Goal</span>Trace GCD(48, 18) completely, one iteration per card.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Step 1</div>
 <div class="wx-body">a=48, b=18: r = 48 mod 18 = 12. a=18, b=12.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Step 2</div>
 <div class="wx-body">a=18, b=12: r = 18 mod 12 = 6. a=12, b=6.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Step 3</div>
 <div class="wx-body">a=12, b=6: r = 12 mod 6 = 0. a=6, b=0. b=0, loop stops.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Result</div>
@@ -533,8 +538,8 @@ GCD(a, b):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>GCD(48, 18) = 6 after 3 iterations - no divisor list needed.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Three steps instead of one - shrinking `b` still guarantees termination, it just takes more passes.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>GCD(48, 18) = 6 after 3 iterations - no divisor list needed.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Three steps instead of one - shrinking `b` still guarantees termination, it just takes more passes.</div></div>
 
 ---
 
@@ -550,17 +555,19 @@ GCD(a, b):
 <div class="goalbox"><span class="k">Goal</span>Trace the slowest realistic case, then prove termination in general, not just for this pair.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Setup</div>
 <div class="wx-body">GCD(89, 55) - consecutive Fibonacci numbers. Compare to GCD(48, 18)'s 3 steps.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">First 3 steps</div>
 <div class="wx-body">r=89 mod 55=34; r=55 mod 34=21; r=34 mod 21=13 - three steps in, still not close to 0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Six more steps</div>
@@ -573,8 +580,8 @@ GCD(a, b):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>GCD(89, 55) = 1 after 9 steps - three times the work of GCD(48, 18), yet governed by the exact same guarantee.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A trace only shows that one input stopped. Finiteness needs the general argument - `b` strictly decreases, bounded below by 0 - that covers every input, fast or slow.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>GCD(89, 55) = 1 after 9 steps - three times the work of GCD(48, 18), yet governed by the exact same guarantee.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A trace only shows that one input stopped. Finiteness needs the general argument - `b` strictly decreases, bounded below by 0 - that covers every input, fast or slow.</div></div>
 
 ---
 
@@ -611,17 +618,19 @@ MAX(A):
 <div class="goalbox"><span class="k">Goal</span>Show why passing tests never proves an algorithm correct.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The loop bound</div>
 <div class="wx-body">The loop says `i = 1 to length(A)`, letting `i` reach `length(A)` - one past the last real element, out of bounds on every run.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">What happens</div>
 <div class="wx-body">Depending on the language, that read either crashes immediately, or silently returns whatever value sits in adjacent memory.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Why nobody noticed</div>
@@ -634,8 +643,8 @@ MAX(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>The fix: the loop should run `i = 1 to length(A) - 1`. Looking definite and effective is not the same as being correct.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>"I tested it and it worked" is never proof of correctness - a silent, harmless-looking garbage read is still a bug.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>The fix: the loop should run `i = 1 to length(A) - 1`. Looking definite and effective is not the same as being correct.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>"I tested it and it worked" is never proof of correctness - a silent, harmless-looking garbage read is still a bug.</div></div>
 
 ---
 
@@ -669,8 +678,8 @@ MAX(A):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Two failures, two different properties - one has no way to stop, the other has no fixed meaning.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>When a procedure "sounds reasonable" but isn't an algorithm, it's almost always missing a stopping rule or a fixed meaning for one of its words.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Two failures, two different properties - one has no way to stop, the other has no fixed meaning.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>When a procedure "sounds reasonable" but isn't an algorithm, it's almost always missing a stopping rule or a fixed meaning for one of its words.</div></div>
 
 ---
 
@@ -739,8 +748,8 @@ FIND_ROOM(directory, target):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>All five properties check out - this is what "look around until you find it" had to become before it counted as an algorithm at all.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A precise loop bound plus one precise comparison operator turned a vague sentence into a provable algorithm.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>All five properties check out - this is what "look around until you find it" had to become before it counted as an algorithm at all.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A precise loop bound plus one precise comparison operator turned a vague sentence into a provable algorithm.</div></div>
 
 ---
 
@@ -756,12 +765,13 @@ FIND_ROOM(directory, target):
 <div class="goalbox"><span class="k">Goal</span>Show why the sentinel value is part of the spec, not an afterthought.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Why `NOT_FOUND` counts</div>
 <div class="wx-body">Output only counts as well-defined if every valid input has a specified result, including "the room isn't in the directory." A version that silently did nothing, or crashed, would leave output undefined for that input.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Alternative: return -1</div>
@@ -774,8 +784,8 @@ FIND_ROOM(directory, target):
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>`NOT_FOUND` and `-1` are both valid designs for the same algorithm - the only real danger is a sentinel that could collide with real data.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>A well-defined output must cover every input, including the ones with no "real" answer.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>`NOT_FOUND` and `-1` are both valid designs for the same algorithm - the only real danger is a sentinel that could collide with real data.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>A well-defined output must cover every input, including the ones with no "real" answer.</div></div>
 
 ---
 

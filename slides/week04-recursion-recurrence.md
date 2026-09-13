@@ -326,22 +326,25 @@ explicit loop counter for the call stack keeping track of "what's left."
 <div class="goalbox"><span class="k">Goal</span>Trace factorial(4) all the way down to the base case, and all the way back up.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Going down</div>
 <div class="wx-body">factorial(4) needs factorial(3), needs factorial(2), needs factorial(1), needs factorial(0) - five frames stacked, waiting.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Base case hits</div>
 <div class="wx-body">factorial(0): the base case. Returns 1 immediately, no further call.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Coming back up</div>
 <div class="wx-body">factorial(1) = 1&times;1 = 1. factorial(2) = 2&times;1 = 2. factorial(3) = 3&times;2 = 6.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Final unwind</div>
@@ -349,8 +352,8 @@ explicit loop counter for the call stack keeping track of "what's left."
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>factorial(4) = 24, traced through 5 stacked frames and back.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>At the moment factorial(0) returns, four frames are still waiting - factorial(1) through factorial(4) - each paused on its own multiplication until the call below it finishes.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>factorial(4) = 24, traced through 5 stacked frames and back.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>At the moment factorial(0) returns, four frames are still waiting - factorial(1) through factorial(4) - each paused on its own multiplication until the call below it finishes.</div></div>
 
 ---
 
@@ -462,22 +465,25 @@ closed-form answer, then use induction to prove the guess is right.
 <div class="goalbox"><span class="k">Goal</span>Prove T(n) = O(n) for T(n) = T(n&minus;1) + d, some constant d.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Guess</div>
 <div class="wx-body">Formally: T(n) &le; cn for a constant c and all n &ge; n0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Base case</div>
 <div class="wx-body">True for small n once c is chosen large enough to cover T(n0).</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Inductive step</div>
 <div class="wx-body">Assume T(n&minus;1) &le; c(n&minus;1). Then T(n) = T(n&minus;1)+d &le; c(n&minus;1)+d = cn&minus;c+d &le; cn whenever c &ge; d.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Conclusion</div>
@@ -485,8 +491,8 @@ closed-form answer, then use induction to prove the guess is right.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = T(n&minus;1) + d solves to T(n) = O(n).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Substitution proves a guess by induction - base case, then an inductive step that carries it for every larger n.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = T(n&minus;1) + d solves to T(n) = O(n).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Substitution proves a guess by induction - base case, then an inductive step that carries it for every larger n.</div></div>
 
 ---
 
@@ -502,17 +508,19 @@ closed-form answer, then use induction to prove the guess is right.
 <div class="goalbox"><span class="k">Goal</span>Find a constant c that makes the inductive step hold, then see what substitution cannot supply.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Guess</div>
 <div class="wx-body">T(n) = O(n), i.e. T(n) &le; cn for n &ge; n0.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Inductive step</div>
 <div class="wx-body">T(n) = T(n&minus;1)+3 &le; c(n&minus;1)+3 = cn&minus;c+3 &le; cn exactly when c &ge; 3. Any c &ge; 3 works - choose c=3.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Base case</div>
@@ -525,8 +533,8 @@ closed-form answer, then use induction to prove the guess is right.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>c=3, n0=1 proves T(n) = T(n&minus;1)+3, T(0)=1 solves to T(n) = O(n).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Substitution proves; it doesn't propose. A recursion tree, next, can propose the guess in the first place.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>c=3, n0=1 proves T(n) = T(n&minus;1)+3, T(0)=1 solves to T(n) = O(n).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Substitution proves; it doesn't propose. A recursion tree, next, can propose the guess in the first place.</div></div>
 
 ---
 
@@ -542,22 +550,25 @@ closed-form answer, then use induction to prove the guess is right.
 <div class="goalbox"><span class="k">Goal</span>Sum this divide-and-conquer recurrence level by level to a closed form.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Level 0</div>
 <div class="wx-body">1 subproblem, size n. Cost: n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Level 1</div>
 <div class="wx-body">2 subproblems, size n/2 each. Cost: 2&middot;(n/2) = n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Level 2 and on</div>
 <div class="wx-body">4 subproblems, size n/4: cost 4&middot;(n/4) = n. The pattern holds - every level costs about n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c4">
 <div class="wx-num">4</div>
 <div class="wx-title">Total</div>
@@ -565,8 +576,8 @@ closed-form answer, then use induction to prove the guess is right.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = 2T(n/2) + O(n) solves to T(n) = O(n log n).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Every level here costs the same - that flat pattern is the signature of Master Theorem Case 2, next.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = 2T(n/2) + O(n) solves to T(n) = O(n log n).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every level here costs the same - that flat pattern is the signature of Master Theorem Case 2, next.</div></div>
 
 ---
 
@@ -582,17 +593,19 @@ closed-form answer, then use induction to prove the guess is right.
 <div class="goalbox"><span class="k">Goal</span>Show what happens when each level costs <em>more</em> than the last.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Level 0</div>
 <div class="wx-body">1 subproblem, size n. Cost: n.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">Levels 1-2</div>
 <div class="wx-body">Level 1: 3 subproblems, size n/2, cost 3&middot;(n/2) = 1.5n. Level 2: 9 subproblems, size n/4, cost 9&middot;(n/4) = 2.25n. Costs are <em>growing</em>, not flat.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c3">
 <div class="wx-num">3</div>
 <div class="wx-title">Bottom level</div>
@@ -605,8 +618,8 @@ closed-form answer, then use induction to prove the guess is right.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>T(n) = 3T(n/2) + n solves to T(n) = &Theta;(n<sup>log&#8322;3</sup>).</div>
-<div class="takeaway"><span class="k">Key takeaway</span>When per-level cost grows instead of staying flat, the leaves - not the top - dominate the sum.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>T(n) = 3T(n/2) + n solves to T(n) = &Theta;(n<sup>log&#8322;3</sup>).</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>When per-level cost grows instead of staying flat, the leaves - not the top - dominate the sum.</div></div>
 
 ---
 
@@ -659,8 +672,8 @@ slower than $n^{\log_2 3}$ - matching the tree above too.
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>Both recurrences classify as Case 2, giving &Theta;(n&sup2; log n) and &Theta;(log n) respectively.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Classifying a recurrence is a three-way comparison: does f(n) grow slower than, the same as, or faster than n<sup>log_b a</sup>?</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Both recurrences classify as Case 2, giving &Theta;(n&sup2; log n) and &Theta;(log n) respectively.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Classifying a recurrence is a three-way comparison: does f(n) grow slower than, the same as, or faster than n<sup>log_b a</sup>?</div></div>
 
 ---
 
@@ -693,12 +706,13 @@ $$
 <div class="goalbox"><span class="k">Goal</span>Show why this feature explodes, when `tourTime` above didn't.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">The formula</div>
 <div class="wx-body">allOrders(remaining) = sum, over every next stop in remaining, of allOrders(remaining minus next stop). allOrders(&empty;) = 1.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">3 stops</div>
@@ -711,8 +725,8 @@ $$
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>The recursion itself isn't the problem - `tourTime` above was just as recursive and stayed cheap. `allOrders` explodes because it branches into every remaining stop at every level.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Week 11's Dynamic Programming stops re-deriving the same partial answers - but that fix only helps when answers actually repeat, which is exactly what the next example checks.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>The recursion itself isn't the problem - `tourTime` above was just as recursive and stayed cheap. `allOrders` explodes because it branches into every remaining stop at every level.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Week 11's Dynamic Programming stops re-deriving the same partial answers - but that fix only helps when answers actually repeat, which is exactly what the next example checks.</div></div>
 
 ---
 
@@ -754,12 +768,13 @@ fib(5)
 <div class="goalbox"><span class="k">Goal</span>Show that "slow and recursive" is not one disease - and that only one of the two responds to the same cure.</div>
 </div>
 
-<div class="wx-steps">
+<div class="wx-steps chained">
 <div class="wx-step">
 <div class="wx-num">1</div>
 <div class="wx-title">Count the repeats</div>
 <div class="wx-body">`fib(3)` computed twice, `fib(2)` three times, `fib(1)` five times - 15 total calls to answer one number a loop reaches in 5 additions.</div>
 </div>
+<div class="wx-arrow">&rarr;</div>
 <div class="wx-step c2">
 <div class="wx-num">2</div>
 <div class="wx-title">A different disease than `allOrders`</div>
@@ -772,8 +787,8 @@ fib(5)
 </div>
 </div>
 
-<div class="conclusion"><span class="k">Conclusion</span>`allOrders` and naive `fib` are both exponential-ish, but for structurally different reasons - branching vs. redundant recomputation.</div>
-<div class="takeaway"><span class="k">Key takeaway</span>Diagnosing which disease you have determines whether memoization (Week 11) can even help.</div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>`allOrders` and naive `fib` are both exponential-ish, but for structurally different reasons - branching vs. redundant recomputation.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Diagnosing which disease you have determines whether memoization (Week 11) can even help.</div></div>
 
 ---
 
