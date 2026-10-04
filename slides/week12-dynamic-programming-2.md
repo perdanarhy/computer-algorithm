@@ -17,7 +17,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 </div>
 
 <!--
-notes: Ask: "Has anyone used `git diff`, or wondered how it decides what changed between two versions of a file, line by line?" Take a few answers. Say: "By the end of today, you'll know the exact algorithm behind that - and it's the same one CampusNav uses to match study buddies."
+notes: Open by naming the algorithm behind `git diff`, which decides what changed between two versions of a file line by line. Say: "By the end of today, you'll know the exact algorithm behind that - and it's the same one CampusNav uses to match study buddies."
 -->
 
 ---
@@ -467,7 +467,7 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 <div class="goalbox"><span class="k">Goal</span>Fill all 42 cells using only the recurrence, row by row.</div>
 </div>
 
-<div class="tracetable">
+<div class="tracetable" style="gap: 1px">
 <div class="row"><div class="rowlabel"></div><div class="cell empty">&#949;</div><div class="cell">A</div><div class="cell">L</div><div class="cell">G</div><div class="cell">R</div><div class="cell">D</div><div class="cell">P</div></div>
 <div class="row"><div class="rowlabel">&#949;</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div><div class="cell">0</div></div>
 <div class="row"><div class="rowlabel">A</div><div class="cell">0</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div><div class="cell">1</div></div>
@@ -477,7 +477,8 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 <div class="row"><div class="rowlabel">P</div><div class="cell">0</div><div class="cell">1</div><div class="cell">2</div><div class="cell">3</div><div class="cell">3</div><div class="cell">4</div><div class="cell hl">5</div></div>
 </div>
 
-<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>L(5,6) = 5 - filled left to right, row by row, using only the two-case recurrence, 42 cells total.</div></div>
+<div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>L(5,6) = 5 - 42 cells, filled row by row.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every cell needs only three neighbors already on the table.</div></div>
 
 ---
 
@@ -514,7 +515,7 @@ time. Only the direction differs - exactly like Week 11's Fibonacci.
 </div>
 
 <div class="conclusion"><div class="bar-icon">&#10003;</div><div class="bar-text"><span class="k">Conclusion</span>Every cell in the table follows the same two-case recurrence, whether it's a clean diagonal match or a mismatch reaching sideways.</div></div>
-<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Every cell only ever needs three neighbors already on the table - never a fresh recursive call. Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div></div>
+<div class="takeaway"><div class="bar-icon">&#128161;</div><div class="bar-text"><span class="k">Key takeaway</span>Reading a filled table backward, cell by cell, is exactly how you'd check a claimed answer's work.</div></div>
 
 ---
 
