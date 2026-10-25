@@ -107,7 +107,7 @@ away happier, using every one of the 60 minutes.
 Same four activities, same 60 minutes - a **7-point gap**, just from
 picking choices in the wrong order.
 
-<!-- notes: Pause after showing the second bar. Ask: "Is this a bug in the code, or a bug in the plan?" -->
+<!-- notes: Pause after showing the second bar. Say: "This is not a bug in the code - it is a bug in the plan." -->
 
 ---
 

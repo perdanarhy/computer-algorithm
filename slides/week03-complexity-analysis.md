@@ -18,7 +18,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 </div>
 
 <!--
-notes: Welcome the class. Ask: "Last week you all wrote a correct algorithm for finding a room. If two of you wrote different correct pseudocode, whose is better, and how would you prove it?" Let a few students answer. That is today's hook.
+notes: Welcome the class. Frame the hook: last week everyone wrote a correct algorithm for finding a room, but if two correct pseudocode versions differ, there is no rule yet for saying whose is better or proving it. That gap is today's hook.
 -->
 
 ---

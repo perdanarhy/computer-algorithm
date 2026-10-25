@@ -17,7 +17,7 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 </div>
 
 <!--
-notes: Open with a show of hands: "Who has ever explained a rule by using the rule itself?" (e.g. "ask your older sibling, and if they don't know, ask THEIR older sibling"). That self-reference is today's whole topic, long before we call it "recursion."
+notes: Open with an everyday example of explaining a rule by using the rule itself (e.g. "ask your older sibling, and if they don't know, ask THEIR older sibling"). That self-reference is today's whole topic, long before we call it "recursion."
 -->
 
 ---
@@ -137,7 +137,7 @@ few more stops.
 
 Seven more stops turned "instant" into "did not finish before class ended."
 
-<!-- notes: Pause after the third bar. Ask: "Does this feel like a bug, or something structural?" -->
+<!-- notes: Pause after the third bar. Say: "This is not a bug - it is structural." -->
 
 ---
 

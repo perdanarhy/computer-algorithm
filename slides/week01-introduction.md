@@ -498,7 +498,7 @@ the book's own order - not the whole book, but the shape of it.
 
 | Wk | Topic | CLRS 4th ed |
 |---|---|---|
-| 2 | Algorithm Concepts | Ch 1; §2.1-2.2; §31.2 (GCD) |
+| 2 | Algorithm Concepts | Ch 1; §2.1-2.2; §31.2 (Euclid's greatest common divisor, GCD) |
 | 3 | Complexity Analysis | Ch 3 |
 | 4 | Recursion & Recurrence | §4.3-4.5 |
 

@@ -17,8 +17,8 @@ Ridho Hendra, Ph.D · Dept. of Intelligent Computing · Mon [1-3] · Building A,
 </div>
 
 <!--
-notes: Welcome the class. Ask: "Has a quick decision you made in the moment - the option that looked best right then - ever turned out worse once you saw the whole picture?"
-Let a few students answer with a show of hands. That tension (locally best vs. globally best) is the whole week. Also flag that Assignment 3 is released today, due Week 12.
+notes: Welcome the class. Open with the familiar experience that a quick decision, the option that looked best right then, can turn out worse once you see the whole picture.
+That tension (locally best vs. globally best) is the whole week. Also flag that Assignment 3 is released today, due Week 12.
 -->
 
 ---
